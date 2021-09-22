@@ -8,6 +8,7 @@ public class Face_Manager : MonoBehaviour
     public Sprite[] allMouths;
     public SpriteRenderer[] allEyebrowsRenderer;
     public SpriteRenderer mouthRenderer;
+    public SpriteRenderer talkRenderer;
     
     int LeftEyebrowIndex=-1;
     int RightEyebrowIndex=-1;
@@ -74,6 +75,20 @@ public class Face_Manager : MonoBehaviour
             Debug.Log("Reset");
             tempindex = 0;
             return tempindex;
+        }
+    }
+
+    public void ToggleMouth(bool isTalking)
+    {
+        if (isTalking)
+        {
+            mouthRenderer.enabled = false;
+            talkRenderer.enabled = true;
+        }
+        else
+        {
+            talkRenderer.enabled = false;
+            mouthRenderer.enabled = true;
         }
     }
 
