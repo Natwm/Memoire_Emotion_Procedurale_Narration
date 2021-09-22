@@ -42,7 +42,7 @@ public class DemoScript : MonoBehaviour
     public List<Image> playerSourcille;
     public int indexPlayerSourcille = 0;
 
-
+    public Vector2 axisMovement;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +66,8 @@ public class DemoScript : MonoBehaviour
         GetBumper();
         intensityValue = Input.GetAxis("RightTrigger");
         secondTriggerValue = Input.GetAxis("LeftTrigger");
+        axisMovement = new Vector2(-Input.GetAxis("D_PadX"), -Input.GetAxis("D_PadY"));
+
 
     }
 

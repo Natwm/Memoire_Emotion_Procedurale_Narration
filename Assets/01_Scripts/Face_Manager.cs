@@ -81,6 +81,6 @@ public class Face_Manager : MonoBehaviour
     void Update()
     {
         UpdateFaceColorAmount(inputManager.intensityValue);
-        UpdateBrowPosition(inputManager.secondTriggerValue/10);
+        UpdateBrowPosition(inputManager.secondTriggerValue/5);
     }
 }
