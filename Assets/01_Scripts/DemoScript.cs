@@ -57,9 +57,9 @@ public class DemoScript : MonoBehaviour
             debugPanel.SetActive(true);
             ShowData();
             GetPressedButton();
-            GetPressedBumper();
+           // GetPressedBumper();
         }
-            
+        GetBumper();
     }
 
     void ShowDataOnConsole()
@@ -126,6 +126,24 @@ public class DemoScript : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    void GetBumper()
+    {
+        if (FindObjectOfType<Face_Manager>() != null)
+        {
+            if (Input.GetButtonUp("Bumper_Left"))
+            {
+               
+                FindObjectOfType<Face_Manager>().UpdateEyebrow(0);
+            }
+            if (Input.GetButtonUp("Bumper_Right"))
+            {
+                FindObjectOfType<Face_Manager>().UpdateEyebrow(1);
+               
+            }
+        }
+        
     }
 
     void GetRightEyeBrown()
