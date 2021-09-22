@@ -12,6 +12,7 @@ public class DemoScript : MonoBehaviour
         SAD,
         NORMAL
     }
+    int buttonIndex;
 
     [Header("Debug")]
     public bool showDebugValue = false;
@@ -28,6 +29,7 @@ public class DemoScript : MonoBehaviour
     [Space]
     [Header ("Slider")]
     public Slider intensitySlider;
+    public float intensityValue;
     public Slider positionSourcilSlider;
 
     [Space]
@@ -56,10 +58,12 @@ public class DemoScript : MonoBehaviour
         {
             debugPanel.SetActive(true);
             ShowData();
-            GetPressedButton();
+            
            // GetPressedBumper();
         }
+        GetPressedButton();
         GetBumper();
+        intensityValue = Input.GetAxis("RightTrigger");
     }
 
     void ShowDataOnConsole()
@@ -100,6 +104,8 @@ public class DemoScript : MonoBehaviour
 
     }
 
+    
+
     void GetPressedBumper()
     {
         indexPlayerSourcille += (int)Input.GetAxis("Bumper");
@@ -112,20 +118,24 @@ public class DemoScript : MonoBehaviour
         switch (status)
         {
             case PlayerState.ANGRY:
-                playerStatus.color = Color.red;
+                playerStatus.color = Color.red;buttonIndex = 3;
                 break;
             case PlayerState.HAPPY:
-                playerStatus.color = Color.green;
+                playerStatus.color = Color.green; buttonIndex = 2;
+
                 break;
             case PlayerState.SAD:
-                playerStatus.color = Color.blue;
+                playerStatus.color = Color.blue; buttonIndex = 0;
+
                 break;
             case PlayerState.NORMAL:
-                playerStatus.color = Color.yellow;
+                playerStatus.color = Color.yellow; buttonIndex = 1;
+
                 break;
             default:
                 break;
         }
+        FindObjectOfType<Face_Manager>().UpdateMouth(buttonIndex);
     }
 
     void GetBumper()

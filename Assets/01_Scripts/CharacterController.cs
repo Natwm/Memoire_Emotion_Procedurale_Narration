@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
 
     public bool canplay;
 
+    
     // Start is called before the first frame update
     void Start()
     {
