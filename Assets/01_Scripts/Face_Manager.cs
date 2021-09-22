@@ -15,11 +15,19 @@ public class Face_Manager : MonoBehaviour
     public Color[] emotionColors;
     public SpriteRenderer faceRenderer;
 
+    public GameObject eyebrowsHolder;
+
     DemoScript inputManager;
     // Start is called before the first frame update
     void Start()
     {
         inputManager = FindObjectOfType<DemoScript>();
+    }
+
+    public void UpdateBrowPosition(float triggerAmount)
+    {
+        Vector3 newHolderPosition = new Vector3(0,triggerAmount,0);
+        eyebrowsHolder.transform.localPosition = newHolderPosition;
     }
 
     public void UpdateMouth(int mouthIndex)
@@ -73,5 +81,6 @@ public class Face_Manager : MonoBehaviour
     void Update()
     {
         UpdateFaceColorAmount(inputManager.intensityValue);
+        UpdateBrowPosition(inputManager.secondTriggerValue/10);
     }
 }

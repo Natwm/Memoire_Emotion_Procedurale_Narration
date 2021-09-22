@@ -30,6 +30,7 @@ public class DemoScript : MonoBehaviour
     [Header ("Slider")]
     public Slider intensitySlider;
     public float intensityValue;
+    public float secondTriggerValue;
     public Slider positionSourcilSlider;
 
     [Space]
@@ -64,6 +65,8 @@ public class DemoScript : MonoBehaviour
         GetPressedButton();
         GetBumper();
         intensityValue = Input.GetAxis("RightTrigger");
+        secondTriggerValue = Input.GetAxis("LeftTrigger");
+
     }
 
     void ShowDataOnConsole()
