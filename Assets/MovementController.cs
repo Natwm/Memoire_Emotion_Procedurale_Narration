@@ -25,7 +25,7 @@ public class MovementController : MonoBehaviour
     {
         float intensityModifier = 0.3f + 1 * InputManager.intensityValue;
         Vector3 movementVector = new Vector3(InputManager.axisMovement.x * intensityModifier * MoveSpeed, 0 , InputManager.axisMovement.y * intensityModifier * MoveSpeed);
-        Debug.Log(InputManager.intensityValue);
+       
         transform.Translate(movementVector);
     }
 }

@@ -58,7 +58,7 @@ public class Face_Manager : MonoBehaviour
             RightEyebrowIndex = UpdateEyebrowIndex(RightEyebrowIndex);
             allEyebrowsRenderer[1].sprite = allEyebrows[RightEyebrowIndex];
         }
-        Debug.Log("direction : " + direction + " " + "Left : " + LeftEyebrowIndex + " Right : " + RightEyebrowIndex);
+        
     }
    
     // Update de l'index du sourcil
@@ -72,7 +72,7 @@ public class Face_Manager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Reset");
+            
             tempindex = 0;
             return tempindex;
         }
