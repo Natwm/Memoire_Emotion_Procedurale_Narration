@@ -59,16 +59,13 @@ public class DemoScript : MonoBehaviour
         {
             debugPanel.SetActive(true);
             ShowData();
-            
-           // GetPressedBumper();
         }
+
         GetPressedButton();
         GetBumper();
         intensityValue = Input.GetAxis("RightTrigger");
         secondTriggerValue = Input.GetAxis("LeftTrigger");
-        axisMovement = new Vector2(-Input.GetAxis("D_PadX"), -Input.GetAxis("D_PadY"));
-
-
+        axisMovement = new Vector2(-Input.GetAxis("LeftJoystickX"), Input.GetAxis("LeftJoystickY"));
     }
 
     void ShowDataOnConsole()

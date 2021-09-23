@@ -23,9 +23,12 @@ public class MovementController : MonoBehaviour
 
     public void Move()
     {
-        float intensityModifier = 0.3f + 1 * InputManager.intensityValue;
+        float intensityModifier = 0.3f + 1 * InputManager.secondTriggerValue;
         Vector3 movementVector = new Vector3(InputManager.axisMovement.x * intensityModifier * MoveSpeed, 0 , InputManager.axisMovement.y * intensityModifier * MoveSpeed);
-       
-        transform.Translate(movementVector);
+        print("movementVector "+movementVector);
+        print("InputManager.axisMovement " + InputManager.axisMovement.y * intensityModifier * MoveSpeed);
+        print(VectorMethods.CompareVector(movementVector, new Vector3(0.3f, 0.3f, 0.0f)));
+       if(VectorMethods.CompareVector(movementVector, new Vector3(0.01f, 0f, 0.01f)))
+            transform.Translate(movementVector);
     }
 }

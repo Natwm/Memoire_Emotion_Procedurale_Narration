@@ -59,4 +59,9 @@ public static class VectorMethods
 
         return Mathf.Abs(distanceZ) >= firstVector.z * percent; ;
     }
+
+    public static bool CompareVector(Vector3 firstVector, Vector3 secondVector)
+    {
+        return ((Mathf.Abs(firstVector.x)> secondVector.x ) || (Mathf.Abs(firstVector.y) > secondVector.y) || (Mathf.Abs(firstVector.z) > secondVector.z));
+    }
 }

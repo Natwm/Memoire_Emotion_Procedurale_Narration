@@ -95,7 +95,7 @@ public class Face_Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateFaceColorAmount(inputManager.intensityValue);
+        UpdateFaceColorAmount(inputManager.secondTriggerValue);
         UpdateBrowPosition(inputManager.secondTriggerValue/5);
     }
 }
