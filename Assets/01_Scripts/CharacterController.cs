@@ -15,11 +15,13 @@ public class CharacterController : MonoBehaviour
     public bool canplay;
     float mouthtimer;
     Face_Manager FaceManager;
+    DemoScript InputManager;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         FaceManager = FindObjectOfType<Face_Manager>();
+        InputManager = FindObjectOfType<DemoScript>();
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class CharacterController : MonoBehaviour
         if (audioSource.isPlaying == false)
         {
             FaceManager.ToggleMouth(false);
-            if ((Input.GetAxis("RightJoystickX")>0.2f || Input.GetAxis("RightJoystickX") < -0.2f) && (Input.GetAxis("RightJoystickY") > 0.2f || Input.GetAxis("RightJoystickY") < -0.2f))
+            if ((InputManager.rightAxisStick.x >0.2f || InputManager.rightAxisStick.x < -0.2f) && (InputManager.rightAxisStick.y > 0.2f || InputManager.rightAxisStick.y < -0.2f))
             playSoundByJoystick();
         }
         else
@@ -48,7 +50,7 @@ public class CharacterController : MonoBehaviour
 
     void playSoundByJoystick()
     {
-        Vector2 joystickPosition = new Vector2(Input.GetAxis("RightJoystickX"), Input.GetAxis("RightJoystickY"));
+        Vector2 joystickPosition = InputManager.rightAxisStick;
         print(joystickPosition);
         AudioClip soundToPlay = null;
         

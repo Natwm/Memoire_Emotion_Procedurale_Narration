@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class DemoScript : MonoBehaviour
 {
@@ -42,12 +43,19 @@ public class DemoScript : MonoBehaviour
     public List<Image> playerSourcille;
     public int indexPlayerSourcille = 0;
 
+    [Space]
+    [Header("Inputs")]
+    public PlayerInput InputController;
     public Vector2 axisMovement;
-    // Start is called before the first frame update
-    void Start()
+    public Vector2 rightAxisStick;
+
+    //INITIALISATION DE L'INPUT SYSTEM
+    public void Awake()
     {
-        
+        InputController.ActivateInput();
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -58,15 +66,85 @@ public class DemoScript : MonoBehaviour
         if (showDebugValue)
         {
             debugPanel.SetActive(true);
-            ShowData();
+           // ShowData();
         }
 
-        GetPressedButton();
-        GetBumper();
-        intensityValue = Input.GetAxis("RightTrigger");
-        secondTriggerValue = Input.GetAxis("LeftTrigger");
-        axisMovement = new Vector2(-Input.GetAxis("LeftJoystickX"), Input.GetAxis("LeftJoystickY"));
+       // GetPressedButton();
+       // GetBumper();
+       // intensityValue = Input.GetAxis("RightTrigger");
+       // secondTriggerValue = Input.GetAxis("LeftTrigger");
+        //axisMovement = new Vector2(-Input.GetAxis("LeftJoystickX"), Input.GetAxis("LeftJoystickY"));
     }
+
+    #region Input Manager // Fonctions d'appels des différents boutons
+
+    public void StoreMovementVector(InputAction.CallbackContext ctx)
+    {
+        axisMovement = -ctx.ReadValue<Vector2>();
+      
+    }
+
+    public void StoreRightStick(InputAction.CallbackContext ctx)
+    {
+       rightAxisStick = ctx.ReadValue<Vector2>();
+
+    }
+
+    public void ReadTriggerValue(InputAction.CallbackContext ctx)
+    {
+        intensityValue = ctx.ReadValue<float>();
+       
+    }
+
+    public void GetLeftBumper(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            FindObjectOfType<Face_Manager>().UpdateEyebrow(0);
+        }
+    }
+
+    public void GetRightBumper(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            FindObjectOfType<Face_Manager>().UpdateEyebrow(1);
+        }
+    }
+
+    public void Y_button(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ChangeState(PlayerState.NORMAL);
+        }
+    }
+
+    public void B_button(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ChangeState(PlayerState.ANGRY);
+        }
+    }
+
+    public void A_button(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ChangeState(PlayerState.HAPPY);
+        }
+    }
+
+    public void X_button(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            ChangeState(PlayerState.SAD);
+        }
+    }
+
+    #endregion 
 
     void ShowDataOnConsole()
     {
@@ -140,23 +218,7 @@ public class DemoScript : MonoBehaviour
         FindObjectOfType<Face_Manager>().UpdateMouth(buttonIndex);
     }
 
-    void GetBumper()
-    {
-        if (FindObjectOfType<Face_Manager>() != null)
-        {
-            if (Input.GetButtonUp("Bumper_Left"))
-            {
-               
-                FindObjectOfType<Face_Manager>().UpdateEyebrow(0);
-            }
-            if (Input.GetButtonUp("Bumper_Right"))
-            {
-                FindObjectOfType<Face_Manager>().UpdateEyebrow(1);
-               
-            }
-        }
-        
-    }
+  
 
     void GetRightEyeBrown()
     {

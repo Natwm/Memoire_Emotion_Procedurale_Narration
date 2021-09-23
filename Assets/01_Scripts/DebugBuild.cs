@@ -22,6 +22,7 @@ public class DebugBuild : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             Application.Quit();
@@ -33,7 +34,7 @@ public class DebugBuild : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.P))
         {
             ToggleDebug();
-        }
+        }*/
     }
 
     bool toggle;
