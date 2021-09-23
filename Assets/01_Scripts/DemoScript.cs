@@ -45,14 +45,16 @@ public class DemoScript : MonoBehaviour
 
     [Space]
     [Header("Inputs")]
-    public PlayerInput InputController;
+    PlayerInput InputController;
     public Vector2 axisMovement;
     public Vector2 rightAxisStick;
-
+    Face_Manager faceManager;
     //INITIALISATION DE L'INPUT SYSTEM
     public void Awake()
     {
+        InputController = GetComponent<PlayerInput>();
         InputController.ActivateInput();
+        faceManager = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Face_Manager>();
     }
 
     
@@ -100,7 +102,7 @@ public class DemoScript : MonoBehaviour
     {
         if (ctx.performed)
         {
-            FindObjectOfType<Face_Manager>().UpdateEyebrow(0);
+            faceManager.UpdateEyebrow(0);
         }
     }
 
@@ -108,7 +110,7 @@ public class DemoScript : MonoBehaviour
     {
         if (ctx.performed)
         {
-            FindObjectOfType<Face_Manager>().UpdateEyebrow(1);
+            faceManager.UpdateEyebrow(1);
         }
     }
 
@@ -198,24 +200,24 @@ public class DemoScript : MonoBehaviour
         switch (status)
         {
             case PlayerState.ANGRY:
-                playerStatus.color = Color.red;buttonIndex = 3;
+                buttonIndex = 3;
                 break;
             case PlayerState.HAPPY:
-                playerStatus.color = Color.green; buttonIndex = 2;
+                buttonIndex = 2;
 
                 break;
             case PlayerState.SAD:
-                playerStatus.color = Color.blue; buttonIndex = 0;
+                 buttonIndex = 0;
 
                 break;
             case PlayerState.NORMAL:
-                playerStatus.color = Color.yellow; buttonIndex = 1;
+                 buttonIndex = 1;
 
                 break;
             default:
                 break;
         }
-        FindObjectOfType<Face_Manager>().UpdateMouth(buttonIndex);
+        faceManager.UpdateMouth(buttonIndex);
     }
 
   

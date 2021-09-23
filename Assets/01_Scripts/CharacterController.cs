@@ -17,6 +17,10 @@ public class CharacterController : MonoBehaviour
     Face_Manager FaceManager;
     DemoScript InputManager;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        transform.position = GameObject.Find("SpawnPoint").transform.position;
+    }
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
