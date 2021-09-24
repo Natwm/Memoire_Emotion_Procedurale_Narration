@@ -8,6 +8,7 @@ public class ObjetScript : MonoBehaviour
     public SpriteRenderer sprite;
     public enum Status
     {
+        TETE,
         HAUT,
         BAS
     }

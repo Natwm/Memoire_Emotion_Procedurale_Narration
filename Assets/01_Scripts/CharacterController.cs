@@ -15,6 +15,7 @@ public class CharacterController : MonoBehaviour
     [Header("Part")]
     public GameObject haut;
     public GameObject bas;
+    public GameObject tete;
 
     public bool canplay;
     float mouthtimer;
@@ -100,9 +101,15 @@ public class CharacterController : MonoBehaviour
                     bas.GetComponent<SpriteRenderer>().sprite = obj.sprite.sprite;
                     bas.GetComponent<SpriteRenderer>().color = obj.sprite.color;
                     break;
+
+                    case ObjetScript.Status.TETE:
+                    tete.GetComponent<SpriteRenderer>().sprite = obj.sprite.sprite;
+                    tete.GetComponent<SpriteRenderer>().color = obj.sprite.color;
+                    break;
                 default:
                     break;
             }
+            Destroy(other.gameObject);
         }
     }
 }
