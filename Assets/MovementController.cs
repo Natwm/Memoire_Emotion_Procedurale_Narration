@@ -9,6 +9,7 @@ public class MovementController : MonoBehaviour
     Face_Manager Face;
 
     public float MoveSpeed;
+    public Vector3 movementVectordebug;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +26,7 @@ public class MovementController : MonoBehaviour
     {
         float intensityModifier = 0.3f + 1 * InputManager.intensityValue;
         Vector3 movementVector = new Vector3(InputManager.axisMovement.x * intensityModifier * MoveSpeed, 0 , InputManager.axisMovement.y * intensityModifier * MoveSpeed);
-        
+        movementVectordebug = movementVector;
       // if(VectorMethods.CompareVector(movementVector, new Vector3(0.01f, 0f, 0.01f)))
             transform.Translate(movementVector);
     }
