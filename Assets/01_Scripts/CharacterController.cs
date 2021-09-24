@@ -12,6 +12,10 @@ public class CharacterController : MonoBehaviour
     public AudioClip leftSound;
     public AudioClip rightSound;
 
+    [Header("Part")]
+    public GameObject haut;
+    public GameObject bas;
+
     public bool canplay;
     float mouthtimer;
     Face_Manager FaceManager;
@@ -73,5 +77,32 @@ public class CharacterController : MonoBehaviour
         audioSource.PlayOneShot(soundToPlay);
         FaceManager.ToggleMouth(true);
         //canplay = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject.name);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("p");
+        ObjetScript obj;
+        if(other.gameObject.TryGetComponent<ObjetScript>(out obj))
+        {
+            switch (obj.typeOfObject)
+            {
+                case ObjetScript.Status.HAUT:
+                    haut.GetComponent<SpriteRenderer>().sprite = obj.sprite.sprite;
+                    haut.GetComponent<SpriteRenderer>().color = obj.sprite.color;
+                    break;
+                case ObjetScript.Status.BAS:
+                    bas.GetComponent<SpriteRenderer>().sprite = obj.sprite.sprite;
+                    bas.GetComponent<SpriteRenderer>().color = obj.sprite.color;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

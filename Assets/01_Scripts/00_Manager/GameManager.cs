@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    public Timer m_EndTimerCheck;
+    public float m_EndTimerCheckTime = 20f;
+
     void Awake()
     {
         if (instance != null)
@@ -18,7 +21,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_EndTimerCheck = new Timer(m_EndTimerCheckTime,CanvasManager.instance.EndTimer);
+        m_EndTimerCheck.ResetPlay();
     }
 
     // Update is called once per frame
