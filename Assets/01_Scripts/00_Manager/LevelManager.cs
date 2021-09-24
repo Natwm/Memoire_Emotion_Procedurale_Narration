@@ -6,6 +6,10 @@ public class LevelManager : MonoBehaviour
 {
 
     public static LevelManager instance;
+    public List<GameObject> listOfObjectToSpawn;
+    public float radius;
+    public Transform parent;
+
     void Awake()
     {
         if (instance != null)
@@ -17,12 +21,27 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SpawnObjectInTheLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void SpawnObjectInTheLevel()
+    {
+        print("ok");
+        foreach (var item in listOfObjectToSpawn)
+        {
+            Vector3 position = Random.insideUnitSphere * radius;
+            print(position);
+            GameObject a = Instantiate(item,Vector3.zero, Quaternion.identity,parent);
+            //a.transform.position = Vector3.zero;
+            float posZ = Mathf.Clamp(position.z, 0, Mathf.Infinity);
+            a.transform.position = new Vector3 (position.x, 1, posZ);
+            print(a.transform.position);
+        }
     }
 }
