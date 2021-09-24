@@ -25,6 +25,9 @@ public class CharacterController : MonoBehaviour
     private void Awake()
     {
         transform.position = GameObject.Find("SpawnPoint").transform.position;
+        haut.GetComponent<SpriteRenderer>().sprite = null;
+        bas.GetComponent<SpriteRenderer>().sprite = null;
+        tete.GetComponent<SpriteRenderer>().sprite = null;
     }
     void Start()
     {

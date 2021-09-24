@@ -1179,7 +1179,7 @@ MonoBehaviour:
   leftSound: {fileID: 8300000, guid: 20d951f626ff227408a5990f248139e5, type: 3}
   rightSound: {fileID: 8300000, guid: bdbe0a815168d8a4c825fb864a7ad350, type: 3}
   haut: {fileID: 2776001070355163704}
-  bas: {fileID: 1460979140268582451}
+  bas: {fileID: 955880117677466590}
   tete: {fileID: 7124680429317988654}
   canplay: 0
 --- !u!82 &1291051389
