@@ -10,6 +10,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     [SerializeField] private LayerMask m_LayerDetection;
     [SerializeField] private bool m_IsLook;
 
+    [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
+
     [SerializeField] private Carte_SO value;
 
     public Carte_SO Value { get => value; set => this.value = value; }
@@ -56,9 +58,25 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
         if(hit.Length > 0 && hit[0].collider != null)
         {
             print(hit.Length);
+
+            if (listOfAffectedObject.Count > 0)
+            {
+                foreach (var item in listOfAffectedObject)
+                {
+                    if (GridManager.instance.ListOfEvent.Contains(item.GetComponent<TileElt_Behaviours>()))
+                    {
+                        item.GetComponent<MeshRenderer>().material.color = Color.white;
+                        GridManager.instance.ListOfEvent.Remove(item.GetComponent<TileElt_Behaviours>());
+                    }
+                        
+                }
+            }
+                
+
             foreach (var item in hit)
             {
                 TileElt_Behaviours tile = item.collider.GetComponent<TileElt_Behaviours>();
+                listOfAffectedObject.Add(item.collider.gameObject);
                 tile.AssociateEventToTile(this);
 
                 switch (value.HealthEffect)
