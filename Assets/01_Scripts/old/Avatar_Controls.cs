@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Avatar_Controls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/01_Scripts/old/Avatar_Controls.inputactions'
 
 using System;
 using System.Collections;
