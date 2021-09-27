@@ -23,13 +23,9 @@ public class TileElt_Behaviours : MonoBehaviour
 
     public void AssociateEventToTile(Bd_Elt_Behaviours BD_elt)
     {
-        print(BD_elt.name);
         this.EventAssocier = BD_elt;
-        print(this.name + "  " + this.EventAssocier.name);
-        print(this.EventAssocier.Value.HealthEffect);
-        print(this.EventAssocier.Value.Health);
-
-        GridManager.instance.ListOfEvent.Add(this);
+        if(!GridManager.instance.ListOfEvent.Contains(this))
+            GridManager.instance.ListOfEvent.Add(this);
     }
 
     public void ApplyEffect(PlayerManager player)

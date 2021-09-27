@@ -15,6 +15,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Carte_SO value;
 
     public Carte_SO Value { get => value; set => this.value = value; }
+    public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +52,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         print("Stop");
-
-        RaycastHit[] hit;
+        GridManager.instance.CheckTile();
+        /*RaycastHit[] hit;
         hit = Physics.SphereCastAll(transform.position, m_RadiusDetection, Vector3.back, Mathf.Infinity, m_LayerDetection);
 
         if(hit.Length > 0 && hit[0].collider != null)
@@ -91,7 +92,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
                         break;
                 }
             }
-        }
+        }*/
     }
     #endregion
 

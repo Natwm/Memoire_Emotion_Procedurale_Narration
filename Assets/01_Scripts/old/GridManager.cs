@@ -16,6 +16,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GameObject> listOfTile = new List<GameObject>();
     [SerializeField] private List<TileElt_Behaviours> listOfEvent;
 
+    [SerializeField] private LayerMask m_LayerDetection;
+
 
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
@@ -53,21 +55,63 @@ public class GridManager : MonoBehaviour
                 TileElt_Behaviours tileBehaviours = tile.GetComponent<TileElt_Behaviours>();
                 tileBehaviours.Tileposition = new Vector2(x, y);
                 tileBehaviours.Index = index;
+
+                tile.name += tile.transform.position.ToString(); 
+
                 index++;
                 ListOfTile.Add(tile);
             }
         }
     }
 
-    void CheckTile()
+    public void CheckTile()
     {
+        foreach (var item in listOfTile)
+        {
+            RaycastHit[] hit;
+            hit = Physics.BoxCastAll(item.transform.position,transform.localScale/1.5f,Vector3.back,Quaternion.identity,Mathf.Infinity, m_LayerDetection);
+            print("name = " + item.name +" "+hit.Length);
+            if (hit.Length > 0)
+            {
+                item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Bd_Elt_Behaviours>());
 
+                switch (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.HealthEffect)
+                {
+                    case Carte_SO.Status.BONUS:
+                        item.GetComponent<MeshRenderer>().material.color = Color.blue;
+                        break;
+                    case Carte_SO.Status.MALUS:
+                        item.GetComponent<MeshRenderer>().material.color = Color.red;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                item.GetComponent<TileElt_Behaviours>().EventAssocier = null;
+                item.GetComponent<MeshRenderer>().material.color = Color.white;
+                ListOfEvent.Remove(item.GetComponent<TileElt_Behaviours>());
+
+                /*if (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().ListOfAffectedObject.Count > 0 && hit[0].collider.GetComponent<Bd_Elt_Behaviours>().ListOfAffectedObject.Contains(item))
+                {
+                    
+                    hit[0].collider.GetComponent<Bd_Elt_Behaviours>().ListOfAffectedObject.Remove
+                }*/
+            }
+            
+        }
     }
 
     public void SortList()
     {
         ListOfEvent = ListOfEvent.OrderByDescending(x => x.Index).ToList();
         listOfEvent.Reverse();
+    }
+
+    private void OnDrawGizmos()
+    {
+        //Gizmos.DrawWireCube(transform.position,)
     }
 
 }
