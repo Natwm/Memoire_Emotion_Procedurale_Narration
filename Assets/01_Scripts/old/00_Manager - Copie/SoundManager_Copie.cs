@@ -1,19 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class CanvasManager : MonoBehaviour
+public class SoundManager_Copie : MonoBehaviour
 {
-    public static CanvasManager instance;
-
-    public TMP_Text text;
-    public TMP_Text endText;
-
+    public static SoundManager_Copie instance;
     void Awake()
     {
         if (instance != null)
-            Debug.LogWarning("Multiple instance of same Singleton : CanvasManager");
+            Debug.LogWarning("Multiple instance of same Singleton : SoundManager");
         else
             instance = this;
     }
@@ -29,5 +24,4 @@ public class CanvasManager : MonoBehaviour
     {
         
     }
-
 }
