@@ -8,6 +8,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private float m_RadiusDetection;
     [SerializeField] private LayerMask m_LayerDetection;
+    [SerializeField] private bool m_IsLook;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
         rayPoint.Set(rayPoint.x, rayPoint.y, 0);
         //Move the GameObject when you drag it
-        transform.position = rayPoint;
+        if(!m_IsLook)
+            transform.position = rayPoint;
     }
 
     // Update is called once per frame
@@ -48,9 +50,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
         RaycastHit[] hit;
         hit = Physics.SphereCastAll(transform.position, m_RadiusDetection, Vector3.back, Mathf.Infinity, m_LayerDetection);
 
-        if(hit.Length >0 && hit[0].collider != null)
+        if(hit.Length > 0 && hit[0].collider != null)
         {
             print(hit[0].collider.name);
+            print(hit.Length);
+            /*m_IsLook = true;
+            transform.position = hit[0].transform.GetChild(0).position;*/
         }
 
     }
