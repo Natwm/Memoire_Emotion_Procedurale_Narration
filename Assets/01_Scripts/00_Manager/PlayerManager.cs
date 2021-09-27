@@ -39,16 +39,20 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator MoveToLocation()
     {
         Vector3 newPosition = GridManager.instance.ListOfEvent[0].transform.position;
-        GameObject tile = GridManager.instance.ListOfTile[0];
+        GameObject tile = GridManager.instance.ListOfEvent[0].gameObject;
 
         newPosition.Set(newPosition.x, newPosition.y, -2f);
         this.transform.DOMove(newPosition, 1f);
         GridManager.instance.ListOfEvent.RemoveAt(0);
+
         yield return new WaitForSeconds(.8f);
 
-        TileElt_Behaviours cardEvent;
-        if(tile.TryGetComponent<TileElt_Behaviours>(out cardEvent))
-            cardEvent.ApplyEffect(this);
+        if(tile.GetComponent<TileElt_Behaviours>()!= null)
+        {
+            TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
+            tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
+        }
+            
 
     }
 

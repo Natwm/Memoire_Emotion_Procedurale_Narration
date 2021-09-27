@@ -23,14 +23,20 @@ public class TileElt_Behaviours : MonoBehaviour
 
     public void AssociateEventToTile(Bd_Elt_Behaviours BD_elt)
     {
+        print(BD_elt.name);
         this.EventAssocier = BD_elt;
+        print(this.name + "  " + this.EventAssocier.name);
+        print(this.EventAssocier.Value.HealthEffect);
+        print(this.EventAssocier.Value.Health);
+
         GridManager.instance.ListOfEvent.Add(this);
     }
 
     public void ApplyEffect(PlayerManager player)
     {
-        if(eventAssocier != null && eventAssocier.Value != null)
-        {
+        print(eventAssocier.name);
+       /* if(eventAssocier != null)
+        {*/
             switch (eventAssocier.Value.HealthEffect)
             {
                 case Carte_SO.Status.BONUS:
@@ -43,7 +49,7 @@ public class TileElt_Behaviours : MonoBehaviour
 
                 default:
                     break;
-            }
+           // }
         }
     }
 

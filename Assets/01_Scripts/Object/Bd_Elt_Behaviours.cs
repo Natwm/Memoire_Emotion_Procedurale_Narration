@@ -60,6 +60,18 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
             {
                 TileElt_Behaviours tile = item.collider.GetComponent<TileElt_Behaviours>();
                 tile.AssociateEventToTile(this);
+
+                switch (value.HealthEffect)
+                {
+                    case Carte_SO.Status.BONUS:
+                        item.collider.GetComponent<MeshRenderer>().material.color = Color.blue ;
+                        break;
+                    case Carte_SO.Status.MALUS:
+                        item.collider.GetComponent<MeshRenderer>().material.color = Color.red;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
