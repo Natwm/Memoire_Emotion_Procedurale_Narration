@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dee8efee1db49c4bbc13bab79a37938, type: 3}
+  m_Name: Malus
+  m_EditorClassIdentifier: 
+  healthAffect: 0
+  healthEffect: 1
+  health: 1
+  movementAffect: 0
+  movementEffect: 0
+  movement: 1
+  cardSprite: {fileID: 0}
