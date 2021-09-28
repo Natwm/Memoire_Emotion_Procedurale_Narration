@@ -76,9 +76,26 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        if(GridManager.instance.ListOfMovement.Count > 0)
+        if(GridManager.instance.ListOfMovement.Count > 0 && health>0)
         {
             StartCoroutine(MoveToLocation());
+        }
+        else
+        {
+            yield return new WaitForSeconds(1.5f);
+            EndMovement();
+        }
+    }
+
+    void EndMovement()
+    {
+        if (health < 0) {
+            print("nope Death");
+            DebugManager.instance.ReloadScene();
+        }
+        else
+        {
+            GridManager.instance.ClearScene();
         }
     }
 

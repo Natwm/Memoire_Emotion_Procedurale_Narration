@@ -111,6 +111,19 @@ public class GridManager : MonoBehaviour
         ListOfMovement.Reverse();
     }
 
+    public void ClearScene()
+    {
+        List<GameObject> toDelete = new List<GameObject>(listOfTile);
+
+        print(FindObjectsOfType<Bd_Elt_Behaviours>().Length);
+
+        foreach (var item in FindObjectsOfType<Bd_Elt_Behaviours>())
+        {
+            Destroy(item.gameObject);
+        }
+        LevelManager.instance.SpawnObject();
+    }
+
     private void OnDrawGizmos()
     {
         //Gizmos.DrawWireCube(transform.position,)

@@ -16,6 +16,11 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private Carte_SO value;
 
+    [Space]
+    [Header ("Text Status")]
+    [SerializeField] private TMPro.TMP_Text staminaText;
+    [SerializeField] private TMPro.TMP_Text healthText;
+
     public Carte_SO Value { get => value; set => this.value = value; }
     public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
 
@@ -51,6 +56,40 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     public void SetUpCard()
     {
         cardImage.sprite = value.CardSprite;
+
+        if (value.HealthAffect == Carte_SO.Affect.USE)
+        {
+            if(value.HealthEffect== Carte_SO.Status.BONUS)
+            {
+                healthText.text = "+" + value.Health.ToString();
+                healthText.color = Color.black;
+            }
+            else
+            {
+                healthText.text = "-" + value.Health.ToString();
+            }
+        }
+        else
+        {
+            healthText.text = "0";
+        }
+
+        if (value.MovementAffect == Carte_SO.Affect.USE)
+        {
+            if (value.MovementEffect == Carte_SO.Status.BONUS)
+            {
+                staminaText.text = "+" + value.Movement.ToString();
+                staminaText.color = Color.black;
+            }
+            else
+            {
+                staminaText.text = "-" + value.Movement.ToString();
+            }
+        }
+        else
+        {
+            staminaText.text = "0";
+        }
     }
     
 

@@ -57,12 +57,12 @@ public class TileElt_Behaviours : MonoBehaviour
             {
                 case Carte_SO.Status.BONUS:
                     player.GainMovement(eventAssocier.Value.Movement);
-                    content += " Player gain " + eventAssocier.Value.Health + " stamina point";
+                    content += " Player gain " + eventAssocier.Value.Movement + " stamina point";
                     break;
 
                 case Carte_SO.Status.MALUS:
                     player.LooseMovement(eventAssocier.Value.Movement);
-                    content += " Player loose " + eventAssocier.Value.Health + " stamina point";
+                    content += " Player loose " + eventAssocier.Value.Movement + " stamina point";
                     break;
 
                 default:

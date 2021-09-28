@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthAffect: 0
   healthEffect: 1
-  health: -3
+  health: 2
   movementAffect: 0
   movementEffect: 0
-  movement: 5
-  cardSprite: {fileID: 0}
+  movement: 3
+  cardSprite: {fileID: 21300000, guid: cd4da759e91cc7647aace45680bda0a9, type: 3}

@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
         
     }
 
-    void SpawnObject()
+    public void SpawnObject()
     {
         Object[] listOfSO = Resources.LoadAll("", typeof(Carte_SO));
         int nbElement = listOfSO.Length;
