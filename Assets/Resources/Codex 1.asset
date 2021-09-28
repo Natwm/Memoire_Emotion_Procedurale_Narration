@@ -18,3 +18,4 @@ MonoBehaviour:
   movementAffect: 0
   movementEffect: 0
   movement: 2
+  cardSprite: {fileID: 21300000, guid: 95d9599242b706b4aa6f05ff68785534, type: 3}

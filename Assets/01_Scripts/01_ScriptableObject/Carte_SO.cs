@@ -27,10 +27,14 @@ public class Carte_SO : ScriptableObject
     [SerializeField] private Status movementEffect;
     [SerializeField] private int movement;
 
+    [Header("Image")]
+    [SerializeField] private Sprite cardSprite;
+
     public int Health { get => health; set => health = value; }
     public Status HealthEffect { get => healthEffect; set => healthEffect = value; }
     public Affect HealthAffect { get => healthAffect; set => healthAffect = value; }
     public Affect MovementAffect { get => movementAffect; set => movementAffect = value; }
     public Status MovementEffect { get => movementEffect; set => movementEffect = value; }
     public int Movement { get => movement; set => movement = value; }
+    public Sprite CardSprite { get => cardSprite; set => cardSprite = value; }
 }

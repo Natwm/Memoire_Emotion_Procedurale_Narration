@@ -71,7 +71,7 @@ public class GridManager : MonoBehaviour
         foreach (var item in listOfTile)
         {
             RaycastHit[] hit;
-            hit = Physics.BoxCastAll(item.transform.position,transform.localScale/1.5f,Vector3.back,Quaternion.identity,Mathf.Infinity, m_LayerDetection);
+            hit = Physics.BoxCastAll(item.transform.position,transform.localScale/1.65f,Vector3.back,Quaternion.identity,Mathf.Infinity, m_LayerDetection);
             print("name = " + item.name +" "+hit.Length);
             if (hit.Length > 0)
             {

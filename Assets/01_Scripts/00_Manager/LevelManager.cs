@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
             int elt = Random.Range(0, nbElement);
             print(elt);
             cardBd.Value = listOfSO[elt] as Carte_SO;
+            cardBd.SetUpCard();
         }
     }
 }

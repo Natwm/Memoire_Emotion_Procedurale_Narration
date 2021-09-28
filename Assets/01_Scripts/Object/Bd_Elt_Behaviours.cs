@@ -12,6 +12,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
 
     [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
 
+    [SerializeField] private SpriteRenderer cardImage;
+
     [SerializeField] private Carte_SO value;
 
     public Carte_SO Value { get => value; set => this.value = value; }
@@ -46,6 +48,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     {
     }
 
+    public void SetUpCard()
+    {
+        cardImage.sprite = value.CardSprite;
+    }
     
 
     #region Interface
@@ -53,46 +59,6 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     {
         print("Stop");
         GridManager.instance.CheckTile();
-        /*RaycastHit[] hit;
-        hit = Physics.SphereCastAll(transform.position, m_RadiusDetection, Vector3.back, Mathf.Infinity, m_LayerDetection);
-
-        if(hit.Length > 0 && hit[0].collider != null)
-        {
-            print(hit.Length);
-
-            if (listOfAffectedObject.Count > 0)
-            {
-                foreach (var item in listOfAffectedObject)
-                {
-                    if (GridManager.instance.ListOfEvent.Contains(item.GetComponent<TileElt_Behaviours>()))
-                    {
-                        item.GetComponent<MeshRenderer>().material.color = Color.white;
-                        GridManager.instance.ListOfEvent.Remove(item.GetComponent<TileElt_Behaviours>());
-                    }
-                        
-                }
-            }
-                
-
-            foreach (var item in hit)
-            {
-                TileElt_Behaviours tile = item.collider.GetComponent<TileElt_Behaviours>();
-                listOfAffectedObject.Add(item.collider.gameObject);
-                tile.AssociateEventToTile(this);
-
-                switch (value.HealthEffect)
-                {
-                    case Carte_SO.Status.BONUS:
-                        item.collider.GetComponent<MeshRenderer>().material.color = Color.blue ;
-                        break;
-                    case Carte_SO.Status.MALUS:
-                        item.collider.GetComponent<MeshRenderer>().material.color = Color.red;
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }*/
     }
     #endregion
 
