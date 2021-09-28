@@ -51,7 +51,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < m_GridSize.y; y++)
             {
-                GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 2 * m_Size, Quaternion.identity, this.transform);
+                GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 1.2f * m_Size, Quaternion.identity, this.transform);
                 tile.transform.localScale *= m_Size;
 
                 TileElt_Behaviours tileBehaviours = tile.GetComponent<TileElt_Behaviours>();

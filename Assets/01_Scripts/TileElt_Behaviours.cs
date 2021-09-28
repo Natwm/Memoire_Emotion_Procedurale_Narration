@@ -30,6 +30,7 @@ public class TileElt_Behaviours : MonoBehaviour
 
     public void ApplyEffect(PlayerManager player)
     {
+        string content="";
         print(eventAssocier.name);
         if(eventAssocier.Value.HealthAffect == Carte_SO.Affect.USE)
         {
@@ -37,10 +38,12 @@ public class TileElt_Behaviours : MonoBehaviour
             {
                 case Carte_SO.Status.BONUS:
                     player.GainHeath(eventAssocier.Value.Health);
+                    content += " Player gain " + eventAssocier.Value.Health + " life point \n";
                     break;
 
                 case Carte_SO.Status.MALUS:
                     player.LooseHeath(eventAssocier.Value.Health);
+                    content += " Player loose " + eventAssocier.Value.Health + " life point \n";
                     break;
 
                 default:
@@ -54,16 +57,19 @@ public class TileElt_Behaviours : MonoBehaviour
             {
                 case Carte_SO.Status.BONUS:
                     player.GainMovement(eventAssocier.Value.Movement);
+                    content += " Player gain " + eventAssocier.Value.Health + " stamina point";
                     break;
 
                 case Carte_SO.Status.MALUS:
                     player.LooseMovement(eventAssocier.Value.Movement);
+                    content += " Player loose " + eventAssocier.Value.Health + " stamina point";
                     break;
 
                 default:
                     break;
             }
         }
+        CanvasManager.instance.NewLogEntry(content);
     }
 
     

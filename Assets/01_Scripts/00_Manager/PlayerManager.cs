@@ -28,6 +28,8 @@ public class PlayerManager : MonoBehaviour
     {
         Health = MaxHealth;
         stamina = maxStamina;
+
+        CanvasManager.instance.UpdateInformationText(health, stamina);
     }
 
     // Update is called once per frame
@@ -62,12 +64,21 @@ public class PlayerManager : MonoBehaviour
         this.transform.DOMove(newPosition, 1f);
         GridManager.instance.ListOfMovement.RemoveAt(0);
 
+        CanvasManager.instance.NewLogEntry("");
+
         yield return new WaitForSeconds(.8f);
         LooseMovement(1);
         if (tile.GetComponent<TileElt_Behaviours>()!= null)
         {
             TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
             tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
+        }
+
+        yield return new WaitForSeconds(1.5f);
+
+        if(GridManager.instance.ListOfMovement.Count > 0)
+        {
+            StartCoroutine(MoveToLocation());
         }
     }
 
@@ -76,6 +87,7 @@ public class PlayerManager : MonoBehaviour
     {
         health += point;
         print("Heal by "+ point +" point");
+        CanvasManager.instance.UpdateLifePoint(health);
     }
 
     public void LooseHeath (int point)
@@ -84,6 +96,8 @@ public class PlayerManager : MonoBehaviour
         print("damage deal by " + point + " point");
         if (health <= 0)
             GameOver();
+
+        CanvasManager.instance.UpdateLifePoint(health);
     }
     #endregion
 
@@ -92,6 +106,7 @@ public class PlayerManager : MonoBehaviour
     {
         stamina += point;
         print("stamina gain by " + point + " point");
+        CanvasManager.instance.UpdateStaminaPoint(stamina);
     }
 
     public void LooseMovement(int point)
@@ -100,6 +115,7 @@ public class PlayerManager : MonoBehaviour
         print("stamina loose by " + point + " point");
         if (stamina < 0)
             GameOver();
+        CanvasManager.instance.UpdateStaminaPoint(stamina);
     }
     #endregion
 

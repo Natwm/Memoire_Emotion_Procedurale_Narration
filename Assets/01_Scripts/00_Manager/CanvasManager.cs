@@ -7,8 +7,10 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
 
-    public TMP_Text text;
-    public TMP_Text endText;
+    public TMP_Text logText;
+
+    [SerializeField] private TMP_Text lifeText;
+    [SerializeField] private TMP_Text staminaText;
 
     void Awake()
     {
@@ -29,5 +31,26 @@ public class CanvasManager : MonoBehaviour
     {
         
     }
+
+    public void NewLogEntry(string content)
+    {
+        logText.text = content;
+    }
+
+    public void UpdateInformationText(int life, int stamina)
+    {
+        UpdateLifePoint(life);
+        UpdateStaminaPoint(stamina);
+    }
+
+    public void UpdateLifePoint(int life)
+    {
+        lifeText.text = "Life : " + life;
+    }
+    public void UpdateStaminaPoint(int stamina)
+    {
+        staminaText.text = "Stamina : " + stamina;
+    }
+
 
 }
