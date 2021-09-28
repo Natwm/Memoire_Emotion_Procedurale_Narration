@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Carte1
+    uniqueID: 2032087355
+    locked: 0
+  - name: Carte2
+    uniqueID: 3312636003
+    locked: 0
+  - name: Carte3
+    uniqueID: 4018212179
+    locked: 0
+  - name: Carte4
+    uniqueID: 2486096523
+    locked: 0
+  - name: Carte5
+    uniqueID: 4042296133
+    locked: 0
+  - name: Carte6
+    uniqueID: 25008033
+    locked: 0
