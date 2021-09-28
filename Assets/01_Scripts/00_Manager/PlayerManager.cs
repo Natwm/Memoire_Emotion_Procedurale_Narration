@@ -7,10 +7,14 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    [Header ("Health")]
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int health;
 
-
+    [Space]
+    [Header("Stamina")]
+    [SerializeField] private int maxStamina = 5;
+    [SerializeField] private int stamina;
 
     void Awake()
     {
@@ -23,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Health = MaxHealth;
+        stamina = maxStamina;
     }
 
     // Update is called once per frame
@@ -31,31 +36,42 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    void GameOver()
+    {
+        print("GameOver");
+    }
+
     public void MoveToAnotherStep()
     {
-        StartCoroutine(MoveToLocation());
+        print(GridManager.instance.ListOfMovement.Count);
+        if(GridManager.instance.ListOfMovement.Count >0)
+            StartCoroutine(MoveToLocation());
+        else
+        {
+            GridManager.instance.SortList();
+            StartCoroutine(MoveToLocation());
+        }
     }
 
     private IEnumerator MoveToLocation()
     {
-        Vector3 newPosition = GridManager.instance.ListOfEvent[0].transform.position;
-        GameObject tile = GridManager.instance.ListOfEvent[0].gameObject;
+        Vector3 newPosition = GridManager.instance.ListOfMovement[0].transform.position;
+        GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;
 
-        newPosition.Set(newPosition.x, newPosition.y, -2f);
+        newPosition.Set(newPosition.x, newPosition.y, -5f);
         this.transform.DOMove(newPosition, 1f);
-        GridManager.instance.ListOfEvent.RemoveAt(0);
+        GridManager.instance.ListOfMovement.RemoveAt(0);
 
         yield return new WaitForSeconds(.8f);
-
-        if(tile.GetComponent<TileElt_Behaviours>()!= null)
+        LooseMovement(1);
+        if (tile.GetComponent<TileElt_Behaviours>()!= null)
         {
             TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
             tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
         }
-            
-
     }
 
+    #region LifeEvent
     public void GainHeath( int point)
     {
         health += point;
@@ -67,8 +83,25 @@ public class PlayerManager : MonoBehaviour
         health -= point;
         print("damage deal by " + point + " point");
         if (health <= 0)
-            print("Death"); 
+            GameOver();
     }
+    #endregion
+
+    #region MovementEvent
+    public void GainMovement(int point)
+    {
+        stamina += point;
+        print("stamina gain by " + point + " point");
+    }
+
+    public void LooseMovement(int point)
+    {
+        stamina -= point;
+        print("stamina loose by " + point + " point");
+        if (stamina < 0)
+            GameOver();
+    }
+    #endregion
 
     #region Getter && Setter
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }

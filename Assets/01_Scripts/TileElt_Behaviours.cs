@@ -31,8 +31,8 @@ public class TileElt_Behaviours : MonoBehaviour
     public void ApplyEffect(PlayerManager player)
     {
         print(eventAssocier.name);
-       /* if(eventAssocier != null)
-        {*/
+        if(eventAssocier.Value.HealthAffect == Carte_SO.Affect.USE)
+        {
             switch (eventAssocier.Value.HealthEffect)
             {
                 case Carte_SO.Status.BONUS:
@@ -45,7 +45,24 @@ public class TileElt_Behaviours : MonoBehaviour
 
                 default:
                     break;
-           // }
+            }
+        }
+
+        if (eventAssocier.Value.MovementAffect == Carte_SO.Affect.USE)
+        {
+            switch (eventAssocier.Value.MovementEffect)
+            {
+                case Carte_SO.Status.BONUS:
+                    player.GainMovement(eventAssocier.Value.Movement);
+                    break;
+
+                case Carte_SO.Status.MALUS:
+                    player.LooseMovement(eventAssocier.Value.Movement);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 

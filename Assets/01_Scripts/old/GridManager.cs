@@ -15,12 +15,14 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> listOfTile = new List<GameObject>();
     [SerializeField] private List<TileElt_Behaviours> listOfEvent;
+    [SerializeField] private List<TileElt_Behaviours> listOfMovement;
 
     [SerializeField] private LayerMask m_LayerDetection;
 
 
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
+    public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
 
     void Awake()
     {
@@ -105,8 +107,8 @@ public class GridManager : MonoBehaviour
 
     public void SortList()
     {
-        ListOfEvent = ListOfEvent.OrderByDescending(x => x.Index).ToList();
-        listOfEvent.Reverse();
+        ListOfMovement = ListOfEvent.OrderByDescending(x => x.Index).ToList();
+        ListOfMovement.Reverse();
     }
 
     private void OnDrawGizmos()
