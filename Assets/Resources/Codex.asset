@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dee8efee1db49c4bbc13bab79a37938, type: 3}
   m_Name: Codex
   m_EditorClassIdentifier: 
+  healthAffect: 0
   healthEffect: 0
   health: 2
+  movementAffect: 0
+  movementEffect: 0
+  movement: 0
+  cardSprite: {fileID: 21300000, guid: 44a054df1702e39458b7072b08d0f212, type: 3}
