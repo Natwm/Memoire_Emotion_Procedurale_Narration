@@ -1607,6 +1607,8 @@ MonoBehaviour:
   - {fileID: 3597433795236425078, guid: 06cf860d08597bf418b3f03b1e9eec68, type: 3}
   - {fileID: 8831389413103275642, guid: e572e10f6fa9e2341901739fa330300f, type: 3}
   - {fileID: 2324215710218136383, guid: 50abafa09951c174ab6fac1751364c62, type: 3}
+  - {fileID: 7128948015999273158, guid: db40a0072e6e6ce4db7debca3c7732d8, type: 3}
+  - {fileID: 3597433795236425078, guid: 06cf860d08597bf418b3f03b1e9eec68, type: 3}
   parent: {fileID: 354269542}
 --- !u!1 &1842266440
 GameObject:
