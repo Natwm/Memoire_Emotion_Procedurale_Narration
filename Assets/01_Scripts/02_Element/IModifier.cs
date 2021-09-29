@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Door : MonoBehaviour
+public interface IModifier 
 {
-
+    void CollectElement(EventContener eventElt);
 }

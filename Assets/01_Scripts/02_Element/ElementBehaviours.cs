@@ -16,7 +16,7 @@ public class ElementBehaviours : MonoBehaviour
         
     }
 
-    public virtual void CollectElement(PlayerManager player)
+    public virtual void CollectElement(EventContener eventElt)
     {
 
     }

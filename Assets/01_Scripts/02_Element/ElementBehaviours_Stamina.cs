@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Stamina : ElementBehaviours
+public class ElementBehaviours_Stamina : MonoBehaviour, IModifier
 {
-    [SerializeField] private int amountOfVignette;
-    public override void CollectElement(PlayerManager player)
+    [SerializeField] private int amountOfStamina;
+    public void CollectElement(EventContener eventElt)
     {
-        player.HandModifier(amountOfVignette);
+        eventElt.Movement += amountOfStamina;
     }
 }

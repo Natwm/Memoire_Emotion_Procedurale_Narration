@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 6600330793845246714}
   - component: {fileID: -5352667337487124786}
   - component: {fileID: 7835459892533724380}
+  - component: {fileID: 3592847244525222304}
   m_Layer: 8
   m_Name: case_1x1
   m_TagString: Untagged
@@ -837,8 +838,10 @@ MonoBehaviour:
   listOfAffectedObject: []
   cardImage: {fileID: 4701029206768444382}
   value: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
   staminaText: {fileID: 5688204896451002559}
   healthText: {fileID: 309751717140276694}
+  myEvent: {fileID: 3592847244525222304}
 --- !u!114 &6600330793845246714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +880,22 @@ SortingGroup:
   m_SortingLayerID: 2032087355
   m_SortingLayer: 1
   m_SortingOrder: 0
+--- !u!114 &3592847244525222304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7128948015999273158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 446891cee17bf954680dc095cd45dcfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  movement: 0
+  vignette: 0
+  isKey: 0
 --- !u!1 &8906490132017197254
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,18 +32,23 @@ public class TileElt_Behaviours : MonoBehaviour
     {
         string content="";
         print(eventAssocier.name);
+        if(GetComponent<IModifier>() != null)
+        {
+            GetComponent<IModifier>().CollectElement(eventAssocier.MyEvent);
+        }
+
         if(eventAssocier.Value.HealthAffect == Carte_SO.Affect.USE)
         {
             switch (eventAssocier.Value.HealthEffect)
             {
                 case Carte_SO.Status.BONUS:
-                    player.GainHeath(eventAssocier.Value.Health);
-                    content += " Player gain " + eventAssocier.Value.Health + " life point \n";
+                    player.GainHeath(eventAssocier.MyEvent.Health);
+                    content += " Player gain " + eventAssocier.MyEvent.Health + " life point \n";
                     break;
 
                 case Carte_SO.Status.MALUS:
                     player.LooseHeath(eventAssocier.Value.Health);
-                    content += " Player loose " + eventAssocier.Value.Health + " life point \n";
+                    content += " Player loose " + eventAssocier.MyEvent.Health + " life point \n";
                     break;
 
                 default:
@@ -57,12 +62,12 @@ public class TileElt_Behaviours : MonoBehaviour
             {
                 case Carte_SO.Status.BONUS:
                     player.GainMovement(eventAssocier.Value.Movement);
-                    content += " Player gain " + eventAssocier.Value.Movement + " stamina point";
+                    content += " Player gain " + eventAssocier.MyEvent.Movement + " stamina point";
                     break;
 
                 case Carte_SO.Status.MALUS:
                     player.LooseMovement(eventAssocier.Value.Movement);
-                    content += " Player loose " + eventAssocier.Value.Movement + " stamina point";
+                    content += " Player loose " + eventAssocier.MyEvent.Movement + " stamina point";
                     break;
 
                 default:

@@ -76,17 +76,11 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(.8f);
         LooseMovement(1);
+
         if (tile.GetComponent<TileElt_Behaviours>()!= null)
         {
             TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
             tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
-        }
-
-        if (tile.GetComponent<ElementBehaviours>() != null)
-        {
-            ElementBehaviours element = tile.GetComponent<ElementBehaviours>();
-            print("ok");
-            element.CollectElement(this);
         }
 
         yield return new WaitForSeconds(1.5f);

@@ -5,8 +5,8 @@ using UnityEngine;
 public class ElementBehaviours_Heal: ElementBehaviours
 {
     [SerializeField] private int amountOfHeal;
-    public override void CollectElement(PlayerManager player)
+    public override void CollectElement(EventContener eventElt)
     {
-        player.GainHeath(amountOfHeal);
+        eventElt.Health += amountOfHeal;
     }
 }

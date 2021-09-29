@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Key : ElementBehaviours
+public class ElementBehaviours_Key : MonoBehaviour, IModifier
 {
 
-    public override void CollectElement(PlayerManager player)
+    public void CollectElement(EventContener eventElt)
     {
-        player.PickUpKey();
+        eventElt.IsKey = true;
     }
 }

@@ -27,6 +27,11 @@ public class Carte_SO : ScriptableObject
     [SerializeField] private Status movementEffect;
     [SerializeField] private int movement;
 
+    [Header("Draw Effects")]
+    [SerializeField] private Affect vignetteAffect;
+    [SerializeField] private Status vignetteEffect;
+    [SerializeField] private int amountOfVignetteToDraw;
+
     [Header("Image")]
     [SerializeField] private Sprite cardSprite;
 
@@ -37,4 +42,7 @@ public class Carte_SO : ScriptableObject
     public Status MovementEffect { get => movementEffect; set => movementEffect = value; }
     public int Movement { get => movement; set => movement = value; }
     public Sprite CardSprite { get => cardSprite; set => cardSprite = value; }
+    public Affect VignetteAffect { get => vignetteAffect; set => vignetteAffect = value; }
+    public Status VignetteEffect { get => vignetteEffect; set => vignetteEffect = value; }
+    public int AmountOfVignetteToDraw { get => amountOfVignetteToDraw; set => amountOfVignetteToDraw = value; }
 }

@@ -33,14 +33,12 @@ public class LevelManager : MonoBehaviour
     {
         Object[] listOfSO = Resources.LoadAll("", typeof(Carte_SO));
         int nbElement = listOfSO.Length;
-        print(nbElement);
         foreach (var item in listOfObjectToSpawn)
         {
             GameObject card = Instantiate(item, parent);
             Bd_Elt_Behaviours cardBd = card.GetComponent<Bd_Elt_Behaviours>();
 
             int elt = Random.Range(0, nbElement);
-            print(elt);
             cardBd.Value = listOfSO[elt] as Carte_SO;
             cardBd.SetUpCard();
         }

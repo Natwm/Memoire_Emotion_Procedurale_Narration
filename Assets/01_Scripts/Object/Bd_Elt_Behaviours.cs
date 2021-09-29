@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
+    #region param
     [SerializeField] private float m_RadiusDetection;
     [SerializeField] private LayerMask m_LayerDetection;
     [SerializeField] private bool m_IsLook;
@@ -23,8 +24,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [SerializeField] private TMPro.TMP_Text staminaText;
     [SerializeField] private TMPro.TMP_Text healthText;
 
-    public Carte_SO Value { get => value; set => this.value = value; }
-    public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
+    [Space]
+    [Header("event")]
+    [SerializeField] private EventContener myEvent;
+
+    #endregion
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +41,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
         entry.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
         trigger.triggers.Add(entry);
+
+        myEvent = GetComponent<EventContener>();
     }
 
     private void OnDragDelegate(PointerEventData data)
@@ -62,34 +69,57 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     public void SetUpCard()
     {
         cardImage.sprite = value.CardSprite;
+        MyEvent.SetUpEvent(value);
 
-        if (value.HealthAffect == Carte_SO.Affect.USE)
+        SetUpUI();
+    }
+
+    public void SetUpCard(IModifier modifier)
+    {
+        print("oonsemnf");
+        print(myEvent.gameObject.name);
+        
+        modifier.CollectElement(myEvent);
+
+        SetUpUI();
+    }
+
+
+    private void SetUpUI()
+    {
+        if(myEvent.Health >= 0)
         {
-            if(value.HealthEffect== Carte_SO.Status.BONUS)
-            {
-                healthText.text = "+" + value.Health.ToString();
-                healthText.color = Color.black;
-            }
-            else
-            {
-                healthText.text = "-" + value.Health.ToString();
-            }
+            healthText.text = value.HealthEffect == Carte_SO.Status.BONUS? "+" + MyEvent.Health.ToString() : "-"+ MyEvent.Health.ToString();
+            healthText.color = value.HealthEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
         }
+
         else
         {
-            healthText.text = "0";
+            healthText.text = MyEvent.Movement.ToString();
         }
+
+        if (myEvent.Movement >= 0)
+        {
+            staminaText.text = value.MovementEffect == Carte_SO.Status.BONUS ? "+" + MyEvent.Movement.ToString() : "-" + MyEvent.Movement.ToString();
+            staminaText.color = value.MovementEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
+        }
+
+        else
+        {
+            staminaText.text = "-"+ MyEvent.Movement.ToString();
+        }
+
 
         if (value.MovementAffect == Carte_SO.Affect.USE)
         {
             if (value.MovementEffect == Carte_SO.Status.BONUS)
             {
-                staminaText.text = "+" + value.Movement.ToString();
+                staminaText.text = "+" + MyEvent.Movement.ToString();
                 staminaText.color = Color.black;
             }
             else
             {
-                staminaText.text = "-" + value.Movement.ToString();
+                staminaText.text = "-" + MyEvent.Movement.ToString();
             }
         }
         else
@@ -97,21 +127,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
             staminaText.text = "0";
         }
     }
-    
 
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
-        print("Stop");
         GridManager.instance.CheckTile();
     }
-    #endregion
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, m_RadiusDetection);
-    }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
@@ -119,4 +140,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         //AJouter la distance entre le pivot et le curseur;
         offset = transform.position - (Vector3)data;
     }
+    #endregion
+
+
+    #region Getter & Setter
+    public Carte_SO Value { get => value; set => this.value = value; }
+    public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
+    public EventContener MyEvent { get => myEvent; set => myEvent = value; }
+    #endregion
 }

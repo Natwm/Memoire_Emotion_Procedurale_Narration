@@ -5,8 +5,9 @@ using UnityEngine;
 public class ElementBehaviours_Draw : ElementBehaviours
 {
     [SerializeField] private int amountOfCardToDraw;
-    public override void CollectElement(PlayerManager player)
+    public override void CollectElement(EventContener eventElt)
     {
-        player.HandModifier(amountOfCardToDraw);
+        eventElt.Vignette += amountOfCardToDraw;
+        //player.HandModifier(amountOfCardToDraw);
     }
 }
