@@ -65,7 +65,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-
+    
     public void CheckTile()
     {
         foreach (var item in listOfTile)
