@@ -16,6 +16,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int maxStamina = 5;
     [SerializeField] private int stamina;
 
+    [Space]
+    [Header("Key")]
+    [SerializeField] private bool haveKey = false;
+
+    [Space]
+    [Header("Hand")]
+    [SerializeField] private List<Bd_Elt_Behaviours> handOfVignette;
+
     void Awake()
     {
         if (instance != null)
@@ -72,6 +80,13 @@ public class PlayerManager : MonoBehaviour
         {
             TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
             tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
+        }
+
+        if (tile.GetComponent<ElementBehaviours>() != null)
+        {
+            ElementBehaviours element = tile.GetComponent<ElementBehaviours>();
+            print("ok");
+            element.CollectElement(this);
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -136,8 +151,44 @@ public class PlayerManager : MonoBehaviour
     }
     #endregion
 
+    #region Key Logique
+
+    public void PickUpKey()
+    {
+        HaveKey = true;
+    }
+
+    #endregion
+
+    #region Hand
+
+    public void HandModifier(int amountOfCard)
+    {
+        if (amountOfCard > 0)
+            DrawVignette(amountOfCard);
+        else
+            DiscardVignette();
+    }
+
+    private void DrawVignette(int amountOfCard)
+    {
+        LevelManager.instance.SpawnObject(1);
+    }
+
+    private void DiscardVignette()
+    {
+        int selectedCard = Random.Range(0, handOfVignette.Count);
+        Bd_Elt_Behaviours vignetteToDelete = handOfVignette[selectedCard];
+        handOfVignette.Remove(vignetteToDelete);
+        Destroy(vignetteToDelete.gameObject);
+
+    }
+
+    #endregion
+
     #region Getter && Setter
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int Health { get => health; set => health = value; }
+    public bool HaveKey { get => haveKey; set => haveKey = value; }
     #endregion
 }

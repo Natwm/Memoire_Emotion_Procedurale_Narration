@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Heal: ElementBehaviours
+public class ElementBehaviours_Door : ElementBehaviours
 {
-    [SerializeField] private int amountOfHeal;
+
     public override void CollectElement(PlayerManager player)
     {
-        player.GainHeath(amountOfHeal);
+        if (player.HaveKey)
+            print("yes you win");
+
     }
 }
