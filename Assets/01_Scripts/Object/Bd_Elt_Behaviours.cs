@@ -95,7 +95,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
         else
         {
-            healthText.text = MyEvent.Movement.ToString();
+            healthText.text = MyEvent.Health > 0 ?"-" + MyEvent.Health.ToString(): MyEvent.Health.ToString();
         }
 
         if (myEvent.Movement >= 0)
@@ -106,7 +106,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
         else
         {
-            staminaText.text = "-"+ MyEvent.Movement.ToString();
+            staminaText.text = MyEvent.Movement > 0 ? "-" + MyEvent.Movement.ToString() : MyEvent.Movement.ToString();
         }
 
 
