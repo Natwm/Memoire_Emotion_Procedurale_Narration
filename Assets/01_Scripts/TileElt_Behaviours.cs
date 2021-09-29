@@ -74,6 +74,15 @@ public class TileElt_Behaviours : MonoBehaviour
                     break;
             }
         }
+
+        if(eventAssocier.Value.VignetteAffect == Carte_SO.Affect.USE)
+        {
+            if(eventAssocier.Value.VignetteEffect == Carte_SO.Status.BONUS)
+                player.HandModifier(eventAssocier.MyEvent.Vignette);
+            else
+                player.HandModifier(-eventAssocier.MyEvent.Vignette);
+
+        }
         CanvasManager.instance.NewLogEntry(content);
     }
 

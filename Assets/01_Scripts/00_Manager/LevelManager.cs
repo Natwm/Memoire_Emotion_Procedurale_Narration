@@ -41,6 +41,8 @@ public class LevelManager : MonoBehaviour
             int elt = Random.Range(0, nbElement);
             cardBd.Value = listOfSO[elt] as Carte_SO;
             cardBd.SetUpCard();
+
+            PlayerManager.instance.HandOfVignette.Add(cardBd);
         }
     }
 
@@ -52,7 +54,9 @@ public class LevelManager : MonoBehaviour
 
         for (int i = 0; i < amount; i++)
         {
-            GameObject item = listOfObjectToSpawn[i];
+            int vignette = Random.Range(0, listOfObjectToSpawn.Count);
+
+            GameObject item = listOfObjectToSpawn[vignette];
 
             GameObject card = Instantiate(item, parent);
             Bd_Elt_Behaviours cardBd = card.GetComponent<Bd_Elt_Behaviours>();
@@ -61,6 +65,8 @@ public class LevelManager : MonoBehaviour
             print(elt);
             cardBd.Value = listOfSO[elt] as Carte_SO;
             cardBd.SetUpCard();
+
+            PlayerManager.instance.HandOfVignette.Add(cardBd);
         }
     }
 }

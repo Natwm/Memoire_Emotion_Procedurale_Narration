@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
+
+    Keyboard kb;
 
     [Header ("Health")]
     [SerializeField] private int maxHealth = 5;
@@ -38,12 +41,18 @@ public class PlayerManager : MonoBehaviour
         stamina = maxStamina;
 
         CanvasManager.instance.UpdateInformationText(health, stamina);
+
+        kb = InputSystem.GetDevice<Keyboard>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (kb.spaceKey.wasReleasedThisFrame)
+        {
+            print("kl");
+            HandModifier(-1);
+        }
     }
 
     void GameOver()
@@ -166,14 +175,15 @@ public class PlayerManager : MonoBehaviour
 
     private void DrawVignette(int amountOfCard)
     {
+        print("okdqd");
         LevelManager.instance.SpawnObject(1);
     }
 
     private void DiscardVignette()
     {
-        int selectedCard = Random.Range(0, handOfVignette.Count);
-        Bd_Elt_Behaviours vignetteToDelete = handOfVignette[selectedCard];
-        handOfVignette.Remove(vignetteToDelete);
+        int selectedCard = Random.Range(0, HandOfVignette.Count);
+        Bd_Elt_Behaviours vignetteToDelete = HandOfVignette[selectedCard];
+        HandOfVignette.Remove(vignetteToDelete);
         Destroy(vignetteToDelete.gameObject);
 
     }
@@ -184,5 +194,6 @@ public class PlayerManager : MonoBehaviour
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int Health { get => health; set => health = value; }
     public bool HaveKey { get => haveKey; set => haveKey = value; }
+    public List<Bd_Elt_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     #endregion
 }
