@@ -15,4 +15,9 @@ public class ElementBehaviours : MonoBehaviour
     {
         
     }
+
+    public virtual void CollectElement(PlayerManager player)
+    {
+
+    }
 }

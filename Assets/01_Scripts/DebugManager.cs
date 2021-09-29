@@ -31,10 +31,10 @@ public class DebugManager : MonoBehaviour
 
     void DebugInput()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         if (Input.GetKeyDown(KeyCode.S))
-            SpawnNewObject();
+            SpawnNewObject();*/
     }
 
     public void SpawnNewObject()

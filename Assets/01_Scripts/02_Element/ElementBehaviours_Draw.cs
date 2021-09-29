@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Heal: ElementBehaviours
+public class ElementBehaviours_Draw : ElementBehaviours
 {
-    [SerializeField] private int amountOfHeal;
+    [SerializeField] private int amountOfCardToDraw;
     public override void CollectElement(PlayerManager player)
     {
-        player.GainHeath(amountOfHeal);
+        player.HandModifier(amountOfCardToDraw);
     }
 }

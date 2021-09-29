@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
+public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     [SerializeField] private float m_RadiusDetection;
     [SerializeField] private LayerMask m_LayerDetection;
@@ -15,6 +15,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     [SerializeField] private SpriteRenderer cardImage;
 
     [SerializeField] private Carte_SO value;
+
+    public Vector3 offset;
 
     [Space]
     [Header ("Text Status")]
@@ -40,8 +42,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     {
         //Create a ray going from the camera through the mouse position
         Ray ray = Camera.main.ScreenPointToRay(data.position);
+        
         //Calculate the distance between the Camera and the GameObject, and go this distance along the ray
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
+
+        rayPoint += offset;
+
         rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
         //Move the GameObject when you drag it
         if(!m_IsLook)
@@ -94,7 +100,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     
 
     #region Interface
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
     {
         print("Stop");
         GridManager.instance.CheckTile();
@@ -104,5 +110,13 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerClickHandler
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, m_RadiusDetection);
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
+        data.z = transform.position.z;
+        //AJouter la distance entre le pivot et le curseur;
+        offset = transform.position - (Vector3)data;
     }
 }

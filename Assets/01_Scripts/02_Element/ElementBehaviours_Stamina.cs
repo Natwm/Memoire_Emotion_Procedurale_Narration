@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Heal: ElementBehaviours
+public class ElementBehaviours_Stamina : ElementBehaviours
 {
-    [SerializeField] private int amountOfHeal;
+    [SerializeField] private int amountOfVignette;
     public override void CollectElement(PlayerManager player)
     {
-        player.GainHeath(amountOfHeal);
+        player.HandModifier(amountOfVignette);
     }
 }
