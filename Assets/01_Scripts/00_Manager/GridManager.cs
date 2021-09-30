@@ -94,11 +94,11 @@ public class GridManager : MonoBehaviour
                 }
                 //hit[0].collider.GetComponent<Bd_Elt_Behaviours>()
                 //assigner un script à l'objet;
-                if (item.GetComponent<IModifier>()!=null)
+                /*if (item.GetComponent<IModifier>()!=null)
                 {
                     hit[0].collider.GetComponent<Bd_Elt_Behaviours>().SetUpCard(item.GetComponent<IModifier>());
                     print("ok");
-                }
+                }*/
             }
             else
             {

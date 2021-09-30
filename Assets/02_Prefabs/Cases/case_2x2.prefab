@@ -262,7 +262,7 @@ MonoBehaviour:
   m_RadiusDetection: 0
   m_LayerDetection:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 512
   m_IsLook: 0
   listOfAffectedObject: []
   cardImage: {fileID: 4421895673724110123}
