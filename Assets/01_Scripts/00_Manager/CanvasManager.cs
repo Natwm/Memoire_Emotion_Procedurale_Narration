@@ -17,6 +17,7 @@ public class CanvasManager : MonoBehaviour
 
     [SerializeField] private TMP_Text lifeText;
     [SerializeField] private TMP_Text staminaText;
+    [SerializeField] private TMP_Text vignetteText;
 
     void Awake()
     {
@@ -43,10 +44,11 @@ public class CanvasManager : MonoBehaviour
         logText.text = content;
     }
 
-    public void UpdateInformationText(int life, int stamina)
+    public void UpdateInformationText(int life, int stamina, int vignette)
     {
         UpdateLifePoint(life);
         UpdateStaminaPoint(stamina);
+        UpdateVignetteToDraw(vignette);
     }
 
     public void UpdateLifePoint(int life)
@@ -56,6 +58,11 @@ public class CanvasManager : MonoBehaviour
     public void UpdateStaminaPoint(int stamina)
     {
         staminaText.text = "Stamina : " + stamina;
+    }
+
+    public void UpdateVignetteToDraw(int amoutOfVignette)
+    {
+        vignetteText.text = "Next Vignette : " + amoutOfVignette;
     }
 
     public void PlayerWinTheGame()

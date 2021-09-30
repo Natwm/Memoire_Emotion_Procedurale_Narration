@@ -43,7 +43,7 @@ public class PlayerManager : MonoBehaviour
         stamina = maxStamina;
         amountOfCardToDraw = minCardToDraw;
 
-        CanvasManager.instance.UpdateInformationText(health, stamina);
+        CanvasManager.instance.UpdateInformationText(health, stamina, amountOfCardToDraw);
 
         kb = InputSystem.GetDevice<Keyboard>();
     }
@@ -58,9 +58,15 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SetUp()
+    {
+        amountOfCardToDraw = minCardToDraw;
+        CanvasManager.instance.UpdateVignetteToDraw(amountOfCardToDraw);
+    }
+
     void GameOver()
     {
-        print("GameOver");
+        EndMovement();
     }
 
     public void MoveToAnotherStep()
@@ -174,7 +180,8 @@ public class PlayerManager : MonoBehaviour
 
     public void HandModifier(int amountOfCard)
     {
-        AmountOfCardToDraw += amountOfCard;
+        AmountOfCardToDraw += amountOfCard; ;
+        CanvasManager.instance.UpdateVignetteToDraw(AmountOfCardToDraw);
     }
 
     private void DrawVignette(int amountOfCard)
