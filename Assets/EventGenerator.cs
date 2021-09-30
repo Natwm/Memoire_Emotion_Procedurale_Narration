@@ -186,10 +186,13 @@ public class EventGenerator : MonoBehaviour
     void Update()
     {
      
-        if (kb.rKey.wasReleasedThisFrame)
+        if (kb.jKey.wasReleasedThisFrame)
         {
-            PopulateTiles(tilenumber);
-            DetermineTileType();
+            FindObjectOfType<Porte>().SetDoor(true);
+        }
+        if (kb.kKey.wasReleasedThisFrame)
+        {
+            FindObjectOfType<Porte>().SetDoor(false);
         }
     }
 }
