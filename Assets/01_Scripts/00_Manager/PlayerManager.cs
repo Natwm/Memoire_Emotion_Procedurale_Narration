@@ -172,7 +172,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (amountOfCard > 0)
             DrawVignette(amountOfCard);
-        else
+        else if(amountOfCard < 0)
             DiscardVignette();
     }
 

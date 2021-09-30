@@ -130,7 +130,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     {
         GridManager.instance.CheckTile();
         RaycastHit[] hit;
-        hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / 55f, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
+        hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / 60f, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
         print(hit.Length);
         if(hit.Length > 0)
         {
@@ -164,7 +164,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / 55);
+        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / 60);
     }
 
 
