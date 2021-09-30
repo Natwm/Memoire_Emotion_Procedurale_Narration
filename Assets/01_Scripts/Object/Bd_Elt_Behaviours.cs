@@ -20,6 +20,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     public Vector3 offset;
 
     [Space]
+    [Header("Param")]
+    [SerializeField] private float raycastSize = 65f;
+
+    [Space]
     [Header ("Text Status")]
     [SerializeField] private TMPro.TMP_Text staminaText;
     [SerializeField] private TMPro.TMP_Text healthText;
@@ -133,7 +137,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         RaycastHit[] hit;
         int amountOfModifier = 0;
 
-        hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / 60f, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
+        hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / raycastSize, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
         print(hit.Length);
         if(hit.Length > 0)
         {
@@ -170,7 +174,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / 60);
+        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / raycastSize);
     }
 
 
