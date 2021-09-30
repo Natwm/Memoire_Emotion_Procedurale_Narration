@@ -49,7 +49,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(int amount)
     {
-        Object[] listOfSO = Resources.LoadAll("", typeof(Carte_SO));
+        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
         int nbElement = listOfSO.Length;
         print(nbElement);
 

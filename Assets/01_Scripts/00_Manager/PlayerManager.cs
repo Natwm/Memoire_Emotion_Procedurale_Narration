@@ -51,11 +51,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (kb.spaceKey.wasReleasedThisFrame)
-        {
-            print("kl");
-            HandModifier(-1);
-        }
+        
     }
 
     public void SetUp()
