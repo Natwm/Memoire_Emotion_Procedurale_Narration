@@ -7,6 +7,12 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
 
+    [Header ("Panel")]
+    [SerializeField] private GameObject WinPanel;
+    [SerializeField] private GameObject LoosePanel;
+
+    [Space]
+
     public TMP_Text logText;
 
     [SerializeField] private TMP_Text lifeText;
@@ -52,5 +58,14 @@ public class CanvasManager : MonoBehaviour
         staminaText.text = "Stamina : " + stamina;
     }
 
+    public void PlayerWinTheGame()
+    {
+        WinPanel.SetActive(true);
+    }
+
+    public void PlayerLooseTheGame()
+    {
+        LoosePanel.SetActive(true);
+    }
 
 }

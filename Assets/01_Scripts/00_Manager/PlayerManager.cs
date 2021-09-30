@@ -109,11 +109,14 @@ public class PlayerManager : MonoBehaviour
     {
         if (health < 0) {
             print("nope Death");
-            DebugManager.instance.ReloadScene();
+            //DebugManager.instance.ReloadScene();
+            StopAllCoroutines();
+            CanvasManager.instance.PlayerLooseTheGame();
         }
         else
         {
-            GridManager.instance.ClearScene();
+            //GridManager.instance.ClearScene();
+            CanvasManager.instance.PlayerWinTheGame();
         }
     }
 
