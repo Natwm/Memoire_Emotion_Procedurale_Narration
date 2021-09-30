@@ -125,7 +125,7 @@ public class GridManager : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-        LevelManager.instance.SpawnObject();
+        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
         m_EventGenerator.GenerateGrid();
     }
 

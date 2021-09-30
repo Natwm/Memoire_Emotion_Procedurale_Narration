@@ -1101,6 +1101,7 @@ MonoBehaviour:
   raycastSize: 120
   staminaText: {fileID: 5688204896451002559}
   healthText: {fileID: 309751717140276694}
+  vignetteText: {fileID: 5253595035115745825}
   myEvent: {fileID: 3592847244525222304}
 --- !u!114 &6600330793845246714
 MonoBehaviour:

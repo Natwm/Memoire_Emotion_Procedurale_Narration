@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnObject();
+        SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
     }
 
     // Update is called once per frame

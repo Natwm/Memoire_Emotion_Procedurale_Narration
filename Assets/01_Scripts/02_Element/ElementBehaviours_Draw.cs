@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Draw : ElementBehaviours
+public class ElementBehaviours_Draw : ElementBehaviours, IModifier
 {
     [SerializeField] private int amountOfCardToDraw;
 
@@ -11,6 +11,6 @@ public class ElementBehaviours_Draw : ElementBehaviours
     public override void CollectElement(EventContener eventElt)
     {
         eventElt.Vignette += AmountOfCardToDraw;
-        //player.HandModifier(amountOfCardToDraw);
+        print("okd");
     }
 }

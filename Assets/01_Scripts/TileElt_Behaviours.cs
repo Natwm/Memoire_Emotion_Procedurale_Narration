@@ -81,7 +81,6 @@ public class TileElt_Behaviours : MonoBehaviour
                 player.HandModifier(eventAssocier.MyEvent.Vignette);
             else
                 player.HandModifier(-eventAssocier.MyEvent.Vignette);
-
         }
         CanvasManager.instance.NewLogEntry(content);
     }

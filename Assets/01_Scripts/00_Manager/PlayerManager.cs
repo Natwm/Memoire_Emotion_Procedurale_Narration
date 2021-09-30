@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
     [Space]
     [Header("Hand")]
     [SerializeField] private List<Bd_Elt_Behaviours> handOfVignette;
+    [SerializeField] private int minCardToDraw = 4;
+    [SerializeField] private int amountOfCardToDraw;
 
     void Awake()
     {
@@ -39,6 +41,7 @@ public class PlayerManager : MonoBehaviour
     {
         Health = MaxHealth;
         stamina = maxStamina;
+        amountOfCardToDraw = minCardToDraw;
 
         CanvasManager.instance.UpdateInformationText(health, stamina);
 
@@ -171,10 +174,7 @@ public class PlayerManager : MonoBehaviour
 
     public void HandModifier(int amountOfCard)
     {
-        if (amountOfCard > 0)
-            DrawVignette(amountOfCard);
-        else if(amountOfCard < 0)
-            DiscardVignette();
+        AmountOfCardToDraw += amountOfCard;
     }
 
     private void DrawVignette(int amountOfCard)
@@ -199,5 +199,7 @@ public class PlayerManager : MonoBehaviour
     public int Health { get => health; set => health = value; }
     public bool HaveKey { get => haveKey; set => haveKey = value; }
     public List<Bd_Elt_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
+    public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
+    public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
     #endregion
 }

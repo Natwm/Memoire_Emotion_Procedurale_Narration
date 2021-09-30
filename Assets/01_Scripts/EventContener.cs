@@ -26,6 +26,7 @@ public class EventContener : MonoBehaviour
     {
         Health = eventObj.HealthEffect == Carte_SO.Status.BONUS ? eventObj.Health : -eventObj.Health;
         Movement = eventObj.MovementEffect == Carte_SO.Status.BONUS ? eventObj.Movement : -eventObj.Movement;
+        Vignette = eventObj.VignetteEffect == Carte_SO.Status.BONUS ? eventObj.AmountOfVignetteToDraw : -eventObj.AmountOfVignetteToDraw;
     }
 
     public void AffectByAModifier(IModifier modifer)

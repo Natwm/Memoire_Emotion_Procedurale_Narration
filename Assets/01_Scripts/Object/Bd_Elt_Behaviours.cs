@@ -27,6 +27,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [Header ("Text Status")]
     [SerializeField] private TMPro.TMP_Text staminaText;
     [SerializeField] private TMPro.TMP_Text healthText;
+    [SerializeField] private TMPro.TMP_Text vignetteText;
 
     [Space]
     [Header("event")]
@@ -110,23 +111,16 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
             staminaText.text = MyEvent.Movement > 0 ? "-" + MyEvent.Movement.ToString() : MyEvent.Movement.ToString();
         }
 
-
-        if (value.MovementAffect == Carte_SO.Affect.USE)
+        if (myEvent.Vignette >= 0)
         {
-            if (value.MovementEffect == Carte_SO.Status.BONUS)
-            {
-                staminaText.text = "+" + MyEvent.Movement.ToString();
-                staminaText.color = Color.black;
-            }
-            else
-            {
-                staminaText.text = "-" + MyEvent.Movement.ToString();
-            }
+            vignetteText.text = value.VignetteEffect == Carte_SO.Status.BONUS ? "+" + MyEvent.Vignette.ToString() : "-" + MyEvent.Vignette.ToString();
+            vignetteText.color = value.VignetteEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
         }
         else
         {
-            staminaText.text = "0";
+            vignetteText.text = MyEvent.Vignette > 0 ? "-" + MyEvent.Vignette.ToString() : MyEvent.Vignette.ToString();
         }
+        
     }
 
     #region Interface
