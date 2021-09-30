@@ -89,7 +89,7 @@ public class PlayerManager : MonoBehaviour
         CanvasManager.instance.NewLogEntry("");
 
         yield return new WaitForSeconds(.8f);
-        LooseMovement(1);
+        //LooseMovement(1);
 
         if (tile.GetComponent<TileElt_Behaviours>()!= null)
         {
