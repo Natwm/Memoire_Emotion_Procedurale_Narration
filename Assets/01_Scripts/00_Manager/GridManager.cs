@@ -126,6 +126,7 @@ public class GridManager : MonoBehaviour
             Destroy(item.gameObject);
         }
         LevelManager.instance.SpawnObject();
+        m_EventGenerator.GenerateGrid();
     }
 
     private void OnDrawGizmos()

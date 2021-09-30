@@ -143,6 +143,7 @@ public class EventGenerator : MonoBehaviour
 
     public void ClearGrid()
     {
+       
         GameObject[] listToDestroy = new GameObject[allGraphics.Capacity];
         for (int i = 0; i < allGraphics.Count; i++)
         {

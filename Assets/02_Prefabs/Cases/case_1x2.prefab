@@ -407,6 +407,7 @@ MonoBehaviour:
   cardImage: {fileID: 7968608701250733846}
   value: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
+  raycastSize: 120
   staminaText: {fileID: 2359982327394882495}
   healthText: {fileID: 5195414305510785078}
   myEvent: {fileID: 3592847244525222304, guid: db40a0072e6e6ce4db7debca3c7732d8, type: 3}

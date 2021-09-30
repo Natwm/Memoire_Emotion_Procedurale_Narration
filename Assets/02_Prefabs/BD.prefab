@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4988015316000064813}
   - component: {fileID: 4988015316000064814}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: BD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   m_IsLook: 0
+  listOfAffectedObject: []
+  cardImage: {fileID: 0}
+  value: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  raycastSize: 30
+  staminaText: {fileID: 0}
+  healthText: {fileID: 0}
+  myEvent: {fileID: 0}
 --- !u!114 &4988015316000064813
 MonoBehaviour:
   m_ObjectHideFlags: 0
