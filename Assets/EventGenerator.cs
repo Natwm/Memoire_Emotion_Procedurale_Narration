@@ -23,7 +23,7 @@ public class EventGenerator : MonoBehaviour
     {
         
         kb = InputSystem.GetDevice<Keyboard>();
-        GenerateGrid();
+       // GenerateGrid();
     }
 
     /* Get A Tile in the list.
@@ -185,15 +185,11 @@ public class EventGenerator : MonoBehaviour
 
     void Update()
     {
-        if (kb.spaceKey.wasReleasedThisFrame)
-        {
-           
-            PopulateTiles(tilenumber);
-            DetermineTileType();
-        }
+     
         if (kb.rKey.wasReleasedThisFrame)
         {
-            ClearGrid();
+            PopulateTiles(tilenumber);
+            DetermineTileType();
         }
     }
 }

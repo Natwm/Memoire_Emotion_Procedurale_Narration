@@ -236,6 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153cbaa4232fe654488db8894186cede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WinPanel: {fileID: 0}
+  LoosePanel: {fileID: 0}
   logText: {fileID: 1187411940}
   lifeText: {fileID: 1509793425}
   staminaText: {fileID: 1842266442}
@@ -688,7 +690,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687282979}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a4f90bf08ba1d2468240528d6326a29, type: 3}
   m_Name: 
@@ -795,6 +797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1076197917}
   - component: {fileID: 1076197918}
+  - component: {fileID: 1076197919}
   m_Layer: 0
   m_Name: sortie
   m_TagString: Untagged
@@ -866,6 +869,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1076197919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076197916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6713f78121bb4b4baa6df08be2e5941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closed_door: {fileID: 21300000, guid: 47cade904ca8e6743821b298a8692efd, type: 3}
+  open_door: {fileID: 21300000, guid: 07ed3b866dfc8a44299c5f5810ad472a, type: 3}
 --- !u!1 &1110155745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,6 +1960,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GridManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: distribution.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: distribution.y
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf14dec272a157439dd84cf7e16d43c, type: 3}
