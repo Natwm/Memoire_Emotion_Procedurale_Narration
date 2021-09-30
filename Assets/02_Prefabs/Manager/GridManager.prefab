@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2247944666039174379}
   - component: {fileID: 2247944666039174378}
+  - component: {fileID: 8122658316417090654}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -53,3 +54,29 @@ MonoBehaviour:
   m_LayerDetection:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &8122658316417090654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2247944666039174381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4f90bf08ba1d2468240528d6326a29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  occupiedTiles: []
+  tilenumber: 5
+  distribution: {x: 0, y: 0}
+  allGraphics: []
+  stamina:
+  - {fileID: 2433357948084096462, guid: eb7ef9572b9f18142a4276bfb7f96cc4, type: 3}
+  - {fileID: 3490403239645442656, guid: 43d450f456a6e204b8dec7e352bcb3df, type: 3}
+  cartes:
+  - {fileID: 8933427331047666015, guid: 3d59c1a181471524786101634f2bdf64, type: 3}
+  - {fileID: 2276169453768489729, guid: 609f8c5e0db96c840b9ce7605d355ce9, type: 3}
+  pvs:
+  - {fileID: 2838176479981807376, guid: 07568372225140b4b85125133c226f8c, type: 3}
+  - {fileID: 7581811715957945008, guid: 90411a2aaa19fcc4a88715e33c332621, type: 3}
+  key: {fileID: 1750439556719683507, guid: 02f881d0c74129c4fafdb41835f5f25c, type: 3}

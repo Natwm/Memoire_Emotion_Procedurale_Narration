@@ -117,6 +117,7 @@ public class PlayerManager : MonoBehaviour
         {
             //GridManager.instance.ClearScene();
             CanvasManager.instance.PlayerWinTheGame();
+
         }
     }
 

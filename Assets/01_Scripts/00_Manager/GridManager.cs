@@ -25,12 +25,15 @@ public class GridManager : MonoBehaviour
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
 
+    EventGenerator m_EventGenerator;
+
     void Awake()
     {
         if (instance != null)
             Debug.LogWarning("Multiple instance of same Singleton : GridManager");
         else
             instance = this;
+        m_EventGenerator = GetComponent<EventGenerator>();
     }
 
     // Start is called before the first frame update
@@ -65,6 +68,7 @@ public class GridManager : MonoBehaviour
                 ListOfTile.Add(tile);
             }
         }
+        m_EventGenerator.GenerateGrid();
     }
 
     public void CheckTile()
