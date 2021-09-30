@@ -76,11 +76,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
     public void SetUpCard(IModifier modifier)
     {
-        print("oonsemnf");
-        print(myEvent.gameObject.name);
-        
         modifier.CollectElement(myEvent);
-
+        print("SetUpCard");
         SetUpUI();
     }
 
@@ -132,7 +129,30 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     public void OnPointerUp(PointerEventData eventData)
     {
         GridManager.instance.CheckTile();
+        RaycastHit[] hit;
+        hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / 55f, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
+        print(hit.Length);
+        if(hit.Length > 0)
+        {
+            foreach (var item in hit)
+            {
+                print(item.collider.name);
+                IModifier myModifier;
+                if(item.collider.TryGetComponent<IModifier>(out myModifier))
+                {
+                    SetUpCard(myModifier);
+                }
+
+                if(item.collider.GetComponent<IModifier>() != null)
+                {
+                    print("okf");
+                }
+            }
+        }
+        
+    
     }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
@@ -141,6 +161,11 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         offset = transform.position - (Vector3)data;
     }
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / 55);
+    }
 
 
     #region Getter & Setter

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Heal: ElementBehaviours
+public class ElementBehaviours_Heal: ElementBehaviours,IModifier
 {
     [SerializeField] private int amountOfHeal;
 
