@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     public List<GameObject> listOfObjectToSpawn;
     public Transform parent;
+    public string Chemin;
 
     void Awake()
     {
@@ -31,7 +32,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject()
     {
-        Object[] listOfSO = Resources.LoadAll("", typeof(Carte_SO));
+        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
         int nbElement = listOfSO.Length;
         foreach (var item in listOfObjectToSpawn)
         {

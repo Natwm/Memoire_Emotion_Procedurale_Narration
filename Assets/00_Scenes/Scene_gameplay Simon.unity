@@ -659,7 +659,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 687282981}
-  - component: {fileID: 687282980}
   - component: {fileID: 687282982}
   m_Layer: 0
   m_Name: GridManager
@@ -668,28 +667,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &687282980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687282979}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883ce6f22c6d7b74f835571d0f966608, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Size: 1
-  m_GridSize: {x: 4, y: 4}
-  m_TilesPrefabs: {fileID: 1590277413799031728, guid: 6f5a543e77caceb45bc96f65ab597132,
-    type: 3}
-  listOfTile: []
-  listOfEvent: []
-  listOfMovement: []
-  m_LayerDetection:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!4 &687282981
 Transform:
   m_ObjectHideFlags: 0
@@ -971,7 +948,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 687282980}
+      - m_Target: {fileID: 0}
         m_MethodName: SortList
         m_Mode: 1
         m_Arguments:
@@ -1754,6 +1731,7 @@ MonoBehaviour:
   - {fileID: 8831389413103275642, guid: e572e10f6fa9e2341901739fa330300f, type: 3}
   - {fileID: 2324215710218136383, guid: 50abafa09951c174ab6fac1751364c62, type: 3}
   parent: {fileID: 354269542}
+  Chemin: Simple/
 --- !u!1 &1842266440
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +1877,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6a6e172ded3f2478c67093298b24ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &2044780335
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174379, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2247944666039174381, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: m_Name
+      value: GridManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8cf14dec272a157439dd84cf7e16d43c, type: 3}
 --- !u!1001 &2132764052072156077
 PrefabInstance:
   m_ObjectHideFlags: 0

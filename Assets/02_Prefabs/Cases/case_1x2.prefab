@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2868955947188605544}
   - component: {fileID: 7968608701250733846}
   m_Layer: 8
-  m_Name: Image
+  m_Name: Fond
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 3224928467887618407}
   - component: {fileID: 4440846877738201077}
   m_Layer: 8
-  m_Name: New Sprite (1)
+  m_Name: pvs_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,7 +475,7 @@ GameObject:
   - component: {fileID: 3846714516063328949}
   - component: {fileID: 6895515173721723037}
   m_Layer: 8
-  m_Name: New Sprite
+  m_Name: stamina_icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -556,7 +556,7 @@ GameObject:
   - component: {fileID: 119055077356831759}
   - component: {fileID: 3183728020677163183}
   m_Layer: 8
-  m_Name: Image (1)
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 2159189718346084109}
   - component: {fileID: 2359982327394882495}
   m_Layer: 8
-  m_Name: Text (TMP)
+  m_Name: stamina_texte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -815,7 +815,7 @@ GameObject:
   - component: {fileID: 8006508144856164899}
   - component: {fileID: 5195414305510785078}
   m_Layer: 8
-  m_Name: Text (TMP) (1)
+  m_Name: pvs_texte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

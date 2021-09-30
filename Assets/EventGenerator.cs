@@ -21,8 +21,9 @@ public class EventGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_GridManager = GetComponent<GridManager>();
+        
         kb = InputSystem.GetDevice<Keyboard>();
+        GenerateGrid();
     }
 
     /* Get A Tile in the list.
@@ -41,7 +42,7 @@ public class EventGenerator : MonoBehaviour
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
         }
-        occupiedTiles.Clear();
+        
         for (int i = 0; i < iteration; i++)
         {
             occupiedTiles.Add(GetRandomClearTile());
@@ -51,8 +52,8 @@ public class EventGenerator : MonoBehaviour
 
     public GameObject GetRandomClearTile()
     {
-        int randomInt = Random.Range(1, m_GridManager.ListOfTile.Capacity-1);
-        GameObject potentialTile = m_GridManager.ListOfTile[randomInt];
+        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Capacity-1);
+        GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
         foreach (GameObject item in occupiedTiles)
         {
             if (item == potentialTile)
@@ -71,7 +72,7 @@ public class EventGenerator : MonoBehaviour
         
         for (int i = 0; i < occupiedTiles.Count-1; i++)
         {
-            GameObject tmp = SpawnGraphics(DetermineEventType(), occupiedTiles[i]);
+            GameObject tmp = SpawnGraphics(DetermineEventType(occupiedTiles[i]), occupiedTiles[i]);
             allGraphics.Add(tmp);
             
         }
@@ -88,7 +89,9 @@ public class EventGenerator : MonoBehaviour
         return newGraphic;
     }
 
-    public GameObject DetermineEventType()
+
+    ///RÉGLER LE BORDEL LA DEDANS
+    public GameObject DetermineEventType(GameObject tileToModify)
     {
         int RandomType = Random.Range(0, 3);
         GameObject tileType=null;
@@ -99,10 +102,12 @@ public class EventGenerator : MonoBehaviour
             {
                 //Positif
                 tileType = stamina[0];
+                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = 1;
             }
             else
             {
                 tileType = stamina[1];
+                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = -1;
             }
         }
         else if (RandomType == 1)
@@ -111,10 +116,12 @@ public class EventGenerator : MonoBehaviour
             if (coinToss())
             {
                 tileType = cartes[0];
+                tileToModify.AddComponent<ElementBehaviours_Draw>().AmountOfCardToDraw = 1;
             }
             else
             {
                 tileType = cartes[1];
+                tileToModify.AddComponent<ElementBehaviours_Draw>().AmountOfCardToDraw = -1;
             }
         }
         else if (RandomType == 2)
@@ -123,10 +130,12 @@ public class EventGenerator : MonoBehaviour
             if (coinToss())
             {
                 tileType = pvs[0];
+                tileToModify.AddComponent<ElementBehaviours_Heal>().AmountOfHeal= 1;
             }
             else
             {
                 tileType = pvs[1];
+                tileToModify.AddComponent<ElementBehaviours_Heal>().AmountOfHeal = -1;
             }
         }
         return tileType;
@@ -140,8 +149,15 @@ public class EventGenerator : MonoBehaviour
             listToDestroy[i] = allGraphics[i];
         }
         allGraphics.Clear();
+        foreach (GameObject item in occupiedTiles)
+        {
+            ElementBehaviours dest = item.GetComponent<ElementBehaviours>();
+            Destroy(dest);
+        }
+        occupiedTiles.Clear();
         foreach (GameObject item in listToDestroy)
         {
+            
             Destroy(item);
         }
     }
@@ -159,6 +175,12 @@ public class EventGenerator : MonoBehaviour
             return false;
             //Negatif
         }
+    }
+
+    public void GenerateGrid()
+    {
+        PopulateTiles(tilenumber);
+        DetermineTileType();
     }
 
     void Update()
