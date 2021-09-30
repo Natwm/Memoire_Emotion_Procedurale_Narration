@@ -129,7 +129,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     public void OnPointerUp(PointerEventData eventData)
     {
         GridManager.instance.CheckTile();
+        
         RaycastHit[] hit;
+        int amountOfModifier = 0;
+
         hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / 60f, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
         print(hit.Length);
         if(hit.Length > 0)
@@ -141,13 +144,14 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                 if(item.collider.TryGetComponent<IModifier>(out myModifier))
                 {
                     SetUpCard(myModifier);
-                }
-
-                if(item.collider.GetComponent<IModifier>() != null)
-                {
-                    print("okf");
+                    amountOfModifier++;
                 }
             }
+        }
+
+        if (!(amountOfModifier > 0))
+        {
+            SetUpCard();
         }
         
     
@@ -159,6 +163,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         data.z = transform.position.z;
         //AJouter la distance entre le pivot et le curseur;
         offset = transform.position - (Vector3)data;
+
+        SetUpCard();
     }
     #endregion
 
