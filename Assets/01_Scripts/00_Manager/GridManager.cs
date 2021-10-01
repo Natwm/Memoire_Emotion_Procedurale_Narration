@@ -81,24 +81,14 @@ public class GridManager : MonoBehaviour
             {
                 item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Bd_Elt_Behaviours>());
 
-                switch (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.HealthEffect)
+                if (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.Health > 0)
                 {
-                    case Carte_SO.Status.BONUS:
-                        item.GetComponent<MeshRenderer>().material.color = Color.blue;
-                        break;
-                    case Carte_SO.Status.MALUS:
-                        item.GetComponent<MeshRenderer>().material.color = Color.red;
-                        break;
-                    default:
-                        break;
+                    item.GetComponent<MeshRenderer>().material.color = Color.blue;
                 }
-                //hit[0].collider.GetComponent<Bd_Elt_Behaviours>()
-                //assigner un script à l'objet;
-                /*if (item.GetComponent<IModifier>()!=null)
+                else
                 {
-                    hit[0].collider.GetComponent<Bd_Elt_Behaviours>().SetUpCard(item.GetComponent<IModifier>());
-                    print("ok");
-                }*/
+                    item.GetComponent<MeshRenderer>().material.color = Color.red;
+                }
             }
             else
             {

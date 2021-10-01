@@ -129,6 +129,7 @@ public class PlayerManager : MonoBehaviour
     #region LifeEvent
     public void GainHeath( int point)
     {
+        print("GainHeath " + point);
         health += point;
         print("Heal by "+ point +" point");
         CanvasManager.instance.UpdateLifePoint(health);

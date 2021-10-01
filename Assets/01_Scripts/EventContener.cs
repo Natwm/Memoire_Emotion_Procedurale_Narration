@@ -24,46 +24,15 @@ public class EventContener : MonoBehaviour
 
     public void SetUpEvent(Carte_SO eventObj)
     {
-        switch (eventObj.HealthEffect)
-        {
-            case Carte_SO.Status.BONUS:
-                Health = eventObj.Health;
-                break;
-            case Carte_SO.Status.MALUS:
-                Health = -eventObj.Health;
-                break;
-            default:
-                break;
-        }
+        Health = eventObj.Health;
 
-        switch (eventObj.MovementEffect)
-        {
-            case Carte_SO.Status.BONUS:
-                Movement = eventObj.Movement;
-                break;
-            case Carte_SO.Status.MALUS:
-                Movement = -eventObj.Movement;
-                break;
-            default:
-                break;
-        }
+        Movement = eventObj.Movement;
 
-        switch (eventObj.VignetteEffect)
-        {
-            case Carte_SO.Status.BONUS:
-                Vignette = eventObj.AmountOfVignetteToDraw;
-                break;
-            case Carte_SO.Status.MALUS:
-                Vignette = -eventObj.AmountOfVignetteToDraw;
-                break;
-            default:
-                break;
-        }
-
+        Vignette = eventObj.AmountOfVignetteToDraw;
     }
 
     public void AffectByAModifier(IModifier modifer)
     {
-        
+
     }
 }

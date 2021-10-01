@@ -48,6 +48,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         trigger.triggers.Add(entry);
 
         myEvent = GetComponent<EventContener>();
+        SetUpCard();
     }
 
     private void OnDragDelegate(PointerEventData data)
@@ -73,52 +74,53 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
     public void SetUpCard()
     {
+        print("SetUpCard");
         cardImage.sprite = value.CardSprite;
         MyEvent.SetUpEvent(value);
-
         SetUpUI();
     }
 
     public void SetUpCard(IModifier modifier)
     {
+        print("SetUpCard with Modifier");
         modifier.CollectElement(myEvent);
         print("SetUpCard");
         SetUpUI();
     }
 
-
+    //quand tu drop, ne mets pas a jour le script event
     private void SetUpUI()
     {
         if(myEvent.Health >= 0)
         {
-            healthText.text = value.HealthEffect == Carte_SO.Status.BONUS? "+" + MyEvent.Health.ToString() : "-"+ MyEvent.Health.ToString();
-            healthText.color = value.HealthEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
+            healthText.text = "+" + MyEvent.Health.ToString();
+            healthText.color = value.Health >0? Color.red : Color.black;
         }
 
         else
         {
-            healthText.text = MyEvent.Health > 0 ?"-" + MyEvent.Health.ToString(): MyEvent.Health.ToString();
+            healthText.text = MyEvent.Health.ToString();
         }
 
         if (myEvent.Movement >= 0)
         {
-            staminaText.text = value.MovementEffect == Carte_SO.Status.BONUS ? "+" + MyEvent.Movement.ToString() : "-" + MyEvent.Movement.ToString();
-            staminaText.color = value.MovementEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
+            staminaText.text = value.Movement >= 0 ? "+" + MyEvent.Movement.ToString() :  MyEvent.Movement.ToString();
+            staminaText.color = value.Movement >= 0 ? Color.red : Color.black;
         }
 
         else
         {
-            staminaText.text = MyEvent.Movement > 0 ? "-" + MyEvent.Movement.ToString() : MyEvent.Movement.ToString();
+            staminaText.text = MyEvent.Movement.ToString();
         }
 
         if (myEvent.Vignette >= 0)
         {
-            vignetteText.text = value.VignetteEffect == Carte_SO.Status.BONUS ? "+" + MyEvent.Vignette.ToString() : "-" + MyEvent.Vignette.ToString();
-            vignetteText.color = value.VignetteEffect == Carte_SO.Status.BONUS ? Color.red : Color.black;
+            vignetteText.text = value.AmountOfVignetteToDraw >= 0 ? "+" + MyEvent.Vignette.ToString() :  MyEvent.Vignette.ToString();
+            vignetteText.color = value.AmountOfVignetteToDraw >= 0 ? Color.red : Color.black;
         }
         else
         {
-            vignetteText.text = MyEvent.Vignette > 0 ? "-" + MyEvent.Vignette.ToString() : MyEvent.Vignette.ToString();
+            vignetteText.text = MyEvent.Vignette.ToString();
         }
         
     }
@@ -151,8 +153,6 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         {
             SetUpCard();
         }
-        
-    
     }
 
     public void OnPointerDown(PointerEventData eventData)
