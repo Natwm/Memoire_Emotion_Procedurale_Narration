@@ -24,7 +24,6 @@ public class EventContener : MonoBehaviour
 
     public void SetUpEvent(Carte_SO eventObj)
     {
-        print("okokokokokokoekfsokfoskfosekfos");
         switch (eventObj.HealthEffect)
         {
             case Carte_SO.Status.BONUS:
