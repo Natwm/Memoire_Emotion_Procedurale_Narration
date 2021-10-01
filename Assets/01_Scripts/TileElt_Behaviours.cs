@@ -32,10 +32,6 @@ public class TileElt_Behaviours : MonoBehaviour
     {
         string content="";
         print(eventAssocier.name);
-        if(GetComponent<IModifier>() != null)
-        {
-            GetComponent<IModifier>().CollectElement(eventAssocier.MyEvent);
-        }
 
         if(eventAssocier.Value.HealthAffect == Carte_SO.Affect.USE)
         {
@@ -47,7 +43,7 @@ public class TileElt_Behaviours : MonoBehaviour
             }
             else
             {
-                player.GainHeath(eventAssocier.Value.Health);
+                player.GainHeath(eventAssocier.MyEvent.Health);
                 content += " Player loose " + eventAssocier.MyEvent.Health + " life point \n";
             }
         }
@@ -56,12 +52,12 @@ public class TileElt_Behaviours : MonoBehaviour
         {
             if (eventAssocier.Value.Movement > 0)
             {
-                player.GainMovement(eventAssocier.Value.Movement);
+                player.GainMovement(eventAssocier.MyEvent.Movement);
                 content += " Player gain " + eventAssocier.MyEvent.Movement + " stamina point";
             }
             else
             {
-                player.GainMovement(eventAssocier.Value.Movement);
+                player.GainMovement(eventAssocier.MyEvent.Movement);
                 content += " Player loose " + eventAssocier.MyEvent.Movement + " stamina point";
             }
         }
