@@ -47,7 +47,7 @@ public class TileElt_Behaviours : MonoBehaviour
             }
             else
             {
-                player.LooseHeath(eventAssocier.Value.Health);
+                player.GainHeath(eventAssocier.Value.Health);
                 content += " Player loose " + eventAssocier.MyEvent.Health + " life point \n";
             }
         }
@@ -61,7 +61,7 @@ public class TileElt_Behaviours : MonoBehaviour
             }
             else
             {
-                player.LooseMovement(eventAssocier.Value.Movement);
+                player.GainMovement(eventAssocier.Value.Movement);
                 content += " Player loose " + eventAssocier.MyEvent.Movement + " stamina point";
             }
         }
