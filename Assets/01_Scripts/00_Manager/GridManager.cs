@@ -115,9 +115,10 @@ public class GridManager : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-        PlayerManager.instance.SetUp();
+        PlayerManager.instance.HandOfVignette.Clear();
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
         m_EventGenerator.GenerateGrid();
+        PlayerManager.instance.SetUp();
     }
 
     private void OnDrawGizmos()
