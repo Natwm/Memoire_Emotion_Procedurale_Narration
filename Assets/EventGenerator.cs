@@ -16,16 +16,24 @@ public class EventGenerator : MonoBehaviour
     public GameObject[] stamina;
     public GameObject[] cartes;
     public GameObject[] pvs;
+    public GameObject[] doors;
 
     public GameObject key;
+
+    GameObject entryTile;
+    GameObject exitTile;
+    public Vector2Int gridSize;
     // Start is called before the first frame update
     void Start()
     {
         
         kb = InputSystem.GetDevice<Keyboard>();
+        m_GridManager = GridManager.instance;
        // GenerateGrid();
     }
 
+    // Get All LeftTiles
+    // Get All RightTils
     /* Get A Tile in the list.
     //      > CANNOT BE FIRST
             > CANNOT BE LAST
@@ -35,9 +43,49 @@ public class EventGenerator : MonoBehaviour
 
     */
     // Update is called once per frame
+    public void DetermineDoors()
+    {
+        GameObject[] leftTiles = new GameObject[gridSize.x];
+        GameObject[] rightTiles = new GameObject[gridSize.x];
+        int index_Left=0;
+        int index_Right = 0;
+        for (int i = 0; i < m_GridManager.ListOfTile.Capacity; i++)
+        {
+            TileElt_Behaviours tile = m_GridManager.ListOfTile[i].GetComponent<TileElt_Behaviours>();
+            //LeftTile
+            if (tile.Tileposition.y == 0)
+            {
+                leftTiles[index_Left] = tile.gameObject;
+                index_Left++;
+
+            }
+            if (tile.Tileposition.y == gridSize.y-1)
+            {
+                rightTiles[index_Right] = tile.gameObject;
+                index_Right++;
+            }
+        }
+
+        int RandomEntry = Random.Range(0, leftTiles.Length);
+        int RandomExit = Random.Range(0, rightTiles.Length);
+
+        entryTile = leftTiles[RandomEntry];
+        exitTile = rightTiles[RandomExit];
+
+        GameObject newEntry = Instantiate(doors[0], entryTile.transform);
+        newEntry.transform.localPosition = Vector3.zero;
+        GameObject newExit = Instantiate(doors[1], exitTile.transform);
+        newExit.transform.localPosition = Vector3.zero;
+        allGraphics.Add(newEntry);
+        allGraphics.Add(newExit);
+        Debug.Log(newEntry.name);
+        Debug.Log(newExit.name);
+    }
+
     public void PopulateTiles(int iteration)
     {
         ClearGrid();
+        DetermineDoors();
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -54,14 +102,22 @@ public class EventGenerator : MonoBehaviour
     {
         int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Capacity-1);
         GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
-        foreach (GameObject item in occupiedTiles)
+        if (potentialTile != exitTile && potentialTile != entryTile)
         {
-            if (item == potentialTile)
+            foreach (GameObject item in occupiedTiles)
             {
-                Debug.Log("Hit Already Occupied Tile : " + item.name);
-                
-                return GetRandomClearTile();
+                if (item == potentialTile)
+                {
+                    Debug.Log("Hit Already Occupied Tile : " + item.name);
+
+                    return GetRandomClearTile();
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Hit Door");
+            return GetRandomClearTile();
         }
         potentialTile.GetComponent<MeshRenderer>().material.color = Color.yellow;
         return potentialTile;
@@ -180,6 +236,7 @@ public class EventGenerator : MonoBehaviour
 
     public void GenerateGrid()
     {
+       
         PopulateTiles(tilenumber);
         DetermineTileType();
     }
@@ -193,7 +250,7 @@ public class EventGenerator : MonoBehaviour
         }
         if (kb.kKey.wasReleasedThisFrame)
         {
-            FindObjectOfType<Porte>().SetDoor(false);
+            DetermineDoors();
         }
     }
 }

@@ -34,6 +34,7 @@ public class GridManager : MonoBehaviour
         else
             instance = this;
         m_EventGenerator = GetComponent<EventGenerator>();
+        m_EventGenerator.gridSize = new Vector2Int(Mathf.FloorToInt(m_GridSize.x), Mathf.FloorToInt(m_GridSize.y));
     }
 
     // Start is called before the first frame update
