@@ -667,6 +667,8 @@ MonoBehaviour:
   value: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   raycastSize: 120
+  VignetteSize: 2
+  vignetteTile: []
   staminaText: {fileID: 2359982327394882495}
   healthText: {fileID: 5195414305510785078}
   vignetteText: {fileID: 1117518999554517107}

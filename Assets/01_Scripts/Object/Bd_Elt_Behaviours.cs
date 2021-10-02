@@ -10,18 +10,16 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [SerializeField] private float m_RadiusDetection;
     [SerializeField] private LayerMask m_LayerDetection;
     [SerializeField] private bool m_IsLook;
-
     [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
-
     [SerializeField] private SpriteRenderer cardImage;
-
     [SerializeField] private Carte_SO value;
-
     public Vector3 offset;
 
     [Space]
     [Header("Param")]
     [SerializeField] private float raycastSize = 65f;
+    [SerializeField] private int VignetteSize = 1 ;
+    [SerializeField] private List<Vector2> vignetteTile = new List<Vector2> ();
 
     [Space]
     [Header ("Text Status")]
@@ -146,6 +144,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                     SetUpCard(myModifier);
                     amountOfModifier++;
                 }
+                vignetteTile.Add(item.collider.gameObject.transform.position);
             }
         }
 
