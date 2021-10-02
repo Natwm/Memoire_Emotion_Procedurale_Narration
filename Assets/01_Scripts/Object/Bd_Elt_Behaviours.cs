@@ -19,7 +19,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [Header("Param")]
     [SerializeField] private float raycastSize = 65f;
     [SerializeField] private int VignetteSize = 1 ;
-    [SerializeField] private List<Vector2> vignetteTile = new List<Vector2> ();
+    [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2> ();
+    [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
 
     [Space]
     [Header ("Text Status")]
@@ -144,7 +145,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                     SetUpCard(myModifier);
                     amountOfModifier++;
                 }
-                vignetteTile.Add(item.collider.gameObject.transform.position);
+                vignetteTilePosition.Add(item.collider.gameObject.transform.position);
+                vignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
             }
         }
 
