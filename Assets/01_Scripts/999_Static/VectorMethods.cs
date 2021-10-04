@@ -64,4 +64,14 @@ public static class VectorMethods
     {
         return ((Mathf.Abs(firstVector.x)> secondVector.x ) || (Mathf.Abs(firstVector.y) > secondVector.y) || (Mathf.Abs(firstVector.z) > secondVector.z));
     }
+
+    public static float ManhattanDistance(Vector2 a, Vector2 b)
+    {
+        return Mathf.Abs(b.x - a.x) + Mathf.Abs(b.y - a.y);
+    }
+    public static bool ManhattanDistance(Vector2 a, Vector2 b, float shouldBeSmallerThan)
+    {
+        return (Mathf.Abs(b.x - a.x) + Mathf.Abs(b.y - a.y)) <= shouldBeSmallerThan;
+    }
+
 }

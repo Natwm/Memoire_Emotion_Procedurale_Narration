@@ -13,10 +13,12 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
     [SerializeField] private SpriteRenderer cardImage;
     [SerializeField] private Carte_SO value;
-    public Vector3 offset;
+    private Vector3 offset;
 
     [Space]
     [Header("Param")]
+    [SerializeField] private bool onGrid = false;
+    [SerializeField] private Vector2 vignetteShape;
     [SerializeField] private float raycastSize = 65f;
     [SerializeField] private int VignetteSize = 1 ;
     [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2> ();
@@ -31,6 +33,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     [Space]
     [Header("event")]
     [SerializeField] private EventContener myEvent;
+
+    [Space]
+    [Header("Movement")]
+    [SerializeField] private Bd_Elt_Behaviours nextMove;
 
     #endregion
 
@@ -71,9 +77,55 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     {
     }
 
+    public Bd_Elt_Behaviours CheckNextMove()
+    {
+        if (onGrid)
+        {
+            print("Check by : " + this.name);
+            foreach (var overedTile in vignetteTile)
+            {
+                //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
+                for (int x = 0; x < vignetteShape.x +1; x++)
+                {
+                    for (int y = 0; y < vignetteShape.y +1; y++)
+                    {
+                        Vector2 tilePos = new Vector2((overedTile.x + x)%4, (overedTile.y + y) % 4);
+                        //print("______________ first  : " + tilePos);
+                        if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !vignetteTile.Contains(tilePos))
+                        {
+                            print("______________" + tilePos);
+                            try
+                            {
+                                GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                TileElt_Behaviours tileEvent;
+                                
+                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                {
+                                    print(tileEvent.EventAssocier.gameObject);
+                                    return tileEvent.EventAssocier;
+                                }
+                            }
+                            catch { }
+                        }
+
+                        //print(GridManager.instance.ListOfTile2D[Mathf.RoundToInt(overedTile.x + x)][Mathf.RoundToInt(overedTile.y + y)]);
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    public void GetNextMove()
+    {
+        NextMove = CheckNextMove();
+        if(NextMove !=null)
+            print("Next move is :    " + NextMove.gameObject);
+    }
+
     public void SetUpCard()
     {
-        print("SetUpCard");
         cardImage.sprite = value.CardSprite;
         MyEvent.SetUpEvent(value);
         SetUpUI();
@@ -133,12 +185,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         int amountOfModifier = 0;
 
         hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / raycastSize, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
-        print(hit.Length);
         if(hit.Length > 0)
         {
             foreach (var item in hit)
             {
-                print(item.collider.name);
                 IModifier myModifier;
                 if(item.collider.TryGetComponent<IModifier>(out myModifier))
                 {
@@ -148,12 +198,20 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                 vignetteTilePosition.Add(item.collider.gameObject.transform.position);
                 vignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
             }
+            onGrid = true;
         }
 
         if (!(amountOfModifier > 0))
         {
             SetUpCard();
         }
+
+        foreach (var item in FindObjectsOfType<Bd_Elt_Behaviours>())
+        {
+            if (item.onGrid)
+                item.GetNextMove();
+        }
+        GameManager.instance.IsMovementvalid();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -177,5 +235,6 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     public Carte_SO Value { get => value; set => this.value = value; }
     public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
     public EventContener MyEvent { get => myEvent; set => myEvent = value; }
+    public Bd_Elt_Behaviours NextMove { get => nextMove; set => nextMove = value; }
     #endregion
 }

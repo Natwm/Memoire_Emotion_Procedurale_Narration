@@ -16,6 +16,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<GameObject> listOfTile = new List<GameObject>();
     [SerializeField] private List<TileElt_Behaviours> listOfEvent;
     [SerializeField] private List<TileElt_Behaviours> listOfMovement;
+    [SerializeField] private List<List<GameObject>> listOfTile2D = new List<List<GameObject>>();
 
     [SerializeField] private LayerMask m_LayerDetection;
 
@@ -24,6 +25,7 @@ public class GridManager : MonoBehaviour
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
+    public List<List<GameObject>> ListOfTile2D { get => listOfTile2D; set => listOfTile2D = value; }
 
     EventGenerator m_EventGenerator;
 
@@ -40,6 +42,10 @@ public class GridManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < m_GridSize.x; i++)
+        {
+            ListOfTile2D.Add(new List<GameObject>());
+        }
         CreateTerrain();
     }
 
@@ -58,6 +64,8 @@ public class GridManager : MonoBehaviour
             {
                 GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 1.2f * m_Size, Quaternion.identity, this.transform);
                 tile.transform.localScale *= m_Size;
+
+                ListOfTile2D[x].Add(tile);
 
                 TileElt_Behaviours tileBehaviours = tile.GetComponent<TileElt_Behaviours>();
                 tileBehaviours.Tileposition = new Vector2(x, y);
@@ -120,6 +128,20 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
         m_EventGenerator.GenerateGrid();
         PlayerManager.instance.SetUp();
+    }
+
+    void ShowDebugTile()
+    {
+        string a = "";
+        foreach (var item in ListOfTile2D)
+        {
+            a += "\n";
+            foreach (var obj in item)
+            {
+                a += obj.name + " | ";
+            }
+        }
+        print(a);
     }
 
     private void OnDrawGizmos()

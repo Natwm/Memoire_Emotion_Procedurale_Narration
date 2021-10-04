@@ -452,6 +452,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &816492501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7994139359605481341, guid: e2ef0f212a3701a44be3b3466b05fd62,
+    type: 3}
+  m_PrefabInstance: {fileID: 1948309536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &897755297 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7583956811170925846, guid: 7dd7d5bf236008047a1c9403c236b07e,
@@ -863,6 +875,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7994139361478528807, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: moveButton
+      value: 
+      objectReference: {fileID: 816492501}
     - target: {fileID: 7994139361478528807, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: vignetteText

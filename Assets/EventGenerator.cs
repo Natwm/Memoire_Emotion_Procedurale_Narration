@@ -22,11 +22,15 @@ public class EventGenerator : MonoBehaviour
 
     GameObject entryTile;
     GameObject exitTile;
+
     public Vector2Int gridSize;
+
+    public GameObject EntryTile { get => entryTile; set => entryTile = value; }
+    public GameObject ExitTile { get => exitTile; set => exitTile = value; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
         kb = InputSystem.GetDevice<Keyboard>();
         m_GridManager = GridManager.instance;
        // GenerateGrid();
@@ -69,12 +73,12 @@ public class EventGenerator : MonoBehaviour
         int RandomEntry = Random.Range(0, leftTiles.Length);
         int RandomExit = Random.Range(0, rightTiles.Length);
 
-        entryTile = leftTiles[RandomEntry];
-        exitTile = rightTiles[RandomExit];
+        EntryTile = leftTiles[RandomEntry];
+        ExitTile = rightTiles[RandomExit];
 
-        GameObject newEntry = Instantiate(doors[0], entryTile.transform);
+        GameObject newEntry = Instantiate(doors[0], EntryTile.transform);
         newEntry.transform.localPosition = Vector3.zero;
-        GameObject newExit = Instantiate(doors[1], exitTile.transform);
+        GameObject newExit = Instantiate(doors[1], ExitTile.transform);
         newExit.transform.localPosition = Vector3.zero;
         allGraphics.Add(newEntry);
         allGraphics.Add(newExit);
@@ -102,7 +106,7 @@ public class EventGenerator : MonoBehaviour
     {
         int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Capacity-1);
         GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
-        if (potentialTile != exitTile && potentialTile != entryTile)
+        if (potentialTile != ExitTile && potentialTile != EntryTile)
         {
             foreach (GameObject item in occupiedTiles)
             {

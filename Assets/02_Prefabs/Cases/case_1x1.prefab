@@ -1179,12 +1179,16 @@ MonoBehaviour:
   listOfAffectedObject: []
   cardImage: {fileID: 4701029206768444382}
   value: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
+  vignetteShape: {x: 1, y: 1}
   raycastSize: 120
+  VignetteSize: 1
+  vignetteTilePosition: []
+  vignetteTile: []
   staminaText: {fileID: 5688204896451002559}
   healthText: {fileID: 309751717140276694}
   vignetteText: {fileID: 5253595035115745825}
   myEvent: {fileID: 3592847244525222304}
+  nextMove: {fileID: 0}
 --- !u!114 &6600330793845246714
 MonoBehaviour:
   m_ObjectHideFlags: 0

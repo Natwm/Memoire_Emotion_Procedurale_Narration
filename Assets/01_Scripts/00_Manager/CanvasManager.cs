@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
 
-    [Header ("Panel")]
+    [Header("Panel")]
     [SerializeField] private GameObject WinPanel;
     [SerializeField] private GameObject LoosePanel;
 
@@ -19,6 +20,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text staminaText;
     [SerializeField] private TMP_Text vignetteText;
 
+    [Space]
+    [Header("Button")]
+    [SerializeField] private Button moveButton;
+
     void Awake()
     {
         if (instance != null)
@@ -26,17 +31,14 @@ public class CanvasManager : MonoBehaviour
         else
             instance = this;
     }
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
+        SetActiveMoveButton(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetActiveMoveButton(bool activeObject)
     {
-        
+        moveButton.interactable = activeObject;
     }
 
     public void NewLogEntry(string content)
