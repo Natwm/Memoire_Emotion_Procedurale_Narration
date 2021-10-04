@@ -13,10 +13,13 @@ public class EventGenerator : MonoBehaviour
 
     public List<GameObject> allGraphics;
 
-    public GameObject[] stamina;
-    public GameObject[] cartes;
-    public GameObject[] pvs;
+
+    public GameObject[] modifiers;
     public GameObject[] doors;
+    GameObject[] stamina;
+    GameObject[] cartes;
+    GameObject[] pvs;
+    
 
     public GameObject key;
 
@@ -149,50 +152,18 @@ public class EventGenerator : MonoBehaviour
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
     {
-        int RandomType = Random.Range(0, 3);
+        int RandomType = Random.Range(0, modifiers.Length);
         GameObject tileType=null;
         if (RandomType == 0)
         {
-            // Stamina
-            if (coinToss())
-            {
-                //Positif
-                tileType = stamina[0];
+            
+                tileType = modifiers[0];
                 tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = 1;
-            }
-            else
-            {
-                tileType = stamina[1];
-                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = -1;
-            }
         }
         else if (RandomType == 1)
         {
-            // Cartes
-            if (coinToss())
-            {
-                tileType = cartes[0];
-                tileToModify.AddComponent<ElementBehaviours_Draw>().AmountOfCardToDraw = 1;
-            }
-            else
-            {
-                tileType = cartes[1];
-                tileToModify.AddComponent<ElementBehaviours_Draw>().AmountOfCardToDraw = -1;
-            }
-        }
-        else if (RandomType == 2)
-        {
-            // PV
-            if (coinToss())
-            {
-                tileType = pvs[0];
-                tileToModify.AddComponent<ElementBehaviours_Heal>().AmountOfHeal= 1;
-            }
-            else
-            {
-                tileType = pvs[1];
-                tileToModify.AddComponent<ElementBehaviours_Heal>().AmountOfHeal = -1;
-            }
+            tileType = modifiers[1];
+            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = 1;
         }
         return tileType;
     }

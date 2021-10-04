@@ -1043,6 +1043,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5877435623820899111, guid: 64d347dd64ca6734cad7c94afc8a4164,
         type: 3}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: modifiers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: allGraphics.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: modifiers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1745835736978089446, guid: fc9fa8eab7c6eba48bacc1ebf5403d35,
+        type: 3}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: modifiers.Array.data[1]
+      value: 
+      objectReference: {fileID: 3730148010370230184, guid: bd1f78fa3bbdd8d40962fd526d08c5dc,
+        type: 3}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: allGraphics.Array.data[0]
+      value: 
+      objectReference: {fileID: 3730148010370230184, guid: bd1f78fa3bbdd8d40962fd526d08c5dc,
+        type: 3}
+    - target: {fileID: 8122658316417090654, guid: 8cf14dec272a157439dd84cf7e16d43c,
+        type: 3}
+      propertyPath: allGraphics.Array.data[1]
+      value: 
+      objectReference: {fileID: 1745835736978089446, guid: fc9fa8eab7c6eba48bacc1ebf5403d35,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cf14dec272a157439dd84cf7e16d43c, type: 3}
 --- !u!1001 &2132764052072156077
