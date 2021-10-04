@@ -25,7 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2247944666039174381}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8, y: -8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -68,15 +68,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   occupiedTiles: []
   tilenumber: 5
-  distribution: {x: 0, y: 0}
+  distribution: {x: 2, y: 2}
   allGraphics: []
-  stamina:
-  - {fileID: 2433357948084096462, guid: eb7ef9572b9f18142a4276bfb7f96cc4, type: 3}
-  - {fileID: 3490403239645442656, guid: 43d450f456a6e204b8dec7e352bcb3df, type: 3}
-  cartes:
-  - {fileID: 8933427331047666015, guid: 3d59c1a181471524786101634f2bdf64, type: 3}
-  - {fileID: 2276169453768489729, guid: 609f8c5e0db96c840b9ce7605d355ce9, type: 3}
-  pvs:
-  - {fileID: 2838176479981807376, guid: 07568372225140b4b85125133c226f8c, type: 3}
-  - {fileID: 7581811715957945008, guid: 90411a2aaa19fcc4a88715e33c332621, type: 3}
+  modifiers:
+  - {fileID: 1745835736978089446, guid: fc9fa8eab7c6eba48bacc1ebf5403d35, type: 3}
+  - {fileID: 3730148010370230184, guid: bd1f78fa3bbdd8d40962fd526d08c5dc, type: 3}
+  doors:
+  - {fileID: 8331976191324755528, guid: 579308bf24d49f74280e9799990820b2, type: 3}
+  - {fileID: 5877435623820899111, guid: 64d347dd64ca6734cad7c94afc8a4164, type: 3}
   key: {fileID: 1750439556719683507, guid: 02f881d0c74129c4fafdb41835f5f25c, type: 3}
+  gridSize: {x: 0, y: 0}
