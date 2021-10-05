@@ -20,11 +20,16 @@ public class Bd_Component : MonoBehaviour
     public GameObject[] Gabarit_Composition;
     public GameObject[] Vignettes;
     public GameObject vignetteHolder;
-    public Sprite Expression_Sprite;
-
+    public Sprite[] Expression_Sprite;
+    Vignette currentVignette;
     public int Pose;
     public Color character_Color;
-
+    public int iterationNumber;
+    Vector3 VignettePos = Vector3.zero;
+    int VignetteIndex = 1;
+    List<Vignette> VignetteSequence;
+    public float gouttiere;
+    string[] cases = { "1x1","1x2","2x1","2x2" };
     private void Awake()
     {
         if (bd_instance != null)
@@ -36,14 +41,52 @@ public class Bd_Component : MonoBehaviour
     private void Start()
     {
         kb = InputSystem.GetDevice<Keyboard>();
-        SpawnVignette();
+        for (int i = 0; i < iterationNumber; i++)
+        {
+            CreateNewRandomVignette();
+        }
+    }
+
+    public GameObject GetComp(int caseIndex)
+    {
+        string chemin = "Generation/Composition/" + cases[caseIndex];
+        return Resources.Load<GameObject>(chemin);
+    }
+
+    public GameObject GetVignette(int caseIndex)
+    {
+        string chemin = "Generation/Vignette/" + "case_" + cases[caseIndex];
+        return Resources.Load<GameObject>(chemin);
+    }
+
+    public void CreateNewRandomVignette()
+    {
+        Pose = Random.Range(0, InVignetteSpawn.Length);
+        int randomObjNumber = Random.Range(1, 3);
+        int randomObj = Random.Range(0, InVignetteSpawn.Length);
+        int randomInt = Random.Range(0, cases.Length);
+        GameObject newHolder = new GameObject();
+        newHolder.name = "Vignette_" + VignetteIndex;
+        VignetteIndex++;
+        
+        
+        Vignette tempVignette = new Vignette(randomObjNumber, GetVignette(randomInt), newHolder.transform, InVignetteSpawn, GetComp(randomInt));
+        tempVignette.Vignette_Object.transform.localPosition = Vector3.zero;
+        float Vignette_shift = 0;
+        if (currentVignette != null)
+        {
+            Vignette_shift = tempVignette.Vignette_Object.GetComponent<MeshCollider>().bounds.extents.x + currentVignette.Vignette_Object.GetComponent<MeshCollider>().bounds.extents.x + gouttiere;
+        }        
+        VignettePos.x += Vignette_shift;
+        newHolder.transform.position = VignettePos;
+        currentVignette = tempVignette;
     }
 
     private void Update()
     {
         if (kb.jKey.wasReleasedThisFrame)
         {
-            SpawnVignette();
+            //CreateNewRandomVignette();
         }
     }
 
@@ -51,11 +94,18 @@ public class Bd_Component : MonoBehaviour
     {
         Vignette newV = new Vignette(1, Vignettes[0], vignetteHolder.transform, InVignetteSpawn,Gabarit_Composition[0]);
     }
+
+    public Sprite GetRandomSprite()
+    {
+        return Expression_Sprite[Random.Range(0, Expression_Sprite.Length)];
+    } 
+
 }
 
 public class Vignette
 {
     int ObjectsNumber;
+    public GameObject Vignette_Object;
     public GameObject Cadre_Object;
     SpriteRenderer Sprite_Vignette;
     public SpriteMask Mask_Vignette; 
@@ -66,7 +116,8 @@ public class Vignette
     {
         // INITIALISATION VIGNETTE
         GameObject tempVignette = GameObject.Instantiate(_vignetteType,_parent);
-        Cadre_Object = tempVignette;
+        Vignette_Object = tempVignette;
+        Cadre_Object = tempVignette.transform.GetChild(0).gameObject;
         GameObject tempGab = GameObject.Instantiate(_gabarit, Cadre_Object.transform);
         Gabarit_Composition = tempGab;
         Gabarit_Composition.transform.localPosition = Vector3.zero;
@@ -81,7 +132,7 @@ public class Vignette
         for (int i = 0; i < InVignette_Objects.Length; i++)
         {
 
-            InVignette_Objects[i] = new Bd_Object(this,_obj[Bd_Component.bd_instance.Pose],Bd_Component.bd_instance.character_Color,Bd_Component.bd_instance.Expression_Sprite,GetRandomCompositionPoint());
+            InVignette_Objects[i] = new Bd_Object(this,_obj[Bd_Component.bd_instance.Pose],Bd_Component.bd_instance.character_Color,Bd_Component.bd_instance.GetRandomSprite(),GetRandomCompositionPoint());
         }
         GameObject.Destroy(Gabarit_Composition);
     }
@@ -163,6 +214,7 @@ public class Bd_Object
         currentExpression = _expression;
         Expression_Renderer = Expression_Pivot.GetComponent<SpriteRenderer>();
         Expression_Renderer.sprite = _expression;
+        Expression_Renderer.color = Color.black;
         Expression_Renderer.sortingLayerName = ObjectLine_Renderer.sortingLayerName;
         Expression_Renderer.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
     }
