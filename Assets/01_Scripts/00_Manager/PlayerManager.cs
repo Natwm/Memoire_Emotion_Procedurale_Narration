@@ -30,6 +30,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int amountOfCardToDraw;
 
     [Space]
+    [SerializeField] private int drawCoast;
+
+    [Space]
     [Header("Movement")]
     [SerializeField] private List<GameObject> visitedVignette;
 
@@ -232,6 +235,17 @@ public class PlayerManager : MonoBehaviour
     {
         print("okdqd");
         LevelManager.instance.SpawnObject(1);
+    }
+
+    public void DrawVignetteByStamina()
+    {
+        if(stamina - drawCoast >= 0)
+        {
+            stamina -= drawCoast;
+            LevelManager.instance.SpawnObject(1);
+            CanvasManager.instance.UpdateStaminaPoint(stamina);
+        }
+        
     }
 
     private void DiscardVignette()
