@@ -38,8 +38,14 @@ public class CanvasManager : MonoBehaviour
 
     public void SetActiveMoveButton(bool activeObject)
     {
+        if (activeObject)
+            moveButton.gameObject.GetComponent<Image>().color = Color.green;
+        else
+            moveButton.gameObject.GetComponent<Image>().color = Color.red;
+
         moveButton.interactable = activeObject;
     }
+
 
     public void NewLogEntry(string content)
     {

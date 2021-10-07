@@ -69,13 +69,20 @@ public class GameManager : MonoBehaviour
             }
         }
         if (value > 3)
+        {
             CanvasManager.instance.SetActiveMoveButton(true);
+        }
         else
+        {
             CanvasManager.instance.SetActiveMoveButton(false);
+        }
+            
     }
 
     public void GameOver()
     {
         CanvasManager.instance.PlayerLooseTheGame();
     }
+
+
 }
