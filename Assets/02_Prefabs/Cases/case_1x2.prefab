@@ -661,6 +661,9 @@ MonoBehaviour:
   m_LayerDetection:
     serializedVersion: 2
     m_Bits: 512
+  m_LayerDetectionGrid:
+    serializedVersion: 2
+    m_Bits: 1024
   m_IsLook: 0
   listOfAffectedObject: []
   cardImage: {fileID: 7968608701250733846}
