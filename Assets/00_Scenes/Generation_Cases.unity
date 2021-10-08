@@ -296,9 +296,18 @@ MonoBehaviour:
   Vignettes:
   - {fileID: 5910093609932372340}
   vignetteHolder: {fileID: 360532045}
-  Expression_Sprite: {fileID: 21300000, guid: 1fd1e30798464334e91313c1faa050cc, type: 3}
+  Expression_Sprite:
+  - {fileID: 21300000, guid: 892529276a5fa6f45a54d74d685e6b2d, type: 3}
+  - {fileID: 21300000, guid: 9e69f58294049494895baade271bacd4, type: 3}
+  - {fileID: 21300000, guid: 8743fd418a77bdc42b53131dc5b057cd, type: 3}
+  - {fileID: 21300000, guid: 9605e57080f137748a8b71af1e08bbb5, type: 3}
+  - {fileID: 21300000, guid: ff5ddb45a33a82f4791910d12a4311cb, type: 3}
+  - {fileID: 21300000, guid: af512e760488c4644937bee50e9cfab8, type: 3}
+  - {fileID: 21300000, guid: 01e344557448f884c80716d6a98e83af, type: 3}
   Pose: 2
   character_Color: {r: 0.2735849, g: 0.1475425, b: 0.011614448, a: 1}
+  iterationNumber: 5
+  gouttiere: 0.1
 --- !u!4 &575054793
 Transform:
   m_ObjectHideFlags: 0
