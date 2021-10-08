@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653724610098669371}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0002, z: 0}
   m_LocalScale: {x: 0.0069, y: 0.0069, z: 0.0009999999}
   m_Children:
   - {fileID: 2868955947188605544}
@@ -557,7 +557,7 @@ SpriteRenderer:
   m_Size: {x: 0.28, y: 0.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &3597433795236425078
@@ -665,6 +665,7 @@ MonoBehaviour:
   listOfAffectedObject: []
   cardImage: {fileID: 7968608701250733846}
   value: {fileID: 0}
+  onGrid: 0
   vignetteShape: {x: 1, y: 2}
   raycastSize: 120
   VignetteSize: 2
@@ -807,7 +808,7 @@ SpriteRenderer:
   m_Size: {x: 0.27, y: 0.22}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4407737121559748208

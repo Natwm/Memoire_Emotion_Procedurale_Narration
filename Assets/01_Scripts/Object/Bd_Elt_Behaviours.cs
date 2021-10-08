@@ -90,10 +90,9 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                     for (int y = 0; y < vignetteShape.y +1; y++)
                     {
                         Vector2 tilePos = new Vector2((overedTile.x + x)%4, (overedTile.y + y) % 4);
-                        //print("______________ first  : " + tilePos);
+
                         if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !vignetteTile.Contains(tilePos))
                         {
-                            print("______________" + tilePos);
                             try
                             {
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
@@ -113,13 +112,17 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                 }
             }
         }
+        else
+        {
+            nextMove = null;
+        }
         
         return null;
     }
 
     public void GetNextMove()
     {
-        NextMove = CheckNextMove();
+        NextMove = CheckNextMove() != this ? CheckNextMove() : null;
         if(NextMove !=null)
             print("Next move is :    " + NextMove.gameObject);
     }

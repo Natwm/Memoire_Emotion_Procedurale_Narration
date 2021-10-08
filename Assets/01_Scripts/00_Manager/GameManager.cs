@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         EventGenerator eventgenerator = FindObjectOfType<EventGenerator>();
         GameObject entryGO = null;
         GameObject exitGO = null;
+
         if (eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier !=null)
             entryGO = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
@@ -33,38 +34,68 @@ public class GameManager : MonoBehaviour
         bool isEntryConnected = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
         bool isExitConnected = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
 
-        if(isEntryConnected && isExitConnected)
+  //      print("  keyGO = " + keyGO.gameObject);
+//        print("  exitGO = " + exitGO.gameObject);
+
+    //    print(" EntryTile  " + eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().gameObject);
+      //  print(" ExitTile   " + eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().gameObject);
+
+        if (isEntryConnected && isExitConnected)
         {
             GridManager.instance.SortList();
             
-
             if(entryGO != null && exitGO != null)
             {
 
                 for (int i = 0; i < GridManager.instance.ListOfMovement.Count ; i++)
                 {
                     Bd_Elt_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
-                    print(i);
+                    print(i + "  stepBD = " + stepBD.gameObject);
+                    if(stepBD.NextMove !=null)
+                        print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);
 
                     if (stepBD.NextMove != null)
                     {
-                        GameObject myStep = stepBD.NextMove.gameObject;
+                        GameObject myStep = stepBD.gameObject;
                         if (myStep == entryGO)
+                        {
+                            print("EntryGooooooo");
                             value++;
+                        }
+                            
                         else if (myStep == exitGO)
+                        {
+                            print("ExitGooooooo");
                             value++;
+                        }
+                            
                         else if (myStep == keyGO)
+                        {
+                            print("KeyGooooooo");
                             value++;
+                        }
+                            
 
                     }
                 }
                 GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count-1].EventAssocier.gameObject;
                 if (lastStep == entryGO)
+                {
+                    print("EntryGooooooo");
                     value++;
+                }
+
                 else if (lastStep == exitGO)
+                {
+                    print("ExitGooooooo");
                     value++;
+                }
+
                 else if (lastStep == keyGO)
+                {
+                    print("KeyGooooooo");
                     value++;
+                }
 
             }
         }
@@ -76,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
             CanvasManager.instance.SetActiveMoveButton(false);
         }
-            
+        print("Valeue is : " + value);
     }
 
     public void GameOver()
