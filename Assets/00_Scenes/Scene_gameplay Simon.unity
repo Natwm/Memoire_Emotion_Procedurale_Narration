@@ -367,7 +367,9 @@ GameObject:
   m_Component:
   - component: {fileID: 538603185}
   - component: {fileID: 538603184}
-  m_Layer: 0
+  - component: {fileID: 538603186}
+  - component: {fileID: 538603187}
+  m_Layer: 10
   m_Name: Aide_Grille
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,6 +440,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538603186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538603183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614105fe1fcaf8147ad0ed8f8cea4829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &538603187
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538603183}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.709999, y: 13.699999, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &545347240
 GameObject:
   m_ObjectHideFlags: 0

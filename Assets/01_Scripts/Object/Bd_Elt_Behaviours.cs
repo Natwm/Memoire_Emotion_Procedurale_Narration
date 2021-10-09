@@ -9,6 +9,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     #region param
     [SerializeField] private float m_RadiusDetection;
     [SerializeField] private LayerMask m_LayerDetection;
+    [SerializeField] private LayerMask m_LayerDetectionGrid;
     [SerializeField] private bool m_IsLook;
     [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
     [SerializeField] private SpriteRenderer cardImage;
@@ -70,6 +71,11 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         //Move the GameObject when you drag it
         if(!m_IsLook)
             transform.position = rayPoint;
+
+        RaycastHit hit;
+        Physics.Raycast(this.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetectionGrid);
+        if (hit.collider != null)
+            print("ok");
     }
 
     // Update is called once per frame
@@ -90,10 +96,9 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                     for (int y = 0; y < vignetteShape.y +1; y++)
                     {
                         Vector2 tilePos = new Vector2((overedTile.x + x)%4, (overedTile.y + y) % 4);
-                        //print("______________ first  : " + tilePos);
+
                         if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !vignetteTile.Contains(tilePos))
                         {
-                            print("______________" + tilePos);
                             try
                             {
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
@@ -113,13 +118,17 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                 }
             }
         }
+        else
+        {
+            nextMove = null;
+        }
         
         return null;
     }
 
     public void GetNextMove()
     {
-        NextMove = CheckNextMove();
+        NextMove = CheckNextMove() != this ? CheckNextMove() : null;
         if(NextMove !=null)
             print("Next move is :    " + NextMove.gameObject);
     }
