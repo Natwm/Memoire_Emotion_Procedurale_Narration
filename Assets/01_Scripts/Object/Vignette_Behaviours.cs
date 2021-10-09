@@ -3,30 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
-public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
     #region param
-    [SerializeField] private float m_RadiusDetection;
-    [SerializeField] private LayerMask m_LayerDetection;
-    [SerializeField] private LayerMask m_LayerDetectionGrid;
-    [SerializeField] private bool m_IsLook;
-    [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
-    [SerializeField] private SpriteRenderer cardImage;
-    [SerializeField] private Carte_SO value;
+
     private Vector3 offset;
 
     [Space]
-    [Header("Param")]
-    [SerializeField] private bool onGrid = false;
-    [SerializeField] private Vector2 vignetteShape;
+    [Header("Raycast")]
+    [SerializeField] private float m_RadiusDetection;
     [SerializeField] private float raycastSize = 65f;
-    [SerializeField] private int VignetteSize = 1 ;
-    [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2> ();
-    [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
+    [SerializeField] private LayerMask m_LayerDetection;
+    [SerializeField] private LayerMask m_LayerDetectionGrid;
+
 
     [Space]
-    [Header ("Text Status")]
+    [Header("Param")]
+    [SerializeField] private Vector2 vignetteShape;
+    [SerializeField] private int VignetteSize = 1;
+    [SerializeField] private SpriteRenderer cardImage;
+    [SerializeField] private GameObject vignetteScene;
+    [SerializeField] private GameObject vignetteImage;
+    [SerializeField] private GameObject vignetteInfo;
+
+    [Header("List")]
+    [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2>();
+    [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
+    [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
+
+    [Header("Boolean/flag")]
+    [SerializeField] private bool onGrid = false;
+    [SerializeField] private bool m_IsLook;
+    [SerializeField] private bool m_IsVignetteShowUp;
+
+    [Space]
+    [Header("Text Status")]
     [SerializeField] private TMPro.TMP_Text staminaText;
     [SerializeField] private TMPro.TMP_Text healthText;
     [SerializeField] private TMPro.TMP_Text vignetteText;
@@ -37,7 +50,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
     [Space]
     [Header("Movement")]
-    [SerializeField] private Bd_Elt_Behaviours nextMove;
+    [SerializeField] private Vignette_Behaviours nextMove;
 
     #endregion
 
@@ -53,29 +66,19 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         entry.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
         trigger.triggers.Add(entry);
 
+        m_IsVignetteShowUp = false;
+
+        vignetteInfo = transform.GetChild(0).gameObject;
+        //vignetteInfo.SetActive(true);
+
+        vignetteScene = transform.GetChild(1).gameObject;
+        //vignetteScene.SetActive(false);
+
+        vignetteImage = vignetteScene.transform.GetChild(0).gameObject;
+        vignetteImage.GetComponent<SpriteRenderer>().DOFade(0, 0f);
+
         myEvent = GetComponent<EventContener>();
         SetUpCard();
-    }
-
-    private void OnDragDelegate(PointerEventData data)
-    {
-        //Create a ray going from the camera through the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(data.position);
-        
-        //Calculate the distance between the Camera and the GameObject, and go this distance along the ray
-        Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
-
-        rayPoint += offset;
-
-        rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
-        //Move the GameObject when you drag it
-        if(!m_IsLook)
-            transform.position = rayPoint;
-
-        RaycastHit hit;
-        Physics.Raycast(this.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetectionGrid);
-        if (hit.collider != null)
-            print("ok");
     }
 
     // Update is called once per frame
@@ -83,7 +86,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     {
     }
 
-    public Bd_Elt_Behaviours CheckNextMove()
+    public Vignette_Behaviours CheckNextMove()
     {
         if (onGrid)
         {
@@ -91,11 +94,11 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
             foreach (var overedTile in vignetteTile)
             {
                 //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
-                for (int x = 0; x < vignetteShape.x +1; x++)
+                for (int x = 0; x < vignetteShape.x + 1; x++)
                 {
-                    for (int y = 0; y < vignetteShape.y +1; y++)
+                    for (int y = 0; y < vignetteShape.y + 1; y++)
                     {
-                        Vector2 tilePos = new Vector2((overedTile.x + x)%4, (overedTile.y + y) % 4);
+                        Vector2 tilePos = new Vector2((overedTile.x + x) % 4, (overedTile.y + y) % 4);
 
                         if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !vignetteTile.Contains(tilePos))
                         {
@@ -103,7 +106,7 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
                             {
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
                                 TileElt_Behaviours tileEvent;
-                                
+
                                 if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                 {
                                     print(tileEvent.EventAssocier.gameObject);
@@ -122,84 +125,88 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         {
             nextMove = null;
         }
-        
+
         return null;
     }
 
     public void GetNextMove()
     {
         NextMove = CheckNextMove() != this ? CheckNextMove() : null;
-        if(NextMove !=null)
+        if (NextMove != null)
             print("Next move is :    " + NextMove.gameObject);
     }
 
-    public void SetUpCard()
+    public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
     {
-        cardImage.sprite = value.CardSprite;
-        MyEvent.SetUpEvent(value);
+        myEvent.SetUp(happySad_Value,angryFear_Value,amountofVignetteToDraw,isKey);
+        cardImage.sprite = vignetteRender;
         SetUpUI();
     }
 
     public void SetUpCard(IModifier modifier)
     {
-        print("SetUpCard with Modifier");
         modifier.CollectElement(myEvent);
-        print("SetUpCard");
         SetUpUI();
     }
 
     //quand tu drop, ne mets pas a jour le script event
     private void SetUpUI()
     {
-        if(myEvent.Happy_Sad >= 0)
+        if (myEvent.CurrentHappy_Sad >= 0)
         {
-            healthText.text = "+" + MyEvent.Happy_Sad.ToString();
-            healthText.color = value.Happy_Sad >0? Color.red : Color.black;
+            healthText.text = "+" + MyEvent.CurrentHappy_Sad.ToString();
+            healthText.color = MyEvent.CurrentHappy_Sad > 0 ? Color.red : Color.black;
         }
 
         else
         {
-            healthText.text = MyEvent.Happy_Sad.ToString();
+            healthText.text = MyEvent.CurrentHappy_Sad.ToString();
         }
 
-        if (myEvent.Angry_Fear >= 0)
+        if (myEvent.CurrentAngry_Fear >= 0)
         {
-            staminaText.text = value.Angry_Fear >= 0 ? "+" + MyEvent.Angry_Fear.ToString() :  MyEvent.Angry_Fear.ToString();
-            staminaText.color = value.Angry_Fear >= 0 ? Color.red : Color.black;
+            staminaText.text = MyEvent.CurrentAngry_Fear >= 0 ? "+" + MyEvent.CurrentAngry_Fear.ToString() : MyEvent.CurrentAngry_Fear.ToString();
+            staminaText.color = MyEvent.CurrentAngry_Fear >= 0 ? Color.red : Color.black;
         }
 
         else
         {
-            staminaText.text = MyEvent.Angry_Fear.ToString();
+            staminaText.text = MyEvent.CurrentAngry_Fear.ToString();
         }
 
-        if (myEvent.Vignette >= 0)
+        if (myEvent.CurrentAmountOfVignetteToDraw >= 0)
         {
-            vignetteText.text = value.AmountOfVignetteToDraw >= 0 ? "+" + MyEvent.Vignette.ToString() :  MyEvent.Vignette.ToString();
-            vignetteText.color = value.AmountOfVignetteToDraw >= 0 ? Color.red : Color.black;
+            vignetteText.text = MyEvent.CurrentAmountOfVignetteToDraw >= 0 ? "+" + MyEvent.CurrentAmountOfVignetteToDraw.ToString() : MyEvent.CurrentAmountOfVignetteToDraw.ToString();
+            vignetteText.color = MyEvent.CurrentAmountOfVignetteToDraw >= 0 ? Color.red : Color.black;
         }
         else
         {
-            vignetteText.text = MyEvent.Vignette.ToString();
+            vignetteText.text = MyEvent.CurrentAmountOfVignetteToDraw.ToString();
         }
-        
+
+    }
+
+    private void ShowVignetteElt(GameObject inObject, GameObject outObject, float speed = 0.25f)
+    {
+        outObject.GetComponent<SpriteRenderer>().DOFade(0, speed);
+        inObject.GetComponent<SpriteRenderer>().DOFade(1, speed);
     }
 
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
         GridManager.instance.CheckTile();
-        
+
         RaycastHit[] hit;
         int amountOfModifier = 0;
 
         hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / raycastSize, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
-        if(hit.Length > 0)
+        if (hit.Length > 0)
         {
             foreach (var item in hit)
             {
                 IModifier myModifier;
-                if(item.collider.TryGetComponent<IModifier>(out myModifier))
+                if (item.collider.TryGetComponent<IModifier>(out myModifier))
                 {
                     SetUpCard(myModifier);
                     amountOfModifier++;
@@ -212,10 +219,10 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
         if (!(amountOfModifier > 0))
         {
-            SetUpCard();
+            myEvent.ResetEvent();
         }
 
-        foreach (var item in FindObjectsOfType<Bd_Elt_Behaviours>())
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
             if (item.onGrid)
                 item.GetNextMove();
@@ -230,8 +237,45 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
         //AJouter la distance entre le pivot et le curseur;
         offset = transform.position - (Vector3)data;
 
-        SetUpCard();
+        myEvent.ResetEvent();
+        SetUpUI();
     }
+
+    private void OnDragDelegate(PointerEventData data)
+    {
+        //Create a ray going from the camera through the mouse position
+        Ray ray = Camera.main.ScreenPointToRay(data.position);
+
+        //Calculate the distance between the Camera and the GameObject, and go this distance along the ray
+        Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
+
+        rayPoint += offset;
+
+        rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
+        //Move the GameObject when you drag it
+        if (!m_IsLook)
+            transform.position = rayPoint;
+
+
+        RaycastHit hit;
+        Physics.Raycast(this.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetectionGrid);
+        if (hit.collider != null)
+        {
+            m_IsVignetteShowUp = true;
+            /*vignetteScene.SetActive(true);
+            vignetteInfo.SetActive(false);*/
+            ShowVignetteElt(vignetteImage, vignetteInfo,.2f);
+        }
+        else
+        {
+            m_IsVignetteShowUp = false;
+            /*vignetteScene.SetActive(false);
+            vignetteInfo.SetActive(true);*/
+
+            ShowVignetteElt(vignetteInfo, vignetteImage,.2f);
+        }
+    }
+
     #endregion
 
     private void OnDrawGizmos()
@@ -241,9 +285,8 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
 
 
     #region Getter & Setter
-    public Carte_SO Value { get => value; set => this.value = value; }
     public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
     public EventContener MyEvent { get => myEvent; set => myEvent = value; }
-    public Bd_Elt_Behaviours NextMove { get => nextMove; set => nextMove = value; }
+    public Vignette_Behaviours NextMove { get => nextMove; set => nextMove = value; }
     #endregion
 }

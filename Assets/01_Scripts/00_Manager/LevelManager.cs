@@ -38,10 +38,9 @@ public class LevelManager : MonoBehaviour
         foreach (var item in listOfObjectToSpawn)
         {
             GameObject card = Instantiate(item, parent);
-            Bd_Elt_Behaviours cardBd = card.GetComponent<Bd_Elt_Behaviours>();
+            Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
 
             int elt = Random.Range(0, nbElement);
-            cardBd.Value = listOfSO[elt] as Carte_SO;
             cardBd.SetUpCard();
 
             PlayerManager.instance.HandOfVignette.Add(cardBd);
@@ -60,10 +59,9 @@ public class LevelManager : MonoBehaviour
             GameObject item = listOfObjectToSpawn[vignette];
 
             GameObject card = Instantiate(item, parent);
-            Bd_Elt_Behaviours cardBd = card.GetComponent<Bd_Elt_Behaviours>();
+            Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
 
             int elt = Random.Range(0, nbElement);
-            cardBd.Value = listOfSO[elt] as Carte_SO;
             cardBd.SetUpCard();
 
             PlayerManager.instance.HandOfVignette.Add(cardBd);

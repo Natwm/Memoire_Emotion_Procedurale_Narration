@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space]
     [Header("Hand")]
-    [SerializeField] private List<Bd_Elt_Behaviours> handOfVignette;
+    [SerializeField] private List<Vignette_Behaviours> handOfVignette;
     [SerializeField] private int minCardToDraw = 4;
     [SerializeField] private int amountOfCardToDraw;
 
@@ -260,7 +260,7 @@ public class PlayerManager : MonoBehaviour
     private void DiscardVignette()
     {
         int selectedCard = Random.Range(0, HandOfVignette.Count);
-        Bd_Elt_Behaviours vignetteToDelete = HandOfVignette[selectedCard];
+        Vignette_Behaviours vignetteToDelete = HandOfVignette[selectedCard];
         HandOfVignette.Remove(vignetteToDelete);
         Destroy(vignetteToDelete.gameObject);
 
@@ -272,7 +272,7 @@ public class PlayerManager : MonoBehaviour
     public int MaxHealth { get => maxHappyness; set => maxHappyness = value; }
     public int Health { get => Player_Happy_SadValue; set => Player_Happy_SadValue = value; }
     public bool HaveKey { get => haveKey; set => haveKey = value; }
-    public List<Bd_Elt_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
+    public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
     public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
     #endregion

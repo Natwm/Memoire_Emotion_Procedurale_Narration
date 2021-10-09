@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
                 for (int i = 0; i < GridManager.instance.ListOfMovement.Count ; i++)
                 {
-                    Bd_Elt_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
+                    Vignette_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
                     print(i + "  stepBD = " + stepBD.gameObject);
                     if(stepBD.NextMove !=null)
                         print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);

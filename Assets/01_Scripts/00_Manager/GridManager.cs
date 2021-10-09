@@ -88,9 +88,9 @@ public class GridManager : MonoBehaviour
             hit = Physics.BoxCastAll(item.transform.position,transform.localScale/1.65f,Vector3.back,Quaternion.identity,Mathf.Infinity, m_LayerDetection);
             if (hit.Length > 0)
             {
-                item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Bd_Elt_Behaviours>());
+                item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Vignette_Behaviours>());
 
-                if (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.Happy_Sad > 0)
+                if (hit[0].collider.GetComponent<Vignette_Behaviours>().MyEvent.Happy_Sad > 0)
                 {
                     item.GetComponent<MeshRenderer>().material.color = Color.blue;
                 }
@@ -120,7 +120,7 @@ public class GridManager : MonoBehaviour
     {
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
 
-        foreach (var item in FindObjectsOfType<Bd_Elt_Behaviours>())
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
             Destroy(item.gameObject);
         }

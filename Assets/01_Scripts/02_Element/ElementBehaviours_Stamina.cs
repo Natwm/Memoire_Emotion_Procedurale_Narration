@@ -10,6 +10,6 @@ public class ElementBehaviours_Stamina : MonoBehaviour, IModifier
 
     public void CollectElement(EventContener eventElt)
     {
-        eventElt.Angry_Fear += AmountOfAngryOrfear;
+        eventElt.CurrentAngry_Fear += AmountOfAngryOrfear;
     }
 }

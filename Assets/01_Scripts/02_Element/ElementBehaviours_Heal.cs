@@ -10,6 +10,6 @@ public class ElementBehaviours_Heal: ElementBehaviours,IModifier
 
     public override void CollectElement(EventContener eventElt)
     {
-        eventElt.Happy_Sad += AmountOfHappyOrSad;
+        eventElt.CurrentHappy_Sad += AmountOfHappyOrSad;
     }
 }

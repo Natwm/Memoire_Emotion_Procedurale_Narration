@@ -367,7 +367,7 @@ Transform:
   m_LocalScale: {x: 0.009116249, y: 0.01401202, z: 0.02}
   m_Children: []
   m_Father: {fileID: 7612434531423654524}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1264959181206978962
 SpriteRenderer:
@@ -633,7 +633,7 @@ Transform:
   - {fileID: 135473472210221528}
   - {fileID: 1946272063418614938}
   m_Father: {fileID: 7612434531423654524}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &4270325822191684499
 SpriteMask:
@@ -1107,6 +1107,7 @@ Transform:
   m_LocalPosition: {x: 6.4898806, y: -5.96012, z: -0.74902344}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
+  - {fileID: 7015317141455844075}
   - {fileID: 1021541348233670679}
   - {fileID: 4630194394411101204}
   m_Father: {fileID: 0}
@@ -1172,22 +1173,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RadiusDetection: 0
+  raycastSize: 120
   m_LayerDetection:
     serializedVersion: 2
     m_Bits: 512
   m_LayerDetectionGrid:
     serializedVersion: 2
     m_Bits: 1024
-  m_IsLook: 0
-  listOfAffectedObject: []
+  vignetteShape: {x: 1, y: 1}
+  VignetteSize: 1
   cardImage: {fileID: 4701029206768444382}
   value: {fileID: 0}
-  onGrid: 0
-  vignetteShape: {x: 1, y: 1}
-  raycastSize: 120
-  VignetteSize: 1
+  vignetteScene: {fileID: 0}
+  vignetteInfo: {fileID: 0}
   vignetteTilePosition: []
   vignetteTile: []
+  listOfAffectedObject: []
+  onGrid: 0
+  m_IsLook: 0
+  m_IsVignetteShowUp: 0
   staminaText: {fileID: 5688204896451002559}
   healthText: {fileID: 309751717140276694}
   vignetteText: {fileID: 5253595035115745825}
@@ -1243,10 +1247,92 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446891cee17bf954680dc095cd45dcfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  movement: 0
+  happy_Sad: 0
+  angry_Fear: 0
   vignette: 0
   isKey: 0
+--- !u!1 &8794892751053152473
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7015317141455844075}
+  - component: {fileID: 7806865221872784245}
+  m_Layer: 8
+  m_Name: New Sprite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7015317141455844075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794892751053152473}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00015, y: 0.00124, z: 0}
+  m_LocalScale: {x: 0.15794273, y: 0.1467006, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7612434531423654524}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &7806865221872784245
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8794892751053152473}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -7672933682870719973, guid: 1173a9f579aa218458f8208e4b798b24,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.1225, y: 0.1275}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &8906490132017197254
 GameObject:
   m_ObjectHideFlags: 0

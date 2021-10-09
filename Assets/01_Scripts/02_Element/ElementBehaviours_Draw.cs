@@ -10,7 +10,7 @@ public class ElementBehaviours_Draw : ElementBehaviours, IModifier
 
     public override void CollectElement(EventContener eventElt)
     {
-        eventElt.Vignette += AmountOfCardToDraw;
+        eventElt.CurrentAmountOfVignetteToDraw += AmountOfCardToDraw;
         print("okd");
     }
 }
