@@ -54,18 +54,18 @@ public class CanvasManager : MonoBehaviour
 
     public void UpdateInformationText(int life, int stamina, int vignette)
     {
-        UpdateLifePoint(life);
-        UpdateStaminaPoint(stamina);
+        Update_Happy_Sadness_Status(life);
+        Update_Angry_Fear_Status(stamina);
         UpdateVignetteToDraw(vignette);
     }
 
-    public void UpdateLifePoint(int life)
+    public void Update_Happy_Sadness_Status(int life)
     {
-        lifeText.text = "Life : " + life;
+        lifeText.text = "Happy / Sad : " + life;
     }
-    public void UpdateStaminaPoint(int stamina)
+    public void Update_Angry_Fear_Status(int stamina)
     {
-        staminaText.text = "Stamina : " + stamina;
+        staminaText.text = "Angry / Fear : " + stamina;
     }
 
     public void UpdateVignetteToDraw(int amoutOfVignette)

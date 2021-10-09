@@ -33,32 +33,28 @@ public class TileElt_Behaviours : MonoBehaviour
         string content="";
         print(eventAssocier.name);
 
-        if(eventAssocier.Value.HealthAffect == Carte_SO.Affect.USE)
+        if(eventAssocier.Value.Happy_SadAffect == Carte_SO.Affect.USE)
         {
 
-            if (eventAssocier.MyEvent.Health > 0)
+            if (eventAssocier.MyEvent.Happy_Sad > 0)
             {
-                player.GainHeath(eventAssocier.MyEvent.Health);
-                content += " Player gain " + eventAssocier.MyEvent.Health + " life point \n";
+                player.Update_Happyness_Sadness(eventAssocier.MyEvent.Happy_Sad);
             }
             else
             {
-                player.GainHeath(eventAssocier.MyEvent.Health);
-                content += " Player loose " + eventAssocier.MyEvent.Health + " life point \n";
+                player.Update_Happyness_Sadness(eventAssocier.MyEvent.Happy_Sad);
             }
         }
 
-        if (eventAssocier.Value.MovementAffect == Carte_SO.Affect.USE)
+        if (eventAssocier.Value.Angry_FearAffect == Carte_SO.Affect.USE)
         {
-            if (eventAssocier.Value.Movement > 0)
+            if (eventAssocier.Value.Angry_Fear > 0)
             {
-                player.GainMovement(eventAssocier.MyEvent.Movement);
-                content += " Player gain " + eventAssocier.MyEvent.Movement + " stamina point";
+                player.Update_Angry_Fear(eventAssocier.MyEvent.Angry_Fear);
             }
             else
             {
-                player.GainMovement(eventAssocier.MyEvent.Movement);
-                content += " Player loose " + eventAssocier.MyEvent.Movement + " stamina point";
+                player.Update_Angry_Fear(eventAssocier.MyEvent.Angry_Fear);
             }
         }
 
@@ -73,7 +69,6 @@ public class TileElt_Behaviours : MonoBehaviour
                 player.HandModifier(eventAssocier.MyEvent.Vignette);
             }
         }
-        CanvasManager.instance.NewLogEntry(content);
     }
 
     

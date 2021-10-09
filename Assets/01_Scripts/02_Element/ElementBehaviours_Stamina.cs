@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ElementBehaviours_Stamina : MonoBehaviour, IModifier
 {
-    [SerializeField] private int amountOfStamina;
+    [SerializeField] private int amountOfAngryOrfear;
 
-    public int AmountOfStamina { get => amountOfStamina; set => amountOfStamina = value; }
+    public int AmountOfAngryOrfear { get => amountOfAngryOrfear; set => amountOfAngryOrfear = value; }
 
     public void CollectElement(EventContener eventElt)
     {
-        eventElt.Movement += AmountOfStamina;
+        eventElt.Angry_Fear += AmountOfAngryOrfear;
     }
 }

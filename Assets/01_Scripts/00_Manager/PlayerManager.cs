@@ -11,13 +11,15 @@ public class PlayerManager : MonoBehaviour
     Keyboard kb;
 
     [Header ("Health")]
-    [SerializeField] private int maxHealth = 5;
-    [SerializeField] private int health;
+    [SerializeField] private int maxHappyness = 5;
+    [SerializeField] private int minSadness = - 5;
+    [SerializeField] private int Player_Happy_SadValue;
 
     [Space]
     [Header("Stamina")]
-    [SerializeField] private int maxStamina = 5;
-    [SerializeField] private int stamina;
+    [SerializeField] private int maxAngry = 5;
+    [SerializeField] private int minFear = -5;
+    [SerializeField] private int Player_Angry_FearValue;
 
     [Space]
     [Header("Key")]
@@ -47,12 +49,12 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Health = MaxHealth;
-        stamina = maxStamina;
+        Player_Angry_FearValue = maxAngry;
         amountOfCardToDraw = minCardToDraw;
 
         visitedVignette = new List<GameObject>();
 
-        CanvasManager.instance.UpdateInformationText(health, stamina, amountOfCardToDraw);
+        CanvasManager.instance.UpdateInformationText(Player_Happy_SadValue, Player_Angry_FearValue, amountOfCardToDraw);
 
         kb = InputSystem.GetDevice<Keyboard>();
     }
@@ -78,15 +80,15 @@ public class PlayerManager : MonoBehaviour
     {
         print(GridManager.instance.ListOfMovement.Count);
         if(GridManager.instance.ListOfMovement.Count >0)
-            StartCoroutine(MoveToLocation());
+            StartCoroutine(MoveToLocationByVignette());
         else
         {
             GridManager.instance.SortList();
-            StartCoroutine(MoveToLocation());
+            StartCoroutine(MoveToLocationByVignette());
         }
     }
 
-    private IEnumerator MoveToLocation()
+    private IEnumerator MoveToLocationByCase()
     {
         Vector3 newPosition = GridManager.instance.ListOfMovement[0].transform.position;
         GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;
@@ -108,9 +110,9 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        if(GridManager.instance.ListOfMovement.Count > 0 && health>0)
+        if(GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue>0)
         {
-            StartCoroutine(MoveToLocation());
+            StartCoroutine(MoveToLocationByCase());
         }
         else
         {
@@ -119,16 +121,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private IEnumerator MoveToLocation2()
+    private IEnumerator MoveToLocationByVignette()
     {
         print("ok");//marche pas a regarder.
 
         GameObject targetedVignette = GridManager.instance.ListOfMovement[0].EventAssocier.gameObject;
-        Vector3 newPosition = GridManager.instance.ListOfMovement[0].transform.position;
+        Vector3 newPosition = GridManager.instance.ListOfMovement[0].EventAssocier.transform.position;
         GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;
 
         newPosition.Set(newPosition.x, newPosition.y, -5f);
-        Debug.Break();
+
         if (!visitedVignette.Contains(targetedVignette))
         {
             visitedVignette.Add(targetedVignette);
@@ -144,25 +146,39 @@ public class PlayerManager : MonoBehaviour
                 tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
             }
 
-        }
-        GridManager.instance.ListOfMovement.RemoveAt(0);
+            GridManager.instance.ListOfMovement.RemoveAt(0);
 
-        yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1.5f);
 
-        if (GridManager.instance.ListOfMovement.Count > 0 && health > 0)
-        {
-            StartCoroutine(MoveToLocation2());
+            if (GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue > 0)
+            {
+                StartCoroutine(MoveToLocationByVignette());
+            }
+            else
+            {
+                yield return new WaitForSeconds(1.5f);
+                EndMovement();
+            }
         }
         else
         {
-            yield return new WaitForSeconds(1.5f);
-            EndMovement();
+            GridManager.instance.ListOfMovement.RemoveAt(0);
+            if (GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue > 0)
+            {
+                StartCoroutine(MoveToLocationByVignette());
+            }
+            else
+            {
+                yield return new WaitForSeconds(1.5f);
+                EndMovement();
+            }
         }
+        
     }
 
     void EndMovement()
     {
-        if (health < 0) {
+        if (Player_Happy_SadValue == maxHappyness || Player_Happy_SadValue == minSadness || Player_Angry_FearValue == maxAngry || Player_Angry_FearValue == minFear) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
             StopAllCoroutines();
@@ -176,41 +192,34 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    #region LifeEvent
-    public void GainHeath( int point)
+    #region Happyness_Sadness Event
+    public void Update_Happyness_Sadness( int point)
     {
         print("GainHeath " + point);
-        health += point;
+        Player_Happy_SadValue += point;
         print("Heal by "+ point +" point");
-        CanvasManager.instance.UpdateLifePoint(health);
-    }
+        CanvasManager.instance.Update_Happy_Sadness_Status(Player_Happy_SadValue);
 
-    public void LooseHeath (int point)
-    {
-        health -= point;
-        print("damage deal by " + point + " point");
-        if (health <= 0)
+        if (Player_Happy_SadValue <= 0)
             GameOver();
-
-        CanvasManager.instance.UpdateLifePoint(health);
     }
     #endregion
 
-    #region MovementEvent
-    public void GainMovement(int point)
+    #region Angry_Fear Event
+    public void Update_Angry_Fear(int point)
     {
-        stamina += point;
+        Player_Angry_FearValue += point;
         print("stamina gain by " + point + " point");
-        CanvasManager.instance.UpdateStaminaPoint(stamina);
+        CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
     }
 
     public void LooseMovement(int point)
     {
-        stamina -= point;
+        Player_Angry_FearValue -= point;
         print("stamina loose by " + point + " point");
-        if (stamina < 0)
+        if (Player_Angry_FearValue < 0)
             GameOver();
-        CanvasManager.instance.UpdateStaminaPoint(stamina);
+        CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
     }
     #endregion
 
@@ -239,11 +248,11 @@ public class PlayerManager : MonoBehaviour
 
     public void DrawVignetteByStamina()
     {
-        if(stamina - drawCoast >= 0)
+        if(Player_Angry_FearValue - drawCoast >= 0)
         {
-            stamina -= drawCoast;
+            Player_Angry_FearValue -= drawCoast;
             LevelManager.instance.SpawnObject(1);
-            CanvasManager.instance.UpdateStaminaPoint(stamina);
+            CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
         }
         
     }
@@ -260,8 +269,8 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Getter && Setter
-    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public int Health { get => health; set => health = value; }
+    public int MaxHealth { get => maxHappyness; set => maxHappyness = value; }
+    public int Health { get => Player_Happy_SadValue; set => Player_Happy_SadValue = value; }
     public bool HaveKey { get => haveKey; set => haveKey = value; }
     public List<Bd_Elt_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }

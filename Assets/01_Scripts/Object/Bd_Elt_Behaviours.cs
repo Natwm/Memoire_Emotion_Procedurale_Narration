@@ -142,26 +142,26 @@ public class Bd_Elt_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownH
     //quand tu drop, ne mets pas a jour le script event
     private void SetUpUI()
     {
-        if(myEvent.Health >= 0)
+        if(myEvent.Happy_Sad >= 0)
         {
-            healthText.text = "+" + MyEvent.Health.ToString();
-            healthText.color = value.Health >0? Color.red : Color.black;
+            healthText.text = "+" + MyEvent.Happy_Sad.ToString();
+            healthText.color = value.Happy_Sad >0? Color.red : Color.black;
         }
 
         else
         {
-            healthText.text = MyEvent.Health.ToString();
+            healthText.text = MyEvent.Happy_Sad.ToString();
         }
 
-        if (myEvent.Movement >= 0)
+        if (myEvent.Angry_Fear >= 0)
         {
-            staminaText.text = value.Movement >= 0 ? "+" + MyEvent.Movement.ToString() :  MyEvent.Movement.ToString();
-            staminaText.color = value.Movement >= 0 ? Color.red : Color.black;
+            staminaText.text = value.Angry_Fear >= 0 ? "+" + MyEvent.Angry_Fear.ToString() :  MyEvent.Angry_Fear.ToString();
+            staminaText.color = value.Angry_Fear >= 0 ? Color.red : Color.black;
         }
 
         else
         {
-            staminaText.text = MyEvent.Movement.ToString();
+            staminaText.text = MyEvent.Angry_Fear.ToString();
         }
 
         if (myEvent.Vignette >= 0)

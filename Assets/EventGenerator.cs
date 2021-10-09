@@ -162,12 +162,12 @@ public class EventGenerator : MonoBehaviour
         {
             
                 tileType = modifiers[0];
-                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = 1;
+                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
         }
         else if (RandomType == 1)
         {
             tileType = modifiers[1];
-            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfStamina = 1;
+            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
         }
         return tileType;
     }

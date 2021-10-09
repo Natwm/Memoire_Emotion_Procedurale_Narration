@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ElementBehaviours_Heal: ElementBehaviours,IModifier
 {
-    [SerializeField] private int amountOfHeal;
+    [SerializeField] private int amountOfHappyOrSad;
 
-    public int AmountOfHeal { get => amountOfHeal; set => amountOfHeal = value; }
+    public int AmountOfHappyOrSad { get => amountOfHappyOrSad; set => amountOfHappyOrSad = value; }
 
     public override void CollectElement(EventContener eventElt)
     {
-        eventElt.Health += AmountOfHeal;
+        eventElt.Happy_Sad += AmountOfHappyOrSad;
     }
 }

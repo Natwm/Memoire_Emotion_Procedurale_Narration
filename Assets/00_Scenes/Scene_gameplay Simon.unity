@@ -960,10 +960,25 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278190080
       objectReference: {fileID: 0}
+    - target: {fileID: 7994139359424296824, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_text
+      value: 'Angry / Fear : '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139359424296824, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139359424296824, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7994139359424296826, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_Name
-      value: Stamina_Indicator
+      value: Angry / Fear_Indicator
       objectReference: {fileID: 0}
     - target: {fileID: 7994139359424296827, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
@@ -1055,10 +1070,25 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0.72782844
       objectReference: {fileID: 0}
+    - target: {fileID: 7994139360293775523, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_text
+      value: 'Happy / Sad : '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139360293775523, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139360293775523, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_fontSizeMax
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 7994139360293775549, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_Name
-      value: Life_Indicator
+      value: Happy / Sad_Indicator
       objectReference: {fileID: 0}
     - target: {fileID: 7994139360415437774, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}

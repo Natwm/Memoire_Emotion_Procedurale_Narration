@@ -90,7 +90,7 @@ public class GridManager : MonoBehaviour
             {
                 item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Bd_Elt_Behaviours>());
 
-                if (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.Health > 0)
+                if (hit[0].collider.GetComponent<Bd_Elt_Behaviours>().Value.Happy_Sad > 0)
                 {
                     item.GetComponent<MeshRenderer>().material.color = Color.blue;
                 }
