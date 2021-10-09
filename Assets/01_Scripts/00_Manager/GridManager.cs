@@ -52,7 +52,7 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void CreateTerrain()
@@ -71,7 +71,7 @@ public class GridManager : MonoBehaviour
                 tileBehaviours.Tileposition = new Vector2(x, y);
                 tileBehaviours.Index = index;
 
-                tile.name += tile.transform.position.ToString(); 
+                tile.name += tile.transform.position.ToString();
 
                 index++;
                 ListOfTile.Add(tile);
@@ -85,7 +85,7 @@ public class GridManager : MonoBehaviour
         foreach (var item in listOfTile)
         {
             RaycastHit[] hit;
-            hit = Physics.BoxCastAll(item.transform.position,transform.localScale/1.65f,Vector3.back,Quaternion.identity,Mathf.Infinity, m_LayerDetection);
+            hit = Physics.BoxCastAll(item.transform.position, transform.localScale / 1.65f, Vector3.back, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
             if (hit.Length > 0)
             {
                 item.GetComponent<TileElt_Behaviours>().AssociateEventToTile(hit[0].collider.GetComponent<Vignette_Behaviours>());
@@ -106,13 +106,109 @@ public class GridManager : MonoBehaviour
                 ListOfEvent.Remove(item.GetComponent<TileElt_Behaviours>());
 
             }
-            
+
         }
+    }
+
+    public bool DoesVignetteIsValid(Vignette_Behaviours vignette)
+    {
+        bool test = false;
+        Vector2 start = new Vector2(0, 0);
+        Vector2 end = m_GridSize - Vector2.one;
+
+        if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start)|| vignette.VignetteTile.Contains(end))
+            return true;
+
+        foreach (var overedTile in vignette.VignetteTile)
+        {
+            print(vignette.gameObject + " =================================== ");
+            for (int x = (int)-vignette.VignetteShape.x +1 ; x <= 0; x++)
+            {
+                for (int y = (int)-vignette.VignetteShape.y; y <= 0; y++)
+                {
+                    Vector2 tilePos = new Vector2(overedTile.x + x, overedTile.y + y);
+                    print("first tile pos = " + tilePos);
+
+                    //Logique pour monter a l'étage suppérieur
+                    if (tilePos.y < 0 && tilePos.x > 0 )
+                    {
+                        tilePos.Set(tilePos.x - 1, 3);
+                        test = true;
+                    }
+
+                    print("tile pos = " + tilePos);
+
+                    //Calcule si la distance est de 1
+                    if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1))
+                    {
+                        try
+                        {
+                            GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                            TileElt_Behaviours tileEvent;
+
+                            if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                            {
+                                if (tileEvent.EventAssocier != vignette)
+                                {
+                                    print(tileEvent.EventAssocier + "  !=  " + vignette);
+                                    print(tileEvent.EventAssocier.gameObject + " proutetteette");
+                                    
+                                    return tileEvent.EventAssocier!=null;
+                                }
+                            }
+                        }
+                        catch { }
+                    }
+                    // si il est passé a l'étage suppérieur 
+                    else if (test){
+                        GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                        TileElt_Behaviours tileEvent;
+
+                        if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                        {
+                            if (tileEvent.EventAssocier != vignette)
+                            {
+                                print(tileEvent.EventAssocier + "  !=  " + vignette);
+                                print(tileEvent.EventAssocier.gameObject + " proutetteette");
+                                tileEvent.EventAssocier.NextMove = vignette;
+                                print("tileEvent.EventAssocier.NextMove = " + tileEvent.EventAssocier.NextMove);
+                                return true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        test = false;
+                    }
+                }
+
+            }
+        }
+        return false;
     }
 
     public void SortList()
     {
-        ListOfMovement = ListOfEvent.OrderByDescending(x => x.Index).ToList();
+        listOfMovement.Clear();
+        Vignette_Behaviours currentVignette = null;
+        TileElt_Behaviours currentTile = null;
+        foreach (var item in listOfEvent)
+        {
+            if (currentVignette == null)
+            {
+                currentTile = item;
+                currentVignette = item.EventAssocier;
+                listOfMovement.Add(currentTile);
+            }
+            else if (item.EventAssocier != currentVignette)
+            {
+                currentTile = item;
+                currentVignette = item.EventAssocier;
+                listOfMovement.Add(currentTile);
+            }
+        }
+
+        ListOfMovement = ListOfMovement.OrderByDescending(x => x.Index).ToList();
         ListOfMovement.Reverse();
     }
 

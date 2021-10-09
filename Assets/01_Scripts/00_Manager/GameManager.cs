@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         {
             CanvasManager.instance.SetActiveMoveButton(false);
         }
-        print("Valeue is : " + value);
+        //print("Valeue is : " + value);
     }
 
     public void GameOver()

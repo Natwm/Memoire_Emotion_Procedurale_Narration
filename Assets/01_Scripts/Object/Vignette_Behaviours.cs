@@ -88,20 +88,35 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public Vignette_Behaviours CheckNextMove()
     {
-        if (onGrid)
+        if (true/*onGrid*/)
         {
-            print("Check by : " + this.name);
-            foreach (var overedTile in vignetteTile)
+            bool isNewLine = false;
+            //print("Check by : " + this.name);
+            foreach (var overedTile in VignetteTile)
             {
                 //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
-                for (int x = 0; x < vignetteShape.x + 1; x++)
+                for (int x = 0; x < VignetteShape.x + 1; x++)
                 {
-                    for (int y = 0; y < vignetteShape.y + 1; y++)
+                    for (int y = 0; y < VignetteShape.y + 1; y++)
                     {
-                        Vector2 tilePos = new Vector2((overedTile.x + x) % 4, (overedTile.y + y) % 4);
 
-                        if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !vignetteTile.Contains(tilePos))
+                        Vector2 tilePos = new Vector2((overedTile.x + x), (overedTile.y + y));
+                       /* if (tilePos.x >= 4 && tilePos.y < 4)
                         {
+                            tilePos.Set(0, tilePos.y + 1);
+                            isNewLine = true;
+                        }
+                            
+                        if (tilePos.y >= 4 && tilePos.x < 4)
+                        {
+                            tilePos.Set(tilePos.x + 1, 0);
+                            isNewLine = true;
+                        }*/
+
+                        //print(" pomme = " + "tilePos  " + tilePos);
+                        if ((VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !VignetteTile.Contains(tilePos)) || isNewLine)
+                        {
+                            //print(" pomme2 = " + "tilePos  " + tilePos);
                             try
                             {
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
@@ -109,7 +124,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                 if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                 {
-                                    print(tileEvent.EventAssocier.gameObject);
+                                    //print(" pomme = " +tileEvent.EventAssocier.gameObject);
                                     return tileEvent.EventAssocier;
                                 }
                             }
@@ -195,7 +210,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
+        vignetteTilePosition.Clear();
+        vignetteTile.Clear();
+
         GridManager.instance.CheckTile();
+        GridManager.instance.SortList();
 
         RaycastHit[] hit;
         int amountOfModifier = 0;
@@ -212,9 +231,25 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                     amountOfModifier++;
                 }
                 vignetteTilePosition.Add(item.collider.gameObject.transform.position);
-                vignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
+                VignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
             }
-            onGrid = true;
+
+            if (GridManager.instance.DoesVignetteIsValid(this))
+            {
+                onGrid = true;
+                vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+            else
+            {
+                onGrid = false;
+                vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
+            }
+
+        }
+        else
+        {
+            onGrid = false;
+            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
 
         if (!(amountOfModifier > 0))
@@ -222,12 +257,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             myEvent.ResetEvent();
         }
 
-        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        if (onGrid)
         {
-            if (item.onGrid)
-                item.GetNextMove();
+            foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+            {
+                if (item.onGrid)
+                    item.GetNextMove();
+            }
+            GameManager.instance.IsMovementvalid();
         }
-        GameManager.instance.IsMovementvalid();
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -288,5 +327,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
     public EventContener MyEvent { get => myEvent; set => myEvent = value; }
     public Vignette_Behaviours NextMove { get => nextMove; set => nextMove = value; }
+    public List<Vector2> VignetteTile { get => vignetteTile; set => vignetteTile = value; }
+    public Vector2 VignetteShape { get => vignetteShape; set => vignetteShape = value; }
     #endregion
 }
