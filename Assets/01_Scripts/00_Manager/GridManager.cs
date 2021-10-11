@@ -116,63 +116,65 @@ public class GridManager : MonoBehaviour
         Vector2 start = new Vector2(0, 0);
         Vector2 end = m_GridSize - Vector2.one;
 
-        if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start)|| vignette.VignetteTile.Contains(end))
+        if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start) || vignette.VignetteTile.Contains(end))
             return true;
 
         foreach (var overedTile in vignette.VignetteTile)
         {
-            print(vignette.gameObject + " =================================== ");
-            for (int x = (int)-vignette.VignetteShape.x +1 ; x <= 0; x++)
+            for (int x = (int)-vignette.VignetteShape.x; x <= 1; x++)
             {
-                for (int y = (int)-vignette.VignetteShape.y; y <= 0; y++)
+                for (int y = (int)-vignette.VignetteShape.y; y <= 1; y++)
                 {
                     Vector2 tilePos = new Vector2(overedTile.x + x, overedTile.y + y);
-                    print("first tile pos = " + tilePos);
-
                     //Logique pour monter a l'étage suppérieur
-                    if (tilePos.y < 0 && tilePos.x > 0 )
+                    if (tilePos.y < 0 && tilePos.x >= 0)
                     {
                         tilePos.Set(tilePos.x - 1, 3);
                         test = true;
                     }
-
-                    print("tile pos = " + tilePos);
-
                     //Calcule si la distance est de 1
                     if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1))
                     {
                         try
                         {
-                            GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                            TileElt_Behaviours tileEvent;
-
-                            if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                            if (tilePos.x < GridManager.instance.ListOfTile2D.Count && tilePos.y < GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count)
                             {
-                                if (tileEvent.EventAssocier != vignette)
+                                GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                TileElt_Behaviours tileEvent;
+
+                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                 {
-                                    print(tileEvent.EventAssocier + "  !=  " + vignette);
-                                    print(tileEvent.EventAssocier.gameObject + " proutetteette");
-                                    
-                                    return tileEvent.EventAssocier!=null;
+                                    if (tileEvent.EventAssocier != vignette)
+                                    {
+                                        return tileEvent.EventAssocier != null;
+                                    }
                                 }
                             }
                         }
                         catch { }
                     }
                     // si il est passé a l'étage suppérieur 
-                    else if (test){
-                        GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                        TileElt_Behaviours tileEvent;
+                    else if (test && tilePos.x >= 0 && tilePos.y >= 0)
+                    {
 
-                        if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                        if (GridManager.instance.ListOfTile2D.Count > Mathf.RoundToInt(tilePos.x))
                         {
-                            if (tileEvent.EventAssocier != vignette)
+                            if (GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count > Mathf.RoundToInt(tilePos.y))
                             {
-                                print(tileEvent.EventAssocier + "  !=  " + vignette);
-                                print(tileEvent.EventAssocier.gameObject + " proutetteette");
-                                tileEvent.EventAssocier.NextMove = vignette;
-                                print("tileEvent.EventAssocier.NextMove = " + tileEvent.EventAssocier.NextMove);
-                                return true;
+                                GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                TileElt_Behaviours tileEvent;
+
+                                if (tile != null)
+                                {
+                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                    {
+                                        if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
+                                        {
+                                            tileEvent.EventAssocier.NextMove = vignette;
+                                            return true;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

@@ -88,7 +88,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public Vignette_Behaviours CheckNextMove()
     {
-        if (true/*onGrid*/)
+        if (onGrid)
         {
             bool isNewLine = false;
             //print("Check by : " + this.name);
@@ -237,6 +237,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             if (GridManager.instance.DoesVignetteIsValid(this))
             {
                 onGrid = true;
+                print(gameObject.name + "True ");
                 vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
             }
             else
