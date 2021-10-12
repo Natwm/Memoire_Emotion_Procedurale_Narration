@@ -91,7 +91,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (onGrid)
         {
             bool isNewLine = false;
-            //print("Check by : " + this.name);
             foreach (var overedTile in VignetteTile)
             {
                 //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
@@ -101,17 +100,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                     {
 
                         Vector2 tilePos = new Vector2((overedTile.x + x), (overedTile.y + y));
-                       /* if (tilePos.x >= 4 && tilePos.y < 4)
+                        if (tilePos.x >= 4 && tilePos.y < 4)
                         {
                             tilePos.Set(0, tilePos.y + 1);
                             isNewLine = true;
                         }
-                            
+
                         if (tilePos.y >= 4 && tilePos.x < 4)
                         {
                             tilePos.Set(tilePos.x + 1, 0);
                             isNewLine = true;
-                        }*/
+                        }
+                        print("Check by : " + this.name +" at tilePos : " + tilePos);
 
                         //print(" pomme = " + "tilePos  " + tilePos);
                         if ((VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !VignetteTile.Contains(tilePos)) || isNewLine)
@@ -124,13 +124,32 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                 if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                 {
-                                    //print(" pomme = " +tileEvent.EventAssocier.gameObject);
-                                    return tileEvent.EventAssocier;
+                                    if(tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
+                                    {
+                                        print(" pomme = " + tileEvent.EventAssocier);
+                                        return tileEvent.EventAssocier;
+                                    }
                                 }
                             }
                             catch { }
                         }
+                        else if (isNewLine)
+                        {
+                            print("rsersfese " + tilePos);
+                            GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                            TileElt_Behaviours tileEvent;
 
+                            if (tile != null)
+                            {
+                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                {
+                                    if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
+                                    {
+                                        return tileEvent.EventAssocier;
+                                    }
+                                }
+                            }
+                        }
                         //print(GridManager.instance.ListOfTile2D[Mathf.RoundToInt(overedTile.x + x)][Mathf.RoundToInt(overedTile.y + y)]);
                     }
                 }
@@ -153,7 +172,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
     {
-        myEvent.SetUp(happySad_Value,angryFear_Value,amountofVignetteToDraw,isKey);
+        myEvent.SetUp(happySad_Value, angryFear_Value, amountofVignetteToDraw, isKey);
         cardImage.sprite = vignetteRender;
         SetUpUI();
     }
@@ -250,6 +269,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         else
         {
             onGrid = false;
+            nextMove = null;
             vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
 
@@ -263,11 +283,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
             {
                 if (item.onGrid)
+                {
+                    print(item.name);
                     item.GetNextMove();
+                }
+
             }
             GameManager.instance.IsMovementvalid();
         }
-        
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -304,7 +328,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             m_IsVignetteShowUp = true;
             /*vignetteScene.SetActive(true);
             vignetteInfo.SetActive(false);*/
-            ShowVignetteElt(vignetteImage, vignetteInfo,.2f);
+            ShowVignetteElt(vignetteImage, vignetteInfo, .2f);
         }
         else
         {
@@ -312,7 +336,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             /*vignetteScene.SetActive(false);
             vignetteInfo.SetActive(true);*/
 
-            ShowVignetteElt(vignetteInfo, vignetteImage,.2f);
+            ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
         }
     }
 

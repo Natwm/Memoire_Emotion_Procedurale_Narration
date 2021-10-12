@@ -121,17 +121,21 @@ public class GridManager : MonoBehaviour
 
         foreach (var overedTile in vignette.VignetteTile)
         {
-            for (int x = (int)-vignette.VignetteShape.x; x <= 1; x++)
+            for (int x = (int)-vignette.VignetteShape.x; x <= vignette.VignetteShape.x; x++)
             {
-                for (int y = (int)-vignette.VignetteShape.y; y <= 1; y++)
+                for (int y = (int)-vignette.VignetteShape.y; y <= vignette.VignetteShape.y; y++)
                 {
+
                     Vector2 tilePos = new Vector2(overedTile.x + x, overedTile.y + y);
+
                     //Logique pour monter a l'étage suppérieur
                     if (tilePos.y < 0 && tilePos.x >= 0)
                     {
                         tilePos.Set(tilePos.x - 1, 3);
                         test = true;
                     }
+
+                    
                     //Calcule si la distance est de 1
                     if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1))
                     {
@@ -144,14 +148,18 @@ public class GridManager : MonoBehaviour
 
                                 if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                 {
-                                    if (tileEvent.EventAssocier != vignette)
+                                    if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
                                     {
+
                                         return tileEvent.EventAssocier != null;
                                     }
                                 }
                             }
                         }
-                        catch { }
+                        catch {
+                            print("error");
+
+                        }
                     }
                     // si il est passé a l'étage suppérieur 
                     else if (test && tilePos.x >= 0 && tilePos.y >= 0)
@@ -170,6 +178,7 @@ public class GridManager : MonoBehaviour
                                     {
                                         if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
                                         {
+
                                             tileEvent.EventAssocier.NextMove = vignette;
                                             return true;
                                         }
