@@ -150,12 +150,13 @@ public class PlayerManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
-            if (GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue > 0)
+            if (GridManager.instance.ListOfMovement.Count > 0 && (player_Happy_SadValue != maxHappyness || player_Happy_SadValue != minSadness) && (player_Angry_FearValue != maxAngry || player_Angry_FearValue != minFear))
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
             else
             {
+                print("pute");
                 yield return new WaitForSeconds(1.5f);
                 EndMovement();
             }
@@ -198,8 +199,8 @@ public class PlayerManager : MonoBehaviour
         player_Happy_SadValue += point;
         print("Heal by "+ point +" point");
         CanvasManager.instance.Update_Happy_Sadness_Status(player_Happy_SadValue);
-
-        if (player_Happy_SadValue <= 0)
+        
+        if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness)
             GameOver();
     }
     #endregion
@@ -216,7 +217,7 @@ public class PlayerManager : MonoBehaviour
     {
         player_Angry_FearValue -= point;
         print("stamina loose by " + point + " point");
-        if (player_Angry_FearValue < 0)
+        if (player_Angry_FearValue == maxAngry || player_Angry_FearValue == minFear)
             GameOver();
         CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
     }
