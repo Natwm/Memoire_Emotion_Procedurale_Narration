@@ -111,7 +111,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             tilePos.Set(tilePos.x + 1, 0);
                             isNewLine = true;
                         }
-                        print("Check by : " + this.name +" at tilePos : " + tilePos);
+                        //print("Check by : " + this.name +" at tilePos : " + tilePos);
 
                         //print(" pomme = " + "tilePos  " + tilePos);
                         if ((VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !VignetteTile.Contains(tilePos)) || isNewLine)
@@ -226,6 +226,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         inObject.GetComponent<SpriteRenderer>().DOFade(1, speed);
     }
 
+    private void CheckIsPositionIsValid()
+    {
+        if (GridManager.instance.DoesVignetteIsValid(this))
+        {
+            onGrid = true;
+            print(gameObject.name + "True ");
+            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+        }
+        else
+        {
+            onGrid = false;
+            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
+        }
+    }
+
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -253,18 +268,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 VignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
             }
 
-            if (GridManager.instance.DoesVignetteIsValid(this))
-            {
-                onGrid = true;
-                print(gameObject.name + "True ");
-                vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
-            }
-            else
-            {
-                onGrid = false;
-                vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
-            }
-
         }
         else
         {
@@ -289,9 +292,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 }
 
             }
-            GameManager.instance.IsMovementvalid();
         }
 
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        {
+                item.CheckIsPositionIsValid();
+        }
+
+        GameManager.instance.IsMovementvalid();
     }
 
     public void OnPointerDown(PointerEventData eventData)

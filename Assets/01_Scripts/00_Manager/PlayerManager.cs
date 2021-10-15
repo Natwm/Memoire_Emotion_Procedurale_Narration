@@ -10,16 +10,16 @@ public class PlayerManager : MonoBehaviour
 
     Keyboard kb;
 
-    [Header ("Health")]
+    [Header ("Happyness - Sadness")]
     [SerializeField] private int maxHappyness = 5;
     [SerializeField] private int minSadness = - 5;
-    [SerializeField] private int Player_Happy_SadValue;
+    [SerializeField] private int player_Happy_SadValue;
 
     [Space]
-    [Header("Stamina")]
+    [Header("Angry - Fear")]
     [SerializeField] private int maxAngry = 5;
     [SerializeField] private int minFear = -5;
-    [SerializeField] private int Player_Angry_FearValue;
+    [SerializeField] private int player_Angry_FearValue;
 
     [Space]
     [Header("Key")]
@@ -48,13 +48,14 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Health = MaxHealth;
-        Player_Angry_FearValue = maxAngry;
+        player_Happy_SadValue = 0;
+        player_Angry_FearValue = 0;
+
         amountOfCardToDraw = minCardToDraw;
 
         visitedVignette = new List<GameObject>();
 
-        CanvasManager.instance.UpdateInformationText(Player_Happy_SadValue, Player_Angry_FearValue, amountOfCardToDraw);
+        CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
         kb = InputSystem.GetDevice<Keyboard>();
     }
@@ -110,7 +111,7 @@ public class PlayerManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        if(GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue>0)
+        if(GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue>0)
         {
             StartCoroutine(MoveToLocationByCase());
         }
@@ -123,7 +124,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator MoveToLocationByVignette()
     {
-        print("ok");//marche pas a regarder.
 
         GameObject targetedVignette = GridManager.instance.ListOfMovement[0].EventAssocier.gameObject;
         Vector3 newPosition = GridManager.instance.ListOfMovement[0].EventAssocier.transform.position;
@@ -150,7 +150,7 @@ public class PlayerManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
-            if (GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue > 0)
+            if (GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue > 0)
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
@@ -163,7 +163,7 @@ public class PlayerManager : MonoBehaviour
         else
         {
             GridManager.instance.ListOfMovement.RemoveAt(0);
-            if (GridManager.instance.ListOfMovement.Count > 0 && Player_Happy_SadValue > 0)
+            if (GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue > 0)
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
@@ -178,7 +178,7 @@ public class PlayerManager : MonoBehaviour
 
     void EndMovement()
     {
-        if (Player_Happy_SadValue == maxHappyness || Player_Happy_SadValue == minSadness || Player_Angry_FearValue == maxAngry || Player_Angry_FearValue == minFear) {
+        if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness || player_Angry_FearValue == maxAngry || player_Angry_FearValue == minFear) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
             StopAllCoroutines();
@@ -188,7 +188,6 @@ public class PlayerManager : MonoBehaviour
         {
             //GridManager.instance.ClearScene();
             CanvasManager.instance.PlayerWinTheGame();
-
         }
     }
 
@@ -196,11 +195,11 @@ public class PlayerManager : MonoBehaviour
     public void Update_Happyness_Sadness( int point)
     {
         print("GainHeath " + point);
-        Player_Happy_SadValue += point;
+        player_Happy_SadValue += point;
         print("Heal by "+ point +" point");
-        CanvasManager.instance.Update_Happy_Sadness_Status(Player_Happy_SadValue);
+        CanvasManager.instance.Update_Happy_Sadness_Status(player_Happy_SadValue);
 
-        if (Player_Happy_SadValue <= 0)
+        if (player_Happy_SadValue <= 0)
             GameOver();
     }
     #endregion
@@ -208,18 +207,18 @@ public class PlayerManager : MonoBehaviour
     #region Angry_Fear Event
     public void Update_Angry_Fear(int point)
     {
-        Player_Angry_FearValue += point;
+        player_Angry_FearValue += point;
         print("stamina gain by " + point + " point");
-        CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
+        CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
     }
 
     public void LooseMovement(int point)
     {
-        Player_Angry_FearValue -= point;
+        player_Angry_FearValue -= point;
         print("stamina loose by " + point + " point");
-        if (Player_Angry_FearValue < 0)
+        if (player_Angry_FearValue < 0)
             GameOver();
-        CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
+        CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
     }
     #endregion
 
@@ -248,11 +247,11 @@ public class PlayerManager : MonoBehaviour
 
     public void DrawVignetteByStamina()
     {
-        if(Player_Angry_FearValue - drawCoast >= 0)
+        if(player_Angry_FearValue - drawCoast >= 0)
         {
-            Player_Angry_FearValue -= drawCoast;
+            player_Angry_FearValue -= drawCoast;
             LevelManager.instance.SpawnObject(1);
-            CanvasManager.instance.Update_Angry_Fear_Status(Player_Angry_FearValue);
+            CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
         }
         
     }
@@ -269,8 +268,8 @@ public class PlayerManager : MonoBehaviour
     #endregion
 
     #region Getter && Setter
-    public int MaxHealth { get => maxHappyness; set => maxHappyness = value; }
-    public int Health { get => Player_Happy_SadValue; set => Player_Happy_SadValue = value; }
+    public int MaxHappyness { get => maxHappyness; set => maxHappyness = value; }
+    public int Player_Happy_SadValue { get => player_Happy_SadValue; set => player_Happy_SadValue = value; }
     public bool HaveKey { get => haveKey; set => haveKey = value; }
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }

@@ -18,93 +18,108 @@ public class GameManager : MonoBehaviour
     public void IsMovementvalid()
     {
         int value = 0;
-
+        print("IsMovementvalid");
         EventGenerator eventgenerator = FindObjectOfType<EventGenerator>();
         GameObject entryGO = null;
         GameObject exitGO = null;
+        GameObject keyGO = null;
 
-        if (eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier !=null)
+        if (eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
             entryGO = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
         if (eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
             exitGO = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
-        GameObject keyGO = eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count-1];
+        if (eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier != null)
+            keyGO = eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
         bool isEntryConnected = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
         bool isExitConnected = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
+        bool isKeyConnected = keyGO != null;
 
-  //      print("  keyGO = " + keyGO.gameObject);
-//        print("  exitGO = " + exitGO.gameObject);
+        //      print("  keyGO = " + keyGO.gameObject);
+        //      print("  exitGO = " + exitGO.gameObject);
 
-    //    print(" EntryTile  " + eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().gameObject);
-      //  print(" ExitTile   " + eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().gameObject);
+        //    print(" EntryTile  " + eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().gameObject);
+        //  print(" ExitTile   " + eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().gameObject);
 
-        if (isEntryConnected && isExitConnected)
+        if (isEntryConnected && isExitConnected && isKeyConnected)
         {
             GridManager.instance.SortList();
-            
-            if(entryGO != null && exitGO != null)
-            {
 
-                for (int i = 0; i < GridManager.instance.ListOfMovement.Count ; i++)
+            if (entryGO != null && exitGO != null)
+            {
+                print("key + " + keyGO.name);
+
+                for (int i = 0; i < GridManager.instance.ListOfMovement.Count; i++)
                 {
                     Vignette_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
                     print(i + "  stepBD = " + stepBD.gameObject);
-                    if(stepBD.NextMove !=null)
+                    if (stepBD.NextMove != null)
                         print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);
 
-                    if (stepBD.NextMove != null)
+                    GameObject myStep = stepBD.gameObject;
+                    if (myStep == entryGO)
                     {
-                        GameObject myStep = stepBD.gameObject;
-                        if (myStep == entryGO)
-                        {
-                            print("EntryGooooooo");
-                            value++;
-                        }
-                            
-                        else if (myStep == exitGO)
-                        {
-                            print("ExitGooooooo");
-                            value++;
-                        }
-                            
-                        else if (myStep == keyGO)
-                        {
-                            print("KeyGooooooo");
-                            value++;
-                        }
-                            
-
+                        print("EntryGooooooo");
+                        value++;
                     }
+
+                    else if (myStep == exitGO)
+                    {
+                        print("ExitGooooooo");
+                        value++;
+                    }
+
+                    else if (myStep == keyGO)
+                    {
+                        print("KeyGooooooo");
+                        value++;
+                    }
+
+                    print("Nathan   = " + myStep.name + "  ==  " + keyGO + " ||   " + (myStep == keyGO));
+                    print("value " + value);
+
                 }
-                GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count-1].EventAssocier.gameObject;
+                GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject;
+
+                print("entryGO " + entryGO.name + " || exitGO " + exitGO + " || keyGO " + keyGO.name);
+
                 if (lastStep == entryGO)
                 {
-                    print("EntryGooooooo");
+                    print("EntryGooooooo 2");
                     value++;
                 }
 
                 else if (lastStep == exitGO)
                 {
-                    print("ExitGooooooo");
+                    print("ExitGooooooo 2");
                     value++;
                 }
 
                 else if (lastStep == keyGO)
                 {
-                    print("KeyGooooooo");
+                    print("KeyGooooooo 2");
                     value++;
                 }
-
+                print("Nathan   2= " + lastStep.name + "  ==  " + keyGO + " ||   " + (lastStep == keyGO));
+                print("value " + value);
             }
         }
+        else
+        {
+            print("IsMovementvalid not ");
+            CanvasManager.instance.SetActiveMoveButton(false);
+        }
+
         if (value > 3)
         {
+            print("IsMovementvalid yes ");
             CanvasManager.instance.SetActiveMoveButton(true);
         }
         else
         {
+            print("IsMovementvalid no");
             CanvasManager.instance.SetActiveMoveButton(false);
         }
         //print("Valeue is : " + value);
