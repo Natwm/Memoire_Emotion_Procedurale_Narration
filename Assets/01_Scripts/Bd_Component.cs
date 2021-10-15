@@ -27,7 +27,7 @@ public class Bd_Component : MonoBehaviour
     public int iterationNumber;
     Vector3 VignettePos = Vector3.zero;
     int VignetteIndex = 1;
-    List<Vignette> VignetteSequence;
+    public List<Vignette> VignetteSequence;
     public float gouttiere;
     string[] cases = { "1x1","1x2","2x1","2x2" };
     private void Awake()
@@ -36,6 +36,7 @@ public class Bd_Component : MonoBehaviour
             Debug.LogWarning("Multiple instance of same Singleton : GameManager");
         else
             bd_instance = this;
+        VignetteSequence = new List<Vignette>();
     }
     Keyboard kb;
     private void Start()
@@ -43,8 +44,9 @@ public class Bd_Component : MonoBehaviour
         kb = InputSystem.GetDevice<Keyboard>();
         for (int i = 0; i < iterationNumber; i++)
         {
-            CreateNewRandomVignette();
+           // CreateNewRandomVignette();
         }
+       
     }
 
     public GameObject GetComp(int caseIndex)
@@ -59,8 +61,10 @@ public class Bd_Component : MonoBehaviour
         return Resources.Load<GameObject>(chemin);
     }
 
-    public void CreateNewRandomVignette()
+    public void CreateNewRandomVignette(int numberOfVignette)
     {
+        for (int i = 0; i < numberOfVignette; i++)
+        {
         Pose = Random.Range(0, InVignetteSpawn.Length);
         int randomObjNumber = Random.Range(1, 3);
         int randomObj = Random.Range(0, InVignetteSpawn.Length);
@@ -70,7 +74,8 @@ public class Bd_Component : MonoBehaviour
         VignetteIndex++;
         
         
-        Vignette tempVignette = new Vignette(randomObjNumber, GetVignette(randomInt), newHolder.transform, InVignetteSpawn, GetComp(randomInt));
+        Vignette tempVignette = new Vignette(cases[randomInt], GetVignette(randomInt), newHolder.transform, InVignetteSpawn, GetComp(randomInt));
+            
         tempVignette.Vignette_Object.transform.localPosition = Vector3.zero;
         float Vignette_shift = 0;
         if (currentVignette != null)
@@ -79,20 +84,20 @@ public class Bd_Component : MonoBehaviour
         }        
         VignettePos.x += Vignette_shift;
         newHolder.transform.position = VignettePos;
+        VignetteSequence.Add(tempVignette);
         currentVignette = tempVignette;
+        
+        }
     }
 
     private void Update()
     {
-        if (kb.jKey.wasReleasedThisFrame)
-        {
-            //CreateNewRandomVignette();
-        }
+       
     }
 
     public void SpawnVignette()
     {
-        Vignette newV = new Vignette(1, Vignettes[0], vignetteHolder.transform, InVignetteSpawn,Gabarit_Composition[0]);
+       // Vignette newV = new Vignette(1, Vignettes[0], vignetteHolder.transform, InVignetteSpawn,Gabarit_Composition[0]);
     }
 
     public Sprite GetRandomSprite()
@@ -102,18 +107,28 @@ public class Bd_Component : MonoBehaviour
 
 }
 
+/* Distribution :
+ * Créer casting de personnage
+ * Créer Main de vignettes
+ * Assigner des personnages aux vignettes
+ * Créer les icons de faces dans les points de composition
+ * 
+*/
+
 public class Vignette
 {
-    int ObjectsNumber;
+    public int ObjectsNumber;
     public GameObject Vignette_Object;
     public GameObject Cadre_Object;
     SpriteRenderer Sprite_Vignette;
     public SpriteMask Mask_Vignette; 
     Bd_Object[] InVignette_Objects;
+    public Character[] inVignetteCharacter;
     GameObject Gabarit_Composition;
 
-    public Vignette(int _objectInVignette,GameObject _vignetteType,Transform _parent,GameObject[] _obj,GameObject _gabarit)
+    public Vignette(string vignetteType,GameObject _vignetteType,Transform _parent,GameObject[] _obj,GameObject _gabarit)
     {
+        
         // INITIALISATION VIGNETTE
         GameObject tempVignette = GameObject.Instantiate(_vignetteType,_parent);
         Vignette_Object = tempVignette;
@@ -123,35 +138,58 @@ public class Vignette
         Gabarit_Composition.transform.localPosition = Vector3.zero;
         Gabarit_Composition.transform.localScale = Vector3.one;
         Cadre_Object.transform.localPosition = Vector3.zero;
+        switch (vignetteType)
+        {
+            case ("1x1"):
+                {
+                    ObjectsNumber = 1;
+                    break;
+                }
+            case ("1x2"):
+                {
+                    ObjectsNumber = 2;
+                    break;
+                }
+            case ("2x1"):
+                {
+                    ObjectsNumber = 2;
+                    break;
+                }
+            case ("2x2"):
+                {
+                    ObjectsNumber = 3;
+                    break;
+                }
+
+        }
         Sprite_Vignette = Cadre_Object.GetComponent<SpriteRenderer>();
         Mask_Vignette = Cadre_Object.GetComponent<SpriteMask>();
+        inVignetteCharacter = new Character[ObjectsNumber - 1];
 
 
-        // INITIALISATION OBJETS
-        InVignette_Objects = new Bd_Object[_objectInVignette];
-        for (int i = 0; i < InVignette_Objects.Length; i++)
-        {
-
-            InVignette_Objects[i] = new Bd_Object(this,_obj[Bd_Component.bd_instance.Pose],Bd_Component.bd_instance.character_Color,Bd_Component.bd_instance.GetRandomSprite(),GetRandomCompositionPoint());
-        }
-        GameObject.Destroy(Gabarit_Composition);
     }
 
-    public Vector3 GetRandomCompositionPoint()
+
+
+    public GameObject GetRandomCompositionPoint()
     {
         int randomPoint = Random.Range(0, Gabarit_Composition.transform.childCount);
         
-        Vector3 newPos = Gabarit_Composition.transform.GetChild(randomPoint).transform.localPosition;
-        GameObject.Destroy(Gabarit_Composition.transform.GetChild(randomPoint).gameObject);
-        return newPos;
+        GameObject newPos = Gabarit_Composition.transform.GetChild(randomPoint).gameObject;
+        if (newPos.activeInHierarchy)
+        {
+            return newPos;
+        }
+        else
+        {
+            return GetRandomCompositionPoint();
+        }
+        
+        // GameObject.Destroy(Gabarit_Composition.transform.GetChild(randomPoint).gameObject);
+        
     }
 
-    /* Vignette Size
-     * Vignette Composition
-     * 
-     * Get Character
-     * Get Emotion
-     */
+  
 }
 
 public enum ObjectType
