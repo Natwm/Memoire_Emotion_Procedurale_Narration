@@ -214,10 +214,16 @@ public class PlayerManager : MonoBehaviour
         print("GainHeath " + point);
         player_Happy_SadValue += point;
         print("Heal by "+ point +" point");
+
+        if (player_Happy_SadValue > MaxHappyness)
+            player_Happy_SadValue = MaxHappyness;
+        if (player_Happy_SadValue < minSadness)
+            player_Happy_SadValue = minSadness;
+
         CanvasManager.instance.Update_Happy_Sadness_Status(player_Happy_SadValue);
         
-        if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness)
-            GameOver();
+        /*if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness)
+            GameOver();*/
     }
     #endregion
 
@@ -225,6 +231,11 @@ public class PlayerManager : MonoBehaviour
     public void Update_Angry_Fear(int point)
     {
         player_Angry_FearValue += point;
+        if(player_Angry_FearValue>maxAngry )
+            player_Angry_FearValue = maxAngry;
+        if(player_Angry_FearValue < minFear)
+            player_Angry_FearValue = minFear;
+
         print("stamina gain by " + point + " point");
         CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
     }
