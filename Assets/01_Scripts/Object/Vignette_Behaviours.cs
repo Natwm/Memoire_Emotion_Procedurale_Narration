@@ -227,7 +227,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private void CheckIsPositionIsValid()
     {
-        if (GridManager.instance.DoesVignetteIsValid(this))
+        if (GridManager.instance.DoesVignetteIsValid(this) && vignetteTile.Count > 0)
         {
             OnGrid = true;
             vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
@@ -239,11 +239,24 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
-    #region Interface
-    public void OnPointerUp(PointerEventData eventData)
+    private void ClearList()
     {
         vignetteTilePosition.Clear();
         vignetteTile.Clear();
+
+        foreach (var item in listOfAffectedObject)
+        {
+            if(GridManager.instance.ListOfOveredTile.Contains(item))
+                GridManager.instance.ListOfOveredTile.Remove(item);
+        }
+
+        listOfAffectedObject.Clear();
+    }
+
+    #region Interface
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        ClearList();
 
         GridManager.instance.CheckTile();
         GridManager.instance.SortList();
@@ -262,8 +275,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                     SetUpCard(myModifier);
                     amountOfModifier++;
                 }
-                vignetteTilePosition.Add(item.collider.gameObject.transform.position);
-                VignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
+                if (!GridManager.instance.ListOfOveredTile.Contains(item.collider.gameObject))
+                {
+                    vignetteTilePosition.Add(item.collider.gameObject.transform.position);
+                    VignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
+                    listOfAffectedObject.Add(item.collider.gameObject);
+                    GridManager.instance.ListOfOveredTile.Add(item.collider.gameObject);
+                }
+                
+            }
+            if(vignetteTile.Count < (VignetteShape.x* VignetteShape.y))
+            {
+                ClearList();
             }
 
         }
@@ -279,11 +302,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             myEvent.ResetEvent();
         }
 
+        
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        {
+            
+                item.CheckIsPositionIsValid();
+        }
+
         if (OnGrid)
         {
             foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
             {
-                if (item.OnGrid)
+                if (item.OnGrid && item.vignetteTile.Count > 0)
                 {
                     item.GetNextMove();
                 }
@@ -291,13 +321,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             }
         }
 
-        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
-        {
-                item.CheckIsPositionIsValid();
-        }
-
         GameManager.instance.IsMovementvalid();
     }
+
+
 
     public void OnPointerDown(PointerEventData eventData)
     {

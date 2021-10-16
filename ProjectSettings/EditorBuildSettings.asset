@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/00_Scenes/00_Old/Simon_CharacterScene.unity
-    guid: 797cf6e3c701a604b9eb180d0d35f737
+    path: Assets/00_Scenes/Scene_gameplay Nathan.unity
+    guid: aa66aad863e057c4fa1ee9d6c9253bc3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 0f170aadb92ad6e42aab6c476f485dae,
       type: 2}

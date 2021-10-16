@@ -14,6 +14,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private GameObject m_TilesPrefabs;
 
     [SerializeField] private List<GameObject> listOfTile = new List<GameObject>();
+    [SerializeField] private List<GameObject> listOfHoveredTile = new List<GameObject>();
     [SerializeField] private List<TileElt_Behaviours> listOfEvent;
     [SerializeField] private List<TileElt_Behaviours> listOfMovement;
     [SerializeField] private List<List<GameObject>> listOfTile2D = new List<List<GameObject>>();
@@ -26,6 +27,7 @@ public class GridManager : MonoBehaviour
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
     public List<List<GameObject>> ListOfTile2D { get => listOfTile2D; set => listOfTile2D = value; }
+    public List<GameObject> ListOfOveredTile { get => listOfHoveredTile; set => listOfHoveredTile = value; }
 
     EventGenerator m_EventGenerator;
 
@@ -119,82 +121,87 @@ public class GridManager : MonoBehaviour
         if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start) || vignette.VignetteTile.Contains(end))
             return true;
 
-        foreach (var overedTile in vignette.VignetteTile)
+        if (vignette.VignetteTile.Count > 0)
         {
-            for (int x = (int)-vignette.VignetteShape.x; x <= vignette.VignetteShape.x; x++)
+            foreach (var overedTile in vignette.VignetteTile)
             {
-                for (int y = (int)-vignette.VignetteShape.y; y <= vignette.VignetteShape.y; y++)
+                for (int x = (int)-vignette.VignetteShape.x; x <= vignette.VignetteShape.x; x++)
                 {
-
-                    Vector2 tilePos = new Vector2(overedTile.x + x, overedTile.y + y);
-
-                    //Logique pour monter a l'étage suppérieur
-                    if (tilePos.y < 0 && tilePos.x >= 0)
+                    for (int y = (int)-vignette.VignetteShape.y; y <= vignette.VignetteShape.y; y++)
                     {
-                        tilePos.Set(tilePos.x - 1, 3);
-                        test = true;
-                    }
 
-                    
-                    //Calcule si la distance est de 1
-                    if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1))
-                    {
-                        try
+                        Vector2 tilePos = new Vector2(overedTile.x + x, overedTile.y + y);
+
+                        //Logique pour monter a l'étage suppérieur
+                        if (tilePos.y < 0 && tilePos.x >= 0)
                         {
-                            if (tilePos.x < GridManager.instance.ListOfTile2D.Count && tilePos.y < GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count)
-                            {
-                                GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                                TileElt_Behaviours tileEvent;
-
-                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
-                                {
-                                    if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
-                                    {
-
-                                        return tileEvent.EventAssocier != null;
-                                    }
-                                }
-                            }
+                            tilePos.Set(tilePos.x - 1, 3);
+                            test = true;
                         }
-                        catch {
-                            print("error");
 
-                        }
-                    }
-                    // si il est passé a l'étage suppérieur 
-                    else if (test && tilePos.x >= 0 && tilePos.y >= 0)
-                    {
 
-                        if (GridManager.instance.ListOfTile2D.Count > Mathf.RoundToInt(tilePos.x))
+                        //Calcule si la distance est de 1
+                        if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1))
                         {
-                            if (GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count > Mathf.RoundToInt(tilePos.y))
+                            try
                             {
-                                GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                                TileElt_Behaviours tileEvent;
-
-                                if (tile != null)
+                                if (tilePos.x < GridManager.instance.ListOfTile2D.Count && tilePos.y < GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count)
                                 {
+                                    GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                    TileElt_Behaviours tileEvent;
+
                                     if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                     {
                                         if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
                                         {
 
-                                            tileEvent.EventAssocier.NextMove = vignette;
-                                            return true;
+                                            return tileEvent.EventAssocier != null;
+                                        }
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                print("error");
+
+                            }
+                        }
+                        // si il est passé a l'étage suppérieur 
+                        else if (test && tilePos.x >= 0 && tilePos.y >= 0)
+                        {
+
+                            if (GridManager.instance.ListOfTile2D.Count > Mathf.RoundToInt(tilePos.x))
+                            {
+                                if (GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)].Count > Mathf.RoundToInt(tilePos.y))
+                                {
+                                    GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                    TileElt_Behaviours tileEvent;
+
+                                    if (tile != null)
+                                    {
+                                        if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                        {
+                                            if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
+                                            {
+
+                                                tileEvent.EventAssocier.NextMove = vignette;
+                                                return true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
+                        else
+                        {
+                            test = false;
+                        }
                     }
-                    else
-                    {
-                        test = false;
-                    }
-                }
 
+                }
             }
         }
+
         return false;
     }
 
@@ -249,6 +256,18 @@ public class GridManager : MonoBehaviour
             }
         }
         print(a);
+    }
+
+    public void AssigneHoveredTile()
+    {
+        listOfHoveredTile.Clear();
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        {
+            foreach (var vignette in item.ListOfAffectedObject)
+            {
+                listOfHoveredTile.Add(vignette);
+            }
+        }
     }
 
     private void OnDrawGizmos()
