@@ -699,18 +699,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &897755297 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7583956811170925846, guid: 7dd7d5bf236008047a1c9403c236b07e,
+--- !u!1 &1174432754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7994139360472034802, guid: e2ef0f212a3701a44be3b3466b05fd62,
     type: 3}
-  m_PrefabInstance: {fileID: 2003257496}
+  m_PrefabInstance: {fileID: 1948309536}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0af3f5dd3a087b49925077164688e74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1298937710 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2132764054040352087, guid: 89f4548cfd2dd6d498c3e0869b87ca25,
@@ -1049,13 +1043,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994139359698680649, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 1948309537}
+    - target: {fileID: 7994139359698680649, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 897755297}
+      objectReference: {fileID: 460908103}
+    - target: {fileID: 7994139359698680649, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1174432754}
     - target: {fileID: 7994139359698680649, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
+      value: IsGameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139359698680649, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139360007299325, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_text
+      value: You Loose 1 life point
       objectReference: {fileID: 0}
     - target: {fileID: 7994139360045597136, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
@@ -1066,6 +1080,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor.a
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7994139360049979978, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_text
+      value: Next
       objectReference: {fileID: 0}
     - target: {fileID: 7994139360114071505, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
@@ -1265,6 +1284,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7994139360566327118, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
+--- !u!114 &1948309537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7994139360415437775, guid: e2ef0f212a3701a44be3b3466b05fd62,
+    type: 3}
+  m_PrefabInstance: {fileID: 1948309536}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2003257496
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1555,6 +1586,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayerID
       value: -2134915083
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132764054040352087, guid: 89f4548cfd2dd6d498c3e0869b87ca25,
+        type: 3}
+      propertyPath: maxHealth
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f4548cfd2dd6d498c3e0869b87ca25, type: 3}

@@ -10,6 +10,11 @@ public class PlayerManager : MonoBehaviour
 
     Keyboard kb;
 
+    [Space]
+    [Header("Health")]
+    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int health ;
+
     [Header ("Happyness - Sadness")]
     [SerializeField] private int maxHappyness = 5;
     [SerializeField] private int minSadness = - 5;
@@ -50,6 +55,7 @@ public class PlayerManager : MonoBehaviour
     {
         player_Happy_SadValue = 0;
         player_Angry_FearValue = 0;
+        Health = maxHealth;
 
         amountOfCardToDraw = minCardToDraw;
 
@@ -150,16 +156,26 @@ public class PlayerManager : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
-            if (GridManager.instance.ListOfMovement.Count > 0 && (player_Happy_SadValue != maxHappyness || player_Happy_SadValue != minSadness) && (player_Angry_FearValue != maxAngry || player_Angry_FearValue != minFear))
+            if (GridManager.instance.ListOfMovement.Count > 0 )
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
             else
             {
-                print("pute");
+
                 yield return new WaitForSeconds(1.5f);
                 EndMovement();
             }
+            /*if (GridManager.instance.ListOfMovement.Count > 0 && (player_Happy_SadValue != maxHappyness || player_Happy_SadValue != minSadness) && (player_Angry_FearValue != maxAngry || player_Angry_FearValue != minFear))
+            {
+                StartCoroutine(MoveToLocationByVignette());
+            }
+            else
+            {
+
+                yield return new WaitForSeconds(1.5f);
+                EndMovement();
+            }*/
         }
         else
         {
@@ -179,7 +195,7 @@ public class PlayerManager : MonoBehaviour
 
     void EndMovement()
     {
-        if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness || player_Angry_FearValue == maxAngry || player_Angry_FearValue == minFear) {
+        if (player_Happy_SadValue >= maxHappyness || player_Happy_SadValue <= minSadness || player_Angry_FearValue >= maxAngry || player_Angry_FearValue <= minFear) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
             StopAllCoroutines();
@@ -275,5 +291,6 @@ public class PlayerManager : MonoBehaviour
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
     public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
+    public int Health { get => health; set => health = value; }
     #endregion
 }

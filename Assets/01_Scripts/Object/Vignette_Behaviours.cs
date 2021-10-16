@@ -88,7 +88,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public Vignette_Behaviours CheckNextMove()
     {
-        if (onGrid)
+        if (OnGrid)
         {
             bool isNewLine = false;
             foreach (var overedTile in VignetteTile)
@@ -126,7 +126,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                 {
                                     if(tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
                                     {
-                                        print(" pomme = " + tileEvent.EventAssocier);
                                         return tileEvent.EventAssocier;
                                     }
                                 }
@@ -230,13 +229,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         if (GridManager.instance.DoesVignetteIsValid(this))
         {
-            onGrid = true;
-            print(gameObject.name + "True ");
+            OnGrid = true;
             vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
         }
         else
         {
-            onGrid = false;
+            OnGrid = false;
             vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
@@ -271,7 +269,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
         else
         {
-            onGrid = false;
+            OnGrid = false;
             nextMove = null;
             vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
@@ -281,13 +279,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             myEvent.ResetEvent();
         }
 
-        if (onGrid)
+        if (OnGrid)
         {
             foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
             {
-                if (item.onGrid)
+                if (item.OnGrid)
                 {
-                    print(item.name);
                     item.GetNextMove();
                 }
 
@@ -362,5 +359,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public Vignette_Behaviours NextMove { get => nextMove; set => nextMove = value; }
     public List<Vector2> VignetteTile { get => vignetteTile; set => vignetteTile = value; }
     public Vector2 VignetteShape { get => vignetteShape; set => vignetteShape = value; }
+    public bool OnGrid { get => onGrid; set => onGrid = value; }
     #endregion
 }

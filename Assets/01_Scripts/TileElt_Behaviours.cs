@@ -33,38 +33,12 @@ public class TileElt_Behaviours : MonoBehaviour
         string content = "";
         print(eventAssocier.name);
 
+        player.Update_Happyness_Sadness(eventAssocier.MyEvent.CurrentHappy_Sad);
 
+        player.Update_Angry_Fear(eventAssocier.MyEvent.CurrentAngry_Fear);
 
-        if (eventAssocier.MyEvent.Happy_Sad > 0)
-        {
-            player.Update_Happyness_Sadness(eventAssocier.MyEvent.Happy_Sad);
-        }
-        else
-        {
-            player.Update_Happyness_Sadness(eventAssocier.MyEvent.Happy_Sad);
-        }
+        player.HandModifier(eventAssocier.MyEvent.CurrentAmountOfVignetteToDraw);
 
-
-
-        if (eventAssocier.MyEvent.Angry_Fear > 0)
-        {
-            player.Update_Angry_Fear(eventAssocier.MyEvent.Angry_Fear);
-        }
-        else
-        {
-            player.Update_Angry_Fear(eventAssocier.MyEvent.Angry_Fear);
-        }
-
-
-
-        if (eventAssocier.MyEvent.AmountOfVignetteToDraw > 0)
-        {
-            player.HandModifier(eventAssocier.MyEvent.AmountOfVignetteToDraw);
-        }
-        else
-        {
-            player.HandModifier(eventAssocier.MyEvent.AmountOfVignetteToDraw);
-        }
 
     }
 

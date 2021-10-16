@@ -44,6 +44,6 @@ public class DebugManager : MonoBehaviour
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
     }
 }
