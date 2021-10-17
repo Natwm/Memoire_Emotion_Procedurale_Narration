@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using DG.Tweening;
 
 /* ORDER IN LAYER
  * Fond blanc : -5
@@ -59,6 +59,24 @@ public class Bd_Component : MonoBehaviour
     {
         string chemin = "Generation/Vignette/" + "case_" + cases[caseIndex];
         return Resources.Load<GameObject>(chemin);
+    }
+
+    public void SetVignetteToOject(GameObject ObjToSet)
+    {
+        string ObjName = ObjToSet.name;
+        int vignetteIndexType = 0;
+        for (int i = 0; i < cases.Length; i++)
+        {
+            if (ObjName.Contains(cases[i]))
+            {
+                vignetteIndexType = i;
+            }
+        }
+        Vignette newVignette = new Vignette(cases[vignetteIndexType], GetVignette(vignetteIndexType), ObjToSet.transform, InVignetteSpawn, GetComp(vignetteIndexType));
+        ObjToSet.GetComponent<Vignette_Behaviours>().vignetteInfo = newVignette.Vignette_Object;
+        VignetteSequence.Add(newVignette);
+        
+
     }
 
     public void CreateNewRandomVignette(int numberOfVignette)
@@ -130,7 +148,9 @@ public class Vignette
     {
         
         // INITIALISATION VIGNETTE
-        GameObject tempVignette = GameObject.Instantiate(_vignetteType,_parent);
+        GameObject tempVignette = GameObject.Instantiate(_vignetteType);
+        tempVignette.transform.parent = _parent;
+        tempVignette.transform.localPosition = Vector3.zero;
         Vignette_Object = tempVignette;
         Cadre_Object = tempVignette.transform.GetChild(0).gameObject;
         GameObject tempGab = GameObject.Instantiate(_gabarit, Cadre_Object.transform);
@@ -176,6 +196,8 @@ public class Vignette
         int randomPoint = Random.Range(0, Gabarit_Composition.transform.childCount);
         
         GameObject newPos = Gabarit_Composition.transform.GetChild(randomPoint).gameObject;
+        return newPos;
+        /*
         if (newPos.activeInHierarchy)
         {
             return newPos;
@@ -184,9 +206,8 @@ public class Vignette
         {
             return GetRandomCompositionPoint();
         }
-        
-        // GameObject.Destroy(Gabarit_Composition.transform.GetChild(randomPoint).gameObject);
-        
+        */
+
     }
 
   

@@ -35,6 +35,7 @@ public class EventGenerator : MonoBehaviour
     void Start()
     {
         kb = InputSystem.GetDevice<Keyboard>();
+        m_GridManager = GridManager.instance;
        // GenerateGrid();
     }
 
@@ -49,51 +50,56 @@ public class EventGenerator : MonoBehaviour
 
     */
     // Update is called once per frame
-    public void DetermineDoors()
+    public void DetermineDoors(bool isRandom)
     {
-        GameObject[] leftTiles = new GameObject[gridSize.x];
-        GameObject[] rightTiles = new GameObject[gridSize.x];
-        int index_Left=0;
-        int index_Right = 0;
-
-        for (int i = 0; i < GridManager.instance.ListOfTile.Capacity; i++)
+        if (isRandom)
         {
-            TileElt_Behaviours tile = GridManager.instance.ListOfTile[i].GetComponent<TileElt_Behaviours>();
-            //LeftTile
-            if (tile.Tileposition.y == 0)
+            // Tableaux de tiles pour déterminer le bord droit et le bord gauche
+            GameObject[] leftTiles = new GameObject[gridSize.x];
+            GameObject[] rightTiles = new GameObject[gridSize.x];
+            int index_Left = 0;
+            int index_Right = 0;
+            for (int i = 0; i < m_GridManager.ListOfTile.Capacity; i++)
             {
-                leftTiles[index_Left] = tile.gameObject;
-                index_Left++;
+                TileElt_Behaviours tile = m_GridManager.ListOfTile[i].GetComponent<TileElt_Behaviours>();
+                //LeftTile
+                if (tile.Tileposition.y == 0)
+                {
+                    leftTiles[index_Left] = tile.gameObject;
+                    index_Left++;
 
+                }
+                if (tile.Tileposition.y == gridSize.y - 1)
+                {
+                    rightTiles[index_Right] = tile.gameObject;
+                    index_Right++;
+                }
             }
-            if (tile.Tileposition.y == gridSize.y-1)
-            {
-                rightTiles[index_Right] = tile.gameObject;
-                index_Right++;
-            }
+
+            int RandomEntry = Random.Range(0, leftTiles.Length);
+            int RandomExit = Random.Range(0, rightTiles.Length);
+
+            EntryTile = leftTiles[RandomEntry];
+            ExitTile = rightTiles[RandomExit];
         }
-
-        int RandomEntry = Random.Range(0, leftTiles.Length);
-        int RandomExit = Random.Range(0, rightTiles.Length);
-
-        EntryTile = leftTiles[RandomEntry];
-        ExitTile = rightTiles[RandomExit];
-
+        else
+        {
+            EntryTile = m_GridManager.ListOfTile[0]; 
+            ExitTile = m_GridManager.ListOfTile[m_GridManager.ListOfTile.Count-1];
+        }
         GameObject newEntry = Instantiate(doors[0], EntryTile.transform);
         newEntry.transform.localPosition = Vector3.zero;
         GameObject newExit = Instantiate(doors[1], ExitTile.transform);
         newExit.transform.localPosition = Vector3.zero;
         allGraphics.Add(newEntry);
         allGraphics.Add(newExit);
-        Debug.Log(newEntry.name);
-        Debug.Log(newExit.name);
+        
     }
 
     public void PopulateTiles(int iteration)
     {
         ClearGrid();
-        DetermineDoors();
-
+        DetermineDoors(false);
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -212,6 +218,7 @@ public class EventGenerator : MonoBehaviour
 
     public void GenerateGrid()
     {
+       
         PopulateTiles(tilenumber);
         DetermineTileType();
     }
@@ -223,9 +230,6 @@ public class EventGenerator : MonoBehaviour
         {
             FindObjectOfType<Porte>().SetDoor(true);
         }
-        if (kb.kKey.wasReleasedThisFrame)
-        {
-            DetermineDoors();
-        }
+        
     }
 }

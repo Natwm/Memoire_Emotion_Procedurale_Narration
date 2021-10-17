@@ -35,13 +35,17 @@ public class CastingManager : MonoBehaviour
     {
         
         
-        Bd_Component.bd_instance.CreateNewRandomVignette(5);
+        //Bd_Component.bd_instance.CreateNewRandomVignette(5);
+        
+    
+    }
+
+    public void SetCharactersToHand()
+    {
         foreach (Vignette item in Bd_Component.bd_instance.VignetteSequence)
         {
-            Debug.Log(item.Cadre_Object.name);
             SetCharacterToVignette(item);
         }
-    
     }
 
     public Character getRandomCharacter()
@@ -87,10 +91,15 @@ public class CastingManager : MonoBehaviour
     {
 
         _vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber);
+        for (int i = 0; i < _vignetteToSet.ObjectsNumber; i++)
+        {
+            _vignetteToSet.inVignetteCharacter[i].SetIconToVignette(_vignetteToSet);
+        }
+        /*
         foreach (Character item in _vignetteToSet.inVignetteCharacter)
         {
             item.SetIconToVignette(_vignetteToSet);
-        }
+        }*/
         
     }
 
