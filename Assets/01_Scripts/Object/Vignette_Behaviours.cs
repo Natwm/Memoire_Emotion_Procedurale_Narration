@@ -26,7 +26,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private SpriteRenderer cardImage;
     [SerializeField] private GameObject vignetteScene;
     [SerializeField] private GameObject vignetteImage;
-    [SerializeField] private GameObject vignetteInfo;
+    [SerializeField] public GameObject vignetteInfo;
 
     [Header("List")]
     [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2>();
@@ -68,14 +68,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         m_IsVignetteShowUp = false;
 
-        vignetteInfo = transform.GetChild(0).gameObject;
+       // vignetteInfo = transform.GetChild(0).gameObject;
         //vignetteInfo.SetActive(true);
 
-        vignetteScene = transform.GetChild(1).gameObject;
+        vignetteScene = transform.GetChild(0).gameObject;
         //vignetteScene.SetActive(false);
 
         vignetteImage = vignetteScene.transform.GetChild(0).gameObject;
-        vignetteImage.GetComponent<SpriteRenderer>().DOFade(0, 0f);
+        vignetteImage.SetActive(false);
+        //vignetteImage.GetComponent<SpriteRenderer>().DOFade(0, 0f);
 
         myEvent = GetComponent<EventContener>();
         SetUpCard();
@@ -173,13 +174,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         myEvent.SetUp(happySad_Value, angryFear_Value, amountofVignetteToDraw, isKey);
         cardImage.sprite = vignetteRender;
-        SetUpUI();
+        //SetUpUI();
     }
 
     public void SetUpCard(IModifier modifier)
     {
         modifier.CollectElement(myEvent);
-        SetUpUI();
+        //SetUpUI();
     }
 
     //quand tu drop, ne mets pas a jour le script event
@@ -221,8 +222,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private void ShowVignetteElt(GameObject inObject, GameObject outObject, float speed = 0.25f)
     {
-        outObject.GetComponent<SpriteRenderer>().DOFade(0, speed);
-        inObject.GetComponent<SpriteRenderer>().DOFade(1, speed);
+        //outObject.GetComponent<SpriteRenderer>().DOFade(0, speed);
+        outObject.SetActive(false);
+        //inObject.GetComponent<SpriteRenderer>().DOFade(1, speed);
+        inObject.SetActive(true);
     }
 
     private void CheckIsPositionIsValid()
@@ -334,7 +337,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         offset = transform.position - (Vector3)data;
 
         myEvent.ResetEvent();
-        SetUpUI();
+       // SetUpUI();
     }
 
     private void OnDragDelegate(PointerEventData data)

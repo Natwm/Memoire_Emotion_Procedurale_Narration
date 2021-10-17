@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1208671263778550250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1208671263778550244}
+  - component: {fileID: 1208671263778550245}
+  m_Layer: 0
+  m_Name: BD_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1208671263778550244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208671263778550250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.071357, y: 0.84654456, z: -0.004299164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1208671263778550245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208671263778550250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5988199524af2947ab1cb3454485dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InVignetteSpawn:
+  - {fileID: -8157833349957969119, guid: 1511c7641de5a134d9b16e78a7fac78d, type: 3}
+  - {fileID: -2048269453417076133, guid: 1aff7670450c20b4d9987873eec447b3, type: 3}
+  - {fileID: -6639280805670004321, guid: 77ccde06f72acf94f9acd3f88cadefbe, type: 3}
+  Gabarit_Composition:
+  - {fileID: 6388685123715435586, guid: f6084fb55c784ca428579a632bf87b6a, type: 3}
+  Vignettes:
+  - {fileID: 0}
+  vignetteHolder: {fileID: 0}
+  Expression_Sprite:
+  - {fileID: 21300000, guid: 892529276a5fa6f45a54d74d685e6b2d, type: 3}
+  - {fileID: 21300000, guid: 9e69f58294049494895baade271bacd4, type: 3}
+  - {fileID: 21300000, guid: 8743fd418a77bdc42b53131dc5b057cd, type: 3}
+  - {fileID: 21300000, guid: 9605e57080f137748a8b71af1e08bbb5, type: 3}
+  - {fileID: 21300000, guid: ff5ddb45a33a82f4791910d12a4311cb, type: 3}
+  - {fileID: 21300000, guid: af512e760488c4644937bee50e9cfab8, type: 3}
+  - {fileID: 21300000, guid: 01e344557448f884c80716d6a98e83af, type: 3}
+  Pose: 2
+  character_Color: {r: 0.2735849, g: 0.1475425, b: 0.011614448, a: 1}
+  iterationNumber: 5
+  gouttiere: 0.1
