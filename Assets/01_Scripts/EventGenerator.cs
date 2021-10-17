@@ -59,9 +59,9 @@ public class EventGenerator : MonoBehaviour
             GameObject[] rightTiles = new GameObject[gridSize.x];
             int index_Left = 0;
             int index_Right = 0;
-            for (int i = 0; i < m_GridManager.ListOfTile.Capacity; i++)
+            for (int i = 0; i < GridManager.instance.ListOfTile.Capacity; i++)
             {
-                TileElt_Behaviours tile = m_GridManager.ListOfTile[i].GetComponent<TileElt_Behaviours>();
+                TileElt_Behaviours tile = GridManager.instance.ListOfTile[i].GetComponent<TileElt_Behaviours>();
                 //LeftTile
                 if (tile.Tileposition.y == 0)
                 {
@@ -84,8 +84,8 @@ public class EventGenerator : MonoBehaviour
         }
         else
         {
-            EntryTile = m_GridManager.ListOfTile[0]; 
-            ExitTile = m_GridManager.ListOfTile[m_GridManager.ListOfTile.Count-1];
+            EntryTile = GridManager.instance.ListOfTile[0]; 
+            ExitTile = GridManager.instance.ListOfTile[GridManager.instance.ListOfTile.Count-1];
         }
         GameObject newEntry = Instantiate(doors[0], EntryTile.transform);
         newEntry.transform.localPosition = Vector3.zero;
