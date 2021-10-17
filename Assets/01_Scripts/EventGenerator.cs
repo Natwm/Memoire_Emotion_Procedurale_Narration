@@ -35,7 +35,6 @@ public class EventGenerator : MonoBehaviour
     void Start()
     {
         kb = InputSystem.GetDevice<Keyboard>();
-        m_GridManager = GridManager.instance;
        // GenerateGrid();
     }
 
@@ -56,9 +55,10 @@ public class EventGenerator : MonoBehaviour
         GameObject[] rightTiles = new GameObject[gridSize.x];
         int index_Left=0;
         int index_Right = 0;
-        for (int i = 0; i < m_GridManager.ListOfTile.Capacity; i++)
+
+        for (int i = 0; i < GridManager.instance.ListOfTile.Capacity; i++)
         {
-            TileElt_Behaviours tile = m_GridManager.ListOfTile[i].GetComponent<TileElt_Behaviours>();
+            TileElt_Behaviours tile = GridManager.instance.ListOfTile[i].GetComponent<TileElt_Behaviours>();
             //LeftTile
             if (tile.Tileposition.y == 0)
             {
@@ -93,6 +93,7 @@ public class EventGenerator : MonoBehaviour
     {
         ClearGrid();
         DetermineDoors();
+
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -211,7 +212,6 @@ public class EventGenerator : MonoBehaviour
 
     public void GenerateGrid()
     {
-       
         PopulateTiles(tilenumber);
         DetermineTileType();
     }

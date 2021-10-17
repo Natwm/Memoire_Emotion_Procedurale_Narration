@@ -29,7 +29,7 @@ public class GridManager : MonoBehaviour
     public List<List<GameObject>> ListOfTile2D { get => listOfTile2D; set => listOfTile2D = value; }
     public List<GameObject> ListOfOveredTile { get => listOfHoveredTile; set => listOfHoveredTile = value; }
 
-    EventGenerator m_EventGenerator;
+    public EventGenerator m_EventGenerator;
 
     void Awake()
     {
@@ -37,17 +37,20 @@ public class GridManager : MonoBehaviour
             Debug.LogWarning("Multiple instance of same Singleton : GridManager");
         else
             instance = this;
-        m_EventGenerator = GetComponent<EventGenerator>();
-        m_EventGenerator.gridSize = new Vector2Int(Mathf.FloorToInt(m_GridSize.x), Mathf.FloorToInt(m_GridSize.y));
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        //m_EventGenerator = GetComponent<EventGenerator>();
+        m_EventGenerator.gridSize = new Vector2Int(Mathf.FloorToInt(m_GridSize.x), Mathf.FloorToInt(m_GridSize.y));
+
         for (int i = 0; i < m_GridSize.x; i++)
         {
             ListOfTile2D.Add(new List<GameObject>());
         }
+
         CreateTerrain();
     }
 
@@ -232,16 +235,22 @@ public class GridManager : MonoBehaviour
 
     public void ClearScene()
     {
+        LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
 
         foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
             Destroy(item.gameObject);
         }
-        PlayerManager.instance.HandOfVignette.Clear();
-        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
         m_EventGenerator.GenerateGrid();
+
+        PlayerManager.instance.HandOfVignette.Clear();
         PlayerManager.instance.SetUp();
+
+        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+        CanvasManager.instance.UpdatePageIndicator();
+
+        PlayerManager.instance.ResetPlayerPosition();
     }
 
     void ShowDebugTile()

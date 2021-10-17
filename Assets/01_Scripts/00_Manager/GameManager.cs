@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager instance;
 
     void Awake()
@@ -148,5 +147,8 @@ public class GameManager : MonoBehaviour
         CanvasManager.instance.PlayerLooseTheGame();
     }
 
-
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

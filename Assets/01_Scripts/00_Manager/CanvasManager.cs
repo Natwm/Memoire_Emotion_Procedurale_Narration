@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using TMPro;
 
 public class CanvasManager : MonoBehaviour
@@ -11,18 +12,22 @@ public class CanvasManager : MonoBehaviour
     [Header("Panel")]
     [SerializeField] private GameObject WinPanel;
     [SerializeField] private GameObject LoosePanel;
+    [SerializeField] private GameObject QuitPanel;
 
     [Space]
-
+    [Header("Text")]
     public TMP_Text logText;
-
+    [Space]
     [SerializeField] private TMP_Text lifeText;
     [SerializeField] private TMP_Text staminaText;
     [SerializeField] private TMP_Text vignetteText;
+    [SerializeField] private TMP_Text pageIndicator;
 
     [Space]
     [Header("Button")]
     [SerializeField] private Button moveButton;
+
+    Keyboard kb;
 
     void Awake()
     {
@@ -33,7 +38,17 @@ public class CanvasManager : MonoBehaviour
     }
     private void Start()
     {
+        kb = InputSystem.GetDevice<Keyboard>();
         SetActiveMoveButton(false);
+        QuitPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (kb.escapeKey.wasReleasedThisFrame)
+        {
+            QuitPanel.SetActive(!QuitPanel.activeSelf);
+        }
     }
 
     public void SetActiveMoveButton(bool activeObject)
@@ -46,7 +61,7 @@ public class CanvasManager : MonoBehaviour
         moveButton.interactable = activeObject;
     }
 
-
+    #region Update Information
     public void NewLogEntry(string content)
     {
         logText.text = content;
@@ -73,6 +88,15 @@ public class CanvasManager : MonoBehaviour
         vignetteText.text = "Next Vignette : " + amoutOfVignette;
     }
 
+    #endregion
+
+    public void UpdatePageIndicator()
+    {
+        pageIndicator.text = "Nb page : " + LevelManager.instance.AmountOfpageDone;
+    }
+
+    #region Win / Loose Panel
+
     public void PlayerWinTheGame()
     {
         WinPanel.SetActive(true);
@@ -82,5 +106,8 @@ public class CanvasManager : MonoBehaviour
     {
         LoosePanel.SetActive(true);
     }
+
+    #endregion
+
 
 }

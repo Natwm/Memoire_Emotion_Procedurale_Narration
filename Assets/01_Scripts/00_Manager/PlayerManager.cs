@@ -83,6 +83,13 @@ public class PlayerManager : MonoBehaviour
         EndMovement();
     }
 
+    public void ResetPlayerPosition()
+    {
+        transform.DOMove(new Vector2(-2, -2), 0.1f);
+    }
+
+    #region Movement
+
     public void MoveToAnotherStep()
     {
         print(GridManager.instance.ListOfMovement.Count);
@@ -207,6 +214,8 @@ public class PlayerManager : MonoBehaviour
             CanvasManager.instance.PlayerWinTheGame();
         }
     }
+
+    #endregion
 
     #region Happyness_Sadness Event
     public void Update_Happyness_Sadness( int point)

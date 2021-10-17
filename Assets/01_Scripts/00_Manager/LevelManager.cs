@@ -10,6 +10,9 @@ public class LevelManager : MonoBehaviour
     public Transform parent;
     public string Chemin;
 
+    [Space]
+    private int amountOfpageDone = 0;
+
     void Awake()
     {
         if (instance != null)
@@ -49,11 +52,12 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(int amount)
     {
-        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
-        int nbElement = listOfSO.Length;
-        print(nbElement);
+//        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
+       // int nbElement = listOfSO.Length;
+        //print(nbElement);
         for (int i = 0; i < amount; i++)
         {
+            print(i);
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
 
             GameObject item = listOfObjectToSpawn[vignette];
@@ -61,10 +65,17 @@ public class LevelManager : MonoBehaviour
             GameObject card = Instantiate(item, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
 
-            int elt = Random.Range(0, nbElement);
+            //int elt = Random.Range(0, nbElement);
             cardBd.SetUpCard();
 
             PlayerManager.instance.HandOfVignette.Add(cardBd);
         }
     }
+
+    #region Getter && Setter
+
+    public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
+
+    #endregion
+
 }
