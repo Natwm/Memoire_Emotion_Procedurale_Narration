@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class EventGenerator : MonoBehaviour
 {
     GridManager m_GridManager;
     public List<GameObject> occupiedTiles;
     public int tilenumber;
-    Keyboard kb;
     public Vector2Int distribution;
 
     public List<GameObject> allGraphics;
@@ -34,7 +33,6 @@ public class EventGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        kb = InputSystem.GetDevice<Keyboard>();
         m_GridManager = GridManager.instance;
        // GenerateGrid();
     }
@@ -224,12 +222,6 @@ public class EventGenerator : MonoBehaviour
     }
 
     void Update()
-    {
-     
-        if (kb.jKey.wasReleasedThisFrame)
-        {
-            FindObjectOfType<Porte>().SetDoor(true);
-        }
-        
+    {        
     }
 }

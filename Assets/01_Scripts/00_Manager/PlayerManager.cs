@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using DG.Tweening;
 
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-
-    Keyboard kb;
 
     [Space]
     [Header("Health")]
@@ -63,7 +60,6 @@ public class PlayerManager : MonoBehaviour
 
         CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
-        kb = InputSystem.GetDevice<Keyboard>();
     }
 
     // Update is called once per frame

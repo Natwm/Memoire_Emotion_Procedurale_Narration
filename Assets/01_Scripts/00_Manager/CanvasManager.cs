@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using TMPro;
 
 public class CanvasManager : MonoBehaviour
@@ -27,7 +26,6 @@ public class CanvasManager : MonoBehaviour
     [Header("Button")]
     [SerializeField] private Button moveButton;
 
-    Keyboard kb;
 
     void Awake()
     {
@@ -38,14 +36,13 @@ public class CanvasManager : MonoBehaviour
     }
     private void Start()
     {
-        kb = InputSystem.GetDevice<Keyboard>();
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (kb.escapeKey.wasReleasedThisFrame)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             QuitPanel.SetActive(!QuitPanel.activeSelf);
         }

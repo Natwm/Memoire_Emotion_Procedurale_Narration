@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using DG.Tweening;
 
 /* ORDER IN LAYER
@@ -38,10 +37,10 @@ public class Bd_Component : MonoBehaviour
             bd_instance = this;
         VignetteSequence = new List<Vignette>();
     }
-    Keyboard kb;
+
     private void Start()
     {
-        kb = InputSystem.GetDevice<Keyboard>();
+
         for (int i = 0; i < iterationNumber; i++)
         {
            // CreateNewRandomVignette();

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class DemoScript : MonoBehaviour
 {
@@ -45,15 +44,12 @@ public class DemoScript : MonoBehaviour
 
     [Space]
     [Header("Inputs")]
-    PlayerInput InputController;
     public Vector2 axisMovement;
     public Vector2 rightAxisStick;
     Face_Manager faceManager;
     //INITIALISATION DE L'INPUT SYSTEM
     public void Awake()
     {
-        InputController = GetComponent<PlayerInput>();
-        InputController.ActivateInput();
         faceManager = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Face_Manager>();
     }
 
@@ -80,7 +76,7 @@ public class DemoScript : MonoBehaviour
 
     #region Input Manager // Fonctions d'appels des différents boutons
 
-    public void StoreMovementVector(InputAction.CallbackContext ctx)
+    /*public void StoreMovementVector(InputAction.CallbackContext ctx)
     {
         axisMovement = -ctx.ReadValue<Vector2>();
       
@@ -144,7 +140,7 @@ public class DemoScript : MonoBehaviour
         {
             ChangeState(PlayerState.SAD);
         }
-    }
+    }*/
 
     #endregion 
 

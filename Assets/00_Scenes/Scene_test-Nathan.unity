@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 676172183}
   - component: {fileID: 676172182}
   - component: {fileID: 676172184}
+  - component: {fileID: 676172185}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -215,6 +216,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328cf26ca16bfda4980ec937f611420b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouve: {x: 0, y: 0}
+--- !u!114 &676172185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676172181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 99d25a2889c17b842b419dcd7258fe5d,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 410507a2-86ca-43a5-9f29-62aafb7c2e81
+    m_ActionName: Movement/MoveVector[/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 1039250a-e434-40b5-9d78-85111b96e2a8
+    m_ActionName: Movement/Intensity[/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 271ef86d-a476-48c2-b140-bd4e8bed613a
+    m_ActionName: Movement/Left_Bumper[/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 534a43bb-7e2b-4daa-ba93-16144543ac8f
+    m_ActionName: Movement/Right_Bumper[/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: ee9b797b-630c-4181-b71c-da0a027ec492
+    m_ActionName: Movement/Button_Y[/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: b5ed2d14-a38d-4fe4-aabd-6f49d1ac5f51
+    m_ActionName: Movement/Button_B[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 260221a6-fbec-4f08-a322-25ad7ff1d268
+    m_ActionName: Movement/Button_A[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 3d98f90f-ed7e-4d5c-b74b-bac63b5a196a
+    m_ActionName: Movement/Button_X[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_CallsDirty: 1
+    m_ActionId: 084d364e-2be5-49f0-b836-d4f6805b53c4
+    m_ActionName: Movement/RightJoystick[/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls:
+      - {m_Target: {fileID: 676172184}, m_MethodName: pomme, m_Mode: 0, m_Arguments: {m_ObjectArgument: {fileID: 0},
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, m_IntArgument: 0,
+          m_FloatArgument: 0, m_StringArgument: , m_BoolArgument: 0}, m_CallState: 2}
+    m_CallsDirty: 1
+    m_ActionId: 9f7d7f74-fe59-4faf-aee7-ad5f844d8714
+    m_ActionName: Movement/souris[/Mouse/position]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Controller
+  m_DefaultActionMap: Movement
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 1566631816}
 --- !u!1 &982452448
 GameObject:
   m_ObjectHideFlags: 0
