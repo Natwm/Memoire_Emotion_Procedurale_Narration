@@ -79,8 +79,8 @@ public class LevelManager : MonoBehaviour
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
             Bd_Component.bd_instance.SetVignetteToOject(card);
-            CastingManager.instance.SetCharactersToHand();
-        }
+            }
+       // CastingManager.instance.SetCharactersToHand();
     }
 
     public void NewPage()

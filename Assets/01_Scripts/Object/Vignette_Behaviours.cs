@@ -27,7 +27,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private GameObject vignetteScene;
     [SerializeField] private GameObject vignetteImage;
     [SerializeField] public GameObject vignetteInfo;
-
+    public Vignette assignedVignette;
     [Header("List")]
     [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2>();
     [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
@@ -80,6 +80,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         myEvent = GetComponent<EventContener>();
         SetUpCard();
+        CastingManager.instance.SetCharacterToVignette(assignedVignette);
     }
 
     // Update is called once per frame

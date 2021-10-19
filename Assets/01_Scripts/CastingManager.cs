@@ -9,7 +9,7 @@ public class CastingManager : MonoBehaviour
     public static CastingManager instance;
     
     string[] Names = { "René","Josiane","Michel","Albert","Lucie","Sylvie","Maurice","Mauricette","Nathan","Sonia","Simon","Adrien","Julien","Morgane","Killian","Thomas","Pierre","José","Nicolas","Brigitte","Vivienne","Jean"};
-    public Color CharacterColors;
+    public Color[] CharacterColors;
     public GameObject iconRenderer;
     Character[] allCharacters;
     GameObject[] allCharacterIcons;

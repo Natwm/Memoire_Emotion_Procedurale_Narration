@@ -73,6 +73,7 @@ public class Bd_Component : MonoBehaviour
         }
         Vignette newVignette = new Vignette(cases[vignetteIndexType], GetVignette(vignetteIndexType), ObjToSet.transform, InVignetteSpawn, GetComp(vignetteIndexType));
         ObjToSet.GetComponent<Vignette_Behaviours>().vignetteInfo = newVignette.Vignette_Object;
+        ObjToSet.GetComponent<Vignette_Behaviours>().assignedVignette = newVignette;
         VignetteSequence.Add(newVignette);
         
 
@@ -195,8 +196,7 @@ public class Vignette
         int randomPoint = Random.Range(0, Gabarit_Composition.transform.childCount);
         
         GameObject newPos = Gabarit_Composition.transform.GetChild(randomPoint).gameObject;
-        return newPos;
-        /*
+        
         if (newPos.activeInHierarchy)
         {
             return newPos;
@@ -205,7 +205,7 @@ public class Vignette
         {
             return GetRandomCompositionPoint();
         }
-        */
+        
 
     }
 
