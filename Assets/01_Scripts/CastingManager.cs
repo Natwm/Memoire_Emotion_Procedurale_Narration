@@ -20,6 +20,9 @@ public class CastingManager : MonoBehaviour
 
     [Header("Facial Features")]
     public Sprite[] TopSprites;
+
+    public Character[] AllCharacters { get => allCharacters; set => allCharacters = value; }
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -50,8 +53,8 @@ public class CastingManager : MonoBehaviour
 
     public Character getRandomCharacter()
     {
-        int randIndex = Random.Range(0, allCharacters.Length);
-        return allCharacters[randIndex];
+        int randIndex = Random.Range(0, AllCharacters.Length);
+        return AllCharacters[randIndex];
     }
 
     public Character[] getCharacterDistribution(int characterAmount)
@@ -105,11 +108,11 @@ public class CastingManager : MonoBehaviour
 
     public void CreateCharacter(int CharacterNumber)
     {
-        allCharacters = new Character[CharacterNumber];
+        AllCharacters = new Character[CharacterNumber];
         allCharacterIcons = new GameObject[CharacterNumber];
         for (int i = 0; i < CharacterNumber; i++)
         {
-            allCharacters[i] = new Character(Role.None, EmotionJauge.Jauge_PeurColere);
+            AllCharacters[i] = new Character(Role.None, EmotionJauge.Jauge_PeurColere);
            
         }
     }

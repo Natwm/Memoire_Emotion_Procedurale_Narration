@@ -11,7 +11,14 @@ public class LevelManager : MonoBehaviour
     public string Chemin;
 
     [Space]
+    [SerializeField] private int nextCheck = 0;
+
+    [Space]
     private int amountOfpageDone = 0;
+
+    [Space]
+    [Header("BranchingCondition")]
+    [SerializeField] private List<BranchingCondition> nextCondition;
 
     void Awake()
     {
@@ -30,7 +37,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnObject()
@@ -75,6 +82,82 @@ public class LevelManager : MonoBehaviour
             CastingManager.instance.SetCharactersToHand();
         }
     }
+
+    public void NewPage()
+    {
+        if (ChangeNarrativeBranch()) 
+        {
+            print("changement de branche");
+            GridManager.instance.ClearScene();
+        }
+        print("pas de changement");
+        GridManager.instance.ClearScene();
+    }
+
+    #region Branching
+
+    /// <summary>
+    /// La méthode permets de vérifier par rapport a la possition actuelle de la branche si 
+    /// un character valide les condition nécéssaire afin de passer a une nouvelle branche
+    /// </summary>
+    /// <returns> retourne un booleen permettant d'utiliser une méthode lier a la nouvelle branche</returns>
+    public bool ChangeNarrativeBranch()
+    {
+        nextCheck--;
+        if(nextCheck <= 0)
+        {
+            print("check");
+            // vérifie si un des persos valide la condition
+            foreach (Character item in CastingManager.instance.AllCharacters)
+            {
+
+                // check dans toutes les branches possible si il en existe au moins une de valide
+                foreach (var stepCondition in nextCondition)
+                {
+
+                    if (item.currentRole != stepCondition.RoleCondition)
+                        return false;
+
+                    switch (stepCondition.EmotionCondition)
+                    {
+                        // ^ = XOR condition ( ou bien :  true xor false = true && true xor true = False)
+                        case EmotionJauge.Jauge_PeurColere:
+                            if (item.currentJauge != EmotionJauge.Jauge_PeurColere ^ item.jaugeNumber != stepCondition.JaugeValueCondition)
+                                return false;
+
+                            else if (item.currentJauge == EmotionJauge.Jauge_PeurColere && item.jaugeNumber == stepCondition.JaugeValueCondition)
+                            {
+                                nextCheck = stepCondition.NextCheck; 
+                                nextCondition = stepCondition.NextMove;
+                                return true;
+                            }
+
+                            break;
+
+                        case EmotionJauge.Jauge_TristesseJoie:
+                            if (item.currentJauge != EmotionJauge.Jauge_TristesseJoie ^ item.jaugeNumber != stepCondition.JaugeValueCondition)
+                                return false;
+
+                            else if (item.currentJauge == EmotionJauge.Jauge_TristesseJoie && item.jaugeNumber == stepCondition.JaugeValueCondition)
+                            {
+                                nextCheck = stepCondition.NextCheck;
+                                nextCondition = stepCondition.NextMove;
+                                return true;
+                            }
+ 
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    #endregion
 
     #region Getter && Setter
 

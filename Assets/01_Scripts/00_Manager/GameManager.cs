@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            GridManager.instance.ClearScene();
+            LevelManager.instance.NewPage();
         }
     }
 
