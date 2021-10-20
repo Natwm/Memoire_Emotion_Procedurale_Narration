@@ -275,21 +275,15 @@ public class PlayerManager : MonoBehaviour
         CanvasManager.instance.UpdateVignetteToDraw(AmountOfCardToDraw);
     }
 
-    private void DrawVignette(int amountOfCard)
+    private void DrawVignette(int amountOfCard = 1)
     {
         print("okdqd");
-        LevelManager.instance.SpawnObject(1);
+        LevelManager.instance.SpawnObject(amountOfCard);
     }
 
-    public void DrawVignetteByStamina()
+    public void DrawVignette()
     {
-        if(player_Angry_FearValue - drawCoast >= 0)
-        {
-            player_Angry_FearValue -= drawCoast;
-            LevelManager.instance.SpawnObject(1);
-            CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
-        }
-        
+        LevelManager.instance.SpawnObject(1);
     }
 
     private void DiscardVignette()

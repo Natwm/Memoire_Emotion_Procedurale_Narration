@@ -238,6 +238,8 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
 
+        ClearList();
+
         foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
             Destroy(item.gameObject);
@@ -253,6 +255,12 @@ public class GridManager : MonoBehaviour
         PlayerManager.instance.ResetPlayerPosition();
     }
 
+    private void ClearList()
+    {
+        listOfEvent.Clear();
+        ListOfMovement.Clear();
+        ListOfOveredTile.Clear();
+    }
     void ShowDebugTile()
     {
         string a = "";
