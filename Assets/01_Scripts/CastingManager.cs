@@ -268,6 +268,16 @@ public class Character
         
     }
   
+    public void IncreaseCharacterJauge()
+    {
+        
+    }
+    
+    public void DecreaseCharacterJauge()
+    {
+
+    }
+
     public void SetObjectColor(bool isIcon,GameObject objToSet)
     {
         if (isIcon)
