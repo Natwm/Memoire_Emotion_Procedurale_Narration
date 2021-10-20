@@ -235,7 +235,10 @@ public class Character
     public Character(Role character_Role,EmotionJauge currentEmotion)
     {
         int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
+        int pileOuFace = Random.Range(0, 2);
+        
         faceFeature = CastingManager.instance.TopSprites[randomTop];
+        
         characterColor = CastingManager.instance.SetCharacterColor();
 
         characterName = CastingManager.instance.GetName();
@@ -266,4 +269,11 @@ public class Character
         characterFaceIcon.Add(tempFace);
 
     }
+}
+
+public class Relation
+{
+    Character[] involvedCharacters;
+
+
 }

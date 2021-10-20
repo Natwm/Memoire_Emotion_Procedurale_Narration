@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Stamina : MonoBehaviour, IModifier
+public class ElementBehaviours_Angry : MonoBehaviour, IModifier
 {
     [SerializeField] private int amountOfAngryOrfear;
 

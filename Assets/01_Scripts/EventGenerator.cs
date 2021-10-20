@@ -168,22 +168,22 @@ public class EventGenerator : MonoBehaviour
         {
             
                 tileType = modifiers[0];
-                tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+                tileToModify.AddComponent<ElementBehaviours_Angry>().AmountOfAngryOrfear = 1;
         }
         else if (RandomType == 1)
         {
             tileType = modifiers[1];
-            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+            tileToModify.AddComponent<ElementBehaviours_Fear>().AmountOfAngryOrfear = -1;
         }
         else if (RandomType == 2)
         {
             tileType = modifiers[2];
-            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+            tileToModify.AddComponent<ElementBehaviours_Joy>().AmountOfJoySad = 1;
         }
         else if (RandomType == 3)
         {
             tileType = modifiers[3];
-            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+            tileToModify.AddComponent<ElementBehaviours_Sad>().AmountOfJoySad = -1;
         }
         return tileType;
     }
