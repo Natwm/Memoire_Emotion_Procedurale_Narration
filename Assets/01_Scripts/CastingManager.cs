@@ -11,6 +11,7 @@ public class CastingManager : MonoBehaviour
     string[] Names = { "René","Josiane","Michel","Albert","Lucie","Sylvie","Maurice","Mauricette","Nathan","Sonia","Simon","Adrien","Julien","Morgane","Killian","Thomas","Pierre","José","Nicolas","Brigitte","Vivienne","Jean"};
     public Color[] CharacterColors;
     public GameObject iconRenderer;
+    public int CharacterJaugesMaximumAmount;
     [SerializeReference]
     Character[] allcharacters;
     GameObject[] allCharacterIcons;
@@ -193,6 +194,7 @@ public class Character
     public string characterName;
     public EmotionJauge currentJauge;
     public int jaugeNumber = 0;
+    int JaugeCap;
 
     public Role currentRole = Role.None;
     [Space]
@@ -209,7 +211,7 @@ public class Character
     public TMP_Text nameDisplay;
     //public GameObject characterHolder;
     // CharacterData
-
+    public Relation currentRelation;
 
 
 
@@ -218,10 +220,10 @@ public class Character
 
     // CharacterEmotion
 
-    
-    
-    
-    
+
+
+
+
 
     public GameObject CreateFace(GameObject compPoint)
     {
@@ -249,6 +251,7 @@ public class Character
         return newFaceIcon;
     }
 
+    //BaseCharacter
     public Character(Role character_Role,EmotionJauge currentEmotion)
     {
         int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
@@ -261,11 +264,10 @@ public class Character
         characterName = CastingManager.instance.GetName();
         currentRole = character_Role;
         currentJauge = currentEmotion;
-
+        JaugeCap = CastingManager.instance.CharacterJaugesMaximumAmount;
         
     }
-
-   
+  
     public void SetObjectColor(bool isIcon,GameObject objToSet)
     {
         if (isIcon)
@@ -293,6 +295,7 @@ public class Relation
     Character[] involvedCharacters;
     EmotionJauge assignedJauge;
     int Amount;
+    bool relationWithAvatar;
 
     bool CheckForCharacter(Vignette _vignetteToCheck)
     {
@@ -307,7 +310,7 @@ public class Relation
                 }
             }
         }
-        if (charaCounter ==2)
+        if (charaCounter == 2)
         {
             return true;
         }
@@ -316,10 +319,56 @@ public class Relation
             return false;
         }
     }
+/*
+    public class MainCharacter : Character
+        {   
+            public MainCharacter(Role _role,EmotionJauge _jauges)
+            {
+                
+            }
+        }
+        */
+    public Relation(Vignette _initialVignette,EmotionJauge _relationEmotion)
+    {
+        involvedCharacters = new Character[2];
+        int charaVignetteAmount = _initialVignette.ObjectsNumber;
+        //Déterminer le type de la relation
+        switch (charaVignetteAmount)
+        {
+            case (1):
+                {
+                    //Un seul personnage dans la vignette
+                    relationWithAvatar = true;
+                    involvedCharacters[0] = _initialVignette.inVignetteCharacter[0];
+                    break;
+                }
+            case (2):
+                {
+                    //Deux personnages dans la vignette
+                    relationWithAvatar = false;
+                    involvedCharacters[0] = _initialVignette.inVignetteCharacter[0];
+                    involvedCharacters[1] = _initialVignette.inVignetteCharacter[1];
+                    break;
+                }
+            case (3):
+                {
+                    //Plus de deux personnages dans la vignette
+                    relationWithAvatar = false;
+                    involvedCharacters[0] = _initialVignette.inVignetteCharacter[0];
+                    involvedCharacters[1] = _initialVignette.inVignetteCharacter[Random.Range(1, 3)];
+                    break;
+                }
 
+        }
+        assignedJauge = _relationEmotion;
+        foreach (Character chara in involvedCharacters )
+        {
+            chara.currentRelation = this;
+        }
+    }
 
     // Store Characters
     // Jauge To Modify
     // Amount Of Relation
-
+    // SendToCharacter
 }
