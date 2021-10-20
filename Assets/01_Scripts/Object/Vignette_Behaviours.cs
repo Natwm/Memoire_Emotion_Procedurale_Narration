@@ -68,7 +68,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         m_IsVignetteShowUp = false;
 
-       // vignetteInfo = transform.GetChild(0).gameObject;
+        // vignetteInfo = transform.GetChild(0).gameObject;
         //vignetteInfo.SetActive(true);
 
         vignetteScene = transform.GetChild(0).gameObject;
@@ -96,61 +96,69 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             foreach (var overedTile in VignetteTile)
             {
                 //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
-                for (int x = 0; x < VignetteShape.x + 1; x++)
+                for (int x = -1; x < VignetteShape.x + 1; x++)
                 {
                     for (int y = 0; y < VignetteShape.y + 1; y++)
                     {
 
                         Vector2 tilePos = new Vector2((overedTile.x + x), (overedTile.y + y));
-                        if (tilePos.x >= 4 && tilePos.y < 4)
+                        
+                        if (!vignetteTile.Contains(tilePos))
                         {
-                            tilePos.Set(0, tilePos.y + 1);
-                            isNewLine = true;
-                        }
-
-                        if (tilePos.y >= 4 && tilePos.x < 4)
-                        {
-                            tilePos.Set(tilePos.x + 1, 0);
-                            isNewLine = true;
-                        }
-                        //print("Check by : " + this.name +" at tilePos : " + tilePos);
-
-                        //print(" pomme = " + "tilePos  " + tilePos);
-                        if ((VectorMethods.ManhattanDistance(overedTile, tilePos, 1) && !VignetteTile.Contains(tilePos)) || isNewLine)
-                        {
-                            //print(" pomme2 = " + "tilePos  " + tilePos);
-                            try
+                            
+                            if (tilePos.x >= 4 && tilePos.y < 4)
                             {
+                                tilePos.Set(0, tilePos.y + 1);
+                                isNewLine = true;
+                            }
+
+                            if (tilePos.y >= 4 && tilePos.x < 4)
+                            {
+                                tilePos.Set(tilePos.x + 1, 0);
+                                isNewLine = true;
+                            }
+                            //print("Check by : " + this.name +" at tilePos : " + tilePos);
+
+                            //print(" pomme = " + "tilePos  " + tilePos);
+                            if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) || isNewLine)
+                            {
+                                print(tilePos);
+                                //print(" pomme2 = " + "tilePos  " + tilePos);
+                                try
+                                {
+                                    GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                    TileElt_Behaviours tileEvent;
+
+                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                    {
+                                        if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
+                                        {
+                                            //if(tileEvent.EventAssocier.nextMove !=this)
+                                                return tileEvent.EventAssocier;
+                                        }
+                                    }
+                                }
+                                catch { }
+                            }
+                            else if (isNewLine)
+                            {
+                                print("rsersfese " + tilePos);
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
                                 TileElt_Behaviours tileEvent;
 
-                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                if (tile != null)
                                 {
-                                    if(tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
+                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
                                     {
-                                        return tileEvent.EventAssocier;
+                                        if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
+                                        {
+                                            return tileEvent.EventAssocier;
+                                        }
                                     }
                                 }
                             }
-                            catch { }
                         }
-                        else if (isNewLine)
-                        {
-                            print("rsersfese " + tilePos);
-                            GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                            TileElt_Behaviours tileEvent;
 
-                            if (tile != null)
-                            {
-                                if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
-                                {
-                                    if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
-                                    {
-                                        return tileEvent.EventAssocier;
-                                    }
-                                }
-                            }
-                        }
                         //print(GridManager.instance.ListOfTile2D[Mathf.RoundToInt(overedTile.x + x)][Mathf.RoundToInt(overedTile.y + y)]);
                     }
                 }
@@ -250,7 +258,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         foreach (var item in listOfAffectedObject)
         {
-            if(GridManager.instance.ListOfOveredTile.Contains(item))
+            if (GridManager.instance.ListOfOveredTile.Contains(item))
                 GridManager.instance.ListOfOveredTile.Remove(item);
         }
 
@@ -286,9 +294,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                     listOfAffectedObject.Add(item.collider.gameObject);
                     GridManager.instance.ListOfOveredTile.Add(item.collider.gameObject);
                 }
-                
+
             }
-            if(vignetteTile.Count < (VignetteShape.x* VignetteShape.y))
+            if (vignetteTile.Count < (VignetteShape.x * VignetteShape.y))
             {
                 ClearList();
             }
@@ -306,11 +314,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             myEvent.ResetEvent();
         }
 
-        
+
         foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
-            
-                item.CheckIsPositionIsValid();
+
+            item.CheckIsPositionIsValid();
         }
 
         if (OnGrid)
@@ -338,7 +346,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         offset = transform.position - (Vector3)data;
 
         myEvent.ResetEvent();
-       // SetUpUI();
+        // SetUpUI();
     }
 
     private void OnDragDelegate(PointerEventData data)
@@ -364,7 +372,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             m_IsVignetteShowUp = true;
             /*vignetteScene.SetActive(true);
             vignetteInfo.SetActive(false);*/
-           // ShowVignetteElt(vignetteImage, vignetteInfo, .2f);
+            // ShowVignetteElt(vignetteImage, vignetteInfo, .2f);
         }
         else
         {
@@ -372,7 +380,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             /*vignetteScene.SetActive(false);
             vignetteInfo.SetActive(true);*/
 
-          //  ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
+            //  ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
         }
     }
 

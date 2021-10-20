@@ -61,7 +61,6 @@ public class LevelManager : MonoBehaviour
     {
 //        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
        // int nbElement = listOfSO.Length;
-        print(amount);
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);

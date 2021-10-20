@@ -112,18 +112,18 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            print("IsMovementvalid not ");
+            //print("IsMovementvalid not ");
             CanvasManager.instance.SetActiveMoveButton(false);
         }
 
         if (value >= 3)
         {
-            print("IsMovementvalid yes ");
+            //print("IsMovementvalid yes ");
             CanvasManager.instance.SetActiveMoveButton(true);
         }
         else
         {
-            print("IsMovementvalid no");
+           // print("IsMovementvalid no");
             CanvasManager.instance.SetActiveMoveButton(false);
         }
         //print("Valeue is : " + value);

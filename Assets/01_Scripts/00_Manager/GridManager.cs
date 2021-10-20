@@ -23,11 +23,14 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private IModifier a;
 
+    [SerializeField] private List<Vignette_Behaviours> test = new List<Vignette_Behaviours> ();
+
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
     public List<List<GameObject>> ListOfTile2D { get => listOfTile2D; set => listOfTile2D = value; }
     public List<GameObject> ListOfOveredTile { get => listOfHoveredTile; set => listOfHoveredTile = value; }
+    public List<Vignette_Behaviours> Test { get => test; set => test = value; }
 
     public EventGenerator m_EventGenerator;
 
@@ -157,7 +160,6 @@ public class GridManager : MonoBehaviour
                                     {
                                         if (tileEvent.EventAssocier != vignette && tileEvent.EventAssocier != null)
                                         {
-
                                             return tileEvent.EventAssocier != null;
                                         }
                                     }
