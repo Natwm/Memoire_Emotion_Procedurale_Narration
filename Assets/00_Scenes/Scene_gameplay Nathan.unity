@@ -731,8 +731,11 @@ MonoBehaviour:
   - {fileID: 2324215710218136383, guid: 50abafa09951c174ab6fac1751364c62, type: 3}
   parent: {fileID: 354269542}
   Chemin: Simple/
+  nextCondition:
+  - {fileID: 11400000, guid: 6e5c786147ce61248b91908b43557ef2, type: 2}
+  - {fileID: 11400000, guid: e618587a5ba651e40af8232d7a9a7829, type: 2}
   nextCheck: 0
-  nextCondition: []
+  currentBranching: {fileID: 0}
 --- !u!1001 &1948309536
 PrefabInstance:
   m_ObjectHideFlags: 0
