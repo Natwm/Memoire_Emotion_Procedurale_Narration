@@ -143,11 +143,13 @@ public class CanvasManager : MonoBehaviour
 
     public void PlayerWinTheGame()
     {
+        SetActiveMoveButton(false);
         WinPanel.SetActive(true);
     }
 
     public void PlayerLooseTheGame()
     {
+        SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
     }
 
