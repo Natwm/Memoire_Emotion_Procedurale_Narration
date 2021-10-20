@@ -161,8 +161,9 @@ public class EventGenerator : MonoBehaviour
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
     {
-        int RandomType = Random.Range(0, modifiers.Length);
+        int RandomType = Random.Range(0, modifiers.Length-1);
         GameObject tileType=null;
+        Debug.Log("TILETYPE:  " + RandomType);
         if (RandomType == 0)
         {
             

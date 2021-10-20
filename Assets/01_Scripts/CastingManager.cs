@@ -20,17 +20,20 @@ public class CastingManager : MonoBehaviour
 
     [Header("Facial Features")]
     public Sprite[] TopSprites;
-
+    
     public Character[] AllCharacters { get => allCharacters; set => allCharacters = value; }
+    public Color[] CastColors;
+    public int ColorIndex = 0;
+// Start is called before the first frame update
 
-    // Start is called before the first frame update
-
-    private void Awake()
+private void Awake()
     {
         if (instance == null)
         {
             instance = this;
         }
+        CastColors = new Color[6];
+        CastColors = GetCharacterColorDistribution(6);
         CreateCharacter(6);
     }
 
@@ -78,6 +81,42 @@ public class CastingManager : MonoBehaviour
             }    
         }
         return newChara;
+    }
+
+    public Color[] GetCharacterColorDistribution(int characterAmount)
+    {
+        Color[] colorDistribution = new Color[characterAmount];
+        for (int i = 0; i < characterAmount; i++)
+        {
+            colorDistribution[i] = getRandomUniqueCharacterColor(colorDistribution);
+        }
+        return colorDistribution;
+    }
+
+    public Color getRandomUniqueCharacterColor(Color[] currentColors)
+    {
+        Color newColor = GetRandomCharacterColor();
+        foreach (Color item in currentColors)
+        {
+            if (item == newColor)
+            {
+                return getRandomUniqueCharacterColor(currentColors);
+            }
+        }
+        return newColor;
+    }
+
+    public Color GetRandomCharacterColor()
+    {
+        int randIndex = Random.Range(0, CharacterColors.Length);
+        return CharacterColors[randIndex];
+    }
+
+    public Color SetCharacterColor()
+    {
+
+        ColorIndex++;
+        return CastColors[ColorIndex - 1];
     }
 
     /* Get a Random Character in the Cast.
@@ -193,7 +232,7 @@ public class Character
     {
         int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
         faceFeature = CastingManager.instance.TopSprites[randomTop];
-        
+        characterColor = CastingManager.instance.SetCharacterColor();
 
         characterName = CastingManager.instance.GetName();
         currentRole = character_Role;
@@ -203,11 +242,21 @@ public class Character
     }
 
    
+    public void SetObjectColor(bool isIcon,GameObject objToSet)
+    {
+        if (isIcon)
+        {
+            objToSet.GetComponent<SpriteRenderer>().color = characterColor;
+            //objToSet.transform.GetChild(0).GetComponent<TMP_Text>().color = characterColor;
+            objToSet.transform.GetChild(2).GetComponent<SpriteRenderer>().color = characterColor;
+        }
+    }
 
     public void SetIconToVignette(Vignette _vignette)
     {
         GameObject newPoint = _vignette.GetRandomCompositionPoint();
         GameObject tempFace = CreateFace(newPoint);
+        SetObjectColor(true, tempFace);
         newPoint.SetActive(false);
         tempFace.transform.parent = _vignette.Cadre_Object.transform;
         characterFaceIcon.Add(tempFace);
