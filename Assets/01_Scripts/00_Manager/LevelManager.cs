@@ -11,14 +11,14 @@ public class LevelManager : MonoBehaviour
     public string Chemin;
 
     [Space]
-    [SerializeField] private int nextCheck = 0;
-
-    [Space]
     private int amountOfpageDone = 0;
 
     [Space]
     [Header("BranchingCondition")]
     [SerializeField] private List<BranchingCondition> nextCondition;
+    [Space]
+    [SerializeField] private int nextCheck = 0;
+    [SerializeField] private BranchingCondition currentBranching;
 
     void Awake()
     {
@@ -64,7 +64,6 @@ public class LevelManager : MonoBehaviour
         //print(nbElement);
         for (int i = 0; i < amount; i++)
         {
-            print(i);
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
 
             GameObject item = listOfObjectToSpawn[vignette];
@@ -90,8 +89,11 @@ public class LevelManager : MonoBehaviour
             print("changement de branche");
             GridManager.instance.ClearScene();
         }
-        print("pas de changement");
-        GridManager.instance.ClearScene();
+        else
+        {
+            print("pas de changement");
+            GridManager.instance.ClearScene();
+        }
     }
 
     #region Branching
@@ -107,6 +109,7 @@ public class LevelManager : MonoBehaviour
         if(nextCheck <= 0)
         {
             print("check");
+            print(CastingManager.instance.AllCharacters.Length);
             // vérifie si un des persos valide la condition
             foreach (Character item in CastingManager.instance.AllCharacters)
             {
@@ -114,6 +117,10 @@ public class LevelManager : MonoBehaviour
                 // check dans toutes les branches possible si il en existe au moins une de valide
                 foreach (var stepCondition in nextCondition)
                 {
+                    print(item.currentRole + "  " + stepCondition.RoleCondition + "   = " + (item.currentRole != stepCondition.RoleCondition));
+                    print(item.currentJauge+"  " + EmotionJauge.Jauge_PeurColere + "   = " + (item.currentJauge == EmotionJauge.Jauge_PeurColere));
+                    print(item.jaugeNumber + "  " + stepCondition.JaugeValueCondition + "   = " + (item.jaugeNumber == stepCondition.JaugeValueCondition));
+
 
                     if (item.currentRole != stepCondition.RoleCondition)
                         return false;
@@ -129,6 +136,8 @@ public class LevelManager : MonoBehaviour
                             {
                                 nextCheck = stepCondition.NextCheck; 
                                 nextCondition = stepCondition.NextMove;
+                                currentBranching = stepCondition;
+                                print("new branching is " + currentBranching.BranchName);
                                 return true;
                             }
 
@@ -142,6 +151,8 @@ public class LevelManager : MonoBehaviour
                             {
                                 nextCheck = stepCondition.NextCheck;
                                 nextCondition = stepCondition.NextMove;
+                                currentBranching = stepCondition;
+                                print("new branching is " + currentBranching.BranchName);
                                 return true;
                             }
  
@@ -162,6 +173,7 @@ public class LevelManager : MonoBehaviour
     #region Getter && Setter
 
     public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
+    public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
 
     #endregion
 
