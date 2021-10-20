@@ -11,7 +11,8 @@ public class CastingManager : MonoBehaviour
     string[] Names = { "René","Josiane","Michel","Albert","Lucie","Sylvie","Maurice","Mauricette","Nathan","Sonia","Simon","Adrien","Julien","Morgane","Killian","Thomas","Pierre","José","Nicolas","Brigitte","Vivienne","Jean"};
     public Color[] CharacterColors;
     public GameObject iconRenderer;
-    Character[] allCharacters;
+    [SerializeReference]
+    Character[] allcharacters;
     GameObject[] allCharacterIcons;
 
     [Header("Face Icon Sprites")]
@@ -21,7 +22,8 @@ public class CastingManager : MonoBehaviour
     [Header("Facial Features")]
     public Sprite[] TopSprites;
     
-    public Character[] AllCharacters { get => allCharacters; set => allCharacters = value; }
+    
+    public Character[] AllCharacters { get => allcharacters; set => allcharacters = value; }
     public Color[] CastColors;
     public int ColorIndex = 0;
 // Start is called before the first frame update
@@ -183,28 +185,43 @@ public enum Role
 }
 
 
-
+[System.Serializable]
 public class Character
 {
-    //In Vignette Character
-    public GameObject characterHolder;
+    [Header("Character Data")]
+    public Color characterColor;
+    public string characterName;
+    public EmotionJauge currentJauge;
+    public int jaugeNumber = 0;
+
+    public Role currentRole = Role.None;
+    [Space]
+    [Header("Character Runtime Visuals")]
+    public Sprite faceFeature;
+    public SpriteRenderer EmotionSprite;
     SpriteRenderer characterRenderer;
-    
-   
-    // CharacterData
+    Sprite Emotion;
+    //In Vignette Character
+
+    [Space]
+    [Header("Character References")]
     public List<GameObject> characterFaceIcon;
     public TMP_Text nameDisplay;
-    public string characterName;
-    public Color characterColor;
-    public Sprite faceFeature;
-    
+    //public GameObject characterHolder;
+    // CharacterData
+
+
+
+
+
+
 
     // CharacterEmotion
-    public EmotionJauge currentJauge;
-    public Role currentRole = Role.None;
-    public int jaugeNumber = 0;
-    public SpriteRenderer EmotionSprite;
-    Sprite Emotion;
+
+    
+    
+    
+    
 
     public GameObject CreateFace(GameObject compPoint)
     {
@@ -274,6 +291,35 @@ public class Character
 public class Relation
 {
     Character[] involvedCharacters;
+    EmotionJauge assignedJauge;
+    int Amount;
 
+    bool CheckForCharacter(Vignette _vignetteToCheck)
+    {
+        int charaCounter = 0;
+        foreach (Character charaInVignette in _vignetteToCheck.inVignetteCharacter)
+        {
+            foreach (Character charaInRelation in involvedCharacters)
+            {
+                if (charaInRelation == charaInVignette)
+                {
+                    charaCounter++;
+                }
+            }
+        }
+        if (charaCounter ==2)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    // Store Characters
+    // Jauge To Modify
+    // Amount Of Relation
 
 }
