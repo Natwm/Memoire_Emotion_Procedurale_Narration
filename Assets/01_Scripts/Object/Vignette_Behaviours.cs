@@ -364,7 +364,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             m_IsVignetteShowUp = true;
             /*vignetteScene.SetActive(true);
             vignetteInfo.SetActive(false);*/
-            ShowVignetteElt(vignetteImage, vignetteInfo, .2f);
+           // ShowVignetteElt(vignetteImage, vignetteInfo, .2f);
         }
         else
         {
@@ -372,7 +372,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             /*vignetteScene.SetActive(false);
             vignetteInfo.SetActive(true);*/
 
-            ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
+          //  ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
         }
     }
 

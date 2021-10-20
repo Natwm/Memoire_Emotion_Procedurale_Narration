@@ -161,7 +161,7 @@ public class EventGenerator : MonoBehaviour
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
     {
-        int RandomType = Random.Range(0, modifiers.Length-1);
+        int RandomType = Random.Range(0, modifiers.Length);
         GameObject tileType=null;
         Debug.Log("TILETYPE:  " + RandomType);
         if (RandomType == 0)
@@ -173,6 +173,16 @@ public class EventGenerator : MonoBehaviour
         else if (RandomType == 1)
         {
             tileType = modifiers[1];
+            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+        }
+        else if (RandomType == 2)
+        {
+            tileType = modifiers[2];
+            tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
+        }
+        else if (RandomType == 3)
+        {
+            tileType = modifiers[3];
             tileToModify.AddComponent<ElementBehaviours_Stamina>().AmountOfAngryOrfear = 1;
         }
         return tileType;

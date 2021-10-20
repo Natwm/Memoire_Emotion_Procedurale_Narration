@@ -35,15 +35,17 @@ private void Awake()
         CastColors = new Color[6];
         CastColors = GetCharacterColorDistribution(6);
         CreateCharacter(6);
+        
+        
     }
 
     void Start()
     {
-        
-        
+
+
         //Bd_Component.bd_instance.CreateNewRandomVignette(5);
-        
-    
+
+        CanvasManager.instance.InitialiseCharactersPanel();
     }
 
     public void SetCharactersToHand()
@@ -193,14 +195,16 @@ public class Character
     public List<GameObject> characterFaceIcon;
     public TMP_Text nameDisplay;
     public string characterName;
-    Color characterColor;
-    Sprite faceFeature;
+    public Color characterColor;
+    public Sprite faceFeature;
+    
 
     // CharacterEmotion
     public EmotionJauge currentJauge;
     public Role currentRole = Role.None;
     public int jaugeNumber = 0;
     public SpriteRenderer EmotionSprite;
+    Sprite Emotion;
 
     public GameObject CreateFace(GameObject compPoint)
     {

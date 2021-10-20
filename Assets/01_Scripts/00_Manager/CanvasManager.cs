@@ -12,6 +12,8 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject WinPanel;
     [SerializeField] private GameObject LoosePanel;
     [SerializeField] private GameObject QuitPanel;
+    public GameObject CharacterPanel;
+    public GameObject CharacterReaderPrefab;
 
     [Space]
     [Header("Text")]
@@ -25,7 +27,7 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Button")]
     [SerializeField] private Button moveButton;
-
+    
 
     void Awake()
     {
@@ -38,6 +40,7 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
+        CharacterPanel.SetActive(false);
     }
 
     private void Update()
@@ -56,6 +59,50 @@ public class CanvasManager : MonoBehaviour
             moveButton.gameObject.GetComponent<Image>().color = Color.red;
 
         moveButton.interactable = activeObject;
+    }
+
+    public void OpenCharacterPanel(bool Open)
+    {
+        if (Open)
+        {
+            CharacterPanel.SetActive(true);
+        }
+        else
+        {
+            CharacterPanel.SetActive(false);
+        }
+    }
+
+    Vector2 CharacterShifter = new Vector2(450,-450);
+    int XshifterIndex = 0;
+    int YshiterIndex = 0;
+    int Xshifter = 0;
+    int Yshifter = 0;
+    
+    public void InitialiseCharactersPanel()
+    {
+        for (int i = 0; i < CastingManager.instance.AllCharacters.Length; i++)
+        {
+            GameObject newReader = Instantiate(CharacterReaderPrefab, CharacterPanel.transform);
+            RectTransform newT = newReader.GetComponent<RectTransform>();
+            Vector3 newPos = new Vector3(newT.anchoredPosition.x + CharacterShifter.x * Xshifter, newT.anchoredPosition.y + CharacterShifter.y * Yshifter, 0);
+
+            newT.anchoredPosition = newPos;
+            if (Xshifter < 2)
+            {
+                Xshifter++;
+                
+            }
+            else
+            {
+                Xshifter = 0;
+                Yshifter++;
+            }
+            newReader.GetComponent<CharacterReader>().assignedCharacter = CastingManager.instance.AllCharacters[i];
+            newReader.GetComponent<CharacterReader>().InitialiseUi();
+            newReader.GetComponent<CharacterReader>().ReadCharacter();
+
+        }
     }
 
     #region Update Information
