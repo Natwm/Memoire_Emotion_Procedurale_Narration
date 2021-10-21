@@ -37,7 +37,13 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+            {
+                print(item.name + " = " + item.NextMove);
+            }
+        }
     }
 
     public void SpawnObject()

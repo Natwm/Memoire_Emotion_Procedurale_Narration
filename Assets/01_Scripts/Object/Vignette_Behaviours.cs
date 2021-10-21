@@ -53,10 +53,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private Vignette_Behaviours nextMove;
     [SerializeField] private Vignette_Behaviours previousMove;
 
-    [SerializeField] private List<Vignette_Behaviours> testt = new List<Vignette_Behaviours> ();
+    [SerializeField] private List<Vignette_Behaviours> testt = new List<Vignette_Behaviours>();
     #endregion
 
-
+    public bool a = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,13 +89,127 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     void Update()
     {
     }
-
     public Vignette_Behaviours CheckNextMove()
     {
         if (OnGrid)
         {
+            GridManager.instance.Test.Clear();
+            a = false;
+            previousMove = nextMove = null;
+            bool isDecal = false;
+            TileElt_Behaviours tileEvent;
+
+            print("qzdqzqdqzdzq d   qzd " + this.name);
+
+            foreach (var hoveredTile in VignetteTile)
+            {
+
+                if (hoveredTile == Vector2.zero)
+                {
+                    a = true;
+                }
+
+
+                //print("Tile check is = "+hoveredTile);
+                for (int x = 0; x < vignetteShape.x + 1; x++)
+                {
+                    for (int y = 0; y < vignetteShape.y + 1; y++)
+                    {
+                        //print("Position du curseur = "+x + " " + y);
+                        Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
+                        //print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+
+                        if (tilePos.y >= GridManager.instance.GridSize.y)
+                        {
+                            tilePos.Set(tilePos.x + 1, 0);
+                            isDecal = true;
+                        }
+
+
+                        if (!vignetteTile.Contains(tilePos))
+                        {
+                            if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
+                            {
+                                print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+
+                                if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
+                                {
+                                    GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+
+
+                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                    {
+                                        if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
+                                        {
+                                            print(tileEvent.EventAssocier.name);
+                                            if (!tileEvent.EventAssocier.a)
+                                            {
+                                                a = true;
+                                                tileEvent.EventAssocier.previousMove = this;
+
+                                                return tileEvent.EventAssocier;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+                            else if (isDecal)
+                            {
+                                print("isDecal " + isDecal);
+                                print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+
+                                if (tilePos.y >= GridManager.instance.GridSize.y)
+                                {
+                                    tilePos.Set(tilePos.x + 1, 0);
+                                    isDecal = true;
+                                }
+
+                                if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
+                                {
+                                    GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+
+                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                    {
+                                        if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
+                                        {
+                                            if (!tileEvent.EventAssocier.a)
+                                            {
+                                                a = true;
+                                                tileEvent.EventAssocier.previousMove = this;
+
+                                                return tileEvent.EventAssocier;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                print("__________________________________________");
+            }
+        }
+        else
+        {
+            a = false;
+            previousMove = nextMove = null;
+            bool isDecal = false;
+        }
+
+        return null;
+
+    }
+
+    public Vignette_Behaviours CheckNextMove(int a = 0)
+    {
+        if (OnGrid)
+        {
+            previousMove = nextMove = null;
+
             bool isNewLine = false;
-            foreach (var overedTile in VignetteTile)
+            foreach (var hoveredTile in VignetteTile)
             {
                 //print("aaaa" + " Shape = (" + (vignetteShape.x+1)+","+ (vignetteShape.y+1));
                 for (int x = -1; x < VignetteShape.x + 1; x++)
@@ -103,18 +217,19 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                     for (int y = 0; y < VignetteShape.y + 1; y++)
                     {
 
-                        Vector2 tilePos = new Vector2((overedTile.x + x), (overedTile.y + y));
-                        
+                        Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
+
                         if (!vignetteTile.Contains(tilePos))
                         {
-                            
-                            if (tilePos.x >= 4 && tilePos.y < 4)
+
+                            /*if (tilePos.x >= 4 && tilePos.y < 4)
                             {
                                 tilePos.Set(0, tilePos.y + 1);
                                 isNewLine = true;
-                            }
+                            }*/
+                            //print(tilePos);
 
-                            if (tilePos.y >= 4 && tilePos.x < 4)
+                            if (tilePos.y >= GridManager.instance.GridSize.y && tilePos.x < GridManager.instance.GridSize.y)
                             {
                                 tilePos.Set(tilePos.x + 1, 0);
                                 isNewLine = true;
@@ -122,9 +237,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             //print("Check by : " + this.name +" at tilePos : " + tilePos);
 
                             //print(" pomme = " + "tilePos  " + tilePos);
-                            if (VectorMethods.ManhattanDistance(overedTile, tilePos, 1) || isNewLine)
+                            if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) || isNewLine)
                             {
-                                print(tilePos);
+                                print(x + " " + y);
+                                Debug.Break();
                                 //print(" pomme2 = " + "tilePos  " + tilePos);
                                 try
                                 {
@@ -136,18 +252,22 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                         if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
                                         {
                                             print(this.name + "  next = " + tileEvent.EventAssocier);
-                                            if (!GridManager.instance.Test.Contains(tileEvent.EventAssocier))
+                                            /*if (!GridManager.instance.Test.Contains(tileEvent.EventAssocier))
+                                            {*/
+                                            print("!GridManager.instance.Test.Contains(tileEvent.EventAssocier) = " + !GridManager.instance.Test.Contains(tileEvent.EventAssocier));
+                                            if (tileEvent.EventAssocier.nextMove == null)
                                             {
-                                                print("!GridManager.instance.Test.Contains(tileEvent.EventAssocier) = " + !GridManager.instance.Test.Contains(tileEvent.EventAssocier));
                                                 tileEvent.EventAssocier.previousMove = this;
                                                 return tileEvent.EventAssocier;
                                             }
+
+                                            //}
                                         }
                                     }
                                 }
                                 catch { }
                             }
-                            else if (isNewLine)
+                            /*else if (isNewLine)
                             {
                                 print("rsersfese " + tilePos);
                                 GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
@@ -167,7 +287,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
 
                         //print(GridManager.instance.ListOfTile2D[Mathf.RoundToInt(overedTile.x + x)][Mathf.RoundToInt(overedTile.y + y)]);
@@ -190,22 +310,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (NextMove != null)
         {
             print("Next move is :    " + NextMove.gameObject);
-            if (!GridManager.instance.Test.Contains(nextMove))
-            {
-                GridManager.instance.Test.Add(nextMove);
-            }
-            if (!GridManager.instance.Test.Contains(this))
-            {
-                GridManager.instance.Test.Add(this);
-            }
         }
-            
+
     }
 
     public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
     {
         myEvent.SetUp(happySad_Value, angryFear_Value, amountofVignetteToDraw, isKey);
-        
+
         cardImage.sprite = vignetteRender;
         //SetUpUI();
     }
@@ -315,6 +427,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 {
                     vignetteTilePosition.Add(item.collider.gameObject.transform.position);
                     VignetteTile.Add(item.collider.gameObject.GetComponent<TileElt_Behaviours>().Tileposition);
+                    VignetteTile.Sort((v1, v2) => (v1.x - v1.y).CompareTo((v2.x - v2.y)));
                     listOfAffectedObject.Add(item.collider.gameObject);
                     GridManager.instance.ListOfOveredTile.Add(item.collider.gameObject);
                 }
@@ -343,19 +456,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
 
             item.CheckIsPositionIsValid();
+            item.a = false;
+            item.previousMove = nextMove = null;
+
+
         }
 
-        if (OnGrid)
-        {
-            //GridManager.instance.Test.Clear();
-            foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
-            {
-                if (item.OnGrid && item.vignetteTile.Count > 0)
-                {
-                    item.GetNextMove();
-                }
 
+        //GridManager.instance.Test.Clear();
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        {
+            if (item.OnGrid && item.vignetteTile.Count > 0)
+            {
+                item.GetNextMove();
             }
+
         }
 
         GameManager.instance.IsMovementvalid();

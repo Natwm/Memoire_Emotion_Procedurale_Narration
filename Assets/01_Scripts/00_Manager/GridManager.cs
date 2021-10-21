@@ -31,6 +31,7 @@ public class GridManager : MonoBehaviour
     public List<List<GameObject>> ListOfTile2D { get => listOfTile2D; set => listOfTile2D = value; }
     public List<GameObject> ListOfOveredTile { get => listOfHoveredTile; set => listOfHoveredTile = value; }
     public List<Vignette_Behaviours> Test { get => test; set => test = value; }
+    public Vector2 GridSize { get => m_GridSize; set => m_GridSize = value; }
 
     public EventGenerator m_EventGenerator;
 
@@ -47,9 +48,9 @@ public class GridManager : MonoBehaviour
     void Start()
     {
         m_EventGenerator = GetComponent<EventGenerator>();
-        m_EventGenerator.gridSize = new Vector2Int(Mathf.FloorToInt(m_GridSize.x), Mathf.FloorToInt(m_GridSize.y));
+        m_EventGenerator.gridSize = new Vector2Int(Mathf.FloorToInt(GridSize.x), Mathf.FloorToInt(GridSize.y));
 
-        for (int i = 0; i < m_GridSize.x; i++)
+        for (int i = 0; i < GridSize.x; i++)
         {
             ListOfTile2D.Add(new List<GameObject>());
         }
@@ -66,9 +67,9 @@ public class GridManager : MonoBehaviour
     void CreateTerrain()
     {
         int index = 0;
-        for (int x = 0; x < m_GridSize.x; x++)
+        for (int x = 0; x < GridSize.x; x++)
         {
-            for (int y = 0; y < m_GridSize.y; y++)
+            for (int y = 0; y < GridSize.y; y++)
             {
                 GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 1.2f * m_Size, Quaternion.identity, this.transform);
                 tile.transform.localScale *= m_Size;
@@ -122,7 +123,7 @@ public class GridManager : MonoBehaviour
     {
         bool test = false;
         Vector2 start = new Vector2(0, 0);
-        Vector2 end = m_GridSize - Vector2.one;
+        Vector2 end = GridSize - Vector2.one;
 
         if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start) || vignette.VignetteTile.Contains(end))
         {
