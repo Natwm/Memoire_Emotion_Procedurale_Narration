@@ -62,7 +62,7 @@ public class EventContener : MonoBehaviour
         CurrentAmountOfVignetteToDraw = amountOfVignetteToDraw;
         CurrentKeyState = isKey;
         
-       UpdateCharacterFace();
+      
         
         
     }

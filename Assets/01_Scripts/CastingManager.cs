@@ -39,7 +39,7 @@ private void Awake()
         CastColors = new Color[6];
         CastColors = GetCharacterColorDistribution(6);
         CreateCharacter(6);
-        
+        GetJaugeDistribution(6);
         
     }
 
@@ -162,7 +162,33 @@ private void Awake()
         }
     }
 
+    public void GetJaugeDistribution(int _charaAmount)
+    {
+        int half = _charaAmount / 2;
+        //Modulo == 0 > Nombre Pair == Half
+        for (int i = 0; i < half; i++)
+        {
+            AllCharacters[i].currentJauge = EmotionJauge.Jauge_PeurColere;
+        }
+        for (int i = half; i < AllCharacters.Length; i++)
+        {
+            AllCharacters[i].currentJauge = EmotionJauge.Jauge_TristesseJoie;
+        }
+        if (_charaAmount % 2 != 0)
+        {
+            int Rand = Random.Range(0, 2);
+            if (Rand == 0)
+            {
+                AllCharacters[2 * half + 1].currentJauge = EmotionJauge.Jauge_PeurColere;
 
+            }
+            else
+            {
+                AllCharacters[2 * half + 1].currentJauge = EmotionJauge.Jauge_TristesseJoie;
+
+            }
+        }
+    }
 
     public string GetName()
     {
