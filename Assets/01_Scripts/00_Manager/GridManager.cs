@@ -125,7 +125,10 @@ public class GridManager : MonoBehaviour
         Vector2 end = m_GridSize - Vector2.one;
 
         if (listOfMovement.Count <= 1 || vignette.VignetteTile.Contains(start) || vignette.VignetteTile.Contains(end))
+        {
             return true;
+        }
+            
 
         if (vignette.VignetteTile.Count > 0)
         {

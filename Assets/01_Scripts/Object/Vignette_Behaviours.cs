@@ -51,7 +51,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [Space]
     [Header("Movement")]
     [SerializeField] private Vignette_Behaviours nextMove;
+    [SerializeField] private Vignette_Behaviours previousMove;
 
+    [SerializeField] private List<Vignette_Behaviours> testt = new List<Vignette_Behaviours> ();
     #endregion
 
 
@@ -133,8 +135,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                     {
                                         if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
                                         {
-                                            //if(tileEvent.EventAssocier.nextMove !=this)
+                                            print(this.name + "  next = " + tileEvent.EventAssocier);
+                                            if (!GridManager.instance.Test.Contains(tileEvent.EventAssocier))
+                                            {
+                                                print("!GridManager.instance.Test.Contains(tileEvent.EventAssocier) = " + !GridManager.instance.Test.Contains(tileEvent.EventAssocier));
+                                                tileEvent.EventAssocier.previousMove = this;
                                                 return tileEvent.EventAssocier;
+                                            }
                                         }
                                     }
                                 }
@@ -152,7 +159,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                     {
                                         if (tileEvent.EventAssocier != this && tileEvent.EventAssocier != null)
                                         {
-                                            return tileEvent.EventAssocier;
+                                            if (!GridManager.instance.Test.Contains(tileEvent.EventAssocier))
+                                            {
+                                                tileEvent.EventAssocier.previousMove = this;
+                                                return tileEvent.EventAssocier;
+                                            }
                                         }
                                     }
                                 }
@@ -174,9 +185,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void GetNextMove()
     {
-        NextMove = CheckNextMove() != this ? CheckNextMove() : null;
+        Vignette_Behaviours check = CheckNextMove();
+        NextMove = check != this ? check : null;
         if (NextMove != null)
+        {
             print("Next move is :    " + NextMove.gameObject);
+            if (!GridManager.instance.Test.Contains(nextMove))
+            {
+                GridManager.instance.Test.Add(nextMove);
+            }
+            if (!GridManager.instance.Test.Contains(this))
+            {
+                GridManager.instance.Test.Add(this);
+            }
+        }
+            
     }
 
     public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
@@ -323,6 +346,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (OnGrid)
         {
+            //GridManager.instance.Test.Clear();
             foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
             {
                 if (item.OnGrid && item.vignetteTile.Count > 0)
