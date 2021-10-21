@@ -239,7 +239,6 @@ GameObject:
   m_Component:
   - component: {fileID: 538603185}
   - component: {fileID: 538603184}
-  - component: {fileID: 538603186}
   - component: {fileID: 538603187}
   m_Layer: 10
   m_Name: Aide_Grille
@@ -312,18 +311,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &538603186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538603183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614105fe1fcaf8147ad0ed8f8cea4829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &538603187
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -501,6 +488,40 @@ PrefabInstance:
       propertyPath: parent
       value: 
       objectReference: {fileID: 1069395235}
+    - target: {fileID: 8248506172251654852, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: Vignettes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262423793941306886, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: EmotionFaces.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262423793941306886, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: EmotionFaces.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: be5c777b9daf68b4d8b6b24701be1a6b,
+        type: 3}
+    - target: {fileID: 8262423793941306886, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: EmotionFaces.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1e780465e6dbaca4a9b3de65c6c7d8f6,
+        type: 3}
+    - target: {fileID: 8262423793941306886, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: EmotionFaces.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 129c4fd441fabe64596e47ffbd7ad7f8,
+        type: 3}
+    - target: {fileID: 8262423793941306886, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: EmotionFaces.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: e560a886ab3258c4f84eeded62eabe30,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3092482a2d340574a8a0c88512e87f55, type: 3}
 --- !u!1 &1069395234

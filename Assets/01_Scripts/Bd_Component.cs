@@ -141,12 +141,13 @@ public class Vignette
     SpriteRenderer Sprite_Vignette;
     public SpriteMask Mask_Vignette; 
     Bd_Object[] InVignette_Objects;
+    public List<GameObject> inVignette_CharacterIcons;
     public Character[] inVignetteCharacter;
     GameObject Gabarit_Composition;
 
     public Vignette(string vignetteType,GameObject _vignetteType,Transform _parent,GameObject[] _obj,GameObject _gabarit)
     {
-        
+        inVignette_CharacterIcons = new List<GameObject>();
         // INITIALISATION VIGNETTE
         GameObject tempVignette = GameObject.Instantiate(_vignetteType);
         tempVignette.transform.parent = _parent;
@@ -189,7 +190,43 @@ public class Vignette
 
     }
 
+    public void CharacterFeedback()
+    {
+        foreach (GameObject item in inVignette_CharacterIcons)
+        {
+            item.transform.DOScale(10f,0.1f);
+            item.transform.DOScale(3f, 0.5f);
+        }
+    }
 
+    public void UpdateCharactersState(int TJ_amount,int PC_amount,Character _whatCharacter)
+    {
+        // Determiner la jauge mise en action
+        switch (_whatCharacter.currentJauge)
+        {
+            case EmotionJauge.Jauge_PeurColere:
+                {
+                    foreach (GameObject item in inVignette_CharacterIcons)
+                    {
+                        _whatCharacter.UpdateCharacterFaceIcon(item,PC_amount);
+                        //item.transform.DOPunchScale(new Vector3(1.1f, 1.1f, 1.1f), 0.1f, 0, 0);
+                        
+                    }
+                break;
+                }
+            case EmotionJauge.Jauge_TristesseJoie:
+                {
+                    foreach (GameObject item in inVignette_CharacterIcons)
+                    {
+                        _whatCharacter.UpdateCharacterFaceIcon(item, TJ_amount);
+                        
+                        
+                    }
+                break;
+                }
+        }
+      
+    }
 
     public GameObject GetRandomCompositionPoint()
     {

@@ -29,11 +29,29 @@ public class EventContener : MonoBehaviour
         this.isKey = isKey;
     }
 
+    public void UpdateCharacterFace()
+    {
+        if (GetComponent<Vignette_Behaviours>().assignedVignette != null)
+        {
+            GetComponent<Vignette_Behaviours>().assignedVignette.CharacterFeedback();
+            foreach (Character item in GetComponent<Vignette_Behaviours>().assignedVignette.inVignetteCharacter)
+        {
+            if (item != null)
+            {
+                 
+                GetComponent<Vignette_Behaviours>().assignedVignette.UpdateCharactersState(-currentHappy_Sad, -currentAngry_Fear, item);
+            }
+            
+        }
+        }
+    }
+
     public void SetUpWithModifier(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw_Value = 0, bool isKey = false)
     {
         happy_Sad += happySad_Value;
         angry_Fear += angryFear_Value;
         amountOfVignetteToDraw += amountofVignetteToDraw_Value;
+        
         this.isKey = isKey;
     }
 
@@ -43,6 +61,10 @@ public class EventContener : MonoBehaviour
         CurrentAngry_Fear = angry_Fear;
         CurrentAmountOfVignetteToDraw = amountOfVignetteToDraw;
         CurrentKeyState = isKey;
+        
+       UpdateCharacterFace();
+        
+        
     }
 
     public int Happy_Sad { get => happy_Sad; set => happy_Sad = value; }

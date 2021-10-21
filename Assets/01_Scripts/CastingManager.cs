@@ -11,7 +11,7 @@ public class CastingManager : MonoBehaviour
     string[] Names = { "René","Josiane","Michel","Albert","Lucie","Sylvie","Maurice","Mauricette","Nathan","Sonia","Simon","Adrien","Julien","Morgane","Killian","Thomas","Pierre","José","Nicolas","Brigitte","Vivienne","Jean"};
     public Color[] CharacterColors;
     public GameObject iconRenderer;
-    public int CharacterJaugesMaximumAmount;
+    public int CharacterJaugesMaximumAmount=1;
     [SerializeReference]
     Character[] allcharacters;
     GameObject[] allCharacterIcons;
@@ -19,6 +19,7 @@ public class CastingManager : MonoBehaviour
     [Header("Face Icon Sprites")]
     public Sprite baseFaceIcon;
     public Sprite NeutralFace;
+    public Sprite[] EmotionFaces;
 
     [Header("Facial Features")]
     public Sprite[] TopSprites;
@@ -172,6 +173,7 @@ private void Awake()
     void Update()
     {
         
+        
     }
 }
 
@@ -213,23 +215,14 @@ public class Character
     // CharacterData
     public Relation currentRelation;
 
-
-
-
-
-
     // CharacterEmotion
-
-
-
-
-
 
     public GameObject CreateFace(GameObject compPoint)
     {
-        characterFaceIcon = new List<GameObject>();
+        
         //Base
         GameObject newFaceIcon = GameObject.Instantiate(CastingManager.instance.iconRenderer);
+        characterFaceIcon.Add(newFaceIcon);
         newFaceIcon.GetComponent<SpriteRenderer>().sprite = CastingManager.instance.baseFaceIcon;
         newFaceIcon.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
@@ -245,6 +238,8 @@ public class Character
         Feature.transform.parent = newFaceIcon.transform;
         Feature.transform.localPosition = Vector3.zero;
         Feature.GetComponent<SpriteRenderer>().sortingOrder = 2;
+
+        Emotion = GetCharacterEmotion(0);
         
 
         //EmotionObject
@@ -256,7 +251,7 @@ public class Character
     {
         int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
         int pileOuFace = Random.Range(0, 2);
-        
+        characterFaceIcon = new List<GameObject>();
         faceFeature = CastingManager.instance.TopSprites[randomTop];
         
         characterColor = CastingManager.instance.SetCharacterColor();
@@ -264,19 +259,86 @@ public class Character
         characterName = CastingManager.instance.GetName();
         currentRole = character_Role;
         currentJauge = currentEmotion;
-        JaugeCap = CastingManager.instance.CharacterJaugesMaximumAmount;
-        
+        JaugeCap = CastingManager.instance.CharacterJaugesMaximumAmount;  
     }
-  
+    
+    public void UpdateAllCharacterFaceIcon()
+    {
+        foreach (GameObject item in characterFaceIcon)
+        {
+            item.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = GetCharacterEmotion(jaugeNumber);
+        }
+    }
+
+    public void UpdateCharacterFaceIcon(GameObject _icon,int _amount)
+    {
+        _icon.transform.GetChild(2).GetComponent<SpriteRenderer>().sprite = GetCharacterEmotion(_amount);
+    }
+
+    
+
     public void IncreaseCharacterJauge()
     {
-        
+        if (jaugeNumber < JaugeCap)
+        {
+            jaugeNumber++;
+        }
     }
     
     public void DecreaseCharacterJauge()
     {
-
+        if (jaugeNumber > -JaugeCap)
+        {
+            jaugeNumber--;
+        }
     }
+
+    
+
+    public Sprite GetCharacterEmotion(int _jaugeAmount)
+    {
+
+        if (_jaugeAmount == 0)
+        {
+            return CastingManager.instance.NeutralFace;
+        }
+        switch (currentJauge)
+        {
+            case EmotionJauge.Jauge_PeurColere:
+                {
+                if (_jaugeAmount>0)
+                {
+
+
+                        return CastingManager.instance.EmotionFaces[1];
+
+                }
+                else
+                {
+
+                        return CastingManager.instance.EmotionFaces[0];
+                }
+                }
+            case EmotionJauge.Jauge_TristesseJoie:
+                {
+                if (_jaugeAmount > 0)
+                {
+
+                        return CastingManager.instance.EmotionFaces[3];
+                }
+                else
+                {
+
+                        return CastingManager.instance.EmotionFaces[2];
+                }
+                
+                }
+        }
+        return CastingManager.instance.NeutralFace;
+        
+    }
+
+    
 
     public void SetObjectColor(bool isIcon,GameObject objToSet)
     {
@@ -295,7 +357,7 @@ public class Character
         SetObjectColor(true, tempFace);
         newPoint.SetActive(false);
         tempFace.transform.parent = _vignette.Cadre_Object.transform;
-        characterFaceIcon.Add(tempFace);
+        _vignette.inVignette_CharacterIcons.Add(tempFace);
 
     }
 }

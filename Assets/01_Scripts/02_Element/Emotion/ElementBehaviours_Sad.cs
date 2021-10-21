@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElementBehaviours_Joy : MonoBehaviour, IModifier
+public class ElementBehaviours_Sad : MonoBehaviour, IModifier
 {
     [SerializeField] private int amountOfJoySad;
 
@@ -11,5 +11,6 @@ public class ElementBehaviours_Joy : MonoBehaviour, IModifier
     public void CollectElement(EventContener eventElt)
     {
         eventElt.CurrentHappy_Sad += AmountOfJoySad;
+        eventElt.UpdateCharacterFace();
     }
 }

@@ -11,5 +11,6 @@ public class ElementBehaviours_Fear : MonoBehaviour, IModifier
     public void CollectElement(EventContener eventElt)
     {
         eventElt.CurrentAngry_Fear += AmountOfAngryOrfear;
+        eventElt.UpdateCharacterFace();
     }
 }

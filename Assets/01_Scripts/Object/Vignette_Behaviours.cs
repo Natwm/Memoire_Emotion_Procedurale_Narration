@@ -205,6 +205,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
     {
         myEvent.SetUp(happySad_Value, angryFear_Value, amountofVignetteToDraw, isKey);
+        
         cardImage.sprite = vignetteRender;
         //SetUpUI();
     }
