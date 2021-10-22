@@ -61,7 +61,10 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            GetVignetteOrderByNeighbourg();
+        }
     }
 
     void CreateTerrain()
@@ -237,6 +240,38 @@ public class GridManager : MonoBehaviour
 
         ListOfMovement = ListOfMovement.OrderByDescending(x => x.Index).ToList();
         ListOfMovement.Reverse();
+    }
+
+    public void GetVignetteOrderByNeighbourg()
+    {
+        List<Vignette_Behaviours> listOfVignetteMovement = new List<Vignette_Behaviours> ();
+        Vignette_Behaviours checkedVignette;
+
+        GameObject firstTile = listOfTile2D[0][0];
+        Vignette_Behaviours firstVignette = firstTile.GetComponent<TileElt_Behaviours>().EventAssocier != null ? firstTile.GetComponent<TileElt_Behaviours>().EventAssocier : null;
+
+        if (firstVignette != null)
+        {
+            checkedVignette = firstVignette;
+            listOfVignetteMovement.Add(firstVignette);
+            while (checkedVignette.NextMove != null)
+            {
+                checkedVignette = checkedVignette.NextMove;
+                listOfVignetteMovement.Add(checkedVignette);
+            }
+            if(checkedVignette.NextMove == null)
+            {
+                if (!listOfVignetteMovement.Contains(checkedVignette))
+                    listOfVignetteMovement.Add(checkedVignette);
+            }
+        }
+        test.Clear();
+        test = listOfVignetteMovement;
+        foreach (var item in listOfVignetteMovement)
+        {
+            print(item);
+        }
+
     }
 
     public void ClearScene()

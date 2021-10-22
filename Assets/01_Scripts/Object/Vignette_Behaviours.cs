@@ -99,7 +99,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             bool isDecal = false;
             TileElt_Behaviours tileEvent;
 
-            print("qzdqzqdqzdzq d   qzd " + this.name);
+            print("La tile qui vérifie est : " + this.gameObject.name);
 
             foreach (var hoveredTile in VignetteTile)
             {
@@ -130,7 +130,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                         {
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                             {
-                                print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                                //print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                                 if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
                                 {
@@ -146,18 +146,17 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                             {
                                                 a = true;
                                                 tileEvent.EventAssocier.previousMove = this;
-
+                                                print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
                                                 return tileEvent.EventAssocier;
                                             }
                                         }
                                     }
                                 }
-
                             }
                             else if (isDecal)
                             {
-                                print("isDecal " + isDecal);
-                                print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                                //print("isDecal " + isDecal);
+                                //print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                                 if (tilePos.y >= GridManager.instance.GridSize.y)
                                 {
@@ -180,7 +179,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                                 return tileEvent.EventAssocier;
                                             }
-
                                         }
                                     }
                                 }
@@ -310,6 +308,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (NextMove != null)
         {
             print("Next move is :    " + NextMove.gameObject);
+        }
+        else
+        {
+            print("NextMove est sensé être  =" + check );
+            print("il est null car : check != this =" + (check != this));
         }
 
     }
