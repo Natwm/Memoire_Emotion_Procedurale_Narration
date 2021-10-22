@@ -28,6 +28,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private GameObject vignetteImage;
     [SerializeField] public GameObject vignetteInfo;
     public Vignette assignedVignette;
+
     [Header("List")]
     [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2>();
     [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
@@ -54,6 +55,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private Vignette_Behaviours previousMove;
 
     [SerializeField] private List<Vignette_Behaviours> testt = new List<Vignette_Behaviours>();
+
+    public List<Vector2> neighbourgCheck = new List<Vector2>();
+
+    [Space]
+    [Header("Physics")]
+    [SerializeField] private GameObject physicsCheck;
     #endregion
 
     public bool a = false;
@@ -89,6 +96,43 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     void Update()
     {
     }
+
+    public void CheckNeighbourg()
+    {
+        RaycastHit hit;
+        IModifier myModifier;
+        TileElt_Behaviours checkedTile;
+        int amountOfModifier = 0;
+
+
+        for (int i = 0; i < physicsCheck.transform.childCount; i++)
+        {
+            GameObject tile = physicsCheck.transform.GetChild(i).gameObject;
+            Physics.Raycast(tile.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetection);
+            if(hit.collider != null)
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                if(hitObject.TryGetComponent<TileElt_Behaviours>(out checkedTile))
+                {
+                    if (checkedTile != null)
+                    {
+                        
+                        if ((!neighbourgCheck.Contains(checkedTile.Tileposition)))
+                        {
+                            
+                            neighbourgCheck.Add(checkedTile.Tileposition);
+                            /*vignetteTilePosition.Add(hitObject.transform.position);
+                            VignetteTile.Add(checkedTile.Tileposition);
+                            listOfAffectedObject.Add(hitObject);
+                            GridManager.instance.ListOfOveredTile.Add(hitObject);*/
+                        }
+                    }
+                }
+            }
+            //Gizmos.DrawWireCube(tile.transform.position, transform.localScale / raycastSize);
+        }
+    }
+
     public Vignette_Behaviours CheckNextMove()
     {
         if (OnGrid)
@@ -99,55 +143,66 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             bool isDecal = false;
             TileElt_Behaviours tileEvent;
 
-            print("La tile qui vérifie est : " + this.gameObject.name);
-
-            foreach (var hoveredTile in VignetteTile)
+           /* print("La tile qui vérifie est : " + this.gameObject.name);
+            print("les voisin de " + this.gameObject.name + "sont = " + neighbourgCheck.Count);
+            print(this.gameObject.name + " est de taille = " + vignetteShape);*/
+            foreach (var hoveredTile in neighbourgCheck)
             {
-
-                if (hoveredTile == Vector2.zero)
+                /*print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
+                print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);*/
+                for (int x = 0; x <= 1 ; x++)
                 {
-                    a = true;
-                }
-
-
-                //print("Tile check is = "+hoveredTile);
-                for (int x = 0; x < vignetteShape.x + 1; x++)
-                {
-                    for (int y = 0; y < vignetteShape.y + 1; y++)
+                    for (int y = 0; y <= 1 ; y++)
                     {
-                        //print("Position du curseur = "+x + " " + y);
+                        /*print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
+
+                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);*/
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
                         //print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                         if (tilePos.y >= GridManager.instance.GridSize.y)
                         {
+                            print("La tile : " + this.gameObject.name+"  est décalé");
                             tilePos.Set(tilePos.x + 1, 0);
                             isDecal = true;
                         }
-
+                       /* print(this.gameObject.name + "   Check = " + tilePos);
+                        print(this.gameObject.name + "   est ce que vignettetile le contiens = " + vignetteTile.Contains(tilePos));*/
 
                         if (!vignetteTile.Contains(tilePos))
                         {
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                             {
                                 //print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
-
+                               /** print("La tile qui vérifie est : " + this.gameObject.name +" et possède la bonne distance de  " + tilePos);
+                                print("La tile qui vérifie est : " + this.gameObject.name + " check si elle est au bonne endroit  " + (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y));
+                               */
                                 if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
+                                    //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name);
+                                    tileEvent = tile.GetComponent<TileElt_Behaviours>();
+
+                                    //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
 
 
-                                    if (tile.TryGetComponent<TileElt_Behaviours>(out tileEvent))
+                                    if (tileEvent != null)
                                     {
+                                        //print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
+
                                         if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
                                         {
-                                            print(tileEvent.EventAssocier.name);
+                                            //print(tileEvent.EventAssocier.name + "   la valeur de schec est : " + tileEvent.EventAssocier.a);
                                             if (!tileEvent.EventAssocier.a)
                                             {
                                                 a = true;
                                                 tileEvent.EventAssocier.previousMove = this;
-                                                print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
+                                                //print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
                                                 return tileEvent.EventAssocier;
+                                            }
+                                            if (hoveredTile == Vector2.zero)
+                                            {
+                                                a = true;
                                             }
                                         }
                                     }
@@ -179,12 +234,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                                 return tileEvent.EventAssocier;
                                             }
+                                            if (hoveredTile == Vector2.zero)
+                                            {
+                                                a = true;
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                    print("_______ __________ __________ ______ ______ ___");
+
                 }
                 print("__________________________________________");
             }
@@ -457,12 +518,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
         {
-
             item.CheckIsPositionIsValid();
             item.a = false;
             item.previousMove = nextMove = null;
-
-
+            item.neighbourgCheck.Clear();
+            item.CheckNeighbourg();
         }
 
 
@@ -531,7 +591,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / raycastSize);
+        for (int i = 0; i < physicsCheck.transform.childCount; i++)
+        {
+            GameObject tile = physicsCheck.transform.GetChild(i).gameObject;
+            Gizmos.DrawWireCube(tile.transform.position, transform.localScale / raycastSize);
+        }
+        //Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / raycastSize);
     }
 
 

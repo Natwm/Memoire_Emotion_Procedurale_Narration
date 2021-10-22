@@ -120,7 +120,7 @@ public class EventGenerator : MonoBehaviour
             {
                 if (item == potentialTile)
                 {
-                    Debug.Log("Hit Already Occupied Tile : " + item.name);
+                   // Debug.Log("Hit Already Occupied Tile : " + item.name);
 
                     return GetRandomClearTile();
                 }
@@ -163,7 +163,7 @@ public class EventGenerator : MonoBehaviour
     {
         int RandomType = Random.Range(0, modifiers.Length);
         GameObject tileType=null;
-        Debug.Log("TILETYPE:  " + RandomType);
+        //Debug.Log("TILETYPE:  " + RandomType);
         if (RandomType == 0)
         {
             
