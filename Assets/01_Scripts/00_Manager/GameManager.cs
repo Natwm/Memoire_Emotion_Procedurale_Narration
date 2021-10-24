@@ -53,58 +53,58 @@ public class GameManager : MonoBehaviour
                     for (int i = 0; i < GridManager.instance.ListOfMovement.Count; i++)
                     {
                         Vignette_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
-                        print(i + "  stepBD = " + stepBD.gameObject);
+                        //print(i + "  stepBD = " + stepBD.gameObject);
                         if (stepBD.NextMove != null)
                             print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);
 
                         GameObject myStep = stepBD.gameObject;
                         if (myStep == entryGO)
                         {
-                            print("EntryGooooooo");
+                            //print("EntryGooooooo");
                             value++;
                         }
 
                         if (myStep == exitGO)
                         {
-                            print("ExitGooooooo");
+                            //print("ExitGooooooo");
                             value++;
                         }
 
                         if (myStep == keyGO)
                         {
-                            print("KeyGooooooo");
+                            //print("KeyGooooooo");
                             value++;
                         }
 
-                        print("Exit   = " + myStep.name + "  ==  " + exitGO + " ||   " + (myStep == exitGO));
+                        /*print("Exit   = " + myStep.name + "  ==  " + exitGO + " ||   " + (myStep == exitGO));
                         print("Entry   = " + myStep.name + "  ==  " + entryGO + " ||   " + (myStep == entryGO));
                         print("Key   = " + myStep.name + "  ==  " + keyGO + " ||   " + (myStep == keyGO));
-                        print("value " + value);
+                        print("value " + value);*/
 
                     }
                     GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject;
 
-                    print("entryGO " + entryGO.name + " || exitGO " + exitGO + " || keyGO " + keyGO.name);
+                    //print("entryGO " + entryGO.name + " || exitGO " + exitGO + " || keyGO " + keyGO.name);
 
                     if (lastStep == entryGO)
                     {
-                        print("EntryGooooooo 2");
+                        //print("EntryGooooooo 2");
                         value++;
                     }
 
                     else if (lastStep == exitGO)
                     {
-                        print("ExitGooooooo 2");
+                        //print("ExitGooooooo 2");
                         value++;
                     }
 
                     else if (lastStep == keyGO)
                     {
-                        print("KeyGooooooo 2");
+                        //print("KeyGooooooo 2");
                         value++;
                     }
-                    print("Nathan   2= " + lastStep.name + "  ==  " + keyGO + " ||   " + (lastStep == keyGO));
-                    print("value " + value);
+                    /*print("Nathan   2= " + lastStep.name + "  ==  " + keyGO + " ||   " + (lastStep == keyGO));
+                    print("value " + value);*/
                 }
             }
 

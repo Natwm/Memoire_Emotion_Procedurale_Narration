@@ -143,22 +143,22 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             bool isDecal = false;
             TileElt_Behaviours tileEvent;
 
-           /* print("La tile qui vérifie est : " + this.gameObject.name);
+            print("La tile qui vérifie est : " + this.gameObject.name);
             print("les voisin de " + this.gameObject.name + "sont = " + neighbourgCheck.Count);
-            print(this.gameObject.name + " est de taille = " + vignetteShape);*/
+            print(this.gameObject.name + " est de taille = " + vignetteShape);
             foreach (var hoveredTile in neighbourgCheck)
             {
-                /*print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
-                print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);*/
+                print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
+                print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);
                 for (int x = 0; x <= 1 ; x++)
                 {
                     for (int y = 0; y <= 1 ; y++)
                     {
-                        /*print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
+                        print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
 
-                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);*/
+                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
-                        //print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                        print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                         if (tilePos.y >= GridManager.instance.GridSize.y)
                         {
@@ -166,38 +166,38 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             tilePos.Set(tilePos.x + 1, 0);
                             isDecal = true;
                         }
-                       /* print(this.gameObject.name + "   Check = " + tilePos);
-                        print(this.gameObject.name + "   est ce que vignettetile le contiens = " + vignetteTile.Contains(tilePos));*/
+                        print(this.gameObject.name + "   Check = " + tilePos);
+                        print(this.gameObject.name + "   est ce que vignettetile le contiens = " + vignetteTile.Contains(tilePos));
 
                         if (!vignetteTile.Contains(tilePos))
                         {
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                             {
-                                //print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
-                               /** print("La tile qui vérifie est : " + this.gameObject.name +" et possède la bonne distance de  " + tilePos);
+                                print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                                print("La tile qui vérifie est : " + this.gameObject.name +" et possède la bonne distance de  " + tilePos);
                                 print("La tile qui vérifie est : " + this.gameObject.name + " check si elle est au bonne endroit  " + (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y));
-                               */
+                               
                                 if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
-                                    //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name);
+                                    print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name);
                                     tileEvent = tile.GetComponent<TileElt_Behaviours>();
-
-                                    //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
+                                    print("la tile : " + this.gameObject.name + " vérifie la position : " + Mathf.RoundToInt(tilePos.x) + " " + Mathf.RoundToInt(tilePos.y) + " et levent est : " + tileEvent);
+                                    print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
 
 
                                     if (tileEvent != null)
                                     {
-                                        //print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
+                                        print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
 
                                         if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
                                         {
-                                            //print(tileEvent.EventAssocier.name + "   la valeur de schec est : " + tileEvent.EventAssocier.a);
+                                            print(tileEvent.EventAssocier.name + "   la valeur de schec est : " + tileEvent.EventAssocier.a);
                                             if (!tileEvent.EventAssocier.a)
                                             {
                                                 a = true;
                                                 tileEvent.EventAssocier.previousMove = this;
-                                                //print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
+                                                print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
                                                 return tileEvent.EventAssocier;
                                             }
                                             if (hoveredTile == Vector2.zero)
@@ -210,8 +210,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             }
                             else if (isDecal)
                             {
-                                //print("isDecal " + isDecal);
-                                //print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                                print("isDecal " + isDecal);
+                                print("tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                                 if (tilePos.y >= GridManager.instance.GridSize.y)
                                 {
@@ -523,15 +523,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             item.previousMove = nextMove = null;
             item.neighbourgCheck.Clear();
             item.CheckNeighbourg();
+            
         }
 
+        GridManager.instance.SortList();
 
         //GridManager.instance.Test.Clear();
-        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        foreach (var item in GridManager.instance.ListOfMovement)
         {
-            if (item.OnGrid && item.vignetteTile.Count > 0)
+            Vignette_Behaviours check = item.EventAssocier;
+            if (check.OnGrid && check.vignetteTile.Count > 0)
             {
-                item.GetNextMove();
+                check.GetNextMove();
             }
 
         }

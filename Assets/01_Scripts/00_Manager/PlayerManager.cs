@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
 
     [Space]
     [Header("Movement")]
-    [SerializeField] private List<GameObject> visitedVignette;
+    [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
     void Awake()
     {
@@ -56,7 +56,7 @@ public class PlayerManager : MonoBehaviour
 
         amountOfCardToDraw = minCardToDraw;
 
-        visitedVignette = new List<GameObject>();
+        visitedVignette = new List<Vignette_Behaviours>();
 
         CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
@@ -134,9 +134,13 @@ public class PlayerManager : MonoBehaviour
     private IEnumerator MoveToLocationByVignette()
     {
 
-        GameObject targetedVignette = GridManager.instance.ListOfMovement[0].EventAssocier.gameObject;
+        /*GameObject targetedVignette = GridManager.instance.ListOfMovement[0].EventAssocier.gameObject;
         Vector3 newPosition = GridManager.instance.ListOfMovement[0].EventAssocier.transform.position;
-        GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;
+        GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;*/
+
+        Vignette_Behaviours targetedVignette = GridManager.instance.Test[0];
+        Vector3 newPosition = GridManager.instance.Test[0].transform.position;
+        GameObject tile = GridManager.instance.Test[0].gameObject;
 
         newPosition.Set(newPosition.x, newPosition.y, -5f);
 
@@ -155,11 +159,11 @@ public class PlayerManager : MonoBehaviour
                 tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
             }
 
-            GridManager.instance.ListOfMovement.RemoveAt(0);
+            GridManager.instance.Test.RemoveAt(0);
 
             yield return new WaitForSeconds(1.5f);
 
-            if (GridManager.instance.ListOfMovement.Count > 0 )
+            if (GridManager.instance.Test.Count > 0 )
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
@@ -182,8 +186,8 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            GridManager.instance.ListOfMovement.RemoveAt(0);
-            if (GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue > 0)
+            GridManager.instance.Test.RemoveAt(0);
+            if (GridManager.instance.Test.Count > 0 && player_Happy_SadValue > 0)
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
