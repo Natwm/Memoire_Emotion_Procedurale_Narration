@@ -133,7 +133,6 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator MoveToLocationByVignette()
     {
-
         /*GameObject targetedVignette = GridManager.instance.ListOfMovement[0].EventAssocier.gameObject;
         Vector3 newPosition = GridManager.instance.ListOfMovement[0].EventAssocier.transform.position;
         GameObject tile = GridManager.instance.ListOfMovement[0].gameObject;*/

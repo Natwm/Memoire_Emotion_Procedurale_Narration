@@ -540,6 +540,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
 
         GameManager.instance.IsMovementvalid();
+        GridManager.instance.GetVignetteOrderByNeighbourg();
     }
 
 

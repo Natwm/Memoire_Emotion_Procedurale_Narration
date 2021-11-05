@@ -61,10 +61,6 @@ public class GridManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            GetVignetteOrderByNeighbourg();
-        }
     }
 
     void CreateTerrain()
