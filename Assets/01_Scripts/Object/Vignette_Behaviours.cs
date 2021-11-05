@@ -89,7 +89,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         myEvent = GetComponent<EventContener>();
         SetUpCard();
-        CastingManager.instance.SetCharacterToVignette(assignedVignette);
     }
 
     // Update is called once per frame

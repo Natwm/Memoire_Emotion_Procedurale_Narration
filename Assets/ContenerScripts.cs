@@ -8,7 +8,7 @@ public class ContenerScripts : MonoBehaviour, IDropHandler
     // Start is called before the first frame update
     void Start()
     {
-        
+        CreationManager.instance.shape = Vector2.one * -1;
     }
 
     // Update is called once per frame
@@ -20,9 +20,13 @@ public class ContenerScripts : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         print("ondrop");
-        if(eventData.pointerDrag != null)
+        
+        CreationManager.instance.shape = Vector2.one *-1;
+
+        if (eventData.pointerDrag != null)
         {
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+            CreationManager.instance.shape = eventData.pointerDrag.GetComponent<Drag_and_drop>().shape;
         }
     }
 }

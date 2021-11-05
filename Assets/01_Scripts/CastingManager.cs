@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 
@@ -11,6 +12,7 @@ public class CastingManager : MonoBehaviour
     string[] Names = { "René","Josiane","Michel","Albert","Lucie","Sylvie","Maurice","Mauricette","Nathan","Sonia","Simon","Adrien","Julien","Morgane","Killian","Thomas","Pierre","José","Nicolas","Brigitte","Vivienne","Jean"};
     public Color[] CharacterColors;
     public GameObject iconRenderer;
+    public GameObject iconRendererUI;
     public int CharacterJaugesMaximumAmount=1;
     [SerializeReference]
     Character[] allcharacters;
@@ -41,15 +43,15 @@ private void Awake()
        // CastColors = GetCharacterColorDistribution(6);
         CreateCharacter(6);
         PlayerCharacter = new Character(Role.None, EmotionJauge.Jauge_PeurColere);
-        CreationManager.instance.CharacterList = new List<Character>(allcharacters);
-        CreationManager.instance.CharacterList.Add(PlayerCharacter);
+        
         GetJaugeDistribution(6);
         
     }
 
     void Start()
     {
-
+        CreationManager.instance.CharacterList = new List<Character>(allcharacters);
+        CreationManager.instance.CharacterList.Add(PlayerCharacter);
 
         //Bd_Component.bd_instance.CreateNewRandomVignette(5);
 
@@ -70,6 +72,12 @@ private void Awake()
         return AllCharacters[randIndex];
     }
 
+    public Character getRandomCharacter(Character[] checkList)
+    {
+        int randIndex = Random.Range(0, checkList.Length);
+        return AllCharacters[randIndex];
+    }
+
     public Character[] getCharacterDistribution(int characterAmount)
     {
         Character[] tempCharacterDistribution = new Character[characterAmount];
@@ -80,7 +88,18 @@ private void Awake()
         return tempCharacterDistribution;
     }
 
-    
+    public Character[] getCharacterDistribution(int characterAmount, Character[] allCast)
+    {
+        print("popo"+characterAmount);
+        Character[] tempCharacterDistribution = new Character[characterAmount];
+        for (int i = 0; i < characterAmount; i++)
+        {
+            tempCharacterDistribution[i] = getRandomUniqueCharacter(tempCharacterDistribution,allCast);
+        }
+        return tempCharacterDistribution;
+    }
+
+
 
     public Character getRandomUniqueCharacter(Character[] currentCast)
     {
@@ -91,6 +110,19 @@ private void Awake()
             {
                 return getRandomUniqueCharacter(currentCast);
             }    
+        }
+        return newChara;
+    }
+
+    public Character getRandomUniqueCharacter(Character[] currentCast, Character[] allCast)
+    {
+        Character newChara = getRandomCharacter();
+        foreach (Character item in currentCast)
+        {
+            if (item == newChara)
+            {
+                return getRandomUniqueCharacter(currentCast, allCast);
+            }
         }
         return newChara;
     }
@@ -158,6 +190,23 @@ private void Awake()
         }*/
         
     }
+
+    public void SetCharacterToVignette(Vignette _vignetteToSet, Character[] allCast)
+    {
+        print("popopo " + _vignetteToSet.ObjectsNumber);
+        _vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber, allCast);
+        for (int i = 0; i < _vignetteToSet.ObjectsNumber; i++)
+        {
+            _vignetteToSet.inVignetteCharacter[i].SetIconToVignette(_vignetteToSet);
+        }
+        /*
+        foreach (Character item in _vignetteToSet.inVignetteCharacter)
+        {
+            item.SetIconToVignette(_vignetteToSet);
+        }*/
+
+    }
+
 
     public void CreateCharacter(int CharacterNumber)
     {
@@ -293,13 +342,45 @@ public class Character
         Feature.GetComponent<SpriteRenderer>().sortingOrder = 2;
 
         Emotion = GetCharacterEmotion(0);
-        
+
 
         //EmotionObject
+        
+
         return newFaceIcon;
     }
 
-   
+    public GameObject CreateFaceUI(GameObject compPoint)
+    {
+        //Base
+        GameObject newFaceIcon = GameObject.Instantiate(CastingManager.instance.iconRendererUI);
+        characterFaceIcon.Add(newFaceIcon);
+        newFaceIcon.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = CastingManager.instance.baseFaceIcon;
+        //newFaceIcon.GetComponent<Image>().sortingOrder = 1;
+
+        newFaceIcon.transform.parent = compPoint.transform;
+        //newFaceIcon.transform.localPosition = Vector3.zero;
+        nameDisplay = newFaceIcon.transform.GetChild(2).GetComponent<TMP_Text>();
+        nameDisplay.text = characterName;
+
+
+        //Facial Features
+        GameObject Feature = newFaceIcon.transform.GetChild(1).gameObject;
+        Feature.transform.GetComponent<Image>().sprite = faceFeature;
+        Feature.transform.parent = newFaceIcon.transform;
+        Feature.transform.localPosition = Vector3.zero;
+        //Feature.GetComponent<Image>().sortingOrder = 2;
+
+        Emotion = GetCharacterEmotion(0);
+
+
+        //EmotionObject
+
+
+        return newFaceIcon;
+    }
+
+
     public void UpdateAllCharacterFaceIcon()
     {
         foreach (GameObject item in characterFaceIcon)
@@ -390,6 +471,7 @@ public class Character
 
     public void SetIconToVignette(Vignette _vignette)
     {
+        Debug.Log("ahah");
         GameObject newPoint = _vignette.GetRandomCompositionPoint();
         GameObject tempFace = CreateFace(newPoint);
         SetObjectColor(true, tempFace);

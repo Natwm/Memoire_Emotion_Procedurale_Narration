@@ -18,10 +18,16 @@ public class characterCreation : MonoBehaviour
 
     [SerializeField] private CharacterStatus m_Status;
 
+    public CharacterStatus Status { get => m_Status; set => m_Status = value; }
+
     // Start is called before the first frame update
     void Start()
     {
         myButton = GetComponent<Button>();
+        myButton.onClick.AddListener(delegate
+        {
+            print(assignedElement.characterName + " est : " + Status);
+        });
     }
 
     // Update is called once per frame
@@ -37,45 +43,45 @@ public class characterCreation : MonoBehaviour
         {
             case CreationManager.m_PenStatus.NONE:
                 myButton.image.color = Color.white;
-                m_Status = CharacterStatus.NONE;
+                Status = CharacterStatus.NONE;
                 break;
 
             case CreationManager.m_PenStatus.FREEZE:
-                if(m_Status != CharacterStatus.FREEZE)
+                if(Status != CharacterStatus.FREEZE)
                 {
                     myButton.image.color = Color.cyan;
-                    m_Status = CharacterStatus.FREEZE;
+                    Status = CharacterStatus.FREEZE;
                 }
                 else
                 {
                     myButton.image.color = Color.white;
-                    m_Status = CharacterStatus.NONE;
+                    Status = CharacterStatus.NONE;
                 }
                 break;
 
             case CreationManager.m_PenStatus.WANT:
-                if (m_Status != CharacterStatus.WANT)
+                if (Status != CharacterStatus.WANT)
                 {
                     myButton.image.color = Color.green;
-                    m_Status = CharacterStatus.WANT;
+                    Status = CharacterStatus.WANT;
                 }
                 else
                 {
                     myButton.image.color = Color.white;
-                    m_Status = CharacterStatus.NONE;
+                    Status = CharacterStatus.NONE;
                 }
                 break;
 
             case CreationManager.m_PenStatus.DONT_WANT:
-                if (m_Status != CharacterStatus.DONT_WANT)
+                if (Status != CharacterStatus.DONT_WANT)
                 {
                     myButton.image.color = Color.red;
-                    m_Status = CharacterStatus.DONT_WANT;
+                    Status = CharacterStatus.DONT_WANT;
                 }
                 else
                 {
                     myButton.image.color = Color.white;
-                    m_Status = CharacterStatus.NONE;
+                    Status = CharacterStatus.NONE;
                 }
                 break;
 

@@ -9,6 +9,8 @@ public class Drag_and_drop : MonoBehaviour, IDragHandler,IBeginDragHandler,IEndD
     public Canvas canva;
     public CanvasGroup canvasGroupe;
     public RectTransform rectTransform;
+
+    public Vector2 shape;
     // Start is called before the first frame update
     void Start()
     {
