@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreationManager : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class CreationManager : MonoBehaviour
 
 
     public static CreationManager instance;
+    public List<Character> CharacterList;
+    public List<Character> PageCharacterList;
+    public GameObject ListHolder;
+    public GameObject baseButton;
+    public List<GameObject> ButtonList;
 
     [SerializeField] private m_PenStatus m_Pen;
 
@@ -31,14 +37,35 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ButtonList = new List<GameObject>();
+    }
+
+    public List<Character> CreateList(int _charaAmount=1)
+    {
+        List<Character> tempList = new List<Character>();
         
+        for (int i = 0; i < _charaAmount; i++)
+        {
+            Character tempCharacter = CastingManager.instance.getRandomUniqueCharacter(tempList.ToArray());
+            tempList.Add(tempCharacter);
+            GameObject tempButton = Instantiate(baseButton, ListHolder.transform);
+            tempButton.GetComponent<characterCreation>().assignedElement = tempCharacter;
+            ButtonList.Add(tempButton);
+
+        }
+        return tempList == null?null:tempList;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            PageCharacterList = CreateList(4);
+        }
     }
+
+    
 
     public void ChangePen(string usedPen)
     {

@@ -14,6 +14,7 @@ public class CastingManager : MonoBehaviour
     public int CharacterJaugesMaximumAmount=1;
     [SerializeReference]
     Character[] allcharacters;
+    Character PlayerCharacter;
     GameObject[] allCharacterIcons;
 
     [Header("Face Icon Sprites")]
@@ -37,8 +38,11 @@ private void Awake()
             instance = this;
         }
         CastColors = new Color[6];
-        CastColors = GetCharacterColorDistribution(6);
+       // CastColors = GetCharacterColorDistribution(6);
         CreateCharacter(6);
+        PlayerCharacter = new Character(Role.None, EmotionJauge.Jauge_PeurColere);
+        CreationManager.instance.CharacterList = new List<Character>(allcharacters);
+        CreationManager.instance.CharacterList.Add(PlayerCharacter);
         GetJaugeDistribution(6);
         
     }
@@ -49,7 +53,7 @@ private void Awake()
 
         //Bd_Component.bd_instance.CreateNewRandomVignette(5);
 
-        CanvasManager.instance.InitialiseCharactersPanel();
+        //CanvasManager.instance.InitialiseCharactersPanel();
     }
 
     public void SetCharactersToHand()
@@ -75,6 +79,8 @@ private void Awake()
         }
         return tempCharacterDistribution;
     }
+
+    
 
     public Character getRandomUniqueCharacter(Character[] currentCast)
     {
@@ -114,7 +120,9 @@ private void Awake()
 
     public Color GetRandomCharacterColor()
     {
+        Debug.Log(CharacterColors.Length);
         int randIndex = Random.Range(0, CharacterColors.Length);
+        
         return CharacterColors[randIndex];
     }
 
@@ -214,6 +222,9 @@ public enum Role
 }
 
 
+//On a notre liste de personnages.
+//Il faut créer une liste de personnages aléatoire, et 
+
 [System.Serializable]
 public class Character
 {
@@ -240,6 +251,22 @@ public class Character
     //public GameObject characterHolder;
     // CharacterData
     public Relation currentRelation;
+
+    //BaseCharacter
+    public Character(Role character_Role, EmotionJauge currentEmotion)
+    {
+        int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
+        int pileOuFace = Random.Range(0, 2);
+        characterFaceIcon = new List<GameObject>();
+        faceFeature = CastingManager.instance.TopSprites[randomTop];
+
+        characterColor = Color.black;
+
+        characterName = CastingManager.instance.GetName();
+        currentRole = character_Role;
+        currentJauge = currentEmotion;
+        JaugeCap = CastingManager.instance.CharacterJaugesMaximumAmount;
+    }
 
     // CharacterEmotion
 
@@ -272,22 +299,7 @@ public class Character
         return newFaceIcon;
     }
 
-    //BaseCharacter
-    public Character(Role character_Role,EmotionJauge currentEmotion)
-    {
-        int randomTop = Random.Range(0, CastingManager.instance.TopSprites.Length);
-        int pileOuFace = Random.Range(0, 2);
-        characterFaceIcon = new List<GameObject>();
-        faceFeature = CastingManager.instance.TopSprites[randomTop];
-        
-        characterColor = CastingManager.instance.SetCharacterColor();
-
-        characterName = CastingManager.instance.GetName();
-        currentRole = character_Role;
-        currentJauge = currentEmotion;
-        JaugeCap = CastingManager.instance.CharacterJaugesMaximumAmount;  
-    }
-    
+   
     public void UpdateAllCharacterFaceIcon()
     {
         foreach (GameObject item in characterFaceIcon)

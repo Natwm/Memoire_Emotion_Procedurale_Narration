@@ -7,6 +7,7 @@ public class characterCreation : MonoBehaviour
 {
 
     private Button myButton;
+    public Character assignedElement;
     public enum CharacterStatus
     {
         FREEZE,
