@@ -50,8 +50,8 @@ private void Awake()
 
     void Start()
     {
-        CreationManager.instance.CharacterList = new List<Character>(allcharacters);
-        CreationManager.instance.CharacterList.Add(PlayerCharacter);
+        /*CreationManager.instance.CharacterList = new List<Character>(allcharacters);
+        CreationManager.instance.CharacterList.Add(PlayerCharacter);*/
 
         //Bd_Component.bd_instance.CreateNewRandomVignette(5);
 

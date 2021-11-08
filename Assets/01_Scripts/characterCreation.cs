@@ -36,7 +36,7 @@ public class characterCreation : MonoBehaviour
         
     }
 
-    public void AffectByPen()
+   /* public void AffectByPen()
     {
         
         switch (CreationManager.instance.Pen)
@@ -73,10 +73,7 @@ public class characterCreation : MonoBehaviour
                 break;
 
             case CreationManager.m_PenStatus.DONT_WANT:
-                if (Status != CharacterStatus.DONT_WANT)
-                {
-                    myButton.image.color = Color.red;
-                    Status = CharacterStatus.DONT_WANT;
+                if (Status != CharacterStatus.DONT_WANT)d
                 }
                 else
                 {
@@ -88,5 +85,5 @@ public class characterCreation : MonoBehaviour
             default:
                 break;
         }
-    }
+    }*/
 }
