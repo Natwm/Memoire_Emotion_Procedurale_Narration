@@ -55,55 +55,78 @@ public class UsableObject : abstractUsableObject
                 break;
 
             case CreationManager.m_PenStatus.CLAIM:
-                if (Status != ObjectStatus.CLAIM)
+                if (CreationManager.instance.ReduceNegociationTime(75))
                 {
-                    myButton.image.color = Color.green;
-                    ClaimObject();
+                    if (Status != ObjectStatus.CLAIM)
+                    {
+
+                        myButton.image.color = Color.green;
+                        ClaimObject();
+                    }
+                    else
+                    {
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
                 }
-                else
-                {
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
+                else if(CreationManager.instance.NegociationTime<0)
+                    CreationManager.instance.NegociationTime = 0;
                 break;
 
             case CreationManager.m_PenStatus.WANT:
-                if (Status != ObjectStatus.WANT)
+                if (CreationManager.instance.ReduceNegociationTime(33))
                 {
-                    myButton.image.color = Color.gray;
-                    WantObject();
+                    if (Status != ObjectStatus.WANT)
+                    {
+                        myButton.image.color = Color.gray;
+                        WantObject();
+                    }
+                    else
+                    {
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
                 }
-                else
-                {
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
+                else if(CreationManager.instance.NegociationTime < 0)
+                    CreationManager.instance.NegociationTime = 0;
+
                 break;
 
             case CreationManager.m_PenStatus.REJECT:
-                if (Status != ObjectStatus.REJECT)
+                if (CreationManager.instance.ReduceNegociationTime(33))
                 {
-                    myButton.image.color = Color.yellow;
-                    RejectObject();
+                    if (Status != ObjectStatus.REJECT)
+                    {
+                        myButton.image.color = Color.yellow;
+                        RejectObject();
+                    }
+                    else
+                    {
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
                 }
-                else
-                {
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
+                else if (CreationManager.instance.NegociationTime < 0)
+                    CreationManager.instance.NegociationTime = 0;
+
                 break;
 
             case CreationManager.m_PenStatus.EXCLUDE:
-                if (Status != ObjectStatus.EXCLUDE)
+                if (CreationManager.instance.ReduceNegociationTime(75))
                 {
-                    myButton.image.color = Color.red;
-                    ExcludeObject();
+                    if (Status != ObjectStatus.EXCLUDE)
+                    {
+                        myButton.image.color = Color.red;
+                        ExcludeObject();
+                    }
+                    else
+                    {
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
                 }
-                else
-                {
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
+                else if (CreationManager.instance.NegociationTime < 0)
+                    CreationManager.instance.NegociationTime = 0;
                 break;
 
             default:

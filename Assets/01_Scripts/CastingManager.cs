@@ -92,6 +92,7 @@ private void Awake()
     {
         print("popo"+characterAmount);
         Character[] tempCharacterDistribution = new Character[characterAmount];
+
         for (int i = 0; i < characterAmount; i++)
         {
             tempCharacterDistribution[i] = getRandomUniqueCharacter(tempCharacterDistribution,allCast);
@@ -119,12 +120,15 @@ private void Awake()
         Character newChara = getRandomCharacter();
         foreach (Character item in currentCast)
         {
-            if (item == newChara)
+            if (item == newChara )
             {
                 return getRandomUniqueCharacter(currentCast, allCast);
             }
         }
-        return newChara;
+        if(CreationManager.instance.PageCharacterList.Contains(newChara))
+            return newChara;
+        else
+            return getRandomUniqueCharacter(currentCast, allCast);
     }
 
     public Color[] GetCharacterColorDistribution(int characterAmount)
@@ -194,6 +198,7 @@ private void Awake()
     public void SetCharacterToVignette(Vignette _vignetteToSet, Character[] allCast)
     {
         print("popopo " + _vignetteToSet.ObjectsNumber);
+        
         _vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber, allCast);
         for (int i = 0; i < _vignetteToSet.ObjectsNumber; i++)
         {

@@ -7,9 +7,24 @@ using DG.Tweening;
 
 public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
 {
+    public enum VignetteCategories
+    {
+        NEUTRE,
+        EXPLORER,
+        PRENDRE,
+        COMBATTRE,
+        UTILISER,
+        ALEATOIRE,
+        TREBUCHER,
+        PERTE_OBJET,
+        CURSE
+    }
+
     #region param
 
     private Vector3 offset;
+
+    [SerializeField] private VignetteCategories categorie;
 
     [Space]
     [Header("Raycast")]
@@ -69,13 +84,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         EventTrigger trigger = GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
-
         entry.eventID = EventTriggerType.Drag;
 
         entry.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
         trigger.triggers.Add(entry);
 
+        print(trigger);
+
         m_IsVignetteShowUp = false;
+
+        print("Nathan");
 
         // vignetteInfo = transform.GetChild(0).gameObject;
         //vignetteInfo.SetActive(true);
@@ -89,6 +107,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         myEvent = GetComponent<EventContener>();
         SetUpCard();
+
+        categorie = GetRandomEnum();
     }
 
     // Update is called once per frame
@@ -464,6 +484,46 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         listOfAffectedObject.Clear();
     }
 
+    private VignetteCategories GetRandomEnum()
+    {
+        int value = UnityEngine.Random.Range(0,9);
+
+        switch (value)
+        {
+            case 0:
+                return VignetteCategories.ALEATOIRE;
+                break;
+            case 1:
+                return VignetteCategories.COMBATTRE;
+                break;
+            case 2:
+                return VignetteCategories.CURSE;
+                break;
+            case 3:
+                return VignetteCategories.EXPLORER;
+                break;
+            case 4:
+                return VignetteCategories.NEUTRE;
+                break;
+            case 5:
+                return VignetteCategories.PERTE_OBJET;
+                break;
+            case 6:
+                return VignetteCategories.PRENDRE;
+                break;
+            case 7:
+                return VignetteCategories.TREBUCHER;
+                break;
+            case 8:
+                return VignetteCategories.UTILISER;
+                break;
+
+            default:
+                return VignetteCategories.NEUTRE;
+                break;
+        }
+    }
+    
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -542,10 +602,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         GridManager.instance.GetVignetteOrderByNeighbourg();
     }
 
-
-
     public void OnPointerDown(PointerEventData eventData)
     {
+        print("poke");
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
         data.z = transform.position.z;
         //AJouter la distance entre le pivot et le curseur;
@@ -570,7 +629,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (!m_IsLook)
             transform.position = rayPoint;
 
-
+        print("ffffff");
         RaycastHit hit;
         Physics.Raycast(this.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetectionGrid);
         if (hit.collider != null)
@@ -591,6 +650,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     }
 
     #endregion
+
+
 
     private void OnDrawGizmos()
     {

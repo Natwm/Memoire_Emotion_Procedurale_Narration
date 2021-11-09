@@ -168,6 +168,7 @@ public class Vignette
     Bd_Object[] InVignette_Objects;
     public List<GameObject> inVignette_CharacterIcons;
     public Character[] inVignetteCharacter;
+    public Character_Behaviours[] inVignetteCharacter_Behaviours;
     GameObject Gabarit_Composition;
 
     public Vignette(string vignetteType,GameObject _vignetteType,Transform _parent,GameObject[] _obj,GameObject _gabarit)
@@ -257,6 +258,51 @@ public class Vignette
         Sprite_Vignette = Cadre_Object.GetComponent<SpriteRenderer>();
         Mask_Vignette = Cadre_Object.GetComponent<SpriteMask>();
         inVignetteCharacter = selectedCharacter;
+    }
+    public Vignette(Vector2 vignetteType, GameObject _vignetteType, Transform _parent, GameObject[] _obj, GameObject _gabarit, Character_Behaviours[] selectedCharacter)
+    {
+        inVignette_CharacterIcons = new List<GameObject>();
+        // INITIALISATION VIGNETTE
+        GameObject tempVignette = GameObject.Instantiate(_vignetteType);
+        tempVignette.transform.parent = _parent;
+        tempVignette.transform.localPosition = Vector3.zero;
+        Vignette_Object = tempVignette;
+        Cadre_Object = tempVignette.transform.GetChild(0).gameObject;
+        GameObject tempGab = GameObject.Instantiate(_gabarit, Cadre_Object.transform);
+        Gabarit_Composition = tempGab;
+        Gabarit_Composition.transform.localPosition = Vector3.zero;
+        Gabarit_Composition.transform.localScale = Vector3.one;
+        Cadre_Object.transform.localPosition = Vector3.zero;
+
+        string vignetteShape = vignetteType.x + "x" + vignetteType.y;
+
+        switch (vignetteShape)
+        {
+            case ("1x1"):
+                {
+                    ObjectsNumber = 1;
+                    break;
+                }
+            case ("1x2"):
+                {
+                    ObjectsNumber = 2;
+                    break;
+                }
+            case ("2x1"):
+                {
+                    ObjectsNumber = 2;
+                    break;
+                }
+            case ("2x2"):
+                {
+                    ObjectsNumber = 3;
+                    break;
+                }
+
+        }
+        Sprite_Vignette = Cadre_Object.GetComponent<SpriteRenderer>();
+        Mask_Vignette = Cadre_Object.GetComponent<SpriteMask>();
+        inVignetteCharacter_Behaviours = selectedCharacter;
     }
 
     public void CharacterFeedback()

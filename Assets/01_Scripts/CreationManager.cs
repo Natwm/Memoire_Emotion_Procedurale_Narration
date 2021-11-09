@@ -17,9 +17,11 @@ public class CreationManager : MonoBehaviour
 
     public static CreationManager instance;
 
-
     //public List<Character> CharacterList;
     public List<Character> PageCharacterList;
+    [Space]
+    [Header("Time")]
+    [SerializeField] private int negociationTime = 100;
 
     [Space]
     [Header("Character Selected")]
@@ -72,7 +74,7 @@ public class CreationManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            CreatePlayerInventory(listOfCharacter[0]);
+            CreatePlayerInventory(PlayerManager.instance);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -124,36 +126,8 @@ public class CreationManager : MonoBehaviour
     private void CreateObjectButton(Object_SO tempObject)
     {
         GameObject tempButton = Instantiate(ObjectButton, objectListHolder.transform);
-
-        switch (tempObject.Category)
-        {
-            case Object_SO.ObjectCategory.NONE:
-                break;
-            case Object_SO.ObjectCategory.ARME:
-                tempButton.AddComponent<Armes_Behaviours>();
-                tempButton.GetComponent<Armes_Behaviours>().Data = tempObject;
-                break;
-            case Object_SO.ObjectCategory.USABLE:
-
-                switch (tempObject.Action)
-                {
-                    case Object_SO.ObjectAction.NONE:
-                        break;
-                    case Object_SO.ObjectAction.HEALTH:
-                        tempButton.AddComponent<HealObject_Behaviours>();
-                        tempButton.GetComponent<HealObject_Behaviours>().Data = tempObject;
-                        break;
-                    case Object_SO.ObjectAction.DRAW:
-                        tempButton.AddComponent<DrawObject_Behaviours>();
-                        tempButton.GetComponent<DrawObject_Behaviours>().Data = tempObject;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }
+        tempButton.AddComponent<UsableObject>();
+        tempButton.GetComponent<UsableObject>().Data = tempObject;
 
         UsableObject eventButton = tempButton.GetComponent<UsableObject>();
         tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
@@ -195,59 +169,45 @@ public class CreationManager : MonoBehaviour
     #region Create
     public void CreateVignette()
     {
-        List<characterCreation> listOfCharacterWanted = new List<characterCreation>();
-        List<characterCreation> listOfCharacterDontWanted = new List<characterCreation>();
-        List<characterCreation> listOfCharacterFreeze = new List<characterCreation>();
-        List<characterCreation> listOfCharacterNone = new List<characterCreation>();
-        List<characterCreation> listOfSpawnable = new List<characterCreation>();
+        List<Character_Behaviours> listOfCharacterWanted = new List<Character_Behaviours>();
+        List<Character_Behaviours> listOfCharacterDontWanted = new List<Character_Behaviours>();
+        List<Character_Behaviours> listOfCharacterFreeze = new List<Character_Behaviours>();
+        List<Character_Behaviours> listOfCharacterNone = new List<Character_Behaviours>();
+        List<Character_Behaviours> listOfSpawnable = new List<Character_Behaviours>();
 
 
         for (int i = 0; i < characterListHolder.transform.childCount; i++)
         {
-            characterCreation character = characterListHolder.transform.GetChild(i).GetComponent<characterCreation>();
+            Character_Behaviours character = characterListHolder.transform.GetChild(i).GetComponent<Character_Behaviours>();
             //print("<Color=green>"+character.assignedElement.characterName + "  " + character.Status+"</Color>");
-            switch (character.Status)
-            {
-                case characterCreation.CharacterStatus.FREEZE:
-                    listOfCharacterFreeze.Add(character);
-                    break;
-                case characterCreation.CharacterStatus.WANT:
-                    listOfCharacterWanted.Add(character);
-                    break;
-                case characterCreation.CharacterStatus.DONT_WANT:
-                    listOfCharacterDontWanted.Add(character);
-                    break;
-                case characterCreation.CharacterStatus.NONE:
+          
                     listOfCharacterNone.Add(character);
-                    break;
-                default:
-                    break;
-            }
+
         }
 
-        listOfSpawnable.AddRange(listOfCharacterWanted);
-        listOfSpawnable.AddRange(listOfCharacterNone);
 
-        List<Character> test = new List<Character>();
-
-        foreach (var item in listOfSpawnable)
-        {
-            test.Add(item.assignedElement);
-        }
 
         GameObject card = Instantiate(GetVignetteShape(shape));
 
         //print(card.name);
         //        print(Bd_Component.bd_instance.name);
-        Bd_Component.bd_instance.SetVignetteToObjectCreate(card, test.ToArray());
+        Character[] tempCharacter_BehavioursDistribution = new Character[listOfCharacterNone.Count];
+
+        for (int i = 0; i < listOfCharacterNone.Count; i++)
+        {
+            tempCharacter_BehavioursDistribution[i] = listOfCharacterNone[i].AssignedElement;
+        }
+
+        Bd_Component.bd_instance.SetVignetteToObjectCreate(card, tempCharacter_BehavioursDistribution);
 
         //Vignette tempVignette = new Vignette(shape.ToString(), GetVignette(shape), null, null, GetComp(shape));
 
         //PrintList(listOfCharacterFreeze, listOfCharacterDontWanted, listOfCharacterWanted, listOfCharacterNone);
     }
 
-    public void CreatePlayerInventory(Character_Behaviours player)
+    public void CreatePlayerInventory(PlayerManager player)
     {
+        player.CharacterData = selectedPlayer.AssignedElement;
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
 
@@ -284,17 +244,26 @@ public class CreationManager : MonoBehaviour
         {
             int index = Random.Range(0, pullOfObject.Count);
 
-            if (!player.Inventory.Contains(pullOfObject[index]))
+            if (!player.Inventory.Contains(pullOfObject[index].Data))
             {
-                player.Inventory.Add(pullOfObject[index]);
+                player.Inventory.Add(pullOfObject[index].Data);
             }
-            
-            pullOfObject.Remove(pullOfObject[index]);
+            UsableObject obj = pullOfObject[index];
+            pullOfObject.Remove(obj);
+
+            obj.gameObject.SetActive(false);
             if (pullOfObject.Count <= 0)
                 break;
         }
     }
     #endregion
+
+    public bool ReduceNegociationTime(int reduceValue)
+    {
+        negociationTime -= reduceValue;
+
+        return negociationTime >= 0;
+    }
 
     public void SelectPlayer( Character_Behaviours player)
     {
@@ -304,7 +273,7 @@ public class CreationManager : MonoBehaviour
     public void LaunchGame()
     {
         if(selectedPlayer !=null)
-            CreatePlayerInventory(selectedPlayer);
+            CreatePlayerInventory(PlayerManager.instance);
     }
 
     #region To Delete
@@ -418,6 +387,7 @@ public class CreationManager : MonoBehaviour
     #region Getter && Setter
 
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
+    public int NegociationTime { get => negociationTime; set => negociationTime = value; }
 
     #endregion
 }

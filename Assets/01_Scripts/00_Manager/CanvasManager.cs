@@ -12,6 +12,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject WinPanel;
     [SerializeField] private GameObject LoosePanel;
     [SerializeField] private GameObject QuitPanel;
+    [SerializeField] private GameObject GamePanel;
+    [SerializeField] private GameObject CreatePanel;
+
+    [Space]
     public GameObject CharacterPanel;
     public GameObject CharacterReaderPrefab;
 
@@ -27,7 +31,14 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Button")]
     [SerializeField] private Button moveButton;
-    
+
+    [Space]
+    Vector2 CharacterShifter = new Vector2(450, -450);
+    int XshifterIndex = 0;
+    int YshiterIndex = 0;
+    int Xshifter = 0;
+    int Yshifter = 0;
+
 
     void Awake()
     {
@@ -73,12 +84,6 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    Vector2 CharacterShifter = new Vector2(450,-450);
-    int XshifterIndex = 0;
-    int YshiterIndex = 0;
-    int Xshifter = 0;
-    int Yshifter = 0;
-    
     public void InitialiseCharactersPanel()
     {
         for (int i = 0; i < CastingManager.instance.AllCharacters.Length; i++)
@@ -155,5 +160,16 @@ public class CanvasManager : MonoBehaviour
 
     #endregion
 
+    public void SetUpGamePanel()
+    {
+        GamePanel.SetActive(true);
+        CreatePanel.SetActive(false);
+        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+    }
 
+    public void SetUpCreationPanel()
+    {
+        GamePanel.SetActive(false);
+        CreatePanel.SetActive(true);
+    }
 }

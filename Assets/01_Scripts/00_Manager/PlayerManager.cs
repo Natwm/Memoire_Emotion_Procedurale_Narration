@@ -3,14 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IDamageable
 {
     public static PlayerManager instance;
+    [SerializeField] private Character characterData;
 
     [Space]
     [Header("Health")]
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int health ;
+
+    [Space]
+    [Header("Endurance")]
+    [SerializeField] private int m_Endurance;
+    [Min(1)]
+    [SerializeField] private int m_MaxEndurance = 1;
+
+    [Space]
+    [Header("Inventory")]
+    [SerializeField] private int m_InventorySize;
+    [Min(1)]
+    [SerializeField] private int m_MaxInventorySize = 1;
+
+    [Space]
+
+    [SerializeField] private List<Object_SO> m_Inventory;
 
     [Header ("Happyness - Sadness")]
     [SerializeField] private int maxHappyness = 5;
@@ -52,13 +69,16 @@ public class PlayerManager : MonoBehaviour
     {
         player_Happy_SadValue = 0;
         player_Angry_FearValue = 0;
-        Health = maxHealth;
+        Health = MaxHealth;
+        m_InventorySize = MaxInventorySize;
+        health = MaxHealth;
+        m_Endurance = m_MaxEndurance;
 
         amountOfCardToDraw = minCardToDraw;
 
         visitedVignette = new List<Vignette_Behaviours>();
 
-        CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
+        //CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
     }
 
@@ -300,6 +320,24 @@ public class PlayerManager : MonoBehaviour
 
     #endregion
 
+    #region Interfaces
+    public void GetDamage()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Death()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public bool IsDead()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    #endregion
+
     #region Getter && Setter
     public int MaxHappyness { get => maxHappyness; set => maxHappyness = value; }
     public int Player_Happy_SadValue { get => player_Happy_SadValue; set => player_Happy_SadValue = value; }
@@ -307,6 +345,14 @@ public class PlayerManager : MonoBehaviour
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
     public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
-    public int Health { get => health; set => health = value; }
+    public int Health { get => Health1; set => Health1 = value; }
+    public Character CharacterData { get => characterData; set => characterData = value; }
+    public int Endurance { get => m_Endurance; set => m_Endurance = value; }
+    public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
+    public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
+    public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
+    public List<Object_SO> Inventory { get => m_Inventory; set => m_Inventory = value; }
+    public int MaxHealth { get => maxHealth; set => maxHealth = value; }
+    public int Health1 { get => health; set => health = value; }
     #endregion
 }

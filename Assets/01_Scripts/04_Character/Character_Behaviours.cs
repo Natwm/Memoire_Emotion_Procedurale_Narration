@@ -9,7 +9,7 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
     private bool m_IsSelected = false;
     private Character assignedElement;
 
-    [Header("Player State")]
+    /*[Header("Player State")]
     [SerializeField] private int m_Life;
     [Min(1)]
     [SerializeField] private int m_MaxLife = 1;
@@ -28,7 +28,7 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
 
     [Space]
 
-    [SerializeField] private List<UsableObject> m_Inventory;
+    [SerializeField] private List<UsableObject> m_Inventory;*/
 
     #endregion
 
@@ -37,9 +37,9 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        m_InventorySize = MaxInventorySize;
+        /*m_InventorySize = MaxInventorySize;
         m_Life = m_MaxLife;
-        m_Endurance = m_MaxEndurance;
+        m_Endurance = m_MaxEndurance;*/
     }
 
     // Update is called once per frame
@@ -82,13 +82,13 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
 
     public bool IsSelected { get => m_IsSelected; set => m_IsSelected = value; }
     public Character AssignedElement { get => assignedElement; set => assignedElement = value; }
-    public int Life { get => m_Life; set => m_Life = value; }
+    /*public int Life { get => m_Life; set => m_Life = value; }
     public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
     public int Endurance { get => m_Endurance; set => m_Endurance = value; }
     public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
     public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
     public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
-    public List<UsableObject> Inventory { get => m_Inventory; set => m_Inventory = value; }
+    public List<UsableObject> Inventory { get => m_Inventory; set => m_Inventory = value; }*/
 
     #endregion
 
