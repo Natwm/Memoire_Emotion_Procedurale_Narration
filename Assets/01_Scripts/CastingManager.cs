@@ -88,7 +88,7 @@ private void Awake()
         return tempCharacterDistribution;
     }
 
-    public Character[] getCharacterDistribution(int characterAmount, Character[] allCast)
+    /*public Character[] getCharacterDistribution(int characterAmount, Character[] allCast)
     {
         print("popo"+characterAmount);
         Character[] tempCharacterDistribution = new Character[characterAmount];
@@ -98,7 +98,7 @@ private void Awake()
             tempCharacterDistribution[i] = getRandomUniqueCharacter(tempCharacterDistribution,allCast);
         }
         return tempCharacterDistribution;
-    }
+    }*/
 
 
 
@@ -115,7 +115,7 @@ private void Awake()
         return newChara;
     }
 
-    public Character getRandomUniqueCharacter(Character[] currentCast, Character[] allCast)
+    /*public Character getRandomUniqueCharacter(Character[] currentCast, Character[] allCast)
     {
         Character newChara = getRandomCharacter();
         foreach (Character item in currentCast)
@@ -129,7 +129,7 @@ private void Awake()
             return newChara;
         else
             return getRandomUniqueCharacter(currentCast, allCast);
-    }
+    }*/
 
     public Color[] GetCharacterColorDistribution(int characterAmount)
     {
@@ -195,11 +195,11 @@ private void Awake()
         
     }
 
-    public void SetCharacterToVignette(Vignette _vignetteToSet, Character[] allCast)
+    public void SetCharacterToVignette(Vignette _vignetteToSet, Character_SO[] allCast)
     {
         print("popopo " + _vignetteToSet.ObjectsNumber);
         
-        _vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber, allCast);
+        //_vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber, allCast);
         for (int i = 0; i < _vignetteToSet.ObjectsNumber; i++)
         {
             _vignetteToSet.inVignetteCharacter[i].SetIconToVignette(_vignetteToSet);

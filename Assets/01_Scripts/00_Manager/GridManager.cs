@@ -85,7 +85,7 @@ public class GridManager : MonoBehaviour
                 ListOfTile.Add(tile);
             }
         }
-        m_EventGenerator.GenerateGrid();
+        //m_EventGenerator.GenerateGrid();
     }
 
     public void CheckTile()

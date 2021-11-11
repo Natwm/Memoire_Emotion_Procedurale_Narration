@@ -6,7 +6,7 @@ using DG.Tweening;
 public class PlayerManager : MonoBehaviour, IDamageable
 {
     public static PlayerManager instance;
-    [SerializeField] private Character characterData;
+    [SerializeField] private Character_SO characterData;
 
     [Space]
     [Header("Health")]
@@ -94,6 +94,22 @@ public class PlayerManager : MonoBehaviour, IDamageable
         CanvasManager.instance.UpdateVignetteToDraw(amountOfCardToDraw);
     }
 
+    public void SetUpCharacter(Character_SO characterData)
+    {
+        maxHealth = characterData.MaxHealth;
+        health = characterData.Health;
+
+        MaxEndurance = characterData.MaxEndurance;
+        Endurance = characterData.Endurance;
+
+        MaxInventorySize = characterData.MaxInventorySize;
+        InventorySize = characterData.InventorySize;
+
+        Inventory = characterData.Inventory;
+
+        CharacterData = characterData;
+    }
+
     void GameOver()
     {
         EndMovement();
@@ -172,6 +188,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
             
             yield return new WaitForSeconds(.8f);
 
+            StartCoroutine(CameraManager.instance.MoveCameraToTarget(newPosition));
+
             if (tile.GetComponent<TileElt_Behaviours>() != null)
             {
                 TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
@@ -180,7 +198,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
             GridManager.instance.Test.RemoveAt(0);
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2f);
+
+            StartCoroutine(CameraManager.instance.LerpZoomFunction(CameraManager.instance.UnZoomValue,1f));
+
+            yield return new WaitForSeconds(.8f);
 
             if (GridManager.instance.Test.Count > 0 )
             {
@@ -345,14 +367,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
     public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
-    public int Health { get => Health1; set => Health1 = value; }
-    public Character CharacterData { get => characterData; set => characterData = value; }
+    public Character_SO CharacterData { get => characterData; set => characterData = value; }
     public int Endurance { get => m_Endurance; set => m_Endurance = value; }
     public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
     public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
     public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
     public List<Object_SO> Inventory { get => m_Inventory; set => m_Inventory = value; }
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
-    public int Health1 { get => health; set => health = value; }
+    public int Health { get => health; set => health = value; }
     #endregion
 }

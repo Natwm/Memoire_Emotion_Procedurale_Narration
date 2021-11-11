@@ -71,6 +71,8 @@ public class UsableObject : abstractUsableObject
                 }
                 else if(CreationManager.instance.NegociationTime<0)
                     CreationManager.instance.NegociationTime = 0;
+
+                CanvasManager.instance.UpdateInkSlider(-75);
                 break;
 
             case CreationManager.m_PenStatus.WANT:
@@ -90,6 +92,7 @@ public class UsableObject : abstractUsableObject
                 else if(CreationManager.instance.NegociationTime < 0)
                     CreationManager.instance.NegociationTime = 0;
 
+                CanvasManager.instance.UpdateInkSlider(-33);
                 break;
 
             case CreationManager.m_PenStatus.REJECT:
@@ -109,6 +112,7 @@ public class UsableObject : abstractUsableObject
                 else if (CreationManager.instance.NegociationTime < 0)
                     CreationManager.instance.NegociationTime = 0;
 
+                CanvasManager.instance.UpdateInkSlider(-33);
                 break;
 
             case CreationManager.m_PenStatus.EXCLUDE:
@@ -127,10 +131,13 @@ public class UsableObject : abstractUsableObject
                 }
                 else if (CreationManager.instance.NegociationTime < 0)
                     CreationManager.instance.NegociationTime = 0;
+
+                CanvasManager.instance.UpdateInkSlider(-75);
                 break;
 
             default:
                 ResetObjectStatus();
+                CanvasManager.instance.SetInkSlider();
                 break;
         }
     }
@@ -174,6 +181,25 @@ public class UsableObject : abstractUsableObject
 
     public override void ResetObjectStatus()
     {
+        switch (Status)
+        {
+            case ObjectStatus.NONE:
+                break;
+            case ObjectStatus.CLAIM:
+                CanvasManager.instance.UpdateInkSlider(75);
+                break;
+            case ObjectStatus.WANT:
+                CanvasManager.instance.UpdateInkSlider(33);
+                break;
+            case ObjectStatus.REJECT:
+                CanvasManager.instance.UpdateInkSlider(33);
+                break;
+            case ObjectStatus.EXCLUDE:
+                CanvasManager.instance.UpdateInkSlider(75);
+                break;
+            default:
+                break;
+        }
         Status = ObjectStatus.NONE;
     }
 

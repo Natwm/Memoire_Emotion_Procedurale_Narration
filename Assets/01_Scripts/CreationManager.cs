@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CreationManager : MonoBehaviour
@@ -18,14 +19,14 @@ public class CreationManager : MonoBehaviour
     public static CreationManager instance;
 
     //public List<Character> CharacterList;
-    public List<Character> PageCharacterList;
+    public List<Character_SO> PageCharacterList;
     [Space]
     [Header("Time")]
     [SerializeField] private int negociationTime = 100;
 
     [Space]
     [Header("Character Selected")]
-    public Character_Behaviours selectedPlayer;
+    public Character_Button selectedPlayer;
 
     [Space]
     [Header("UI")]
@@ -39,15 +40,20 @@ public class CreationManager : MonoBehaviour
 
     [Space]
     [Header("Object List")]
-    public List<Character_Behaviours> listOfCharacter = new List<Character_Behaviours>();
+    public List<Character_Button> listOfCharacter = new List<Character_Button>();
     public List<UsableObject> listOfObject = new List<UsableObject>();
+
+    [Space]
+    [Header("Global Character")]
+    [SerializeField] private List<Character_SO> m_Crew;
+    [SerializeField] private List<Character_SO> m_GlobalCrew;
 
     [Space]
     [Header("Global Inventory")]
     [SerializeField] private List<Object_SO> m_GlobalInventory;
 
     [Space]
-    public Vector2 shape;
+    //public Vector2 shape;
 
     [SerializeField] private m_PenStatus m_Pen;
 
@@ -86,37 +92,41 @@ public class CreationManager : MonoBehaviour
     #region Create Button
 
     #region Create Character
-    private void CreateCharacterButton(Character tempCharacter)
+    private void CreateCharacterButton(Character_SO tempCharacter)
     {
         GameObject tempButton = Instantiate(baseButton, characterListHolder.transform);
+        Character_Button buttonScript = tempButton.GetComponent<Character_Button>();
 
-        tempButton.GetComponent<Character_Behaviours>().AssignedElement = tempCharacter;
-        tempCharacter.CreateFaceUI(tempButton);
+        buttonScript.AssignedElement = tempCharacter;
+        buttonScript.CharacterRender.sprite = tempCharacter.Render;
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            SelectPlayer(tempButton.GetComponent<Character_Behaviours>());
+            SelectPlayer(tempButton.GetComponent<Character_Button>());
         });
 
-        listOfCharacter.Add(tempButton.GetComponent<Character_Behaviours>());
-
-        //tempButton.GetComponent<characterCreation>().assignedElement = tempCharacter;
+        listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
 
     }
 
-    public List<Character> CreateCharacterList(int _charaAmount = 1)
+    public List<Character_SO> CreateCharacterList(int _charaAmount = 1)
     {
-        List<Character> tempList = new List<Character>();
+        List<Character_SO> tempList = new List<Character_SO>();
+        foreach (var item in m_GlobalCrew)
+        {
+            tempList.Add(item);
+        }
+
 
         for (int i = 0; i < _charaAmount; i++)
         {
-            Character tempCharacter = CastingManager.instance.getRandomUniqueCharacter(tempList.ToArray());
+            int randomIndex = Random.Range(0, tempList.Count);
+            Character_SO tempCharacter = tempList[randomIndex];
 
-            tempList.Add(tempCharacter);
+            m_Crew.Add(tempCharacter);
+            tempList.RemoveAt(randomIndex);
 
             CreateCharacterButton(tempCharacter);
-
-            //CharacterList.Remove(tempCharacter);
         }
         return tempList == null ? null : tempList;
     }
@@ -138,11 +148,75 @@ public class CreationManager : MonoBehaviour
         }
         );
 
+        EventTrigger buttonEvent;
+
+        if(tempButton.TryGetComponent<EventTrigger>(out buttonEvent)){
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            EventTrigger.Entry exit = new EventTrigger.Entry();
+
+            entry.eventID = EventTriggerType.PointerEnter;
+            exit.eventID = EventTriggerType.PointerExit;
+
+            entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
+            exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
+
+            buttonEvent.triggers.Add(entry);
+            buttonEvent.triggers.Add(exit);
+        }
+
         listOfObject.Add(tempButton.GetComponent<UsableObject>());
-
-        //tempButton.GetComponent<characterCreation>().assignedElement = tempCharacter;
-
     }
+
+    private void UpdateSliderValueOnEnter(UsableObject button)
+    {
+        switch (Pen)
+        {
+            case m_PenStatus.NONE:
+                break;
+            case m_PenStatus.CLAIM:
+                CanvasManager.instance.UpdateInkSlider(-75);
+                break;
+            case m_PenStatus.WANT:
+                CanvasManager.instance.UpdateInkSlider(-33);
+                break;
+            case m_PenStatus.REJECT:
+                CanvasManager.instance.UpdateInkSlider(-33);
+                break;
+            case m_PenStatus.EXCLUDE:
+                CanvasManager.instance.UpdateInkSlider(-75);
+                break;
+            case m_PenStatus.DRAW:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdateSliderValueOnExit(UsableObject button)
+    {
+        switch (Pen)
+        {
+            case m_PenStatus.NONE:
+                break;
+            case m_PenStatus.CLAIM:
+                CanvasManager.instance.UpdateInkSlider(75);
+                break;
+            case m_PenStatus.WANT:
+                CanvasManager.instance.UpdateInkSlider(33);
+                break;
+            case m_PenStatus.REJECT:
+                CanvasManager.instance.UpdateInkSlider(33);
+                break;
+            case m_PenStatus.EXCLUDE:
+                CanvasManager.instance.UpdateInkSlider(75);
+                break;
+            case m_PenStatus.DRAW:
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public List<Object_SO> CreateObjectList(int amoutOfObject = 1)
     {
@@ -169,16 +243,16 @@ public class CreationManager : MonoBehaviour
     #region Create
     public void CreateVignette()
     {
-        List<Character_Behaviours> listOfCharacterWanted = new List<Character_Behaviours>();
-        List<Character_Behaviours> listOfCharacterDontWanted = new List<Character_Behaviours>();
-        List<Character_Behaviours> listOfCharacterFreeze = new List<Character_Behaviours>();
-        List<Character_Behaviours> listOfCharacterNone = new List<Character_Behaviours>();
-        List<Character_Behaviours> listOfSpawnable = new List<Character_Behaviours>();
+        List<Character_Button> listOfCharacterWanted = new List<Character_Button>();
+        List<Character_Button> listOfCharacterDontWanted = new List<Character_Button>();
+        List<Character_Button> listOfCharacterFreeze = new List<Character_Button>();
+        List<Character_Button> listOfCharacterNone = new List<Character_Button>();
+        List<Character_Button> listOfSpawnable = new List<Character_Button>();
 
 
         for (int i = 0; i < characterListHolder.transform.childCount; i++)
         {
-            Character_Behaviours character = characterListHolder.transform.GetChild(i).GetComponent<Character_Behaviours>();
+            Character_Button character = characterListHolder.transform.GetChild(i).GetComponent<Character_Button>();
             //print("<Color=green>"+character.assignedElement.characterName + "  " + character.Status+"</Color>");
           
                     listOfCharacterNone.Add(character);
@@ -187,18 +261,18 @@ public class CreationManager : MonoBehaviour
 
 
 
-        GameObject card = Instantiate(GetVignetteShape(shape));
+        //GameObject card = Instantiate(GetVignetteShape(shape));
 
         //print(card.name);
         //        print(Bd_Component.bd_instance.name);
-        Character[] tempCharacter_BehavioursDistribution = new Character[listOfCharacterNone.Count];
+        Character_SO[] tempCharacter_BehavioursDistribution = new Character_SO[listOfCharacterNone.Count];
 
         for (int i = 0; i < listOfCharacterNone.Count; i++)
         {
             tempCharacter_BehavioursDistribution[i] = listOfCharacterNone[i].AssignedElement;
         }
 
-        Bd_Component.bd_instance.SetVignetteToObjectCreate(card, tempCharacter_BehavioursDistribution);
+        //Bd_Component.bd_instance.SetVignetteToObjectCreate(card, tempCharacter_BehavioursDistribution);
 
         //Vignette tempVignette = new Vignette(shape.ToString(), GetVignette(shape), null, null, GetComp(shape));
 
@@ -207,7 +281,7 @@ public class CreationManager : MonoBehaviour
 
     public void CreatePlayerInventory(PlayerManager player)
     {
-        player.CharacterData = selectedPlayer.AssignedElement;
+        player.SetUpCharacter(selectedPlayer.AssignedElement);
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
 
@@ -265,15 +339,19 @@ public class CreationManager : MonoBehaviour
         return negociationTime >= 0;
     }
 
-    public void SelectPlayer( Character_Behaviours player)
+    public void SelectPlayer( Character_Button player)
     {
         selectedPlayer = player;
     }
 
     public void LaunchGame()
     {
-        if(selectedPlayer !=null)
+        if(selectedPlayer != null)
+        {
             CreatePlayerInventory(PlayerManager.instance);
+            CanvasManager.instance.SetUpCharacterInfo();
+        }
+            
     }
 
     #region To Delete
@@ -355,7 +433,7 @@ public class CreationManager : MonoBehaviour
     private void PrintList(List<characterCreation> listOfCharacterFreeze, List<characterCreation> listOfCharacterDontWanted, List<characterCreation> listOfCharacterWanted, List<characterCreation> listOfCharacterNone)
     {
         print(" ------------------------------------------------");
-        print("ImageShape is : " + shape);
+       // print("ImageShape is : " + shape);
 
         print("My list est : listOfCharacterFreeze :");
         foreach (var item in listOfCharacterFreeze)

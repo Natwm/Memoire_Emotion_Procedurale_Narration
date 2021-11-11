@@ -227,7 +227,6 @@ public class EventGenerator : MonoBehaviour
 
     public void GenerateGrid()
     {
-       
         PopulateTiles(tilenumber);
         DetermineTileType();
     }

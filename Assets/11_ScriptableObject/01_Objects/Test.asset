@@ -17,6 +17,6 @@ MonoBehaviour:
   m_Action: 2
   m_DrawParam: []
   m_ObjectName: Pomme
-  m_sprite: {fileID: 0}
+  m_sprite: {fileID: 21300000, guid: b36a3382793a1894e99f58f6b169f8ff, type: 3}
   m_AmountOfUse: 0
   m_SizeInInventory: 0

@@ -89,19 +89,19 @@ public class Bd_Component : MonoBehaviour
         VignetteSequence.Add(newVignette);
     }
 
-    public void SetVignetteToObjectCreate(GameObject ObjToSet, Character[] charactersToSet)
+    public void SetVignetteToObjectCreate(GameObject ObjToSet, Character_SO[] charactersToSet)
     {
         string ObjName = ObjToSet.name;
         Vector2 shape = ObjToSet.GetComponent<Vignette_Behaviours>().VignetteShape;
         string shapeString = shape.x + "x" + shape.y;
 
-        Vignette newVignette = new Vignette(shape, GetVignette(shape), ObjToSet.transform, InVignetteSpawn, GetComp(shape), charactersToSet);
+        /*Vignette newVignette = new Vignette(shape, GetVignette(shape), ObjToSet.transform, InVignetteSpawn, GetComp(shape), charactersToSet);
         ObjToSet.GetComponent<Vignette_Behaviours>().vignetteInfo = newVignette.Vignette_Object;
         ObjToSet.GetComponent<Vignette_Behaviours>().assignedVignette = newVignette;
 
         CastingManager.instance.SetCharacterToVignette(newVignette, charactersToSet);
 
-        VignetteSequence.Add(newVignette);
+        VignetteSequence.Add(newVignette);*/
     }
 
     public void CreateNewRandomVignette(int numberOfVignette)
@@ -168,7 +168,7 @@ public class Vignette
     Bd_Object[] InVignette_Objects;
     public List<GameObject> inVignette_CharacterIcons;
     public Character[] inVignetteCharacter;
-    public Character_Behaviours[] inVignetteCharacter_Behaviours;
+    public Character_Button[] inVignetteCharacter_Behaviours;
     GameObject Gabarit_Composition;
 
     public Vignette(string vignetteType,GameObject _vignetteType,Transform _parent,GameObject[] _obj,GameObject _gabarit)
@@ -259,7 +259,7 @@ public class Vignette
         Mask_Vignette = Cadre_Object.GetComponent<SpriteMask>();
         inVignetteCharacter = selectedCharacter;
     }
-    public Vignette(Vector2 vignetteType, GameObject _vignetteType, Transform _parent, GameObject[] _obj, GameObject _gabarit, Character_Behaviours[] selectedCharacter)
+    public Vignette(Vector2 vignetteType, GameObject _vignetteType, Transform _parent, GameObject[] _obj, GameObject _gabarit, Character_Button[] selectedCharacter)
     {
         inVignette_CharacterIcons = new List<GameObject>();
         // INITIALISATION VIGNETTE

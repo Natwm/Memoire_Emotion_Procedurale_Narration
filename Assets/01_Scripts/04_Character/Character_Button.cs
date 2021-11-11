@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Character_Behaviours : MonoBehaviour, IDamageable
+public class Character_Button : MonoBehaviour, IDamageable
 {
     #region Param
     private bool m_IsSelected = false;
-    private Character assignedElement;
+    [SerializeField] private Character_SO assignedElement;
+    [SerializeField] private Image characterRender;
 
     /*[Header("Player State")]
     [SerializeField] private int m_Life;
@@ -50,7 +51,7 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
 
     public void SelectPlayer()
     {
-        foreach (var item in FindObjectsOfType<Character_Behaviours>())
+        foreach (var item in FindObjectsOfType<Character_Button>())
         {
             item.GetComponent<Button>().image.color = Color.white;
             item.IsSelected = false;
@@ -81,14 +82,15 @@ public class Character_Behaviours : MonoBehaviour, IDamageable
     #region Getter && Setter
 
     public bool IsSelected { get => m_IsSelected; set => m_IsSelected = value; }
-    public Character AssignedElement { get => assignedElement; set => assignedElement = value; }
+    public Character_SO AssignedElement { get => assignedElement; set => assignedElement = value; }
+    public Image CharacterRender { get => characterRender; set => characterRender = value; }
     /*public int Life { get => m_Life; set => m_Life = value; }
-    public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
-    public int Endurance { get => m_Endurance; set => m_Endurance = value; }
-    public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
-    public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
-    public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
-    public List<UsableObject> Inventory { get => m_Inventory; set => m_Inventory = value; }*/
+public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
+public int Endurance { get => m_Endurance; set => m_Endurance = value; }
+public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
+public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
+public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
+public List<UsableObject> Inventory { get => m_Inventory; set => m_Inventory = value; }*/
 
     #endregion
 

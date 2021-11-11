@@ -20,6 +20,18 @@ public class CanvasManager : MonoBehaviour
     public GameObject CharacterReaderPrefab;
 
     [Space]
+    [Header("Character Information")]
+    [SerializeField] private TMP_Text playerName;
+    [SerializeField] private Image playerRender;
+    [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject inventoryButton;
+
+    [Space]
+    [Header("Slider")]
+    [SerializeField] private Slider inkSlider;
+
+
+    [Space]
     [Header("Text")]
     public TMP_Text logText;
     [Space]
@@ -52,13 +64,16 @@ public class CanvasManager : MonoBehaviour
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
         CharacterPanel.SetActive(false);
+        inkSlider.maxValue = CreationManager.instance.NegociationTime;
+        inkSlider.value = inkSlider.maxValue;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            QuitPanel.SetActive(!QuitPanel.activeSelf);
+            SetUpCharacterInfo();
+            //QuitPanel.SetActive(!QuitPanel.activeSelf);
         }
     }
 
@@ -144,6 +159,16 @@ public class CanvasManager : MonoBehaviour
         pageIndicator.text = "Nb page : " + LevelManager.instance.AmountOfpageDone;
     }
 
+    public void UpdateInkSlider(float value)
+    {
+        inkSlider.value += value;
+    }
+
+    public void SetInkSlider()
+    {
+        inkSlider.value = CreationManager.instance.NegociationTime;
+    }
+
     #region Win / Loose Panel
 
     public void PlayerWinTheGame()
@@ -165,6 +190,23 @@ public class CanvasManager : MonoBehaviour
         GamePanel.SetActive(true);
         CreatePanel.SetActive(false);
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+    }
+
+    public void SetUpCharacterInfo()
+    {
+        Character_SO toSet = PlayerManager.instance.CharacterData;
+
+        //rt.offsetMin = rt.offsetMin = new Vector2(0,rt.offsetMin.y);
+        
+        playerName.text = toSet.CharacterName;
+
+        playerRender.sprite = toSet.Render;
+
+        foreach (var item in PlayerManager.instance.Inventory)
+        {
+            GameObject myButton = Instantiate(inventoryButton, inventoryPanel.transform);
+            myButton.GetComponent<Image>().sprite = item.Sprite;
+        }
     }
 
     public void SetUpCreationPanel()
