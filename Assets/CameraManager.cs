@@ -35,14 +35,12 @@ public class CameraManager : MonoBehaviour
 
     public IEnumerator LerpZoomFunction(float endValue, float duration)
     {
-        print("ee");
         float time = 0;
         float startValue = Camera.main.orthographicSize;
 
         while (time < duration)
         {
             Camera.main.orthographicSize = Mathf.Lerp(startValue, endValue, time / duration);
-            print("Came = " + Camera.main.orthographicSize);
             time += Time.deltaTime;
             yield return null;
         }

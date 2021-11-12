@@ -20,6 +20,10 @@ public class CanvasManager : MonoBehaviour
     public GameObject CharacterReaderPrefab;
 
     [Space]
+    [Header("ButtonList")]
+    [SerializeField] private GameObject PenPanel;
+
+    [Space]
     [Header("Character Information")]
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private Image playerRender;
@@ -72,8 +76,7 @@ public class CanvasManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SetUpCharacterInfo();
-            //QuitPanel.SetActive(!QuitPanel.activeSelf);
+            QuitPanel.SetActive(!QuitPanel.activeSelf);
         }
     }
 
@@ -122,6 +125,14 @@ public class CanvasManager : MonoBehaviour
             newReader.GetComponent<CharacterReader>().InitialiseUi();
             newReader.GetComponent<CharacterReader>().ReadCharacter();
 
+        }
+    }
+
+    public void SetSelectedPen()
+    {
+        for (int i = 0; i < PenPanel.transform.childCount; i++)
+        {
+            PenPanel.transform.GetChild(i).GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -190,6 +201,8 @@ public class CanvasManager : MonoBehaviour
         GamePanel.SetActive(true);
         CreatePanel.SetActive(false);
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+        //SetUpCharacterInfo();
+
     }
 
     public void SetUpCharacterInfo()

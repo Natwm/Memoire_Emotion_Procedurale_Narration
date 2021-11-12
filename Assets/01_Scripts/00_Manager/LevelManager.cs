@@ -20,6 +20,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int nextCheck = 0;
     [SerializeField] private BranchingCondition currentBranching;
 
+    [Space]
+    [Header("Page Inventory")]
+    [SerializeField] private List<Object_SO> pageInventory = new List<Object_SO> ();
+
     void Awake()
     {
         if (instance != null)
@@ -82,8 +86,8 @@ public class LevelManager : MonoBehaviour
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
-            Bd_Component.bd_instance.SetVignetteToOject(card);
-            CastingManager.instance.SetCharacterToVignette(card.GetComponent<Vignette_Behaviours>().assignedVignette);
+            //Bd_Component.bd_instance.SetVignetteToOject(card);
+            /*CastingManager.instance.SetCharacterToVignette(card.GetComponent<Vignette_Behaviours>().assignedVignette);*/
         }
        // CastingManager.instance.SetCharactersToHand();
     }
@@ -180,6 +184,7 @@ public class LevelManager : MonoBehaviour
 
     public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
     public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
+    public List<Object_SO> PageInventory { get => pageInventory; set => pageInventory = value; }
 
     #endregion
 

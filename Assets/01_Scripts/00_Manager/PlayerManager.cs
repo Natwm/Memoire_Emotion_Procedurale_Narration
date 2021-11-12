@@ -190,6 +190,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
             StartCoroutine(CameraManager.instance.MoveCameraToTarget(newPosition));
 
+            CheckCaseCondition(tile.GetComponent<Vignette_Behaviours>());
+
             if (tile.GetComponent<TileElt_Behaviours>() != null)
             {
                 TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
@@ -257,6 +259,31 @@ public class PlayerManager : MonoBehaviour, IDamageable
     }
 
     #endregion
+
+    public void CheckCaseCondition(Vignette_Behaviours currentVignette)
+    {
+        print("CheckCaseCondition");
+        if (currentVignette.ListOfCaseEventObject.Count > 0)
+        {
+            print("check");
+            foreach (var condition in currentVignette.ListOfCaseEventObject)
+            {
+                foreach (var objectNeeded in condition.ObjectsRequired)
+                {
+                    if (Inventory.Contains(objectNeeded))
+                    {
+                        Inventory.Remove(objectNeeded);
+
+                        foreach (var item in condition.CaseResult)
+                        {
+                            LevelManager.instance.PageInventory.Add(item);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     #region Happyness_Sadness Event
     public void Update_Happyness_Sadness( int point)

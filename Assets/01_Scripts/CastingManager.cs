@@ -476,7 +476,6 @@ public class Character
 
     public void SetIconToVignette(Vignette _vignette)
     {
-        Debug.Log("ahah");
         GameObject newPoint = _vignette.GetRandomCompositionPoint();
         GameObject tempFace = CreateFace(newPoint);
         SetObjectColor(true, tempFace);

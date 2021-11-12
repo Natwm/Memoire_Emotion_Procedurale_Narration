@@ -53,6 +53,8 @@ public class CreationManager : MonoBehaviour
     [SerializeField] private List<Object_SO> m_GlobalInventory;
 
     [Space]
+    [Header("Vignette Render")]
+    [SerializeField] private List<Sprite> vignetteRender;
     //public Vector2 shape;
 
     [SerializeField] private m_PenStatus m_Pen;
@@ -80,7 +82,7 @@ public class CreationManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            CreatePlayerInventory(PlayerManager.instance);
+            //CreatePlayerInventory(PlayerManager.instance);
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -215,6 +217,7 @@ public class CreationManager : MonoBehaviour
             default:
                 break;
         }
+        CanvasManager.instance.SetInkSlider();
     }
 
 
@@ -256,15 +259,8 @@ public class CreationManager : MonoBehaviour
             //print("<Color=green>"+character.assignedElement.characterName + "  " + character.Status+"</Color>");
           
                     listOfCharacterNone.Add(character);
-
         }
 
-
-
-        //GameObject card = Instantiate(GetVignetteShape(shape));
-
-        //print(card.name);
-        //        print(Bd_Component.bd_instance.name);
         Character_SO[] tempCharacter_BehavioursDistribution = new Character_SO[listOfCharacterNone.Count];
 
         for (int i = 0; i < listOfCharacterNone.Count; i++)
@@ -272,11 +268,6 @@ public class CreationManager : MonoBehaviour
             tempCharacter_BehavioursDistribution[i] = listOfCharacterNone[i].AssignedElement;
         }
 
-        //Bd_Component.bd_instance.SetVignetteToObjectCreate(card, tempCharacter_BehavioursDistribution);
-
-        //Vignette tempVignette = new Vignette(shape.ToString(), GetVignette(shape), null, null, GetComp(shape));
-
-        //PrintList(listOfCharacterFreeze, listOfCharacterDontWanted, listOfCharacterWanted, listOfCharacterNone);
     }
 
     public void CreatePlayerInventory(PlayerManager player)
@@ -334,9 +325,12 @@ public class CreationManager : MonoBehaviour
 
     public bool ReduceNegociationTime(int reduceValue)
     {
-        negociationTime -= reduceValue;
-
-        return negociationTime >= 0;
+        if(negociationTime - reduceValue >= 0)
+        {
+            negociationTime -= reduceValue;
+            return true;
+        }
+        return false;
     }
 
     public void SelectPlayer( Character_Button player)
@@ -383,6 +377,7 @@ public class CreationManager : MonoBehaviour
 
     public void ChangePen(string usedPen)
     {
+        CanvasManager.instance.SetSelectedPen();
         switch (usedPen)
         {
             case "claim":
@@ -461,6 +456,43 @@ public class CreationManager : MonoBehaviour
         print(" ------------------------------------------------");
     }
 
+
+    public Sprite GetVignetteSprite(Vignette_Behaviours vignette)
+    {
+        switch (vignette.Categorie)
+        {
+            case Vignette_Behaviours.VignetteCategories.NEUTRE:
+                return vignetteRender[0];
+                break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER:
+                return vignetteRender[1];
+                break;
+            case Vignette_Behaviours.VignetteCategories.PRENDRE:
+                return vignetteRender[2];
+                break;
+            case Vignette_Behaviours.VignetteCategories.COMBATTRE:
+                return vignetteRender[3];
+                break;
+            case Vignette_Behaviours.VignetteCategories.UTILISER:
+                return vignetteRender[4];
+                break;
+            case Vignette_Behaviours.VignetteCategories.ALEATOIRE:
+                return vignetteRender[5];
+                break;
+            case Vignette_Behaviours.VignetteCategories.TREBUCHER:
+                return vignetteRender[6];
+                break;
+            case Vignette_Behaviours.VignetteCategories.PERTE_OBJET:
+                return vignetteRender[7];
+                break;
+            case Vignette_Behaviours.VignetteCategories.CURSE:
+                return vignetteRender[8];
+                break;
+            default:
+                return vignetteRender[0];
+                break;
+        }
+    }
 
     #region Getter && Setter
 

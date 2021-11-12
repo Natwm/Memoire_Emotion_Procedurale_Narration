@@ -211,7 +211,7 @@ public class Vignette
         }
         Sprite_Vignette = Cadre_Object.GetComponent<SpriteRenderer>();
         Mask_Vignette = Cadre_Object.GetComponent<SpriteMask>();
-        inVignetteCharacter = new Character[ObjectsNumber - 1];
+        //inVignetteCharacter = new Character[ObjectsNumber - 1];
     }
 
     public Vignette(Vector2 vignetteType, GameObject _vignetteType, Transform _parent, GameObject[] _obj, GameObject _gabarit, Character[] selectedCharacter)

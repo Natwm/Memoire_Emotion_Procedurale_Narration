@@ -14,6 +14,7 @@ public class EventGenerator : MonoBehaviour
 
 
     public GameObject[] modifiers;
+    public CaseContener_SO[] modifiersEvent;
     public GameObject[] doors;
     GameObject[] stamina;
     GameObject[] cartes;
@@ -142,7 +143,6 @@ public class EventGenerator : MonoBehaviour
         {
             GameObject tmp = SpawnGraphics(DetermineEventType(occupiedTiles[i]), occupiedTiles[i]);
             allGraphics.Add(tmp);
-            
         }
         GameObject keyGraphics = Instantiate(key, occupiedTiles[occupiedTiles.Count-1].transform);
         keyGraphics.transform.localPosition = Vector3.zero;
@@ -161,29 +161,33 @@ public class EventGenerator : MonoBehaviour
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
     {
+        string chemin = "Generation/Composition/";
         int RandomType = Random.Range(0, modifiers.Length);
         GameObject tileType=null;
         //Debug.Log("TILETYPE:  " + RandomType);
         if (RandomType == 0)
         {
-            
-                tileType = modifiers[0];
-                tileToModify.AddComponent<ElementBehaviours_Angry>().AmountOfAngryOrfear = 1;
+            tileType = modifiers[0];
+            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[0];
+                //tileToModify.AddComponent<ElementBehaviours_Angry>().AmountOfAngryOrfear = 1;
         }
         else if (RandomType == 1)
         {
             tileType = modifiers[1];
-            tileToModify.AddComponent<ElementBehaviours_Fear>().AmountOfAngryOrfear = -1;
+            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[1];
+            //tileToModify.AddComponent<ElementBehaviours_Fear>().AmountOfAngryOrfear = -1;
         }
         else if (RandomType == 2)
         {
             tileType = modifiers[2];
-            tileToModify.AddComponent<ElementBehaviours_Joy>().AmountOfJoySad = 1;
+            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[2];
+            //tileToModify.AddComponent<ElementBehaviours_Joy>().AmountOfJoySad = 1;
         }
         else if (RandomType == 3)
         {
             tileType = modifiers[3];
-            tileToModify.AddComponent<ElementBehaviours_Sad>().AmountOfJoySad = -1;
+            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[3];
+            //tileToModify.AddComponent<ElementBehaviours_Sad>().AmountOfJoySad = -1;
         }
         return tileType;
     }

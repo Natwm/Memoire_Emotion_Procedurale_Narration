@@ -25,6 +25,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     private Vector3 offset;
 
     [SerializeField] private VignetteCategories categorie;
+    [SerializeField] private TMPro.TMP_Text categorieText;
 
     [Space]
     [Header("Raycast")]
@@ -43,11 +44,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private GameObject vignetteImage;
     [SerializeField] public GameObject vignetteInfo;
     public Vignette assignedVignette;
+    [SerializeField] private SpriteRenderer SpriteIndicator;
 
     [Header("List")]
     [SerializeField] private List<Vector2> vignetteTilePosition = new List<Vector2>();
     [SerializeField] private List<Vector2> vignetteTile = new List<Vector2>();
     [SerializeField] private List<GameObject> listOfAffectedObject = new List<GameObject>();
+    [SerializeField] private List<CaseContener_SO> listOfCaseEventObject = new List<CaseContener_SO>();
 
     [Header("Boolean/flag")]
     [SerializeField] private bool onGrid = false;
@@ -93,8 +96,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         m_IsVignetteShowUp = false;
 
-        print("Nathan");
-
         // vignetteInfo = transform.GetChild(0).gameObject;
         //vignetteInfo.SetActive(true);
 
@@ -108,13 +109,108 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         myEvent = GetComponent<EventContener>();
         SetUpCard();
 
-        categorie = GetRandomEnum();
+        Categorie = GetRandomEnum();
+        categorieText.text = GetEnumName();
+        SpriteIndicator.sprite = GetSprite();
+        SpriteIndicator.color = Color.black;
+
+        //vignetteInfo.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = ;
     }
 
     // Update is called once per frame
     void Update()
     {
     }
+
+
+    public void ApplyVignetteEffect()
+    {
+        // fait effet 
+
+        // action spécifique
+        switch (Categorie)
+        {
+            case VignetteCategories.NEUTRE:
+                NeutralEffect();
+                break;
+            case VignetteCategories.EXPLORER:
+                ExploreEffect();
+                break;
+            case VignetteCategories.PRENDRE:
+                TakeEffect();
+                break;
+            case VignetteCategories.COMBATTRE:
+                FightEffect();
+                break;
+            case VignetteCategories.UTILISER:
+                UseEffect();
+                break;
+            case VignetteCategories.ALEATOIRE:
+                RandomEffect();
+                break;
+            case VignetteCategories.TREBUCHER:
+                FallEffect();
+                break;
+            case VignetteCategories.PERTE_OBJET:
+                LooseObjectEffect();
+                break;
+            case VignetteCategories.CURSE:
+                CurseEffect();
+                break;
+            default:
+                break;
+        }
+    }
+
+    
+
+    #region VIgnette Effect
+
+    public void NeutralEffect()
+    {
+
+    }
+
+    public void ExploreEffect()
+    {
+
+    }
+
+    public void TakeEffect()
+    {
+
+    }
+
+    public void FightEffect()
+    {
+
+    }
+
+    public void UseEffect()
+    {
+
+    }
+    public void RandomEffect()
+    {
+
+    }
+
+    public void FallEffect()
+    {
+
+    }
+
+    public void LooseObjectEffect()
+    {
+
+    }
+
+    public void CurseEffect()
+    {
+
+    }
+
+    #endregion
 
     public void CheckNeighbourg()
     {
@@ -461,12 +557,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (GridManager.instance.DoesVignetteIsValid(this) && vignetteTile.Count > 0)
         {
             OnGrid = true;
-            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
+            //vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.blue;
         }
         else
         {
             OnGrid = false;
-            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
+            //vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.red;
         }
     }
 
@@ -523,7 +619,49 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
         }
     }
-    
+
+    private string GetEnumName()
+    {
+        switch (Categorie)
+        {
+            case VignetteCategories.NEUTRE:
+                return "NEUTRE";
+                break;
+            case VignetteCategories.EXPLORER:
+                return "EXPLORER";
+                break;
+            case VignetteCategories.PRENDRE:
+                return "PRENDRE";
+                break;
+            case VignetteCategories.COMBATTRE:
+                return "COMBATTRE";
+                break;
+            case VignetteCategories.UTILISER:
+                return "UTILISER";
+                break;
+            case VignetteCategories.ALEATOIRE:
+                return "ALEATOIRE";
+                break;
+            case VignetteCategories.TREBUCHER:
+                return "TREBUCHER";
+                break;
+            case VignetteCategories.PERTE_OBJET:
+                return "PERTE_OBJET";
+                break;
+            case VignetteCategories.CURSE:
+                return "CURSE";
+                break;
+            default:
+                return "NONE";
+                break;
+        }
+    }
+
+    private Sprite GetSprite()
+    {
+        return CreationManager.instance.GetVignetteSprite(this);
+    }
+
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -541,11 +679,19 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             foreach (var item in hit)
             {
                 IModifier myModifier;
+                Case_Behaviours caseBehaviours;
                 if (item.collider.TryGetComponent<IModifier>(out myModifier))
                 {
                     SetUpCard(myModifier);
                     amountOfModifier++;
                 }
+
+                if (item.collider.TryGetComponent<Case_Behaviours>(out caseBehaviours))
+                {
+                    if(caseBehaviours.CaseEffects != null)
+                        ListOfCaseEventObject.Add(caseBehaviours.CaseEffects);
+                }
+
                 if (!GridManager.instance.ListOfOveredTile.Contains(item.collider.gameObject))
                 {
                     vignetteTilePosition.Add(item.collider.gameObject.transform.position);
@@ -604,7 +750,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        print("poke");
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
         data.z = transform.position.z;
         //AJouter la distance entre le pivot et le curseur;
@@ -629,7 +774,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (!m_IsLook)
             transform.position = rayPoint;
 
-        print("ffffff");
         RaycastHit hit;
         Physics.Raycast(this.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetectionGrid);
         if (hit.collider != null)
@@ -671,5 +815,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public List<Vector2> VignetteTile { get => vignetteTile; set => vignetteTile = value; }
     public Vector2 VignetteShape { get => vignetteShape; set => vignetteShape = value; }
     public bool OnGrid { get => onGrid; set => onGrid = value; }
+    public List<CaseContener_SO> ListOfCaseEventObject { get => listOfCaseEventObject; set => listOfCaseEventObject = value; }
+    public VignetteCategories Categorie { get => categorie; set => categorie = value; }
     #endregion
 }

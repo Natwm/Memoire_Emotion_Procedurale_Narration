@@ -59,7 +59,7 @@ public class UsableObject : abstractUsableObject
                 {
                     if (Status != ObjectStatus.CLAIM)
                     {
-
+                        CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.green;
                         ClaimObject();
                     }
@@ -72,7 +72,7 @@ public class UsableObject : abstractUsableObject
                 else if(CreationManager.instance.NegociationTime<0)
                     CreationManager.instance.NegociationTime = 0;
 
-                CanvasManager.instance.UpdateInkSlider(-75);
+                
                 break;
 
             case CreationManager.m_PenStatus.WANT:
@@ -140,6 +140,7 @@ public class UsableObject : abstractUsableObject
                 CanvasManager.instance.SetInkSlider();
                 break;
         }
+        CanvasManager.instance.SetInkSlider();
     }
 
     #region abstract Methodes
