@@ -20,5 +20,4 @@ MonoBehaviour:
   m_MaxEndurance: 1
   m_InventorySize: 1
   m_MaxInventorySize: 1
-  m_Inventory:
-  - {fileID: 11400000, guid: 12747faf6d4184948a06d85121f8e030, type: 2}
+  m_Inventory: []
