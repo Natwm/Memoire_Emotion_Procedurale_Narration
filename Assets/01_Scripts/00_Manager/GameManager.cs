@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [SerializeField] private List<Character_SO> m_OrderCharacter;
+
+    public List<Character_SO> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
+
     void Awake()
     {
         if (instance != null)

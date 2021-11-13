@@ -31,13 +31,15 @@ public class TileElt_Behaviours : MonoBehaviour
     public void ApplyEffect(PlayerManager player)
     {
         string content = "";
-        print(eventAssocier.name);
+        print("okokokoko");
+        eventAssocier.ApplyVignetteEffect();
+        /*print(eventAssocier.name);
 
         player.Update_Happyness_Sadness(eventAssocier.MyEvent.CurrentHappy_Sad);
 
         player.Update_Angry_Fear(eventAssocier.MyEvent.CurrentAngry_Fear);
 
-        player.HandModifier(eventAssocier.MyEvent.CurrentAmountOfVignetteToDraw);
+        player.HandModifier(eventAssocier.MyEvent.CurrentAmountOfVignetteToDraw);*/
 
 
     }

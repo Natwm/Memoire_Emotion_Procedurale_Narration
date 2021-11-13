@@ -270,9 +270,9 @@ public class CreationManager : MonoBehaviour
 
     }
 
-    public void CreatePlayerInventory(PlayerManager player)
+    public void CreatePlayerInventory(Character_Button player)
     {
-        player.SetUpCharacter(selectedPlayer.AssignedElement);
+        player.SetUpCharacter();
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
 
@@ -288,7 +288,8 @@ public class CreationManager : MonoBehaviour
                     pullOfObject.Add(ObjetToTake);
                     break;
                 case UsableObject.ObjectStatus.CLAIM:
-                    claimObject.Add(ObjetToTake);
+                    player.Inventory.Add(ObjetToTake.Data);
+                    ObjetToTake.gameObject.SetActive(false);
                     break;
                 case UsableObject.ObjectStatus.WANT:
                     pullOfObject.Add(ObjetToTake);
@@ -305,13 +306,15 @@ public class CreationManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < player.InventorySize; i++)
+        for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
+            print(player.InventorySize);
             int index = Random.Range(0, pullOfObject.Count);
 
             if (!player.Inventory.Contains(pullOfObject[index].Data))
             {
                 player.Inventory.Add(pullOfObject[index].Data);
+                pullOfObject[index].gameObject.SetActive(false);
             }
             UsableObject obj = pullOfObject[index];
             pullOfObject.Remove(obj);
@@ -340,12 +343,22 @@ public class CreationManager : MonoBehaviour
 
     public void LaunchGame()
     {
+        PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0];
         if(selectedPlayer != null)
         {
-            CreatePlayerInventory(PlayerManager.instance);
-            CanvasManager.instance.SetUpCharacterInfo();
+            //CreatePlayerInventory(PlayerManager.instance);
+            //CanvasManager.instance.SetUpCharacterInfo();
         }
             
+    }
+
+    public void NextCharacter()
+    {
+        selectedPlayer.gameObject.SetActive(false);
+        
+        CreatePlayerInventory(selectedPlayer);
+        selectedPlayer = null;
+
     }
 
     #region To Delete

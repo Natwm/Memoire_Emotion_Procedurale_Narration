@@ -100,7 +100,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         // vignetteInfo = transform.GetChild(0).gameObject;
         //vignetteInfo.SetActive(true);
 
-        vignetteScene = transform.GetChild(0).gameObject;
+        vignetteScene = transform.GetChild(1).gameObject;
         //vignetteScene.SetActive(false);
 
         vignetteImage = vignetteScene.transform.GetChild(0).gameObject;
@@ -113,7 +113,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Categorie = GetRandomEnum();
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = GetSprite();
-        SpriteIndicator.color = Color.black;
+        //SpriteIndicator.color = Color.black;
 
         //vignetteInfo.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = ;
     }
@@ -122,7 +122,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     void Update()
     {
     }
-
 
     public void ApplyVignetteEffect()
     {
@@ -204,6 +203,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void UseEffect()
     {
         print("UseEffect"); // check si il y a condition
+        CheckCaseCondition();
     }
 
     public void FallEffect()
@@ -246,6 +246,33 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     }
 
     #endregion
+
+    public bool CheckCaseCondition()
+    {
+        print("CheckCaseCondition");
+        
+        if (ListOfCaseEventObject.Count > 0)
+        {
+            print("check");
+            foreach (var condition in ListOfCaseEventObject)
+            {
+                foreach (var objectNeeded in condition.ObjectsRequired)
+                {
+                    if (PlayerManager.instance.Inventory.Contains(objectNeeded))
+                    {
+                        PlayerManager.instance.Inventory.Remove(objectNeeded);
+
+                        foreach (var item in condition.CaseResult)
+                        {
+                            LevelManager.instance.PageInventory.Add(item);
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public void CheckNeighbourg()
     {
@@ -605,6 +632,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         vignetteTilePosition.Clear();
         vignetteTile.Clear();
+        listOfCaseEventObject.Clear();
 
         foreach (var item in listOfAffectedObject)
         {

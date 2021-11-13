@@ -10,7 +10,7 @@ public class Character_Button : MonoBehaviour
     [SerializeField] private Character_SO assignedElement;
     [SerializeField] private Image characterRender;
 
-    /*[Header("Player State")]
+    [Header("Player State")]
     [SerializeField] private int m_Life;
     [Min(1)]
     [SerializeField] private int m_MaxLife = 1;
@@ -29,7 +29,7 @@ public class Character_Button : MonoBehaviour
 
     [Space]
 
-    [SerializeField] private List<UsableObject> m_Inventory;*/
+    [SerializeField] private List<Object_SO> m_Inventory;
 
     #endregion
 
@@ -47,6 +47,24 @@ public class Character_Button : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetUpCharacter()
+    {
+        m_MaxLife = assignedElement.MaxHealth;
+        m_Life = assignedElement.Health;
+
+        m_MaxEndurance = assignedElement.MaxEndurance;
+        m_Endurance = assignedElement.Endurance;
+
+        m_MaxInventorySize = assignedElement.MaxInventorySize;
+        InventorySize = assignedElement.InventorySize;
+
+        Inventory = new List<Object_SO>();
+        foreach (var item in assignedElement.Inventory)
+        {
+            Inventory.Add(item);
+        }
     }
 
     public void SelectPlayer()
@@ -68,6 +86,8 @@ public class Character_Button : MonoBehaviour
     public bool IsSelected { get => m_IsSelected; set => m_IsSelected = value; }
     public Character_SO AssignedElement { get => assignedElement; set => assignedElement = value; }
     public Image CharacterRender { get => characterRender; set => characterRender = value; }
+    public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
+    public List<Object_SO> Inventory { get => m_Inventory; set => m_Inventory = value; }
     /*public int Life { get => m_Life; set => m_Life = value; }
 public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
 public int Endurance { get => m_Endurance; set => m_Endurance = value; }

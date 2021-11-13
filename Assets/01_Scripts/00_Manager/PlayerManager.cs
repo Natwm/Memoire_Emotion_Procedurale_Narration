@@ -105,7 +105,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MaxInventorySize = characterData.MaxInventorySize;
         InventorySize = characterData.InventorySize;
 
-        Inventory = characterData.Inventory;
+        Inventory = new List<Object_SO>();
+        foreach (var item in characterData.Inventory)
+        {
+            Inventory.Add(item);
+        }
+        
 
         CharacterData = characterData;
     }
@@ -189,14 +194,10 @@ public class PlayerManager : MonoBehaviour, IDamageable
             yield return new WaitForSeconds(.8f);
 
             StartCoroutine(CameraManager.instance.MoveCameraToTarget(newPosition));
+            
+            targetedVignette.ApplyVignetteEffect();
 
-            CheckCaseCondition(tile.GetComponent<Vignette_Behaviours>());
-
-            if (tile.GetComponent<TileElt_Behaviours>() != null)
-            {
-                TileElt_Behaviours cardEvent = tile.GetComponent<TileElt_Behaviours>();
-                tile.GetComponent<TileElt_Behaviours>().ApplyEffect(this);
-            }
+            //CHeck les cases en dessous
 
             GridManager.instance.Test.RemoveAt(0);
 
@@ -259,31 +260,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     }
 
     #endregion
-
-    public void CheckCaseCondition(Vignette_Behaviours currentVignette)
-    {
-        print("CheckCaseCondition");
-        if (currentVignette.ListOfCaseEventObject.Count > 0)
-        {
-            print("check");
-            foreach (var condition in currentVignette.ListOfCaseEventObject)
-            {
-                foreach (var objectNeeded in condition.ObjectsRequired)
-                {
-                    if (Inventory.Contains(objectNeeded))
-                    {
-                        Inventory.Remove(objectNeeded);
-
-                        foreach (var item in condition.CaseResult)
-                        {
-                            LevelManager.instance.PageInventory.Add(item);
-                        }
-                        break;
-                    }
-                }
-            }
-        }
-    }
 
     #region Happyness_Sadness Event
     public void Update_Happyness_Sadness( int point)
