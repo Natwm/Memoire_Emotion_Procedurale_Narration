@@ -706,15 +706,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 12747faf6d4184948a06d85121f8e030, type: 2}
   - {fileID: 11400000, guid: c680ea16a3d831a4aa04de11bd6b81eb, type: 2}
   vignetteRender:
-  - {fileID: 21300000, guid: 16a9804026f586a41b32928cfd373264, type: 3}
-  - {fileID: 21300000, guid: bce7ff6725dac3245a415c1784e36f21, type: 3}
-  - {fileID: 21300000, guid: c234b3ec41810f240b5ce15c7de3ac44, type: 3}
-  - {fileID: 21300000, guid: 700e37c1bf6ea20449b5493439657ed4, type: 3}
-  - {fileID: 21300000, guid: 13ad4d65f2bce774696a8cdc0b70e590, type: 3}
-  - {fileID: 21300000, guid: fa7c32b20d6567d42810813fc93a253a, type: 3}
-  - {fileID: 21300000, guid: edc57cb2629ef7940abb861e67f520f1, type: 3}
-  - {fileID: 21300000, guid: aaeb5a22b42fdab45b54359a0ddec77a, type: 3}
-  - {fileID: 21300000, guid: 775913e3ef50367429ab2f03cdc4fb00, type: 3}
+  - {fileID: 21300000, guid: 64114009f9826ae428cf3150a829803a, type: 3}
+  - {fileID: 21300000, guid: 19f086e07d4e5784d901377208a06115, type: 3}
+  - {fileID: 21300000, guid: fe02a597710627f478624bacf0e39e0e, type: 3}
+  - {fileID: 21300000, guid: a8af42aa6818da74bb5ee52ca91122bd, type: 3}
+  - {fileID: 21300000, guid: 64114009f9826ae428cf3150a829803a, type: 3}
+  - {fileID: 21300000, guid: c96b154cd97ffee4ebf4c1102d2762bc, type: 3}
+  - {fileID: 21300000, guid: 23dd84c7053409a4b9c7e1289698bc7a, type: 3}
+  - {fileID: 21300000, guid: 1579bbc76df8a144bb325557ac609f6e, type: 3}
+  - {fileID: 21300000, guid: a7443d9ca2e77eb45adec9c7037fc16a, type: 3}
+  - {fileID: 21300000, guid: d0c6d2ddd58eaf24a99c700b411470fd, type: 3}
   m_Pen: 0
 --- !u!4 &1324938401
 Transform:
