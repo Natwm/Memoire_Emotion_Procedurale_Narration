@@ -156,7 +156,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 LooseObjectEffect();
                 break;
             case VignetteCategories.VENT_GLACIAL:
-                Vent_GlavialEffect();
+                Vent_GlacialEffect();
                 break;
             case VignetteCategories.SAVOIR_OCCULTE:
                 Savoir_OcculteEffect();
@@ -203,7 +203,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void UseEffect()
     {
-        print("UseEffect");
+        print("UseEffect"); // check si il y a condition
     }
 
     public void FallEffect()
@@ -228,9 +228,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
-    public void Vent_GlavialEffect()
+    public void Vent_GlacialEffect()
     {
-        print("Vent_GlavialEffect");
+        print("Vent_GlacialEffect");
         LevelManager.instance.PageInventory = new List<Object_SO>();
     }
 
@@ -244,10 +244,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
         }
     }
-
-
-
-
 
     #endregion
 
