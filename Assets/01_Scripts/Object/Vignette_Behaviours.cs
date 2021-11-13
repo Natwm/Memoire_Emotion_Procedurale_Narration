@@ -14,10 +14,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         PRENDRE,
         COMBATTRE,
         UTILISER,
-        ALEATOIRE,
-        TREBUCHER,
+        PIEGE,
+        CURSE,
         PERTE_OBJET,
-        CURSE
+        VENT_GLACIAL,
+        SAVOIR_OCCULTE        
     }
 
     #region param
@@ -145,17 +146,20 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.UTILISER:
                 UseEffect();
                 break;
-            case VignetteCategories.ALEATOIRE:
-                RandomEffect();
-                break;
-            case VignetteCategories.TREBUCHER:
+            case VignetteCategories.PIEGE:
                 FallEffect();
+                break;
+            case VignetteCategories.CURSE:
+                CurseEffect();
                 break;
             case VignetteCategories.PERTE_OBJET:
                 LooseObjectEffect();
                 break;
-            case VignetteCategories.CURSE:
-                CurseEffect();
+            case VignetteCategories.VENT_GLACIAL:
+                Vent_GlavialEffect();
+                break;
+            case VignetteCategories.SAVOIR_OCCULTE:
+                Savoir_OcculteEffect();
                 break;
             default:
                 break;
@@ -168,47 +172,82 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void NeutralEffect()
     {
-
+        print("neutre");
     }
 
     public void ExploreEffect()
     {
+        print("ExploreEffect");
 
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+
+        LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
     }
 
     public void TakeEffect()
     {
+        print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
+        foreach (var item in LevelManager.instance.PageInventory)
+        {
+            CreationManager.instance.GlobalInventory.Add(item);
+        }
 
+        LevelManager.instance.PageInventory = new List<Object_SO>();
     }
 
     public void FightEffect()
     {
-
+        print("FightEffect");
+        PlayerManager.instance.GetDamage(1);
     }
 
     public void UseEffect()
     {
-
-    }
-    public void RandomEffect()
-    {
-
+        print("UseEffect");
     }
 
     public void FallEffect()
     {
+        print("FallEffect");
+        PlayerManager.instance.GetDamage(1);
+    }
+    public void CurseEffect()
+    {
+        print("CurseEffect");
 
+        PlayerManager.instance.GetDamage(2);
     }
 
     public void LooseObjectEffect()
     {
-
+        print("LooseObjectEffect");
+        if (PlayerManager.instance.Inventory.Count > 0)
+        {
+            int index = UnityEngine.Random.Range(0, PlayerManager.instance.Inventory.Count);
+            PlayerManager.instance.Inventory.RemoveAt(index);
+        }
     }
 
-    public void CurseEffect()
+    public void Vent_GlavialEffect()
     {
-
+        print("Vent_GlavialEffect");
+        LevelManager.instance.PageInventory = new List<Object_SO>();
     }
+
+    public void Savoir_OcculteEffect()
+    {
+        print("Savoir_OcculteEffect");
+        for (int i = 0; i < 2; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+
+            LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
+        }
+    }
+
+
+
+
 
     #endregion
 
@@ -582,38 +621,40 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private VignetteCategories GetRandomEnum()
     {
-        int value = UnityEngine.Random.Range(0,9);
+        int value = UnityEngine.Random.Range(0,10);
 
         switch (value)
         {
             case 0:
-                return VignetteCategories.ALEATOIRE;
-                break;
-            case 1:
-                return VignetteCategories.COMBATTRE;
-                break;
-            case 2:
-                return VignetteCategories.CURSE;
-                break;
-            case 3:
-                return VignetteCategories.EXPLORER;
-                break;
-            case 4:
                 return VignetteCategories.NEUTRE;
                 break;
-            case 5:
-                return VignetteCategories.PERTE_OBJET;
+            case 1:
+                return VignetteCategories.EXPLORER;
                 break;
-            case 6:
+            case 2:
                 return VignetteCategories.PRENDRE;
                 break;
-            case 7:
-                return VignetteCategories.TREBUCHER;
+            case 3:
+                return VignetteCategories.COMBATTRE;
                 break;
-            case 8:
+            case 4:
                 return VignetteCategories.UTILISER;
                 break;
-
+            case 5:
+                return VignetteCategories.PIEGE;
+                break;
+            case 6:
+                return VignetteCategories.CURSE;
+                break;
+            case 7:
+                return VignetteCategories.PERTE_OBJET;
+                break;
+            case 8:
+                return VignetteCategories.VENT_GLACIAL;
+                break;
+            case 9:
+                return VignetteCategories.SAVOIR_OCCULTE;
+                break;
             default:
                 return VignetteCategories.NEUTRE;
                 break;
@@ -622,7 +663,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private string GetEnumName()
     {
-        switch (Categorie)
+        switch (categorie)
         {
             case VignetteCategories.NEUTRE:
                 return "NEUTRE";
@@ -639,20 +680,23 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.UTILISER:
                 return "UTILISER";
                 break;
-            case VignetteCategories.ALEATOIRE:
-                return "ALEATOIRE";
-                break;
-            case VignetteCategories.TREBUCHER:
-                return "TREBUCHER";
-                break;
-            case VignetteCategories.PERTE_OBJET:
-                return "PERTE_OBJET";
+            case VignetteCategories.PIEGE:
+                return "PIEGE";
                 break;
             case VignetteCategories.CURSE:
                 return "CURSE";
                 break;
+            case VignetteCategories.PERTE_OBJET:
+                return "PERTE_OBJET";
+                break;
+            case VignetteCategories.VENT_GLACIAL:
+                return "VENT_GLACIAL";
+                break;
+            case VignetteCategories.SAVOIR_OCCULTE:
+                return "SAVOIR_OCCULTE";
+                break;
             default:
-                return "NONE";
+                return "NEUTRE";
                 break;
         }
     }

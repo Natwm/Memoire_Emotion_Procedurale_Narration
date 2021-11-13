@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Character_Button : MonoBehaviour, IDamageable
+public class Character_Button : MonoBehaviour
 {
     #region Param
     private bool m_IsSelected = false;
@@ -60,23 +60,7 @@ public class Character_Button : MonoBehaviour, IDamageable
         GetComponent<Button>().image.color = Color.red;
     }
 
-    #region Interfaces
-    public void GetDamage()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Death()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public bool IsDead()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    #endregion
+    
 
 
     #region Getter && Setter

@@ -20,7 +20,7 @@ public class UsableObject_Behaviours : UsableObject, IDamageable
     }
 
     #region Interfaces
-    public void GetDamage()
+    public void GetDamage(int amountOfDamage)
     {
         throw new System.NotImplementedException();
     }

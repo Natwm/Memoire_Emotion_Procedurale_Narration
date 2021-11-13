@@ -370,19 +370,22 @@ public class PlayerManager : MonoBehaviour, IDamageable
     #endregion
 
     #region Interfaces
-    public void GetDamage()
+    public void GetDamage(int amountOfDamage)
     {
-        throw new System.NotImplementedException();
+        health -= amountOfDamage;
+        if (IsDead())
+            Death();
     }
 
     public void Death()
     {
-        throw new System.NotImplementedException();
+        StopAllCoroutines();
+        CanvasManager.instance.PlayerLooseTheGame();
     }
 
     public bool IsDead()
     {
-        throw new System.NotImplementedException();
+        return health <= 0;
     }
 
     #endregion

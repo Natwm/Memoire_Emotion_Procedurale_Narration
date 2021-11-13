@@ -227,14 +227,14 @@ public class CreationManager : MonoBehaviour
 
         for (int i = 0; i < amoutOfObject; i++)
         {
-            int randomObject = Random.Range(0, m_GlobalInventory.Count);
+            int randomObject = Random.Range(0, GlobalInventory.Count);
 
-            Object_SO tempObject = m_GlobalInventory[randomObject];
+            Object_SO tempObject = GlobalInventory[randomObject];
 
             tempList.Add(tempObject);
 
             CreateObjectButton(tempObject);
-            m_GlobalInventory.Remove(tempObject);
+            GlobalInventory.Remove(tempObject);
             //CharacterList.Remove(tempCharacter);
         }
         return tempList == null ? null : tempList;
@@ -476,17 +476,20 @@ public class CreationManager : MonoBehaviour
             case Vignette_Behaviours.VignetteCategories.UTILISER:
                 return vignetteRender[4];
                 break;
-            case Vignette_Behaviours.VignetteCategories.ALEATOIRE:
+            case Vignette_Behaviours.VignetteCategories.PIEGE:
                 return vignetteRender[5];
                 break;
-            case Vignette_Behaviours.VignetteCategories.TREBUCHER:
+            case Vignette_Behaviours.VignetteCategories.CURSE:
                 return vignetteRender[6];
                 break;
             case Vignette_Behaviours.VignetteCategories.PERTE_OBJET:
                 return vignetteRender[7];
                 break;
-            case Vignette_Behaviours.VignetteCategories.CURSE:
+            case Vignette_Behaviours.VignetteCategories.VENT_GLACIAL:
                 return vignetteRender[8];
+                break;
+            case Vignette_Behaviours.VignetteCategories.SAVOIR_OCCULTE:
+                return vignetteRender[9];
                 break;
             default:
                 return vignetteRender[0];
@@ -498,6 +501,7 @@ public class CreationManager : MonoBehaviour
 
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
     public int NegociationTime { get => negociationTime; set => negociationTime = value; }
+    public List<Object_SO> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
 
     #endregion
 }

@@ -21,6 +21,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private BranchingCondition currentBranching;
 
     [Space]
+    [Header("Pull Page")]
+    [SerializeField] private List<Object_SO> unlockableObject;
+
+    [Space]
     [Header("Page Inventory")]
     [SerializeField] private List<Object_SO> pageInventory = new List<Object_SO> ();
 
@@ -185,6 +189,7 @@ public class LevelManager : MonoBehaviour
     public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
     public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
     public List<Object_SO> PageInventory { get => pageInventory; set => pageInventory = value; }
+    public List<Object_SO> UnlockableObject { get => unlockableObject; set => unlockableObject = value; }
 
     #endregion
 
