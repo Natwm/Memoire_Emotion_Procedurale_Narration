@@ -59,7 +59,7 @@ public class CreationManager : MonoBehaviour
 
     [SerializeField] private m_PenStatus m_Pen;
 
-    
+    public GameObject pulledObject;
 
     #region Awake || Start || Update
     void Awake()
@@ -74,7 +74,7 @@ public class CreationManager : MonoBehaviour
     void Start()
     {
         PageCharacterList = CreateCharacterList(4);
-        CreateObjectList(3);
+        CreateObjectList();
     }
 
     // Update is called once per frame
@@ -100,10 +100,13 @@ public class CreationManager : MonoBehaviour
         Character_Button buttonScript = tempButton.GetComponent<Character_Button>();
 
         buttonScript.AssignedElement = tempCharacter;
-        buttonScript.CharacterRender.sprite = tempCharacter.Render;
+        buttonScript.CharacterImage.sprite = tempCharacter.Render;
+
+        buttonScript.SetUpCharacter(tempCharacter);
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
+            print("bruh");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
         });
 
@@ -221,20 +224,19 @@ public class CreationManager : MonoBehaviour
     }
 
 
-    public List<Object_SO> CreateObjectList(int amoutOfObject = 1)
+    public List<Object_SO> CreateObjectList()
     {
         List<Object_SO> tempList = new List<Object_SO>();
 
-        for (int i = 0; i < amoutOfObject; i++)
+        for (int i = 0; i < GlobalInventory.Count; i++)
         {
-            int randomObject = Random.Range(0, GlobalInventory.Count);
 
-            Object_SO tempObject = GlobalInventory[randomObject];
+            Object_SO tempObject = GlobalInventory[i];
 
             tempList.Add(tempObject);
 
             CreateObjectButton(tempObject);
-            GlobalInventory.Remove(tempObject);
+            //GlobalInventory.Remove(tempObject);
             //CharacterList.Remove(tempCharacter);
         }
         return tempList == null ? null : tempList;
@@ -270,11 +272,12 @@ public class CreationManager : MonoBehaviour
 
     }
 
-    public void CreatePlayerInventory(Character_Button player)
+    public bool CreatePlayerInventory(Character_Button player)
     {
-        player.SetUpCharacter();
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
+
+        print(objectListHolder.transform.childCount);
 
         for (int i = 0; i < objectListHolder.transform.childCount; i++)
         {   GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
@@ -305,7 +308,8 @@ public class CreationManager : MonoBehaviour
                     break;
             }
         }
-
+        
+        print("player.InventorySize - player.Inventory.Count " + (player.InventorySize - player.Inventory.Count));
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
             print(player.InventorySize);
@@ -317,12 +321,32 @@ public class CreationManager : MonoBehaviour
                 pullOfObject[index].gameObject.SetActive(false);
             }
             UsableObject obj = pullOfObject[index];
-            pullOfObject.Remove(obj);
+            pullOfObject.RemoveAll(item => item == obj);
 
-            obj.gameObject.SetActive(false);
+            obj.gameObject.transform.parent = pulledObject.transform;
+
             if (pullOfObject.Count <= 0)
-                break;
+            {
+                foreach (var item in player.Inventory)
+                {
+                    m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                }
+                selectedPlayer.SetUpCharacterUI();
+                return true;
+            }
+                
         }
+        foreach (var item in player.Inventory)
+        {
+            m_GlobalInventory.RemoveAll(obj => obj == item);
+        }
+        selectedPlayer.SetUpCharacterUI();
+        return true;
+    }
+
+    private void RemoveFromPullInventory(List<UsableObject> pull, UsableObject toRemove)
+    {
+
     }
     #endregion
 
@@ -338,6 +362,7 @@ public class CreationManager : MonoBehaviour
 
     public void SelectPlayer( Character_Button player)
     {
+        print(player.name);
         selectedPlayer = player;
     }
 
@@ -354,10 +379,17 @@ public class CreationManager : MonoBehaviour
 
     public void NextCharacter()
     {
-        selectedPlayer.gameObject.SetActive(false);
+        if(GlobalInventory.Count > 0)
+        {
+            selectedPlayer.GetComponent<Button>().interactable = false;
+            CreatePlayerInventory(selectedPlayer);
+            selectedPlayer = null;
+        }
+        else
+        {
+            CanvasManager.instance.SetUpGamePanel();
+        }
         
-        CreatePlayerInventory(selectedPlayer);
-        selectedPlayer = null;
 
     }
 

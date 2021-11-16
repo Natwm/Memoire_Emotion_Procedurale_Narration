@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EventGenerator : MonoBehaviour
 {
+    public static EventGenerator instance;
+
     GridManager m_GridManager;
     public List<GameObject> occupiedTiles;
     public int tilenumber;
@@ -30,6 +32,15 @@ public class EventGenerator : MonoBehaviour
 
     public GameObject EntryTile { get => entryTile; set => entryTile = value; }
     public GameObject ExitTile { get => exitTile; set => exitTile = value; }
+
+
+    void Awake()
+    {
+        if (instance != null)
+            Debug.LogWarning("Multiple instance of same Singleton : EventGenerator");
+        else
+            instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()

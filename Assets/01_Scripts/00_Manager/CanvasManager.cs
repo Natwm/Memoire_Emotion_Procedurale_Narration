@@ -24,6 +24,12 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject PenPanel;
 
     [Space]
+    [Header("Information Panel")]
+    [SerializeField] private Image objectImage;
+    [SerializeField] private TMP_Text objectTitle;
+    [SerializeField] private TMP_Text objectDescription;
+
+    [Space]
     [Header("Character Information")]
     [SerializeField] private TMP_Text playerName;
     [SerializeField] private Image playerRender;
@@ -55,6 +61,7 @@ public class CanvasManager : MonoBehaviour
     int Xshifter = 0;
     int Yshifter = 0;
 
+    [SerializeField] private GameObject grid;
 
     void Awake()
     {
@@ -200,6 +207,8 @@ public class CanvasManager : MonoBehaviour
     {
         GamePanel.SetActive(true);
         CreatePanel.SetActive(false);
+        EventGenerator.instance.GenerateGrid();
+        grid.SetActive(true);
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
         //SetUpCharacterInfo();
 
