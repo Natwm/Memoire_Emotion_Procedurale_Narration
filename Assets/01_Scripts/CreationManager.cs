@@ -291,8 +291,12 @@ public class CreationManager : MonoBehaviour
                     pullOfObject.Add(ObjetToTake);
                     break;
                 case UsableObject.ObjectStatus.CLAIM:
-                    player.Inventory.Add(ObjetToTake.Data);
-                    ObjetToTake.gameObject.SetActive(false);
+                    if (m_GlobalInventory.Contains(ObjetToTake.Data))
+                    {
+                        player.Inventory.Add(ObjetToTake.Data);
+                        ObjetToTake.gameObject.SetActive(false);
+                        m_GlobalInventory.Remove(ObjetToTake.Data);
+                    }
                     break;
                 case UsableObject.ObjectStatus.WANT:
                     pullOfObject.Add(ObjetToTake);
@@ -358,6 +362,18 @@ public class CreationManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void IncreaseNegociationTime(int reduceValue)
+    {
+        if (negociationTime + reduceValue < CanvasManager.instance.InkSlider.maxValue)
+        {
+            negociationTime += reduceValue;
+        }
+        else
+        {
+            negociationTime = (int)CanvasManager.instance.InkSlider.maxValue;
+        }
     }
 
     public void SelectPlayer( Character_Button player)

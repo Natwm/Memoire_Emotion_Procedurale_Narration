@@ -63,6 +63,8 @@ public class CanvasManager : MonoBehaviour
 
     [SerializeField] private GameObject grid;
 
+    public Slider InkSlider { get => inkSlider; set => inkSlider = value; }
+
     void Awake()
     {
         if (instance != null)
@@ -75,8 +77,8 @@ public class CanvasManager : MonoBehaviour
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
         CharacterPanel.SetActive(false);
-        inkSlider.maxValue = CreationManager.instance.NegociationTime;
-        inkSlider.value = inkSlider.maxValue;
+        InkSlider.maxValue = CreationManager.instance.NegociationTime;
+        InkSlider.value = InkSlider.maxValue;
     }
 
     private void Update()
@@ -179,12 +181,12 @@ public class CanvasManager : MonoBehaviour
 
     public void UpdateInkSlider(float value)
     {
-        inkSlider.value += value;
+        InkSlider.value += value;
     }
 
     public void SetInkSlider()
     {
-        inkSlider.value = CreationManager.instance.NegociationTime;
+        InkSlider.value = CreationManager.instance.NegociationTime;
     }
 
     #region Win / Loose Panel

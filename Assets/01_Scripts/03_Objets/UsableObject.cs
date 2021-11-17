@@ -34,19 +34,38 @@ public class UsableObject : abstractUsableObject
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     #endregion
 
     public void AffectByPlayer(UnityEngine.UI.Button myButton)
     {
+        switch (Status)
+        {
+            case ObjectStatus.NONE:
+                break;
+            case ObjectStatus.CLAIM:
+                CreationManager.instance.IncreaseNegociationTime(75);
+                break;
+            case ObjectStatus.WANT:
+                CreationManager.instance.IncreaseNegociationTime(33);
+                break;
+            case ObjectStatus.REJECT:
+                CreationManager.instance.IncreaseNegociationTime(33);
+                break;
+            case ObjectStatus.EXCLUDE:
+                CreationManager.instance.IncreaseNegociationTime(75);
+                break;
+            default:
+                break;
+        }
         switch (CreationManager.instance.Pen)
         {
             case CreationManager.m_PenStatus.NONE:
@@ -55,84 +74,80 @@ public class UsableObject : abstractUsableObject
                 break;
 
             case CreationManager.m_PenStatus.CLAIM:
-                if (CreationManager.instance.ReduceNegociationTime(75))
+                if (Status != ObjectStatus.CLAIM)
                 {
-                    if (Status != ObjectStatus.CLAIM)
+                    if (CreationManager.instance.ReduceNegociationTime(75))
                     {
+
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.green;
                         ClaimObject();
-                    }
-                    else
-                    {
-                        myButton.image.color = Color.white;
-                        ResetObjectStatus();
+
                     }
                 }
-                else if(CreationManager.instance.NegociationTime<0)
-                    CreationManager.instance.NegociationTime = 0;
-
-                
+                else
+                {
+                    myButton.image.color = Color.white;
+                    ResetObjectStatus();
+                }
                 break;
 
             case CreationManager.m_PenStatus.WANT:
-                if (CreationManager.instance.ReduceNegociationTime(33))
+                if (Status != ObjectStatus.WANT)
                 {
-                    if (Status != ObjectStatus.WANT)
+                    if (CreationManager.instance.ReduceNegociationTime(33))
                     {
+
+                        CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.gray;
                         WantObject();
-                    }
-                    else
-                    {
-                        myButton.image.color = Color.white;
-                        ResetObjectStatus();
+
                     }
                 }
-                else if(CreationManager.instance.NegociationTime < 0)
-                    CreationManager.instance.NegociationTime = 0;
+                else
+                {
+                    myButton.image.color = Color.white;
+                    ResetObjectStatus();
+                }
 
-                CanvasManager.instance.UpdateInkSlider(-33);
                 break;
 
             case CreationManager.m_PenStatus.REJECT:
-                if (CreationManager.instance.ReduceNegociationTime(33))
+                if (Status != ObjectStatus.REJECT)
                 {
-                    if (Status != ObjectStatus.REJECT)
+                    if (CreationManager.instance.ReduceNegociationTime(33))
                     {
+
+                        CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.yellow;
                         RejectObject();
-                    }
-                    else
-                    {
-                        myButton.image.color = Color.white;
-                        ResetObjectStatus();
+
                     }
                 }
-                else if (CreationManager.instance.NegociationTime < 0)
-                    CreationManager.instance.NegociationTime = 0;
-
-                CanvasManager.instance.UpdateInkSlider(-33);
+                else
+                {
+                    myButton.image.color = Color.white;
+                    ResetObjectStatus();
+                }
                 break;
 
             case CreationManager.m_PenStatus.EXCLUDE:
-                if (CreationManager.instance.ReduceNegociationTime(75))
+                if (Status != ObjectStatus.EXCLUDE)
                 {
-                    if (Status != ObjectStatus.EXCLUDE)
+                    if (CreationManager.instance.ReduceNegociationTime(75))
                     {
+
+                        CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.red;
                         ExcludeObject();
-                    }
-                    else
-                    {
-                        myButton.image.color = Color.white;
-                        ResetObjectStatus();
+
                     }
                 }
-                else if (CreationManager.instance.NegociationTime < 0)
-                    CreationManager.instance.NegociationTime = 0;
-
-                CanvasManager.instance.UpdateInkSlider(-75);
+                else
+                {
+                    myButton.image.color = Color.white;
+                    ResetObjectStatus();
+                }
                 break;
 
             default:
