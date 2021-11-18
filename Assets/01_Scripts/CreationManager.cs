@@ -117,7 +117,7 @@ public class CreationManager : MonoBehaviour
     public List<Character_SO> CreateCharacterList(int _charaAmount = 1)
     {
         List<Character_SO> tempList = new List<Character_SO>();
-        foreach (var item in m_GlobalCrew)
+        foreach (var item in GlobalCrew)
         {
             tempList.Add(item);
         }
@@ -414,20 +414,22 @@ public class CreationManager : MonoBehaviour
 
     public void NextCharacter()
     {
-        if(GlobalInventory.Count > 0)
+        try
         {
-            selectedPlayer.GetComponent<Button>().interactable = false;
-            CreatePlayerInventory(selectedPlayer);
-            GameManager.instance.OrderCharacter.Add(selectedPlayer);
-            selectedPlayer = null;
-            
+            if (GlobalInventory.Count > 0)
+            {
+                selectedPlayer.GetComponent<Button>().interactable = false;
+                CreatePlayerInventory(selectedPlayer);
+                GameManager.instance.OrderCharacter.Add(selectedPlayer);
+                selectedPlayer = null;
+            }
+            else
+            {
+                LaunchGame();
+            }
         }
-        else
-        {
-            LaunchGame();
-        }
+        catch { }
         
-
     }
 
     #region To Delete
@@ -584,6 +586,7 @@ public class CreationManager : MonoBehaviour
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
     public int NegociationTime { get => negociationTime; set => negociationTime = value; }
     public List<Object_SO> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
+    public List<Character_SO> GlobalCrew { get => m_GlobalCrew; set => m_GlobalCrew = value; }
 
     #endregion
 }

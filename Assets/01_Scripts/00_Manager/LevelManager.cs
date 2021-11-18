@@ -83,7 +83,7 @@ public class LevelManager : MonoBehaviour
 
             GameObject card = Instantiate(item, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
-
+            cardBd.SetUpVignette(Vignette_Behaviours.GetRandomEnum());
             //int elt = Random.Range(0, nbElement);
             cardBd.SetUpCard();
 
@@ -94,6 +94,47 @@ public class LevelManager : MonoBehaviour
             /*CastingManager.instance.SetCharacterToVignette(card.GetComponent<Vignette_Behaviours>().assignedVignette);*/
         }
        // CastingManager.instance.SetCharactersToHand();
+    }
+
+    public void SpawnObject(List<Object_SO> inventory)
+    {
+        foreach (var item in inventory)
+        {
+            foreach (var toDraw in item.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                    GameObject card = Instantiate(vignette, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                }
+            }
+        }
+    }
+
+    public void SpawnObject(List<DrawVignette> inventory)
+    {
+
+            foreach (var toDraw in inventory)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                    GameObject card = Instantiate(vignette, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                }
+            }
+        
     }
 
     public void NewPage()

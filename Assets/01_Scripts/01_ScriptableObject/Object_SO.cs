@@ -4,10 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [System.Serializable]
-public class DrawObject
+
+
+public class DrawVignette
 {
-    [SerializeField] private Object_SO.ObjectDraw cardToDraw;
+    [SerializeField] private Vignette_Behaviours.VignetteCategories categoryToDraw;
     [SerializeField] private int amountOfCardToDraw;
+
+    public int AmountOfCardToDraw { get => amountOfCardToDraw; set => amountOfCardToDraw = value; }
+    public Vignette_Behaviours.VignetteCategories CategoryToDraw { get => categoryToDraw; set => categoryToDraw = value; }
 }
 
 [CreateAssetMenu(fileName = "New Cool Stuff", menuName = "New Scriptable Object/New Object")]
@@ -35,23 +40,13 @@ public class Object_SO : ScriptableObject
         HEALTH,
         DRAW
     }
-
-    public enum ObjectDraw
-    {
-        NONE,
-        CURSE,
-        EXPLORE,
-        SHOOT,
-        RELOAD,
-        ATTACK
-    }
     #endregion
 
     [Header("Statistique")]
     [SerializeField] private ObjectTarget m_Target;
     [SerializeField] private ObjectCategory m_Category;
     [SerializeField] private ObjectAction m_Action;
-    [SerializeField] private List<DrawObject> m_DrawParam;
+    [SerializeField] private List<DrawVignette> m_DrawParam;
 
     [Space]
     [Header("Param")]
@@ -69,7 +64,7 @@ public class Object_SO : ScriptableObject
     public ObjectTarget Target { get => m_Target; set => m_Target = value; }
     public ObjectCategory Category { get => m_Category; set => m_Category = value; }
     public ObjectAction Action { get => m_Action; set => m_Action = value; }
-    public List<DrawObject> DrawParam { get => m_DrawParam; set => m_DrawParam = value; }
+    public List<DrawVignette> DrawParam { get => m_DrawParam; set => m_DrawParam = value; }
     public string ObjectName { get => m_ObjectName; set => m_ObjectName = value; }
     public Sprite Sprite { get => m_sprite; set => m_sprite = value; }
     public int AmountOfUse { get => m_AmountOfUse; set => m_AmountOfUse = value; }

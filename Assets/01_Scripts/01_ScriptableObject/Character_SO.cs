@@ -31,6 +31,9 @@ public class Character_SO : ScriptableObject
 
     [SerializeField] private List<Object_SO> m_Inventory;
 
+    [Space]
+    [Header("Base Hand")]
+    [SerializeField] private List<DrawVignette> m_BaseHand;
 
     #region Getter && Setter
 
@@ -43,6 +46,7 @@ public class Character_SO : ScriptableObject
     public List<Object_SO> Inventory { get => m_Inventory; set => m_Inventory = value; }
     public Sprite Render { get => m_render; set => m_render = value; }
     public string CharacterName { get => m_CharacterName; set => m_CharacterName = value; }
+    public List<DrawVignette> BaseHand { get => m_BaseHand; set => m_BaseHand = value; }
 
     #endregion
 }

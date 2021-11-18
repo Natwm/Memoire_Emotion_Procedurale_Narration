@@ -208,7 +208,7 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
-        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que "+ GameManager.instance.OrderCharacter.Count + "membre";
+        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que "+ CreationManager.instance.listOfCharacter.Count + " membres !";
     }
 
     #endregion
@@ -220,7 +220,7 @@ public class CanvasManager : MonoBehaviour
         GridManager.instance.ClearScene();
         EventGenerator.instance.GenerateGrid();
         grid.SetActive(true);
-        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+        LevelManager.instance.SpawnObject(PlayerManager.instance.Inventory);
         //SetUpCharacterInfo();
 
     }

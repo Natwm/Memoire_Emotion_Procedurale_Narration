@@ -286,7 +286,7 @@ public class GridManager : MonoBehaviour
         PlayerManager.instance.HandOfVignette.Clear();
         PlayerManager.instance.SetUp();
 
-        LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
+        LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
         CanvasManager.instance.UpdatePageIndicator();
 
         PlayerManager.instance.ResetPlayerPosition();

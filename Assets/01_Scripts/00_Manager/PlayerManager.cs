@@ -410,6 +410,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void Death()
     {
         StopAllCoroutines();
+        CreationManager.instance.GlobalCrew.Remove(CharacterData);
+        CreationManager.instance.listOfCharacter.Remove(CharacterContener);
+        Destroy(characterContener.gameObject);
         CanvasManager.instance.PlayerLooseTheGame(CharacterData);
     }
 

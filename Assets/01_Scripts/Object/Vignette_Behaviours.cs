@@ -97,25 +97,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         m_IsVignetteShowUp = false;
 
-        // vignetteInfo = transform.GetChild(0).gameObject;
-        //vignetteInfo.SetActive(true);
-
         vignetteScene = transform.GetChild(1).gameObject;
-        //vignetteScene.SetActive(false);
 
         vignetteImage = vignetteScene.transform.GetChild(0).gameObject;
         vignetteImage.SetActive(false);
-        //vignetteImage.GetComponent<SpriteRenderer>().DOFade(0, 0f);
 
         myEvent = GetComponent<EventContener>();
-        SetUpCard();
+        //SetUpCard();
 
-        Categorie = GetRandomEnum();
-        categorieText.text = GetEnumName();
-        SpriteIndicator.sprite = GetSprite();
-        //SpriteIndicator.color = Color.black;
-
-        //vignetteInfo.transform.GetChild(0).GetChild(0).GetComponent<SpriteRenderer>().sprite = ;
+        
     }
 
     // Update is called once per frame
@@ -165,7 +155,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
-    
+    public void SetUpVignette(VignetteCategories categorie)
+    {
+        print(categorie +" " + this.gameObject.name);
+        Categorie = categorie;
+        categorieText.text = GetEnumName();
+        SpriteIndicator.sprite = GetSprite();
+    }
 
     #region VIgnette Effect
 
@@ -643,7 +639,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         listOfAffectedObject.Clear();
     }
 
-    private VignetteCategories GetRandomEnum()
+    public static VignetteCategories GetRandomEnum()
     {
         int value = UnityEngine.Random.Range(0,10);
 
