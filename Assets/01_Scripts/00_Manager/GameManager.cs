@@ -7,9 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [SerializeField] private List<Character_SO> m_OrderCharacter;
+    [SerializeField] private List<Character_Button> m_OrderCharacter;
 
-    public List<Character_SO> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
+    public List<Character_Button> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
 
     void Awake()
     {
@@ -148,7 +148,20 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        CanvasManager.instance.PlayerLooseTheGame();
+        //CanvasManager.instance.PlayerLooseTheGame();
+    }
+
+    public void NextPlayer()
+    {
+        if(m_OrderCharacter.Count > 0)
+        {
+            CreationManager.instance.LaunchGame();
+        }
+        else
+        {
+            CanvasManager.instance.SetUpCreationPanel();
+        }
+        
     }
 
     public void QuitGame()

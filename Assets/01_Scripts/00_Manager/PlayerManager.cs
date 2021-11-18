@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 {
     public static PlayerManager instance;
     [SerializeField] private Character_SO characterData;
+    private Character_Button characterContener;
 
     [Space]
     [Header("Health")]
@@ -113,6 +114,46 @@ public class PlayerManager : MonoBehaviour, IDamageable
         
 
         CharacterData = characterData;
+    }
+    public void SetUpCharacter(Character_Button characterData)
+    {
+        maxHealth = characterData.MaxLife;
+        health = characterData.Life;
+
+        MaxEndurance = characterData.MaxEndurance;
+        Endurance = characterData.Endurance;
+
+        MaxInventorySize = characterData.MaxInventorySize;
+        InventorySize = characterData.InventorySize;
+
+        Inventory = new List<Object_SO>();
+        foreach (var item in characterData.Inventory)
+        {
+            Inventory.Add(item);
+        }
+
+        CharacterData = characterData.AssignedElement;
+        characterContener = characterData;
+    }
+    public void SetUpCharacter()
+    {
+        maxHealth = characterContener.MaxLife;
+        health = characterContener.Life;
+
+        MaxEndurance = characterContener.MaxEndurance;
+        Endurance = characterContener.Endurance;
+
+        MaxInventorySize = characterContener.MaxInventorySize;
+        InventorySize = characterContener.InventorySize;
+
+        Inventory = new List<Object_SO>();
+        foreach (var item in characterContener.Inventory)
+        {
+            Inventory.Add(item);
+        }
+
+        CharacterData = characterContener.AssignedElement;
+
     }
 
     void GameOver()
@@ -246,20 +287,33 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     void EndMovement()
     {
-        if (player_Happy_SadValue >= maxHappyness || player_Happy_SadValue <= minSadness || player_Angry_FearValue >= maxAngry || player_Angry_FearValue <= minFear) {
+        if (health <= 0) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
             StopAllCoroutines();
-            CanvasManager.instance.PlayerLooseTheGame();
+            CanvasManager.instance.PlayerLooseTheGame(CharacterData);
         }
         else
         {
             //GridManager.instance.ClearScene();
-            CanvasManager.instance.PlayerWinTheGame();
+            CanvasManager.instance.PlayerWinTheGame(CharacterData);
         }
+        UpdatePlayerContener();
     }
 
     #endregion
+
+    void UpdatePlayerContener()
+    {
+        characterContener.Life = health;
+        characterContener.Endurance = Endurance;
+        characterContener.Inventory.Clear();
+
+        foreach (var item in Inventory)
+        {
+            characterContener.Inventory.Add(item);
+        }
+    }
 
     #region Happyness_Sadness Event
     public void Update_Happyness_Sadness( int point)
@@ -356,7 +410,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void Death()
     {
         StopAllCoroutines();
-        CanvasManager.instance.PlayerLooseTheGame();
+        CanvasManager.instance.PlayerLooseTheGame(CharacterData);
     }
 
     public bool IsDead()
@@ -381,5 +435,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public List<Object_SO> Inventory { get => m_Inventory; set => m_Inventory = value; }
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int Health { get => health; set => health = value; }
+    public Character_Button CharacterContener { get => characterContener; set => characterContener = value; }
     #endregion
 }

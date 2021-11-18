@@ -9,6 +9,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float unZoomValue;
     [SerializeField] private float zoomValue;
 
+    [SerializeField] private Vector3 resetPosition;
+
     public float UnZoomValue { get => unZoomValue; set => unZoomValue = value; }
 
     void Awake()
@@ -22,6 +24,13 @@ public class CameraManager : MonoBehaviour
     private void Start()
     {
         UnZoomValue = Camera.main.orthographicSize;
+        resetPosition = transform.position;
+    }
+
+    public void ResetPosition()
+    {
+        transform.DOMove(resetPosition, 0.5f);
+        LerpZoomFunction(unZoomValue, 1);
     }
 
     public IEnumerator MoveCameraToTarget(Vector3 PlayerPostion, float speed = 1f)

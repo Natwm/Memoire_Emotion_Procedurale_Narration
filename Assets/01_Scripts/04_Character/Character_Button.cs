@@ -60,7 +60,7 @@ public class Character_Button : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetUpCharacter()
@@ -101,9 +101,18 @@ public class Character_Button : MonoBehaviour
             Inventory.Add(item);
             Instantiate(m_ToolButtonPrefabs, m_InventoryPanel.transform);
         }
+        SetUpCharacterUI();
     }
 
     public void SetUpCharacterUI()
+    {
+        SetUpInventoryUI();
+        m_NameText.text = assignedElement.CharacterName == " " || assignedElement.CharacterName == string.Empty ? assignedElement.name : assignedElement.CharacterName;
+        LifeText.text = m_Life + "/ " + m_MaxLife;
+        EnduranceText.text = m_Endurance + " / " + m_MaxEndurance;
+    }
+
+    public void SetUpInventoryUI()
     {
         List<GameObject> toRemove = new List<GameObject>();
         for (int i = 0; i < m_InventoryPanel.transform.childCount; i++)
@@ -138,7 +147,7 @@ public class Character_Button : MonoBehaviour
         GetComponent<Button>().image.color = Color.red;
     }
 
-    
+
 
 
     #region Getter && Setter
@@ -151,14 +160,11 @@ public class Character_Button : MonoBehaviour
     public TMP_Text EnduranceText { get => m_enduranceText; set => m_enduranceText = value; }
     public TMP_Text LifeText { get => m_LifeText; set => m_LifeText = value; }
     public TMP_Text NameText { get => m_NameText; set => m_NameText = value; }
-    /*public int Life { get => m_Life; set => m_Life = value; }
-public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
-public int Endurance { get => m_Endurance; set => m_Endurance = value; }
-public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
-public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
-public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
-public List<UsableObject> Inventory { get => m_Inventory; set => m_Inventory = value; }*/
-
+    public int Life { get => m_Life; set => m_Life = value; }
+    public int MaxLife { get => m_MaxLife; set => m_MaxLife = value; }
+    public int Endurance { get => m_Endurance; set => m_Endurance = value; }
+    public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
+    public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
     #endregion
 
 }

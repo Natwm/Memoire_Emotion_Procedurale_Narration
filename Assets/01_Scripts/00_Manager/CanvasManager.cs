@@ -49,10 +49,13 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text staminaText;
     [SerializeField] private TMP_Text vignetteText;
     [SerializeField] private TMP_Text pageIndicator;
+    [SerializeField] private TMP_Text winIndicator;
+    [SerializeField] private TMP_Text looseIndicator;
 
     [Space]
     [Header("Button")]
     [SerializeField] private Button moveButton;
+
 
     [Space]
     Vector2 CharacterShifter = new Vector2(450, -450);
@@ -64,6 +67,9 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject grid;
 
     public Slider InkSlider { get => inkSlider; set => inkSlider = value; }
+    public Image ObjectImage { get => objectImage; set => objectImage = value; }
+    public TMP_Text ObjectTitle { get => objectTitle; set => objectTitle = value; }
+    public TMP_Text ObjectDescription { get => objectDescription; set => objectDescription = value; }
 
     void Awake()
     {
@@ -191,16 +197,18 @@ public class CanvasManager : MonoBehaviour
 
     #region Win / Loose Panel
 
-    public void PlayerWinTheGame()
+    public void PlayerWinTheGame(Character_SO perso)
     {
         SetActiveMoveButton(false);
         WinPanel.SetActive(true);
+        winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base" ;
     }
 
-    public void PlayerLooseTheGame()
+    public void PlayerLooseTheGame(Character_SO perso)
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
+        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que "+ GameManager.instance.OrderCharacter.Count + "membre";
     }
 
     #endregion
@@ -209,6 +217,7 @@ public class CanvasManager : MonoBehaviour
     {
         GamePanel.SetActive(true);
         CreatePanel.SetActive(false);
+        GridManager.instance.ClearScene();
         EventGenerator.instance.GenerateGrid();
         grid.SetActive(true);
         LevelManager.instance.SpawnObject(PlayerManager.instance.AmountOfCardToDraw);
@@ -218,6 +227,8 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpCharacterInfo()
     {
+        print("eefefe");
+        print(PlayerManager.instance.CharacterData);
         Character_SO toSet = PlayerManager.instance.CharacterData;
 
         //rt.offsetMin = rt.offsetMin = new Vector2(0,rt.offsetMin.y);

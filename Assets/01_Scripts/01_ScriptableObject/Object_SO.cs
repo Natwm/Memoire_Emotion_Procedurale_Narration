@@ -60,6 +60,10 @@ public class Object_SO : ScriptableObject
     [SerializeField] private int m_AmountOfUse;
     [SerializeField] private int m_SizeInInventory;
 
+    [Space]
+    [Header("UI")]
+    [SerializeField] private string m_Description;
+
     #region Getter && Setter
 
     public ObjectTarget Target { get => m_Target; set => m_Target = value; }
@@ -70,6 +74,7 @@ public class Object_SO : ScriptableObject
     public Sprite Sprite { get => m_sprite; set => m_sprite = value; }
     public int AmountOfUse { get => m_AmountOfUse; set => m_AmountOfUse = value; }
     public int SizeInInventory { get => m_SizeInInventory; set => m_SizeInInventory = value; }
+    public string Description { get => m_Description; set => m_Description = value; }
 
     #endregion
 }

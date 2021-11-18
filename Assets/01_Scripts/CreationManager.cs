@@ -150,6 +150,7 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>());
+            UpdateDescriptionPanel(tempObject);
         }
         );
 
@@ -163,7 +164,9 @@ public class CreationManager : MonoBehaviour
             exit.eventID = EventTriggerType.PointerExit;
 
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
+            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
@@ -223,6 +226,21 @@ public class CreationManager : MonoBehaviour
         CanvasManager.instance.SetInkSlider();
     }
 
+    private void UpdateDescriptionPanel(Object_SO data)
+    {
+        CanvasManager.instance.ObjectDescription.text = data.Description;
+        CanvasManager.instance.ObjectTitle.text = data.ObjectName != " " || data.ObjectName != string.Empty ? data.ObjectName : data.name;
+
+        CanvasManager.instance.ObjectImage.sprite = data.Sprite;
+    }
+
+    private void ResetDescriptionPanel()
+    {
+        CanvasManager.instance.ObjectDescription.text = "";
+        CanvasManager.instance.ObjectTitle.text = "";
+
+        CanvasManager.instance.ObjectImage.sprite = null;
+    }
 
     public List<Object_SO> CreateObjectList()
     {
@@ -230,7 +248,6 @@ public class CreationManager : MonoBehaviour
 
         for (int i = 0; i < GlobalInventory.Count; i++)
         {
-
             Object_SO tempObject = GlobalInventory[i];
 
             tempList.Add(tempObject);
@@ -335,7 +352,7 @@ public class CreationManager : MonoBehaviour
                 {
                     m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
                 }
-                selectedPlayer.SetUpCharacterUI();
+                selectedPlayer.SetUpInventoryUI();
                 return true;
             }
                 
@@ -344,7 +361,7 @@ public class CreationManager : MonoBehaviour
         {
             m_GlobalInventory.RemoveAll(obj => obj == item);
         }
-        selectedPlayer.SetUpCharacterUI();
+        selectedPlayer.SetUpInventoryUI();
         return true;
     }
 
@@ -384,11 +401,13 @@ public class CreationManager : MonoBehaviour
 
     public void LaunchGame()
     {
-        PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0];
-        if(selectedPlayer != null)
+        PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
+        if(PlayerManager.instance.CharacterData != null)
         {
-            //CreatePlayerInventory(PlayerManager.instance);
-            //CanvasManager.instance.SetUpCharacterInfo();
+            PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
+            CanvasManager.instance.SetUpGamePanel();
+            GameManager.instance.OrderCharacter.RemoveAt(0);
+            CanvasManager.instance.SetUpCharacterInfo();
         }
             
     }
@@ -399,11 +418,13 @@ public class CreationManager : MonoBehaviour
         {
             selectedPlayer.GetComponent<Button>().interactable = false;
             CreatePlayerInventory(selectedPlayer);
+            GameManager.instance.OrderCharacter.Add(selectedPlayer);
             selectedPlayer = null;
+            
         }
         else
         {
-            CanvasManager.instance.SetUpGamePanel();
+            LaunchGame();
         }
         
 
