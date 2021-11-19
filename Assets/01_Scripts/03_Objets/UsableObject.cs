@@ -15,6 +15,20 @@ public abstract class abstractUsableObject : MonoBehaviour
     public abstract void DropObject();
 }
 
+[System.Serializable]
+public class ReclameStatus
+{
+    public Character_Button character;
+    public UsableObject.ObjectStatus status;
+
+   
+    public ReclameStatus(Character_Button character, UsableObject.ObjectStatus status)
+    {
+        this.character = character;
+        this.status = status;
+    }
+}
+
 
 public class UsableObject : abstractUsableObject
 {
@@ -29,6 +43,8 @@ public class UsableObject : abstractUsableObject
     [SerializeField] private ObjectStatus m_Status;
 
     [SerializeField] private Object_SO m_Data;
+
+    [SerializeField] private ReclameStatus stat;
 
     #region Awake || Start || Update
     // Start is called before the first frame update
@@ -47,6 +63,8 @@ public class UsableObject : abstractUsableObject
 
     public void AffectByPlayer(UnityEngine.UI.Button myButton)
     {
+        ObjectStatus objStatus = objStatus = ObjectStatus.NONE;
+
         switch (Status)
         {
             case ObjectStatus.NONE:
@@ -66,11 +84,13 @@ public class UsableObject : abstractUsableObject
             default:
                 break;
         }
+
         switch (CreationManager.instance.Pen)
         {
             case CreationManager.m_PenStatus.NONE:
                 myButton.image.color = Color.white;
                 ResetObjectStatus();
+                objStatus = ObjectStatus.NONE;
                 break;
 
             case CreationManager.m_PenStatus.CLAIM:
@@ -81,6 +101,7 @@ public class UsableObject : abstractUsableObject
 
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.green;
+                        objStatus = ObjectStatus.CLAIM;
                         ClaimObject();
 
                     }
@@ -89,6 +110,7 @@ public class UsableObject : abstractUsableObject
                 {
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
+                    objStatus = ObjectStatus.NONE;
                 }
                 break;
 
@@ -97,7 +119,7 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(33))
                     {
-
+                        objStatus = ObjectStatus.WANT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.gray;
                         WantObject();
@@ -106,6 +128,7 @@ public class UsableObject : abstractUsableObject
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -117,7 +140,7 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(33))
                     {
-
+                        objStatus = ObjectStatus.REJECT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.yellow;
                         RejectObject();
@@ -126,6 +149,7 @@ public class UsableObject : abstractUsableObject
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -136,7 +160,7 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(75))
                     {
-
+                        objStatus = ObjectStatus.EXCLUDE;
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.red;
                         ExcludeObject();
@@ -145,6 +169,7 @@ public class UsableObject : abstractUsableObject
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -155,6 +180,10 @@ public class UsableObject : abstractUsableObject
                 CanvasManager.instance.SetInkSlider();
                 break;
         }
+
+        ReclameStatus status = new ReclameStatus(CreationManager.instance.selectedPlayer,objStatus);
+
+        Stat = status;
         CanvasManager.instance.SetInkSlider();
     }
 
@@ -225,6 +254,7 @@ public class UsableObject : abstractUsableObject
 
     public ObjectStatus Status { get => m_Status; set => m_Status = value; }
     public Object_SO Data { get => m_Data; set => m_Data = value; }
+    public ReclameStatus Stat { get => stat; set => stat = value; }
 
     #endregion
 

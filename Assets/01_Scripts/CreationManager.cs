@@ -156,7 +156,8 @@ public class CreationManager : MonoBehaviour
 
         EventTrigger buttonEvent;
 
-        if(tempButton.TryGetComponent<EventTrigger>(out buttonEvent)){
+        if (tempButton.TryGetComponent<EventTrigger>(out buttonEvent))
+        {
             EventTrigger.Entry entry = new EventTrigger.Entry();
             EventTrigger.Entry exit = new EventTrigger.Entry();
 
@@ -261,6 +262,59 @@ public class CreationManager : MonoBehaviour
     #endregion
 
     #endregion
+    public void RepartitionObject()
+    {
+        foreach (var item in listOfCharacter)
+        {
+            CreatePlayerInventory(item);
+        }
+    }
+    public bool test()
+    {
+        List<UsableObject> pullOfObject = new List<UsableObject>();
+        List<UsableObject> claimObject = new List<UsableObject>();
+        foreach (var player in listOfCharacter)
+        {
+            pullOfObject = CreatePull();
+
+            print("player.InventorySize - player.Inventory.Count " + (player.InventorySize - player.Inventory.Count));
+            for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
+            {
+                print(player.InventorySize);
+                int index = Random.Range(0, pullOfObject.Count);
+
+                if (!player.Inventory.Contains(pullOfObject[index].Data))
+                {
+                    player.Inventory.Add(pullOfObject[index].Data);
+                    pullOfObject[index].gameObject.SetActive(false);
+                }
+                UsableObject obj = pullOfObject[index];
+                pullOfObject.RemoveAll(item => item == obj);
+
+                obj.gameObject.transform.parent = pulledObject.transform;
+
+                if (pullOfObject.Count <= 0)
+                {
+                    foreach (var item in player.Inventory)
+                    {
+                        m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                    }
+                    player.SetUpInventoryUI();
+                    return true;
+                }
+
+            }
+            foreach (var item in player.Inventory)
+            {
+                m_GlobalInventory.RemoveAll(obj => obj == item);
+            }
+            player.SetUpInventoryUI();
+            
+        }
+
+        return true;
+
+    }
 
     #region Create
     public void CreateVignette()
@@ -276,8 +330,8 @@ public class CreationManager : MonoBehaviour
         {
             Character_Button character = characterListHolder.transform.GetChild(i).GetComponent<Character_Button>();
             //print("<Color=green>"+character.assignedElement.characterName + "  " + character.Status+"</Color>");
-          
-                    listOfCharacterNone.Add(character);
+
+            listOfCharacterNone.Add(character);
         }
 
         Character_SO[] tempCharacter_BehavioursDistribution = new Character_SO[listOfCharacterNone.Count];
@@ -289,18 +343,47 @@ public class CreationManager : MonoBehaviour
 
     }
 
-    public bool CreatePlayerInventory(Character_Button player)
+    private List<UsableObject> CreatePull(UsableObject ObjetToTake, Character_Button player)
     {
         List<UsableObject> pullOfObject = new List<UsableObject>();
-        List<UsableObject> claimObject = new List<UsableObject>();
+        switch (ObjetToTake.Status)
+        {
+            case UsableObject.ObjectStatus.NONE:
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.CLAIM:
+                if (m_GlobalInventory.Contains(ObjetToTake.Data))
+                {
+                    if(player == ObjetToTake.Stat.character)
+                    {
+                        player.Inventory.Add(ObjetToTake.Data);
+                        ObjetToTake.gameObject.SetActive(false);
+                        m_GlobalInventory.Remove(ObjetToTake.Data);
+                    }
+                }
+                break;
+            case UsableObject.ObjectStatus.WANT:
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.REJECT:
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.EXCLUDE:
+                break;
+            default:
+                break;
+        }
+        return pullOfObject;
+    }
 
-        print(objectListHolder.transform.childCount);
-
-        for (int i = 0; i < objectListHolder.transform.childCount; i++)
-        {   GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
-            
-            UsableObject ObjetToTake = clickObject.GetComponent<UsableObject>();
-            
+    private List<UsableObject> CreatePull()
+    {
+        List<UsableObject> pullOfObject = new List<UsableObject>();
+        foreach (var ObjetToTake in listOfObject)
+        {
             switch (ObjetToTake.Status)
             {
                 case UsableObject.ObjectStatus.NONE:
@@ -310,7 +393,7 @@ public class CreationManager : MonoBehaviour
                 case UsableObject.ObjectStatus.CLAIM:
                     if (m_GlobalInventory.Contains(ObjetToTake.Data))
                     {
-                        player.Inventory.Add(ObjetToTake.Data);
+                        ObjetToTake.Stat.character.Inventory.Add(ObjetToTake.Data);
                         ObjetToTake.gameObject.SetActive(false);
                         m_GlobalInventory.Remove(ObjetToTake.Data);
                     }
@@ -329,7 +412,25 @@ public class CreationManager : MonoBehaviour
                     break;
             }
         }
-        
+        return pullOfObject;
+    }
+
+    public bool CreatePlayerInventory(Character_Button player)
+    {
+        List<UsableObject> pullOfObject = new List<UsableObject>();
+        List<UsableObject> claimObject = new List<UsableObject>();
+
+        print(objectListHolder.transform.childCount);
+
+        for (int i = 0; i < objectListHolder.transform.childCount; i++)
+        {
+            GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
+
+            UsableObject ObjetToTake = clickObject.GetComponent<UsableObject>();
+
+            pullOfObject = CreatePull(ObjetToTake, player);
+        }
+
         print("player.InventorySize - player.Inventory.Count " + (player.InventorySize - player.Inventory.Count));
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
@@ -352,16 +453,16 @@ public class CreationManager : MonoBehaviour
                 {
                     m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
                 }
-                selectedPlayer.SetUpInventoryUI();
+                player.SetUpInventoryUI();
                 return true;
             }
-                
+
         }
         foreach (var item in player.Inventory)
         {
             m_GlobalInventory.RemoveAll(obj => obj == item);
         }
-        selectedPlayer.SetUpInventoryUI();
+        player.SetUpInventoryUI();
         return true;
     }
 
@@ -373,7 +474,7 @@ public class CreationManager : MonoBehaviour
 
     public bool ReduceNegociationTime(int reduceValue)
     {
-        if(negociationTime - reduceValue >= 0)
+        if (negociationTime - reduceValue >= 0)
         {
             negociationTime -= reduceValue;
             return true;
@@ -393,16 +494,21 @@ public class CreationManager : MonoBehaviour
         }
     }
 
-    public void SelectPlayer( Character_Button player)
+    public void SelectPlayer(Character_Button player)
     {
-        print(player.name);
         selectedPlayer = player;
     }
 
     public void LaunchGame()
     {
+        GameManager.instance.OrderCharacter = new List<Character_Button>();
+        foreach (var item in listOfCharacter)
+        {
+            GameManager.instance.OrderCharacter.Add(item);
+        }
+
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
-        if(PlayerManager.instance.CharacterData != null)
+        if (PlayerManager.instance.CharacterData != null)
         {
             foreach (var item in PlayerManager.instance.Inventory)
             {
@@ -416,27 +522,21 @@ public class CreationManager : MonoBehaviour
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
         }
-            
+
     }
 
     public void NextCharacter()
     {
-        try
+        bool can = true;
+        foreach (var item in listOfCharacter)
         {
-            if (GlobalInventory.Count > 0)
-            {
-                selectedPlayer.GetComponent<Button>().interactable = false;
-                CreatePlayerInventory(selectedPlayer);
-                GameManager.instance.OrderCharacter.Add(selectedPlayer);
-                selectedPlayer = null;
-            }
-            else
-            {
-                LaunchGame();
-            }
+            if (item.Inventory.Count == 0 && GlobalInventory.Count >= 0)
+                can = false;
+            print(can + " " + item.name);
         }
-        catch { }
-        
+        if (can) 
+            LaunchGame();
+
     }
 
     #region To Delete
@@ -519,7 +619,7 @@ public class CreationManager : MonoBehaviour
     private void PrintList(List<characterCreation> listOfCharacterFreeze, List<characterCreation> listOfCharacterDontWanted, List<characterCreation> listOfCharacterWanted, List<characterCreation> listOfCharacterNone)
     {
         print(" ------------------------------------------------");
-       // print("ImageShape is : " + shape);
+        // print("ImageShape is : " + shape);
 
         print("My list est : listOfCharacterFreeze :");
         foreach (var item in listOfCharacterFreeze)
