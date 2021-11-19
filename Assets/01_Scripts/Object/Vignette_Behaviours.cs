@@ -18,7 +18,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         CURSE,
         PERTE_OBJET,
         VENT_GLACIAL,
-        SAVOIR_OCCULTE        
+        SAVOIR_OCCULTE
     }
 
     #region param
@@ -105,7 +105,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         myEvent = GetComponent<EventContener>();
         //SetUpCard();
 
-        
+
     }
 
     // Update is called once per frame
@@ -157,7 +157,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void SetUpVignette(VignetteCategories categorie)
     {
-        print(categorie +" " + this.gameObject.name);
         Categorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = GetSprite();
@@ -246,7 +245,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public bool CheckCaseCondition()
     {
         print("CheckCaseCondition");
-        
+
         if (ListOfCaseEventObject.Count > 0)
         {
             print("check");
@@ -282,17 +281,17 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             GameObject tile = physicsCheck.transform.GetChild(i).gameObject;
             Physics.Raycast(tile.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetection);
-            if(hit.collider != null)
+            if (hit.collider != null)
             {
                 GameObject hitObject = hit.collider.gameObject;
-                if(hitObject.TryGetComponent<TileElt_Behaviours>(out checkedTile))
+                if (hitObject.TryGetComponent<TileElt_Behaviours>(out checkedTile))
                 {
                     if (checkedTile != null)
                     {
-                        
+
                         if ((!neighbourgCheck.Contains(checkedTile.Tileposition)))
                         {
-                            
+
                             neighbourgCheck.Add(checkedTile.Tileposition);
                             /*vignetteTilePosition.Add(hitObject.transform.position);
                             VignetteTile.Add(checkedTile.Tileposition);
@@ -323,11 +322,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             {
                 //print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
                 //print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);
-                for (int x = 0; x <= 1 ; x++)
+                for (int x = 0; x <= 1; x++)
                 {
-                    for (int y = 0; y <= 1 ; y++)
+                    for (int y = 0; y <= 1; y++)
                     {
-                       // print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
+                        // print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
 
                         //print(this.gameObject.name + "   Position du curseur = "+x + " " + y);
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
@@ -355,8 +354,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
                                     //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name);
                                     tileEvent = tile.GetComponent<TileElt_Behaviours>();
-                                   // print("la tile : " + this.gameObject.name + " vérifie la position : " + Mathf.RoundToInt(tilePos.x) + " " + Mathf.RoundToInt(tilePos.y) + " et levent est : " + tileEvent);
-                                   // print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
+                                    // print("la tile : " + this.gameObject.name + " vérifie la position : " + Mathf.RoundToInt(tilePos.x) + " " + Mathf.RoundToInt(tilePos.y) + " et levent est : " + tileEvent);
+                                    // print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
 
 
                                     if (tileEvent != null)
@@ -545,7 +544,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
         else
         {
-            print("NextMove est sensé être  =" + check );
+            print("NextMove est sensé être  =" + check);
             print("il est null car : check != this =" + (check != this));
         }
 
@@ -641,7 +640,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public static VignetteCategories GetRandomEnum()
     {
-        int value = UnityEngine.Random.Range(0,10);
+        int value = UnityEngine.Random.Range(0, 10);
 
         switch (value)
         {
@@ -675,6 +674,31 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case 9:
                 return VignetteCategories.SAVOIR_OCCULTE;
                 break;
+            default:
+                return VignetteCategories.NEUTRE;
+                break;
+        }
+    }
+
+    public static VignetteCategories GetRandomNegatifEnum()
+    {
+        int value = UnityEngine.Random.Range(0, 4);
+
+        switch (value)
+        {
+            case 0:
+                return VignetteCategories.COMBATTRE;
+                break;
+            case 1:
+                return VignetteCategories.PIEGE;
+                break;
+            case 2:
+                return VignetteCategories.CURSE;
+                break;
+            case 3:
+                return VignetteCategories.PERTE_OBJET;
+                break;
+
             default:
                 return VignetteCategories.NEUTRE;
                 break;
@@ -752,7 +776,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                 if (item.collider.TryGetComponent<Case_Behaviours>(out caseBehaviours))
                 {
-                    if(caseBehaviours.CaseEffects != null)
+                    if (caseBehaviours.CaseEffects != null)
                         ListOfCaseEventObject.Add(caseBehaviours.CaseEffects);
                 }
 
@@ -792,7 +816,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             item.previousMove = nextMove = null;
             item.neighbourgCheck.Clear();
             item.CheckNeighbourg();
-            
+
         }
 
         GridManager.instance.SortList();
