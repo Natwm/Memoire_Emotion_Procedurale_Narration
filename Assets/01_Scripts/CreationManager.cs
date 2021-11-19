@@ -404,6 +404,13 @@ public class CreationManager : MonoBehaviour
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
         if(PlayerManager.instance.CharacterData != null)
         {
+            foreach (var item in PlayerManager.instance.Inventory)
+            {
+                GlobalInventory.Add(item);
+            }
+
+            PlayerManager.instance.Inventory.Clear();
+
             PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
             CanvasManager.instance.SetUpGamePanel();
             GameManager.instance.OrderCharacter.RemoveAt(0);
