@@ -18,7 +18,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         CURSE,
         PERTE_OBJET,
         VENT_GLACIAL,
-        SAVOIR_OCCULTE
+        SAVOIR_OCCULTE,
+        SOIN,
+        ECLAIRER,
+        RESSURECTION,
+        PLANIFICATION,
+        SOIN_EQUIPE,
+        DEBROUILLARD,
+        SOUFFLER,
+        INSTANTANE,
+        RESSEMBLACE_ETRANGE
     }
 
     #region param
@@ -673,6 +682,33 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
             case 9:
                 return VignetteCategories.SAVOIR_OCCULTE;
+                break;
+            case 10:
+                return VignetteCategories.SOIN;
+                break;
+            case 11:
+                return VignetteCategories.ECLAIRER;
+                break;
+            case 12:
+                return VignetteCategories.RESSURECTION;
+                break;
+            case 13:
+                return VignetteCategories.PLANIFICATION;
+                break;
+            case 14:
+                return VignetteCategories.SOIN_EQUIPE;
+                break;
+            case 15:
+                return VignetteCategories.DEBROUILLARD;
+                break;
+            case 16:
+                return VignetteCategories.SOUFFLER;
+                break;
+            case 17:
+                return VignetteCategories.INSTANTANE;
+                break;
+            case 18:
+                return VignetteCategories.RESSEMBLACE_ETRANGE;
                 break;
             default:
                 return VignetteCategories.NEUTRE;

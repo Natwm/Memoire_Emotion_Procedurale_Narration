@@ -23,7 +23,7 @@ public class Case_Behaviours : abstractUsableObject
     
 
     #region Abstract
-    public override void ClaimObject()
+    public override void ClaimObject(Character_Button player)
     {
         throw new System.NotImplementedException();
     }
@@ -33,7 +33,7 @@ public class Case_Behaviours : abstractUsableObject
         throw new System.NotImplementedException();
     }
 
-    public override void ExcludeObject()
+    public override void ExcludeObject(Character_Button player)
     {
         throw new System.NotImplementedException();
     }
@@ -43,7 +43,7 @@ public class Case_Behaviours : abstractUsableObject
         throw new System.NotImplementedException();
     }
 
-    public override void RejectObject()
+    public override void RejectObject(Character_Button player)
     {
         throw new System.NotImplementedException();
     }
@@ -58,7 +58,7 @@ public class Case_Behaviours : abstractUsableObject
         throw new System.NotImplementedException();
     }
 
-    public override void WantObject()
+    public override void WantObject(Character_Button player)
     {
         throw new System.NotImplementedException();
     }

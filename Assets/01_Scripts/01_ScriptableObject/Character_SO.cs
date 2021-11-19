@@ -35,6 +35,10 @@ public class Character_SO : ScriptableObject
     [Header("Base Hand")]
     [SerializeField] private List<DrawVignette> m_BaseHand;
 
+    [Space]
+    [Header("Color")]
+    [SerializeField] private Color m_Color;
+
     #region Getter && Setter
 
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
@@ -47,6 +51,7 @@ public class Character_SO : ScriptableObject
     public Sprite Render { get => m_render; set => m_render = value; }
     public string CharacterName { get => m_CharacterName; set => m_CharacterName = value; }
     public List<DrawVignette> BaseHand { get => m_BaseHand; set => m_BaseHand = value; }
+    public Color Color { get => m_Color; set => m_Color = value; }
 
     #endregion
 }

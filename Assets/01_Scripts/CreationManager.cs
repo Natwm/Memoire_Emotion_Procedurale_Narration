@@ -149,7 +149,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            eventButton.AffectByPlayer(tempButton.GetComponent<Button>());
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
             UpdateDescriptionPanel(tempObject);
         }
         );

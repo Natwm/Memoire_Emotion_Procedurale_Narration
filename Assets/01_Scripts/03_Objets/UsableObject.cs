@@ -5,10 +5,10 @@ using UnityEngine;
 
 public abstract class abstractUsableObject : MonoBehaviour
 {
-    public abstract void ClaimObject();
-    public abstract void WantObject();
-    public abstract void RejectObject();
-    public abstract void ExcludeObject();
+    public abstract void ClaimObject(Character_Button player);
+    public abstract void WantObject(Character_Button player);
+    public abstract void RejectObject(Character_Button player);
+    public abstract void ExcludeObject(Character_Button player);
     public abstract void ResetObjectStatus();
     public abstract void UseObject();
     public abstract void PickUpObject();
@@ -61,7 +61,7 @@ public class UsableObject : abstractUsableObject
 
     #endregion
 
-    public void AffectByPlayer(UnityEngine.UI.Button myButton)
+    public void AffectByPlayer(UnityEngine.UI.Button myButton, Character_Button player)
     {
         ObjectStatus objStatus = objStatus = ObjectStatus.NONE;
 
@@ -102,7 +102,7 @@ public class UsableObject : abstractUsableObject
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.green;
                         objStatus = ObjectStatus.CLAIM;
-                        ClaimObject();
+                        ClaimObject(player);
 
                     }
                 }
@@ -122,7 +122,7 @@ public class UsableObject : abstractUsableObject
                         objStatus = ObjectStatus.WANT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.gray;
-                        WantObject();
+                        WantObject(player);
 
                     }
                 }
@@ -143,7 +143,7 @@ public class UsableObject : abstractUsableObject
                         objStatus = ObjectStatus.REJECT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.yellow;
-                        RejectObject();
+                        RejectObject(player);
 
                     }
                 }
@@ -163,7 +163,7 @@ public class UsableObject : abstractUsableObject
                         objStatus = ObjectStatus.EXCLUDE;
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.red;
-                        ExcludeObject();
+                        ExcludeObject(player);
 
                     }
                 }
@@ -189,24 +189,36 @@ public class UsableObject : abstractUsableObject
 
     #region abstract Methodes
 
-    public override void ClaimObject()
+    public override void ClaimObject(Character_Button player)
     {
         Status = ObjectStatus.CLAIM;
+        ResetImage();
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color;
     }
 
-    public override void WantObject()
+    public override void WantObject(Character_Button player)
     {
         Status = ObjectStatus.WANT;
+        ResetImage();
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image > ().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
-    public override void RejectObject()
+    public override void RejectObject(Character_Button player)
     {
         Status = ObjectStatus.REJECT;
+        ResetImage();
+        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color= CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
-    public override void ExcludeObject()
+    public override void ExcludeObject(Character_Button player)
     {
         Status = ObjectStatus.EXCLUDE;
+        ResetImage();
+        transform.GetChild(4).gameObject.SetActive(true);
+        transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
     public override void UseObject()
@@ -246,8 +258,18 @@ public class UsableObject : abstractUsableObject
                 break;
         }
         Status = ObjectStatus.NONE;
+
+        ResetImage();
     }
 
+
+    private void ResetImage()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
     #endregion
 
     #region Getter && Setter
