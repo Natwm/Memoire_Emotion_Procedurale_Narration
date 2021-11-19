@@ -15,9 +15,12 @@ MonoBehaviour:
   m_Target: 1
   m_Category: 2
   m_Action: 1
-  m_DrawParam: []
+  m_DrawParam:
+  - categoryToDraw: 6
+    amountOfCardToDraw: 1
   m_ObjectName: Posion
   m_sprite: {fileID: 3988091929059807397, guid: 88a5b4a932aad144e82f4466c13f5dc6,
     type: 3}
   m_AmountOfUse: 0
   m_SizeInInventory: 0
+  m_Description: 

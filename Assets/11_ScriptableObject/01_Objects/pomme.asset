@@ -15,7 +15,9 @@ MonoBehaviour:
   m_Target: 1
   m_Category: 1
   m_Action: 0
-  m_DrawParam: []
+  m_DrawParam:
+  - categoryToDraw: 3
+    amountOfCardToDraw: 2
   m_ObjectName: Bit
   m_sprite: {fileID: 21300000, guid: a1dbdc94afae26b4499267559529dba0, type: 3}
   m_AmountOfUse: 0
