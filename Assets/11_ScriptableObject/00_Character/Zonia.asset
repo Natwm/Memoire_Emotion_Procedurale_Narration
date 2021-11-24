@@ -21,3 +21,11 @@ MonoBehaviour:
   m_InventorySize: 1
   m_MaxInventorySize: 1
   m_Inventory: []
+  m_BaseHand:
+  - categoryToDraw: 1
+    amountOfCardToDraw: 1
+  - categoryToDraw: 2
+    amountOfCardToDraw: 1
+  - categoryToDraw: 0
+    amountOfCardToDraw: 1
+  m_Color: {r: 0.97264934, g: 1, b: 0, a: 1}

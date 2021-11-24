@@ -5,14 +5,28 @@ using UnityEngine;
 
 public abstract class abstractUsableObject : MonoBehaviour
 {
-    public abstract void ClaimObject();
-    public abstract void WantObject();
-    public abstract void RejectObject();
-    public abstract void ExcludeObject();
+    public abstract void ClaimObject(Character_Button player);
+    public abstract void WantObject(Character_Button player);
+    public abstract void RejectObject(Character_Button player);
+    public abstract void ExcludeObject(Character_Button player);
     public abstract void ResetObjectStatus();
     public abstract void UseObject();
     public abstract void PickUpObject();
     public abstract void DropObject();
+}
+
+[System.Serializable]
+public class ReclameStatus
+{
+    public Character_Button character;
+    public UsableObject.ObjectStatus status;
+
+   
+    public ReclameStatus(Character_Button character, UsableObject.ObjectStatus status)
+    {
+        this.character = character;
+        this.status = status;
+    }
 }
 
 
@@ -30,6 +44,8 @@ public class UsableObject : abstractUsableObject
 
     [SerializeField] private Object_SO m_Data;
 
+    [SerializeField] private ReclameStatus stat;
+
     #region Awake || Start || Update
     // Start is called before the first frame update
     void Start()
@@ -45,8 +61,10 @@ public class UsableObject : abstractUsableObject
 
     #endregion
 
-    public void AffectByPlayer(UnityEngine.UI.Button myButton)
+    public void AffectByPlayer(UnityEngine.UI.Button myButton, Character_Button player)
     {
+        ObjectStatus objStatus = objStatus = ObjectStatus.NONE;
+
         switch (Status)
         {
             case ObjectStatus.NONE:
@@ -66,11 +84,13 @@ public class UsableObject : abstractUsableObject
             default:
                 break;
         }
+
         switch (CreationManager.instance.Pen)
         {
             case CreationManager.m_PenStatus.NONE:
                 myButton.image.color = Color.white;
                 ResetObjectStatus();
+                objStatus = ObjectStatus.NONE;
                 break;
 
             case CreationManager.m_PenStatus.CLAIM:
@@ -81,7 +101,8 @@ public class UsableObject : abstractUsableObject
 
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.green;
-                        ClaimObject();
+                        objStatus = ObjectStatus.CLAIM;
+                        ClaimObject(player);
 
                     }
                 }
@@ -89,6 +110,7 @@ public class UsableObject : abstractUsableObject
                 {
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
+                    objStatus = ObjectStatus.NONE;
                 }
                 break;
 
@@ -97,15 +119,16 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(33))
                     {
-
+                        objStatus = ObjectStatus.WANT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.gray;
-                        WantObject();
+                        WantObject(player);
 
                     }
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -117,15 +140,16 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(33))
                     {
-
+                        objStatus = ObjectStatus.REJECT;
                         CanvasManager.instance.UpdateInkSlider(-33);
                         myButton.image.color = Color.yellow;
-                        RejectObject();
+                        RejectObject(player);
 
                     }
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -136,15 +160,16 @@ public class UsableObject : abstractUsableObject
                 {
                     if (CreationManager.instance.ReduceNegociationTime(75))
                     {
-
+                        objStatus = ObjectStatus.EXCLUDE;
                         CanvasManager.instance.UpdateInkSlider(-75);
                         myButton.image.color = Color.red;
-                        ExcludeObject();
+                        ExcludeObject(player);
 
                     }
                 }
                 else
                 {
+                    objStatus = ObjectStatus.NONE;
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                 }
@@ -155,29 +180,45 @@ public class UsableObject : abstractUsableObject
                 CanvasManager.instance.SetInkSlider();
                 break;
         }
+
+        ReclameStatus status = new ReclameStatus(CreationManager.instance.selectedPlayer,objStatus);
+
+        Stat = status;
         CanvasManager.instance.SetInkSlider();
     }
 
     #region abstract Methodes
 
-    public override void ClaimObject()
+    public override void ClaimObject(Character_Button player)
     {
         Status = ObjectStatus.CLAIM;
+        ResetImage();
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color;
     }
 
-    public override void WantObject()
+    public override void WantObject(Character_Button player)
     {
         Status = ObjectStatus.WANT;
+        ResetImage();
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image > ().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
-    public override void RejectObject()
+    public override void RejectObject(Character_Button player)
     {
         Status = ObjectStatus.REJECT;
+        ResetImage();
+        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color= CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
-    public override void ExcludeObject()
+    public override void ExcludeObject(Character_Button player)
     {
         Status = ObjectStatus.EXCLUDE;
+        ResetImage();
+        transform.GetChild(4).gameObject.SetActive(true);
+        transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
     public override void UseObject()
@@ -217,14 +258,25 @@ public class UsableObject : abstractUsableObject
                 break;
         }
         Status = ObjectStatus.NONE;
+
+        ResetImage();
     }
 
+
+    private void ResetImage()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
     #endregion
 
     #region Getter && Setter
 
     public ObjectStatus Status { get => m_Status; set => m_Status = value; }
     public Object_SO Data { get => m_Data; set => m_Data = value; }
+    public ReclameStatus Stat { get => stat; set => stat = value; }
 
     #endregion
 

@@ -73,8 +73,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(int amount = 1)
     {
-//        Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
-       // int nbElement = listOfSO.Length;
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
@@ -84,16 +82,12 @@ public class LevelManager : MonoBehaviour
             GameObject card = Instantiate(item, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomEnum());
-            //int elt = Random.Range(0, nbElement);
             cardBd.SetUpCard();
 
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
-            //Bd_Component.bd_instance.SetVignetteToOject(card);
-            /*CastingManager.instance.SetCharacterToVignette(card.GetComponent<Vignette_Behaviours>().assignedVignette);*/
         }
-       // CastingManager.instance.SetCharactersToHand();
     }
 
     public void SpawnObject(List<Object_SO> inventory)
@@ -135,6 +129,25 @@ public class LevelManager : MonoBehaviour
                 }
             }
         
+    }
+
+    public void SpawnNegatifObject(int amount = 1)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            int vignette = Random.Range(0, listOfObjectToSpawn.Count);
+
+            GameObject item = listOfObjectToSpawn[vignette];
+
+            GameObject card = Instantiate(item, parent);
+            Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+            cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
+            cardBd.SetUpCard();
+
+
+            //Création de chaque clase de vignette
+            PlayerManager.instance.HandOfVignette.Add(cardBd);
+        }
     }
 
     public void NewPage()

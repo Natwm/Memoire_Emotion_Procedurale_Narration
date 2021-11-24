@@ -15,8 +15,11 @@ MonoBehaviour:
   m_Target: 1
   m_Category: 2
   m_Action: 2
-  m_DrawParam: []
+  m_DrawParam:
+  - categoryToDraw: 8
+    amountOfCardToDraw: 1
   m_ObjectName: Pomme
   m_sprite: {fileID: 21300000, guid: b36a3382793a1894e99f58f6b169f8ff, type: 3}
   m_AmountOfUse: 0
   m_SizeInInventory: 0
+  m_Description: 

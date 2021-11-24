@@ -237,6 +237,11 @@ public class CanvasManager : MonoBehaviour
 
         playerRender.sprite = toSet.Render;
 
+        for (int i = 0; i < inventoryPanel.transform.childCount; i++)
+        {
+            Destroy(inventoryPanel.transform.GetChild(i).gameObject);
+        }
+
         foreach (var item in PlayerManager.instance.Inventory)
         {
             GameObject myButton = Instantiate(inventoryButton, inventoryPanel.transform);
@@ -246,6 +251,13 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpCreationPanel()
     {
+        foreach (var item in LevelManager.instance.PageInventory)
+        {
+            CreationManager.instance.GlobalInventory.Add(item);
+        }
+
+
+        CreationManager.instance.CreateObjectList();
         GamePanel.SetActive(false);
         CreatePanel.SetActive(true);
     }
