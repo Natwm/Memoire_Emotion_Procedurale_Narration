@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{6af7d087-dd47-4cdf-ad0b-9504696c3890}">
+		<property name="assetPath">
+			<value>Gust_sub_5.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>27.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{843bd7c8-9ebc-4fdb-ae9b-4dfc1d9f98af}</destination>
+		</relationship>
+	</object>
+</objects>
