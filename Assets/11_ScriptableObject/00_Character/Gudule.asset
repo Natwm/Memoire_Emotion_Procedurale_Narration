@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb336b602e22d244838db8b3788dd79, type: 3}
   m_Name: Gudule
   m_EditorClassIdentifier: 
-  m_render: {fileID: 21300000, guid: a1dbdc94afae26b4499267559529dba0, type: 3}
+  m_render: {fileID: 21300000, guid: 70e7cfad12f4bd340a43c42864f3c158, type: 3}
   m_CharacterName: Gudule
   maxHealth: 5
   health: 4

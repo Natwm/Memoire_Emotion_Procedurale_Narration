@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb336b602e22d244838db8b3788dd79, type: 3}
   m_Name: Simaisnon
   m_EditorClassIdentifier: 
-  m_render: {fileID: 21300000, guid: b36a3382793a1894e99f58f6b169f8ff, type: 3}
+  m_render: {fileID: 21300000, guid: a0072e8de6539b143a3aa0a25f9a834a, type: 3}
   m_CharacterName: Simaisnon
   maxHealth: 5
   health: 1
