@@ -12,6 +12,9 @@
 		</relationship>
 	</object>
 	<object class="GameParameter" id="{3e92eaee-2dd6-497f-aea5-b9bb818adb3c}">
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
 		<property name="initialValue">
 			<value>0</value>
 		</property>
@@ -23,6 +26,17 @@
 		</property>
 		<property name="seekSpeedAsymmetric">
 			<value>true</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+		<relationship name="automators">
+			<destination>{a5dfa831-7a10-4865-b90d-6a9e9f5c3dd9}</destination>
+		</relationship>
+	</object>
+	<object class="Automator" id="{a5dfa831-7a10-4865-b90d-6a9e9f5c3dd9}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>cursorPosition</value>
 		</property>
 	</object>
 </objects>

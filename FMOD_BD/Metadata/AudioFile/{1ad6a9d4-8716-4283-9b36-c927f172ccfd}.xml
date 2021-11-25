@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{1ad6a9d4-8716-4283-9b36-c927f172ccfd}">
+		<property name="assetPath">
+			<value>Blessé_Moyen_4.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.198666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{843bd7c8-9ebc-4fdb-ae9b-4dfc1d9f98af}</destination>
+		</relationship>
+	</object>
+</objects>
