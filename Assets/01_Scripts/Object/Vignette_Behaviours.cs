@@ -89,7 +89,25 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [Space]
     [Header("Physics")]
     [SerializeField] private GameObject physicsCheck;
+
+    [Space]
+    [Header("Sound Fmod Action")]
+    FMOD.Studio.EventInstance takeVignetteEffect;
+    [FMODUnity.EventRef] [SerializeField] private string takeVignetteSound;
+
+    FMOD.Studio.EventInstance dropVignetteEffect;
+    [FMODUnity.EventRef] [SerializeField] private string dropVignetteSound;
+
+    FMOD.Studio.EventInstance transformationVignetteEffect;
+    [FMODUnity.EventRef] [SerializeField] private string transformationVignetteSound;
+
+    [Space]
+    [Header("Sound Fmod Resolution")]
+    FMOD.Studio.EventInstance reveleEffect;
+    [FMODUnity.EventRef] [SerializeField] private string reveleSound;
+
     #endregion
+
 
     public bool a = false;
     // Start is called before the first frame update
@@ -201,7 +219,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void FightEffect()
     {
         print("FightEffect");
-        PlayerManager.instance.GetDamage(1);
+        PlayerManager.instance.GetDamage(2);
     }
 
     public void UseEffect()
@@ -247,6 +265,34 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
             LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
         }
+
+        //draw 2 vignette negatif et 1 explorer.
+    }
+
+    public void SmallHealEffect()
+    {
+        print("Vent_GlacialEffect");
+    }
+
+    public void FullHealEffect()
+    {
+        print("Vent_GlacialEffect");
+    }
+
+    public void EclairerEffect()
+    {
+        print("Trouve deux objet alea");
+        for (int i = 0; i < 2; i++)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+
+            LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
+        }
+    }
+
+    public void CameraEffect()
+    {
+        print("Camera Effect");
     }
 
     #endregion

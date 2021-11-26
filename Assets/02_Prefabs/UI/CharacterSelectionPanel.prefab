@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -105,6 +105,7 @@ MonoBehaviour:
   m_InventoryPanel: {fileID: 6915117102628881135}
   m_ToolButtonPrefabs: {fileID: 3392285016570443742, guid: cd36d2b8293b6384ea1eb1f7c7664ad3,
     type: 3}
+  uiSelectedPlayerSound: 
 --- !u!114 &2109877700193865087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -282,7 +283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -524,6 +525,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CharacterContentPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215958870173870376, guid: 8c7390777d07b904ab91b680feec758e,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c7390777d07b904ab91b680feec758e, type: 3}

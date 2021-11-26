@@ -45,6 +45,9 @@ public class Character_Button : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] private GameObject m_ToolButtonPrefabs;
+
+    [SerializeField] private Image m_cadre;
+
     #endregion
 
 
@@ -136,7 +139,7 @@ public class Character_Button : MonoBehaviour
         }
     }
 
-    public void SelectPlayer()
+   /* public void SelectPlayer()
     {
         foreach (var item in FindObjectsOfType<Character_Button>())
         {
@@ -145,9 +148,16 @@ public class Character_Button : MonoBehaviour
         }
         IsSelected = true;
         GetComponent<Button>().image.color = Color.red;
+    }*/
+
+    public void SelectPlayer()
+    {
+        m_cadre.color = Color.blue;
     }
-
-
+    public void UnSelectPlayer()
+    {
+        m_cadre.color = Color.white;
+    }
 
 
     #region Getter && Setter

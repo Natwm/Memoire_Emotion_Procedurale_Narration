@@ -58,6 +58,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
+    fairesantémental.
     void Awake()
     {
         if (instance != null)
