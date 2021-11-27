@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Character_Button : MonoBehaviour
+public class Character_Button : MonoBehaviour,IPointerDownHandler
 {
     #region Param
     private bool m_IsSelected = false;
@@ -147,7 +148,8 @@ public class Character_Button : MonoBehaviour
             tempButton.GetComponent<UsableObject>().Data = item;
 
             UsableObject eventButton = tempButton.GetComponent<UsableObject>();
-            tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
+            tempButton.GetComponent<Image>().sprite = item.Sprite;
+            //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
         }
     }
 
@@ -169,6 +171,16 @@ public class Character_Button : MonoBehaviour
     public void UnSelectPlayer()
     {
         m_cadre.color = Color.white;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        foreach (var item in FindObjectsOfType<Character_Button>())
+        {
+            item.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+        }
+
+        transform.GetChild(0).GetComponent<Image>().color = assignedElement.Color;
     }
 
 
