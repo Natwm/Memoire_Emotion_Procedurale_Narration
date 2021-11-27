@@ -315,6 +315,7 @@ public class CreationManager : MonoBehaviour
     {
         foreach (var item in listOfCharacter)
         {
+            print(item);
             CreatePlayerInventory(item);
         }
     }
@@ -469,7 +470,6 @@ public class CreationManager : MonoBehaviour
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
 
-        print(objectListHolder.transform.childCount);
 
         for (int i = 0; i < objectListHolder.transform.childCount; i++)
         {
@@ -477,13 +477,16 @@ public class CreationManager : MonoBehaviour
 
             UsableObject ObjetToTake = clickObject.GetComponent<UsableObject>();
 
-            pullOfObject = CreatePull(ObjetToTake, player);
+            foreach (var item in CreatePull(ObjetToTake, player))
+            {
+                pullOfObject.Add(item);
+            }
+            
         }
 
         print("player.InventorySize - player.Inventory.Count " + (player.InventorySize - player.Inventory.Count));
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
-            print(player.InventorySize);
             int index = Random.Range(0, pullOfObject.Count);
 
             if (!player.Inventory.Contains(pullOfObject[index].Data))

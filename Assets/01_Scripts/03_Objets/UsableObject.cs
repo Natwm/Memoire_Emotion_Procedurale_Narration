@@ -196,16 +196,16 @@ public class UsableObject : abstractUsableObject
     {
         Status = ObjectStatus.CLAIM;
         ResetImage();
-        transform.GetChild(1).gameObject.SetActive(true);
-        transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color;
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image>().color = CreationManager.instance.selectedPlayer.AssignedElement.Color;
     }
 
     public override void WantObject(Character_Button player)
     {
         Status = ObjectStatus.WANT;
         ResetImage();
-        transform.GetChild(2).gameObject.SetActive(true);
-        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image > ().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.GetComponent<UnityEngine.UI.Image > ().color = CreationManager.instance.selectedPlayer.AssignedElement.Color; ;
     }
 
     public override void RejectObject(Character_Button player)
