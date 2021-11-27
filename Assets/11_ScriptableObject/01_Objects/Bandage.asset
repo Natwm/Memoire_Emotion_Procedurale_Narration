@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7284c1fa6298d3244a1fdf66dd36a717, type: 3}
-  m_Name: pomme
+  m_Name: Bandage
   m_EditorClassIdentifier: 
   m_Target: 1
-  m_Category: 1
-  m_Action: 0
+  m_Category: 2
+  m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 3
-    amountOfCardToDraw: 2
-  m_ObjectName: Bit
-  m_sprite: {fileID: 21300000, guid: a1dbdc94afae26b4499267559529dba0, type: 3}
-  m_AmountOfUse: 0
+  - categoryToDraw: 10
+    amountOfCardToDraw: 1
+  m_ObjectName: Bandage
+  m_sprite: {fileID: 21300000, guid: 8fa75d5d469dccf4095946a1c71b4da3, type: 3}
+  m_AmountOfUse: 1
   m_SizeInInventory: 0
-  m_Description: sefsfs<efs<eff<sef<sef<sef
+  m_Description: "Donne une vignette <i><b> Soin L\xE9ger </b></i>. Est d\xE9pens\xE9
+    apr\xE8s utilisation.\n\n<i></b> Soin L\xE9ger : </i></b> Le personnage regagne
+    un point de vie."
