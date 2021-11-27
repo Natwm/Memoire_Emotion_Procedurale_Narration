@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 16
+  - categoryToDraw: 17
     amountOfCardToDraw: 2
   m_ObjectName: Paquet de cigarettes
   m_sprite: {fileID: 21300000, guid: 1e61deb7c4666a547874120f44c471bd, type: 3}

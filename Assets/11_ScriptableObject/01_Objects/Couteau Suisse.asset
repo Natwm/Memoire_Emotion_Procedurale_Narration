@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 15
+  - categoryToDraw: 16
     amountOfCardToDraw: 1
   m_ObjectName: Couteau Suisse
   m_sprite: {fileID: 21300000, guid: 203363694ff02434dab553f0c7954003, type: 3}

@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 1
+  - categoryToDraw: 12
     amountOfCardToDraw: 2
   m_ObjectName: Lampe Torche
   m_sprite: {fileID: 21300000, guid: 9789a8f56bec69c44b2a08925692cdae, type: 3}

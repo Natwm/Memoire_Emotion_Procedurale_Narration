@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 13
+  - categoryToDraw: 14
     amountOfCardToDraw: 2
   m_ObjectName: "Montre \xE0 gousset"
   m_sprite: {fileID: 21300000, guid: 43729bc93e411664eb5aab7789dddbf3, type: 3}

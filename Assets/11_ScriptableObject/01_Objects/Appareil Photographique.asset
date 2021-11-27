@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 17
+  - categoryToDraw: 18
     amountOfCardToDraw: 2
   m_ObjectName: Appareil Photo
   m_sprite: {fileID: 21300000, guid: da9105e0544e6714f88dd62d79ea0c6c, type: 3}
