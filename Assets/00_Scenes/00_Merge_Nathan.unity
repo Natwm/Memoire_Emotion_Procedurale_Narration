@@ -472,6 +472,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3092482a2d340574a8a0c88512e87f55, type: 3}
+--- !u!1 &594406397
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594406398}
+  - component: {fileID: 594406399}
+  - component: {fileID: 594406400}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &594406398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594406397}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1477588750}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &594406399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594406397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6821663b0c4f9b740877fead2dbdc92b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiSelectedPlayerSound: event:/Music/Choix_Perso_1
+  uiSelectedObjectSound: event:/Music/Choix_Perso_1
+  uiSelectedNegociationSound: event:/Music/Choix_Perso_1
+  uiSelectedCantUseNegociationSound: event:/Music/Choix_Perso_1
+  uiSelectedRepartitionSound: event:/Music/Choix_Perso_1
+  uiSelectedStartAdventureSound: event:/Music/Choix_Perso_1
+  drawVignetteSound: event:/Music/Choix_Perso_1
+  resolutionAvailableSound: event:/Music/Choix_Perso_1
+  gainObjectSound: event:/Music/Choix_Perso_1
+  endResolutionSound: event:/Music/Choix_Perso_1
+  nextPersonnageSound: event:/Music/Choix_Perso_1
+  endExpeditionSound: event:/Music/Choix_Perso_1
+--- !u!114 &594406400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594406397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  Event: event:/Music/Loop_Base
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1001 &852783475
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -761,6 +840,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6a6e172ded3f2478c67093298b24ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1477588750 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7115270375809183431, guid: 3092482a2d340574a8a0c88512e87f55,
+    type: 3}
+  m_PrefabInstance: {fileID: 481861326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1640029094 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7115270376295457070, guid: 3092482a2d340574a8a0c88512e87f55,
@@ -1259,6 +1344,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: Character1Sound
+      value: event:/Music/Choix_Perso_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: Character2Sound
+      value: event:/Music/Choix_Perso_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: Character3Sound
+      value: event:/Music/Choix_Perso_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: Character4Sound
+      value: event:/Music/Choix_Perso_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: CharacterHurt1Sound
+      value: "event:/Music/Personnage_Bless\xE9_Type_1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: CharacterHurt2Sound
+      value: "event:/Music/Personnage_Bless\xE9_Type_2"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: CharacterHurt3Sound
+      value: "event:/Music/Personnage_Bless\xE9_Type_3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: CharacterHurt4Sound
+      value: "event:/Music/Personnage_Bless\xE9_Type_1"
       objectReference: {fileID: 0}
     - target: {fileID: 5120712489718147720, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}

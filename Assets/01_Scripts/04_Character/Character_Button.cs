@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using FMOD.Studio;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -55,6 +56,15 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
 
     [SerializeField] private Image m_cadre;
 
+    [Space]
+    [Header("Sound Fmod Action")]
+    FMOD.Studio.EventInstance characterSelectedEffect;
+    [FMODUnity.EventRef] [SerializeField] private string characterSelectedSound;
+
+    FMOD.Studio.EventInstance characterHurtEffect;
+    [FMODUnity.EventRef] [SerializeField] private string characterHurtSound;
+
+
     #endregion
 
 
@@ -65,6 +75,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         /*m_InventorySize = MaxInventorySize;
         m_Life = m_MaxLife;
         m_Endurance = m_MaxEndurance;*/
+        SetUpFmod();
     }
 
     // Update is called once per frame
@@ -153,6 +164,12 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         }
     }
 
+    public void SetUpFmod()
+    {
+        CharacterSelectedEffect = FMODUnity.RuntimeManager.CreateInstance(CharacterSelectedSound);
+        CharacterHurtEffect = FMODUnity.RuntimeManager.CreateInstance(CharacterHurtSound);
+    }
+
    /* public void SelectPlayer()
     {
         foreach (var item in FindObjectsOfType<Character_Button>())
@@ -171,6 +188,15 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public void UnSelectPlayer()
     {
         m_cadre.color = Color.white;
+    }
+
+    public void PlaySelectedMusique()
+    {
+        CharacterSelectedEffect.start();
+    }
+    public void PlayDamageMusique()
+    {
+        CharacterHurtEffect.start();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -201,6 +227,11 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
     public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
     public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
+    public EventInstance CharacterSelectedEffect { get => characterSelectedEffect; set => characterSelectedEffect = value; }
+    public EventInstance CharacterHurtEffect { get => characterHurtEffect; set => characterHurtEffect = value; }
+    public string CharacterSelectedSound { get => characterSelectedSound; set => characterSelectedSound = value; }
+    public string CharacterHurtSound { get => CharacterHurtSound1; set => CharacterHurtSound1 = value; }
+    public string CharacterHurtSound1 { get => characterHurtSound; set => characterHurtSound = value; }
     #endregion
 
 }

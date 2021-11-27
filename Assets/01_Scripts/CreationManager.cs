@@ -61,6 +61,19 @@ public class CreationManager : MonoBehaviour
 
     public GameObject pulledObject;
 
+    [Space]
+    [Header("Fmod")]
+    [FMODUnity.EventRef] [SerializeField] private string Character1Sound;
+    [FMODUnity.EventRef] [SerializeField] private string Character2Sound;
+    [FMODUnity.EventRef] [SerializeField] private string Character3Sound;
+    [FMODUnity.EventRef] [SerializeField] private string Character4Sound;
+
+    [Space]
+    [FMODUnity.EventRef] [SerializeField] private string CharacterHurt1Sound;
+    [FMODUnity.EventRef] [SerializeField] private string CharacterHurt2Sound;
+    [FMODUnity.EventRef] [SerializeField] private string CharacterHurt3Sound;
+    [FMODUnity.EventRef] [SerializeField] private string CharacterHurt4Sound;
+
     #region Awake || Start || Update
     void Awake()
     {
@@ -94,10 +107,15 @@ public class CreationManager : MonoBehaviour
     #region Create Button
 
     #region Create Character
-    private void CreateCharacterButton(Character_SO tempCharacter)
+    private void CreateCharacterButton(Character_SO tempCharacter, string musique, string hurt)
     {
         GameObject tempButton = Instantiate(baseButton, characterListHolder.transform);
         Character_Button buttonScript = tempButton.GetComponent<Character_Button>();
+
+        buttonScript.CharacterSelectedSound = musique;
+        buttonScript.CharacterHurtSound = hurt;
+
+        buttonScript.SetUpFmod();
 
         buttonScript.AssignedElement = tempCharacter;
         buttonScript.CharacterImage.sprite = tempCharacter.Render;
@@ -107,6 +125,7 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             SelectPlayer(tempButton.GetComponent<Character_Button>());
+            buttonScript.PlaySelectedMusique();
         });
 
         listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
@@ -130,7 +149,36 @@ public class CreationManager : MonoBehaviour
             m_Crew.Add(tempCharacter);
             tempList.RemoveAt(randomIndex);
 
-            CreateCharacterButton(tempCharacter);
+            string musique;
+            string hurt;
+
+            switch (i)
+            {
+                case 0:
+                    musique = Character1Sound;
+                    hurt = CharacterHurt1Sound;
+                    break;
+                case 1:
+                    musique = Character2Sound;
+                    hurt = CharacterHurt2Sound;
+                    break;
+                case 2:
+                    musique = Character3Sound;
+                    hurt = CharacterHurt3Sound;
+                    break;
+                case 3:
+                    musique = Character4Sound;
+                    hurt = CharacterHurt4Sound;
+                    break;
+
+                default:
+                    musique = Character1Sound;
+                    hurt = CharacterHurt1Sound;
+                    break;
+            }
+            musique = Character1Sound;
+
+            CreateCharacterButton(tempCharacter, musique, hurt);
         }
         return tempList == null ? null : tempList;
     }

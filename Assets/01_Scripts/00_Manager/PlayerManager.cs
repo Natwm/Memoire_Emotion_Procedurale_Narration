@@ -54,6 +54,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
+
+
     //fairesantémental.
     void Awake()
     {
@@ -83,6 +85,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         
     }
+
 
     public void SetUp()
     {
@@ -360,6 +363,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void GetDamage(int amountOfDamage)
     {
         health -= amountOfDamage;
+        characterContener.PlayDamageMusique();
         if (IsDead())
             Death();
     }
