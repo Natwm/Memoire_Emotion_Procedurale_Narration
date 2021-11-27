@@ -106,7 +106,6 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            print("bruh");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
         });
 
@@ -539,6 +538,11 @@ public class CreationManager : MonoBehaviour
         }
         if (can) 
             LaunchGame();
+        else
+        {
+            RepartitionObject();
+            NextCharacter();
+        }
 
     }
 
