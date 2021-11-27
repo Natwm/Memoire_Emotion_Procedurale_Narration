@@ -190,6 +190,13 @@ public class CanvasManager : MonoBehaviour
         SetActiveMoveButton(false);
         WinPanel.SetActive(true);
         winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base";
+        if(GameManager.instance.OrderCharacter.Count > 0)
+        {
+            GridManager.instance.ClearScene();
+            GamePanel.SetActive(false);
+            grid.SetActive(false);
+        }
+        
     }
 
     public void PlayerLooseTheGame(Character_SO perso)
@@ -219,10 +226,16 @@ public class CanvasManager : MonoBehaviour
     {
         SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
 
-        for (int i = 0; i < WaitingCharacterPanel.transform.childCount; i++)
+        for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
         {
             WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
         }
+
+        for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)
+        {
+            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(false);
+        }
+
         /*print("eefefe");
         print(PlayerManager.instance.CharacterData);
         Character_SO toSet = PlayerManager.instance.CharacterData;

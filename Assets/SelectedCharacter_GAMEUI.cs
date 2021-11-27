@@ -40,6 +40,7 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
 
     public void SetUpUI()
     {
+        ClearInventoryUI();
         lifeText.text = PlayerManager.instance.Health.ToString();
         mentalLifeText.text = PlayerManager.instance.MentalHealth.ToString();
         nameText.text = PlayerManager.instance.CharacterData.CharacterName;
@@ -55,6 +56,14 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
         {
             GameObject inventoryElt = Instantiate(inventoryObject, InventoryPanel.transform);
             inventoryElt.GetComponent<Image>().sprite = item.Sprite;
+        }
+    }
+
+    void ClearInventoryUI()
+    {
+        for (int i = 0; i < InventoryPanel.transform.childCount; i++)
+        {
+            Destroy(InventoryPanel.transform.GetChild(i).gameObject);
         }
     }
 }
