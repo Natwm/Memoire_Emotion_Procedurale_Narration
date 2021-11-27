@@ -15,11 +15,18 @@ public class Character_SO : ScriptableObject
     [SerializeField] private int maxHealth = 5;
     [SerializeField] private int health;
 
+
     [Space]
     [Header("Endurance")]
     [SerializeField] private int m_Endurance;
     [Min(1)]
     [SerializeField] private int m_MaxEndurance = 1;
+
+    [Space]
+    [Header("Mental Health")]
+    [SerializeField] private int m_MentalHealth;
+    [Min(1)]
+    [SerializeField] private int m_MaxMentalHealth = 1;
 
     [Space]
     [Header("Inventory")]
@@ -52,6 +59,8 @@ public class Character_SO : ScriptableObject
     public string CharacterName { get => m_CharacterName; set => m_CharacterName = value; }
     public List<DrawVignette> BaseHand { get => m_BaseHand; set => m_BaseHand = value; }
     public Color Color { get => m_Color; set => m_Color = value; }
+    public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
+    public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
 
     #endregion
 }

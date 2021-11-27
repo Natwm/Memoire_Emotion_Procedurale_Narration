@@ -1071,6 +1071,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5279111746771747851, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.00793457
+      objectReference: {fileID: 0}
     - target: {fileID: 5627605920825989441, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1336,6 +1341,12 @@ PrefabInstance:
       propertyPath: looseIndicator
       value: 
       objectReference: {fileID: 948440435}
+    - target: {fileID: 7994139361478528807, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: levelInventoryButtonPrefabs
+      value: 
+      objectReference: {fileID: 4759845786473928702, guid: f39d7e78bb15d8a40a29a18edbdb2907,
+        type: 3}
     - target: {fileID: 8545000747992890730, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1365,6 +1376,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222811898982988053, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}

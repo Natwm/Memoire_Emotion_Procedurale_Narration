@@ -521,6 +521,7 @@ public class CreationManager : MonoBehaviour
             CanvasManager.instance.SetUpGamePanel();
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
+
         }
 
     }

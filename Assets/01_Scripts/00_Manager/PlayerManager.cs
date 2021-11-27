@@ -21,6 +21,12 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [SerializeField] private int m_MaxEndurance = 1;
 
     [Space]
+    [Header("Mental Health")]
+    [SerializeField] private int m_MentalHealth;
+    [Min(1)]
+    [SerializeField] private int m_MaxMentalHealth = 1;
+
+    [Space]
     [Header("Inventory")]
     [SerializeField] private int m_InventorySize;
     [Min(1)]
@@ -30,16 +36,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     [SerializeField] private List<Object_SO> m_Inventory;
 
-    [Header ("Happyness - Sadness")]
-    [SerializeField] private int maxHappyness = 5;
-    [SerializeField] private int minSadness = - 5;
-    [SerializeField] private int player_Happy_SadValue;
-
-    [Space]
-    [Header("Angry - Fear")]
-    [SerializeField] private int maxAngry = 5;
-    [SerializeField] private int minFear = -5;
-    [SerializeField] private int player_Angry_FearValue;
 
     [Space]
     [Header("Key")]
@@ -58,7 +54,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
-    fairesantémental.
+    //fairesantémental.
     void Awake()
     {
         if (instance != null)
@@ -69,8 +65,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        player_Happy_SadValue = 0;
-        player_Angry_FearValue = 0;
         Health = MaxHealth;
         m_InventorySize = MaxInventorySize;
         health = MaxHealth;
@@ -203,7 +197,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         yield return new WaitForSeconds(1.5f);
 
-        if(GridManager.instance.ListOfMovement.Count > 0 && player_Happy_SadValue>0)
+        if(GridManager.instance.ListOfMovement.Count > 0)
         {
             StartCoroutine(MoveToLocationByCase());
         }
@@ -273,7 +267,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         else
         {
             GridManager.instance.Test.RemoveAt(0);
-            if (GridManager.instance.Test.Count > 0 && player_Happy_SadValue > 0)
+            if (GridManager.instance.Test.Count > 0)
             {
                 StartCoroutine(MoveToLocationByVignette());
             }
@@ -314,52 +308,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         {
             characterContener.Inventory.Add(item);
         }
-    }
-
-    #region Happyness_Sadness Event
-    public void Update_Happyness_Sadness( int point)
-    {
-        //print("GainHeath " + point);
-        player_Happy_SadValue += point;
-        //print("Heal by "+ point +" point");
-        player_Happy_SadValue = Mathf.Clamp(player_Happy_SadValue, minSadness, MaxHappyness);
-        /*if (player_Happy_SadValue > MaxHappyness)
-            player_Happy_SadValue = MaxHappyness;
-        if (player_Happy_SadValue < minSadness)
-            player_Happy_SadValue = minSadness;*/
-
-        CanvasManager.instance.Update_Happy_Sadness_Status(player_Happy_SadValue);
-        
-        /*if (player_Happy_SadValue == maxHappyness || player_Happy_SadValue == minSadness)
-            GameOver();*/
-    }
-    #endregion
-
-    #region Angry_Fear Event
-    public void Update_Angry_Fear(int point)
-    {
-        player_Angry_FearValue += point;
-
-        player_Angry_FearValue = Mathf.Clamp(player_Angry_FearValue, minFear, maxAngry);
-
-        /*if(player_Angry_FearValue>maxAngry )
-            player_Angry_FearValue = maxAngry;
-        if(player_Angry_FearValue < minFear)
-            player_Angry_FearValue = minFear;*/
-
-       // print("stamina gain by " + point + " point");
-        CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
-    }
-
-    public void LooseMovement(int point)
-    {
-        player_Angry_FearValue -= point;
-        print("stamina loose by " + point + " point");
-        if (player_Angry_FearValue == maxAngry || player_Angry_FearValue == minFear)
-            GameOver();
-        CanvasManager.instance.Update_Angry_Fear_Status(player_Angry_FearValue);
-    }
-    #endregion
+    }    
 
     #region Key Logique
 
@@ -400,6 +349,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     #endregion
 
+    public void HealPlayer(int amountOfHeal)
+    {
+        health += amountOfHeal;
+        if (health > maxHealth)
+            health = maxHealth;
+    }
+
     #region Interfaces
     public void GetDamage(int amountOfDamage)
     {
@@ -425,8 +381,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     #endregion
 
     #region Getter && Setter
-    public int MaxHappyness { get => maxHappyness; set => maxHappyness = value; }
-    public int Player_Happy_SadValue { get => player_Happy_SadValue; set => player_Happy_SadValue = value; }
+
     public bool HaveKey { get => haveKey; set => haveKey = value; }
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
     public int MinCardToDraw { get => minCardToDraw; set => minCardToDraw = value; }
@@ -440,5 +395,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public int MaxHealth { get => maxHealth; set => maxHealth = value; }
     public int Health { get => health; set => health = value; }
     public Character_Button CharacterContener { get => characterContener; set => characterContener = value; }
+    public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
+    public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
     #endregion
 }

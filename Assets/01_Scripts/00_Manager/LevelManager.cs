@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
                     GameObject card = Instantiate(vignette, parent);
 
                     Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
-                    cardBd.SetUpVignette(toDraw.CategoryToDraw);
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
                 }

@@ -14,10 +14,11 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject QuitPanel;
     [SerializeField] private GameObject GamePanel;
     [SerializeField] private GameObject CreatePanel;
+    [SerializeField] private GameObject LevelInventoryPanel;
 
     [Space]
-    public GameObject CharacterPanel;
-    public GameObject CharacterReaderPrefab;
+    public GameObject SelectedCharacterPanel;
+    public GameObject WaitingCharacterPanel;
 
     [Space]
     [Header("ButtonList")]
@@ -56,6 +57,9 @@ public class CanvasManager : MonoBehaviour
     [Header("Button")]
     [SerializeField] private Button moveButton;
 
+    [Space]
+    [Header("Prefabs")]
+    [SerializeField] private GameObject levelInventoryButtonPrefabs;
 
     [Space]
     Vector2 CharacterShifter = new Vector2(450, -450);
@@ -82,7 +86,8 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
-        CharacterPanel.SetActive(false);
+        SelectedCharacterPanel.SetActive(false);
+        WaitingCharacterPanel.SetActive(false);
         InkSlider.maxValue = CreationManager.instance.NegociationTime;
         InkSlider.value = InkSlider.maxValue;
     }
@@ -103,44 +108,6 @@ public class CanvasManager : MonoBehaviour
             moveButton.gameObject.GetComponent<Image>().color = Color.red;
 
         moveButton.interactable = activeObject;
-    }
-
-    public void OpenCharacterPanel(bool Open)
-    {
-        if (Open)
-        {
-            CharacterPanel.SetActive(true);
-        }
-        else
-        {
-            CharacterPanel.SetActive(false);
-        }
-    }
-
-    public void InitialiseCharactersPanel()
-    {
-        for (int i = 0; i < CastingManager.instance.AllCharacters.Length; i++)
-        {
-            GameObject newReader = Instantiate(CharacterReaderPrefab, CharacterPanel.transform);
-            RectTransform newT = newReader.GetComponent<RectTransform>();
-            Vector3 newPos = new Vector3(newT.anchoredPosition.x + CharacterShifter.x * Xshifter, newT.anchoredPosition.y + CharacterShifter.y * Yshifter, 0);
-
-            newT.anchoredPosition = newPos;
-            if (Xshifter < 2)
-            {
-                Xshifter++;
-                
-            }
-            else
-            {
-                Xshifter = 0;
-                Yshifter++;
-            }
-            newReader.GetComponent<CharacterReader>().assignedCharacter = CastingManager.instance.AllCharacters[i];
-            newReader.GetComponent<CharacterReader>().InitialiseUi();
-            newReader.GetComponent<CharacterReader>().ReadCharacter();
-
-        }
     }
 
     public void SetSelectedPen()
@@ -178,6 +145,25 @@ public class CanvasManager : MonoBehaviour
         vignetteText.text = "Next Vignette : " + amoutOfVignette;
     }
 
+    public void NewItemInLevelInventory(Object_SO item)
+    {
+        GameObject newItemInInventory = Instantiate(levelInventoryButtonPrefabs, LevelInventoryPanel.transform);
+        newItemInInventory.GetComponent<Image>().sprite = item.Sprite;
+    }
+
+    public void ClearLevelInventory()
+    {
+        for (int i = 0; i < LevelInventoryPanel.transform.childCount; i++)
+        {
+            Destroy(LevelInventoryPanel.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void RemoveObjInPlayerInventory(int index)
+    {
+        Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index));
+    }
+
     #endregion
 
     public void UpdatePageIndicator()
@@ -201,14 +187,14 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         WinPanel.SetActive(true);
-        winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base" ;
+        winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base";
     }
 
     public void PlayerLooseTheGame(Character_SO perso)
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
-        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que "+ CreationManager.instance.listOfCharacter.Count + " membres !";
+        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
     }
 
     #endregion
@@ -217,6 +203,8 @@ public class CanvasManager : MonoBehaviour
     {
         GamePanel.SetActive(true);
         CreatePanel.SetActive(false);
+        SelectedCharacterPanel.SetActive(true);
+        WaitingCharacterPanel.SetActive(true);
         GridManager.instance.ClearScene();
         EventGenerator.instance.GenerateGrid();
         grid.SetActive(true);
@@ -227,7 +215,13 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpCharacterInfo()
     {
-        print("eefefe");
+        SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
+
+        for (int i = 0; i < WaitingCharacterPanel.transform.childCount; i++)
+        {
+            WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
+        }
+        /*print("eefefe");
         print(PlayerManager.instance.CharacterData);
         Character_SO toSet = PlayerManager.instance.CharacterData;
 
@@ -246,7 +240,7 @@ public class CanvasManager : MonoBehaviour
         {
             GameObject myButton = Instantiate(inventoryButton, inventoryPanel.transform);
             myButton.GetComponent<Image>().sprite = item.Sprite;
-        }
+        }*/
     }
 
     public void SetUpCreationPanel()
@@ -255,7 +249,6 @@ public class CanvasManager : MonoBehaviour
         {
             CreationManager.instance.GlobalInventory.Add(item);
         }
-
 
         CreationManager.instance.CreateObjectList();
         GamePanel.SetActive(false);

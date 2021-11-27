@@ -69,9 +69,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     [Space]
     [Header("Text Status")]
-    [SerializeField] private TMPro.TMP_Text staminaText;
+    [SerializeField] private TMPro.TMP_Text objetText;
     [SerializeField] private TMPro.TMP_Text healthText;
-    [SerializeField] private TMPro.TMP_Text vignetteText;
+    [SerializeField] private TMPro.TMP_Text mentalHealthText;
 
     [Space]
     [Header("event")]
@@ -138,6 +138,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+
+        }
     }
 
     public void ApplyVignetteEffect()
@@ -189,6 +193,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SpriteIndicator.sprite = GetSprite();
     }
 
+    public void SetUpVignette(VignetteCategories categorie, Object_SO useObject)
+    {
+        Categorie = categorie;
+        categorieText.text = GetEnumName();
+        SpriteIndicator.sprite = useObject.Sprite;
+    }
+
     #region VIgnette Effect
 
     public void NeutralEffect()
@@ -201,8 +212,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         print("ExploreEffect");
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        Object_SO newItem = LevelManager.instance.UnlockableObject[randomIndex];
 
-        LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
+        LevelManager.instance.PageInventory.Add(newItem);
+        CanvasManager.instance.NewItemInLevelInventory(newItem);
     }
 
     public void TakeEffect()
@@ -247,6 +260,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             int index = UnityEngine.Random.Range(0, PlayerManager.instance.Inventory.Count);
             PlayerManager.instance.Inventory.RemoveAt(index);
+            CanvasManager.instance.RemoveObjInPlayerInventory(index);
         }
     }
 
@@ -271,12 +285,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void SmallHealEffect()
     {
-        print("Vent_GlacialEffect");
+        print("SmallHealEffect");
+        PlayerManager.instance.HealPlayer(1);
     }
 
     public void FullHealEffect()
     {
-        print("Vent_GlacialEffect");
+        print("FullHealEffect");
+        PlayerManager.instance.HealPlayer(100);
     }
 
     public void EclairerEffect()
@@ -297,6 +313,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     #endregion
 
+    #region Check
     public bool CheckCaseCondition()
     {
         print("CheckCaseCondition");
@@ -604,6 +621,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
 
     }
+    #endregion
 
     public void SetUpCard(int happySad_Value = 0, int angryFear_Value = 0, int amountofVignetteToDraw = 0, bool isKey = false, Sprite vignetteRender = null)
     {
@@ -622,7 +640,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     //quand tu drop, ne mets pas a jour le script event
     private void SetUpUI()
     {
-        if (myEvent.CurrentHappy_Sad >= 0)
+       /* if (myEvent.CurrentHappy_Sad >= 0)
         {
             healthText.text = "+" + MyEvent.CurrentHappy_Sad.ToString();
             healthText.color = MyEvent.CurrentHappy_Sad > 0 ? Color.red : Color.black;
@@ -652,7 +670,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         else
         {
             vignetteText.text = MyEvent.CurrentAmountOfVignetteToDraw.ToString();
-        }
+        }*/
 
     }
 

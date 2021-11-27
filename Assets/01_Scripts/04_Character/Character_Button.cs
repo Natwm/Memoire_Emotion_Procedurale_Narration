@@ -23,6 +23,12 @@ public class Character_Button : MonoBehaviour
 
     [Space]
 
+    [SerializeField] private int m_MentalHealth;
+    [Min(1)]
+    [SerializeField] private int m_MaxMentalHealth = 1;
+
+    [Space]
+
     [SerializeField] private int m_InventorySize;
     [Min(1)]
     [SerializeField] private int m_MaxInventorySize = 1;
@@ -74,6 +80,9 @@ public class Character_Button : MonoBehaviour
         m_MaxEndurance = assignedElement.MaxEndurance;
         m_Endurance = assignedElement.Endurance;
 
+        MaxMentalHealth = assignedElement.MaxMentalHealth;
+        MentalHealth = assignedElement.MentalHealth;
+
         m_MaxInventorySize = assignedElement.MaxInventorySize;
         InventorySize = assignedElement.InventorySize;
 
@@ -93,7 +102,10 @@ public class Character_Button : MonoBehaviour
         m_MaxEndurance = data.MaxEndurance;
         m_Endurance = data.Endurance;
 
-        m_enduranceText.text = m_Endurance + " / " + m_MaxEndurance;
+        MaxMentalHealth = data.MaxMentalHealth;
+        MentalHealth = data.MentalHealth;
+
+        m_enduranceText.text = MentalHealth + " / " + MaxMentalHealth;
 
         m_MaxInventorySize = data.MaxInventorySize;
         InventorySize = data.InventorySize;
@@ -112,7 +124,7 @@ public class Character_Button : MonoBehaviour
         SetUpInventoryUI();
         m_NameText.text = assignedElement.CharacterName == " " || assignedElement.CharacterName == string.Empty ? assignedElement.name : assignedElement.CharacterName;
         LifeText.text = m_Life + "/ " + m_MaxLife;
-        EnduranceText.text = m_Endurance + " / " + m_MaxEndurance;
+        EnduranceText.text = MentalHealth + " / " + MaxMentalHealth;
     }
 
     public void SetUpInventoryUI()
@@ -175,6 +187,8 @@ public class Character_Button : MonoBehaviour
     public int Endurance { get => m_Endurance; set => m_Endurance = value; }
     public int MaxEndurance { get => m_MaxEndurance; set => m_MaxEndurance = value; }
     public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
+    public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
+    public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
     #endregion
 
 }
