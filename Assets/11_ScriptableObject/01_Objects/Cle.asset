@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 0
+  - categoryToDraw: 4
     amountOfCardToDraw: 1
   m_ObjectName: "Cl\xE9"
   m_sprite: {fileID: 21300000, guid: ba057a71068588e45b5682aac1a2449c, type: 3}

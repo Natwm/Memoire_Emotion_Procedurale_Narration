@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 12
+  - categoryToDraw: 13
     amountOfCardToDraw: 1
   m_ObjectName: Ankh
   m_sprite: {fileID: 21300000, guid: eb23c313effc8a9418cbb06426731561, type: 3}

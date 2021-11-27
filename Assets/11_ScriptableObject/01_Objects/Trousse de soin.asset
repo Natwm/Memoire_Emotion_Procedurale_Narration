@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 10
+  - categoryToDraw: 11
     amountOfCardToDraw: 1
   m_ObjectName: Trousse de soin
   m_sprite: {fileID: 21300000, guid: eaee46ed9bba271499d873949ec63e72, type: 3}

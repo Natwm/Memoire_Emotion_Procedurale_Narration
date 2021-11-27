@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Category: 2
   m_Action: 2
   m_DrawParam:
-  - categoryToDraw: 14
+  - categoryToDraw: 15
     amountOfCardToDraw: 0
   m_ObjectName: Manuel de premiers secours
   m_sprite: {fileID: 21300000, guid: 1c155affc959fcd4a8f40351f12ffcaf, type: 3}
