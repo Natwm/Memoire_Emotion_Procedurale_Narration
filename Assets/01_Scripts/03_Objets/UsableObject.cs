@@ -100,7 +100,7 @@ public class UsableObject : abstractUsableObject
                     {
 
                         CanvasManager.instance.UpdateInkSlider(-75);
-                        myButton.image.color = Color.green;
+                        //myButton.image.color = Color.green;
                         objStatus = ObjectStatus.CLAIM;
                         ClaimObject(player);
 
@@ -121,7 +121,7 @@ public class UsableObject : abstractUsableObject
                     {
                         objStatus = ObjectStatus.WANT;
                         CanvasManager.instance.UpdateInkSlider(-33);
-                        myButton.image.color = Color.gray;
+                        //myButton.image.color = Color.gray;
                         WantObject(player);
 
                     }
@@ -142,7 +142,7 @@ public class UsableObject : abstractUsableObject
                     {
                         objStatus = ObjectStatus.REJECT;
                         CanvasManager.instance.UpdateInkSlider(-33);
-                        myButton.image.color = Color.yellow;
+                        //myButton.image.color = Color.yellow;
                         RejectObject(player);
 
                     }
@@ -162,7 +162,7 @@ public class UsableObject : abstractUsableObject
                     {
                         objStatus = ObjectStatus.EXCLUDE;
                         CanvasManager.instance.UpdateInkSlider(-75);
-                        myButton.image.color = Color.red;
+                        //myButton.image.color = Color.red;
                         ExcludeObject(player);
 
                     }

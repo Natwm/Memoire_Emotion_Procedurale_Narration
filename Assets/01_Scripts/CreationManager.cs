@@ -145,7 +145,9 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<UsableObject>().Data = tempObject;
 
         UsableObject eventButton = tempButton.GetComponent<UsableObject>();
-        tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
+
+        tempButton.GetComponent<Image>().sprite = tempObject.Sprite;
+        //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {

@@ -19,7 +19,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         PERTE_OBJET,
         VENT_GLACIAL,
         SAVOIR_OCCULTE,
-        SOIN,
+        SMALL_HEAL,
+        BIG_HEAL,
         ECLAIRER,
         RESSURECTION,
         PLANIFICATION,
@@ -186,19 +187,24 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
+    #region SETUP
     public void SetUpVignette(VignetteCategories categorie)
     {
         Categorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = GetSprite();
+        SetUpUI();
     }
 
     public void SetUpVignette(VignetteCategories categorie, Object_SO useObject)
     {
         Categorie = categorie;
         categorieText.text = GetEnumName();
+        print(useObject);
         SpriteIndicator.sprite = useObject.Sprite;
+        SetUpUI();
     }
+    #endregion
 
     #region VIgnette Effect
 
@@ -225,7 +231,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             CreationManager.instance.GlobalInventory.Add(item);
         }
-
+        CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<Object_SO>();
     }
 
@@ -267,6 +273,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void Vent_GlacialEffect()
     {
         print("Vent_GlacialEffect");
+        CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<Object_SO>();
     }
 
@@ -640,38 +647,79 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     //quand tu drop, ne mets pas a jour le script event
     private void SetUpUI()
     {
-       /* if (myEvent.CurrentHappy_Sad >= 0)
+        switch (Categorie)
         {
-            healthText.text = "+" + MyEvent.CurrentHappy_Sad.ToString();
-            healthText.color = MyEvent.CurrentHappy_Sad > 0 ? Color.red : Color.black;
+            case VignetteCategories.NEUTRE:
+                SetUpTextVignette(0,0,0);
+                break;
+            case VignetteCategories.EXPLORER:
+                SetUpTextVignette(1,0,0);
+                break;
+            case VignetteCategories.PRENDRE:
+                SetUpTextVignette("All");
+                break;
+            case VignetteCategories.COMBATTRE:
+                SetUpTextVignette(0,0,-2);
+                break;
+            case VignetteCategories.UTILISER:
+                SetUpTextVignette("");
+                break;
+            case VignetteCategories.PIEGE:
+                SetUpTextVignette(0,0,-1);
+                break;
+            case VignetteCategories.CURSE:
+                SetUpTextVignette(0,-1,0);
+                break;
+            case VignetteCategories.PERTE_OBJET:
+                SetUpTextVignette(-1);
+                break;
+            case VignetteCategories.VENT_GLACIAL:
+                SetUpTextVignette("NONE");
+                break;
+            case VignetteCategories.SMALL_HEAL:
+                SetUpTextVignette(0,0,1);
+                break;
+            case VignetteCategories.BIG_HEAL:
+                SetUpTextVignette(0, 0, 10);
+                break;
+            /*case VignetteCategories.RESSURECTION:
+                SetUpTextVignette("");
+                break;
+            case VignetteCategories.PLANIFICATION:
+                SetUpTextVignette("");
+                break;
+            case VignetteCategories.SOIN_EQUIPE:
+                SetUpTextVignette();
+                break;
+            case VignetteCategories.DEBROUILLARD:
+                SetUpTextVignette();
+                break;
+            case VignetteCategories.SOUFFLER:
+                SetUpTextVignette();
+                break;
+            case VignetteCategories.INSTANTANE:
+                SetUpTextVignette();
+                break;
+            case VignetteCategories.RESSEMBLACE_ETRANGE:
+                SetUpTextVignette();
+                break;*/
+            default:
+                break;
         }
 
-        else
-        {
-            healthText.text = MyEvent.CurrentHappy_Sad.ToString();
-        }
+    }
 
-        if (myEvent.CurrentAngry_Fear >= 0)
-        {
-            staminaText.text = MyEvent.CurrentAngry_Fear >= 0 ? "+" + MyEvent.CurrentAngry_Fear.ToString() : MyEvent.CurrentAngry_Fear.ToString();
-            staminaText.color = MyEvent.CurrentAngry_Fear >= 0 ? Color.red : Color.black;
-        }
-
-        else
-        {
-            staminaText.text = MyEvent.CurrentAngry_Fear.ToString();
-        }
-
-        if (myEvent.CurrentAmountOfVignetteToDraw >= 0)
-        {
-            vignetteText.text = MyEvent.CurrentAmountOfVignetteToDraw >= 0 ? "+" + MyEvent.CurrentAmountOfVignetteToDraw.ToString() : MyEvent.CurrentAmountOfVignetteToDraw.ToString();
-            vignetteText.color = MyEvent.CurrentAmountOfVignetteToDraw >= 0 ? Color.red : Color.black;
-        }
-        else
-        {
-            vignetteText.text = MyEvent.CurrentAmountOfVignetteToDraw.ToString();
-        }*/
-
+    void SetUpTextVignette(int nbObjet = 0, int nbMetalHeath = 0, int nbHeath = 0)
+    {
+        objetText.text = nbObjet.ToString();
+        mentalHealthText.text = nbMetalHeath.ToString();
+        healthText.text = nbHeath.ToString();
+    }
+    void SetUpTextVignette(string nbObjet = "", string nbMetalHeath = "", string nbHeath = "")
+    {
+        objetText.text = nbObjet;
+        mentalHealthText.text = nbMetalHeath;
+        healthText.text = nbHeath;
     }
 
     private void ShowVignetteElt(GameObject inObject, GameObject outObject, float speed = 0.25f)
@@ -748,7 +796,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 return VignetteCategories.SAVOIR_OCCULTE;
                 break;
             case 10:
-                return VignetteCategories.SOIN;
+                return VignetteCategories.SMALL_HEAL;
                 break;
             case 11:
                 return VignetteCategories.ECLAIRER;
@@ -900,7 +948,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             OnGrid = false;
             nextMove = null;
-            vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
+            //vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
 
         if (!(amountOfModifier > 0))

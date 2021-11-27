@@ -18,6 +18,8 @@ MonoBehaviour:
   health: 1
   m_Endurance: 1
   m_MaxEndurance: 1
+  m_MentalHealth: 0
+  m_MaxMentalHealth: 1
   m_InventorySize: 1
   m_MaxInventorySize: 1
   m_Inventory: []
@@ -28,4 +30,4 @@ MonoBehaviour:
     amountOfCardToDraw: 1
   - categoryToDraw: 0
     amountOfCardToDraw: 1
-  m_Color: {r: 0.15739918, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.9803922, g: 0, b: 0.41176474, a: 1}

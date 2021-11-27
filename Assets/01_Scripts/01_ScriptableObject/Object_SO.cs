@@ -60,6 +60,7 @@ public class Object_SO : ScriptableObject
     [TextArea(10,50)]
     [SerializeField] private string m_Description;
 
+
     #region Getter && Setter
 
     public ObjectTarget Target { get => m_Target; set => m_Target = value; }
