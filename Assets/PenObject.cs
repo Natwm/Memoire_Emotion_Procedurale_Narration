@@ -18,6 +18,13 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 
     bool pressed = false;
 
+    [Space]
+    [Header("SOUND")]
+    protected FMOD.Studio.EventInstance hoverEffect;
+    [FMODUnity.EventRef] [SerializeField] private string hoverSound;
+    protected FMOD.Studio.EventInstance selectEffect;
+    [FMODUnity.EventRef] [SerializeField] private string selectSound;
+
     public Image Render { get => render; set => render = value; }
     public Sprite Neutre { get => neutre; set => neutre = value; }
 
@@ -26,34 +33,53 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
         Render = GetComponent<Image>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void InitButton()
     {
-        foreach (var item in FindObjectsOfType<PenObject>())
-        {
-            item.Render.sprite = item.neutre;
-        }
-        if(Render.sprite != presed && !pressed)
-        {
-            Render.sprite = presed;
-            pressed = true;
-        }
+        if (GetComponent<Button>().interactable)
+            render.sprite = neutre;
         else
         {
-            Render.sprite = neutre;
-            pressed = false;
+            render.sprite = disable;
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (GetComponent<Button>().interactable)
+        {
+            foreach (var item in FindObjectsOfType<PenObject>())
+            {
+                item.Render.sprite = item.neutre;
+            }
+            if (Render.sprite != presed && !pressed)
+            {
+                Render.sprite = presed;
+                pressed = true;
+            }
+            else
+            {
+                Render.sprite = neutre;
+                pressed = false;
+            }
+        }
+        
             
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Render.sprite = hover;
+        if(GetComponent<Button>().interactable)
+            Render.sprite = hover;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if(Render.sprite != presed)
-            Render.sprite = Neutre;
+        if (GetComponent<Button>().interactable)
+        {
+            if (Render.sprite != presed)
+                Render.sprite = Neutre;
+        }
+        
     }
 
     public void SelectedButton()
