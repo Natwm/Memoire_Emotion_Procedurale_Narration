@@ -63,128 +63,131 @@ public class UsableObject : abstractUsableObject
 
     public void AffectByPlayer(UnityEngine.UI.Button myButton, Character_Button player)
     {
-        ObjectStatus objStatus = objStatus = ObjectStatus.NONE;
-
-        switch (Status)
+        if (CreationManager.instance.selectedPlayer != null)
         {
-            case ObjectStatus.NONE:
-                break;
-            case ObjectStatus.CLAIM:
-                CreationManager.instance.IncreaseNegociationTime(75);
-                break;
-            case ObjectStatus.WANT:
-                CreationManager.instance.IncreaseNegociationTime(33);
-                break;
-            case ObjectStatus.REJECT:
-                CreationManager.instance.IncreaseNegociationTime(33);
-                break;
-            case ObjectStatus.EXCLUDE:
-                CreationManager.instance.IncreaseNegociationTime(75);
-                break;
-            default:
-                break;
+            ObjectStatus objStatus = objStatus = ObjectStatus.NONE;
+
+            switch (Status)
+            {
+                case ObjectStatus.NONE:
+                    break;
+                case ObjectStatus.CLAIM:
+                    CreationManager.instance.IncreaseNegociationTime(75);
+                    break;
+                case ObjectStatus.WANT:
+                    CreationManager.instance.IncreaseNegociationTime(33);
+                    break;
+                case ObjectStatus.REJECT:
+                    CreationManager.instance.IncreaseNegociationTime(33);
+                    break;
+                case ObjectStatus.EXCLUDE:
+                    CreationManager.instance.IncreaseNegociationTime(75);
+                    break;
+                default:
+                    break;
+            }
+
+            switch (CreationManager.instance.Pen)
+            {
+                case CreationManager.m_PenStatus.NONE:
+                    myButton.image.color = Color.white;
+                    ResetObjectStatus();
+                    objStatus = ObjectStatus.NONE;
+                    break;
+
+                case CreationManager.m_PenStatus.CLAIM:
+                    if (Status != ObjectStatus.CLAIM)
+                    {
+                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        {
+
+                            CanvasManager.instance.UpdateInkSlider(-75);
+                            //myButton.image.color = Color.green;
+                            objStatus = ObjectStatus.CLAIM;
+                            ClaimObject(player);
+
+                        }
+                    }
+                    else
+                    {
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                        objStatus = ObjectStatus.NONE;
+                    }
+                    break;
+
+                case CreationManager.m_PenStatus.WANT:
+                    if (Status != ObjectStatus.WANT)
+                    {
+                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        {
+                            objStatus = ObjectStatus.WANT;
+                            CanvasManager.instance.UpdateInkSlider(-33);
+                            //myButton.image.color = Color.gray;
+                            WantObject(player);
+
+                        }
+                    }
+                    else
+                    {
+                        objStatus = ObjectStatus.NONE;
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
+
+                    break;
+
+                case CreationManager.m_PenStatus.REJECT:
+                    if (Status != ObjectStatus.REJECT)
+                    {
+                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        {
+                            objStatus = ObjectStatus.REJECT;
+                            CanvasManager.instance.UpdateInkSlider(-33);
+                            //myButton.image.color = Color.yellow;
+                            RejectObject(player);
+
+                        }
+                    }
+                    else
+                    {
+                        objStatus = ObjectStatus.NONE;
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
+                    break;
+
+                case CreationManager.m_PenStatus.EXCLUDE:
+                    if (Status != ObjectStatus.EXCLUDE)
+                    {
+                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        {
+                            objStatus = ObjectStatus.EXCLUDE;
+                            CanvasManager.instance.UpdateInkSlider(-75);
+                            //myButton.image.color = Color.red;
+                            ExcludeObject(player);
+
+                        }
+                    }
+                    else
+                    {
+                        objStatus = ObjectStatus.NONE;
+                        myButton.image.color = Color.white;
+                        ResetObjectStatus();
+                    }
+                    break;
+
+                default:
+                    ResetObjectStatus();
+                    CanvasManager.instance.SetInkSlider();
+                    break;
+            }
+
+            ReclameStatus status = new ReclameStatus(CreationManager.instance.selectedPlayer, objStatus);
+
+            Stat = status;
+            CanvasManager.instance.SetInkSlider();
         }
-
-        switch (CreationManager.instance.Pen)
-        {
-            case CreationManager.m_PenStatus.NONE:
-                myButton.image.color = Color.white;
-                ResetObjectStatus();
-                objStatus = ObjectStatus.NONE;
-                break;
-
-            case CreationManager.m_PenStatus.CLAIM:
-                if (Status != ObjectStatus.CLAIM)
-                {
-                    if (CreationManager.instance.ReduceNegociationTime(75))
-                    {
-
-                        CanvasManager.instance.UpdateInkSlider(-75);
-                        //myButton.image.color = Color.green;
-                        objStatus = ObjectStatus.CLAIM;
-                        ClaimObject(player);
-
-                    }
-                }
-                else
-                {
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                    objStatus = ObjectStatus.NONE;
-                }
-                break;
-
-            case CreationManager.m_PenStatus.WANT:
-                if (Status != ObjectStatus.WANT)
-                {
-                    if (CreationManager.instance.ReduceNegociationTime(33))
-                    {
-                        objStatus = ObjectStatus.WANT;
-                        CanvasManager.instance.UpdateInkSlider(-33);
-                        //myButton.image.color = Color.gray;
-                        WantObject(player);
-
-                    }
-                }
-                else
-                {
-                    objStatus = ObjectStatus.NONE;
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
-
-                break;
-
-            case CreationManager.m_PenStatus.REJECT:
-                if (Status != ObjectStatus.REJECT)
-                {
-                    if (CreationManager.instance.ReduceNegociationTime(33))
-                    {
-                        objStatus = ObjectStatus.REJECT;
-                        CanvasManager.instance.UpdateInkSlider(-33);
-                        //myButton.image.color = Color.yellow;
-                        RejectObject(player);
-
-                    }
-                }
-                else
-                {
-                    objStatus = ObjectStatus.NONE;
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
-                break;
-
-            case CreationManager.m_PenStatus.EXCLUDE:
-                if (Status != ObjectStatus.EXCLUDE)
-                {
-                    if (CreationManager.instance.ReduceNegociationTime(75))
-                    {
-                        objStatus = ObjectStatus.EXCLUDE;
-                        CanvasManager.instance.UpdateInkSlider(-75);
-                        //myButton.image.color = Color.red;
-                        ExcludeObject(player);
-
-                    }
-                }
-                else
-                {
-                    objStatus = ObjectStatus.NONE;
-                    myButton.image.color = Color.white;
-                    ResetObjectStatus();
-                }
-                break;
-
-            default:
-                ResetObjectStatus();
-                CanvasManager.instance.SetInkSlider();
-                break;
-        }
-
-        ReclameStatus status = new ReclameStatus(CreationManager.instance.selectedPlayer,objStatus);
-
-        Stat = status;
-        CanvasManager.instance.SetInkSlider();
     }
 
     #region abstract Methodes
