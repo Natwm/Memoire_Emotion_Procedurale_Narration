@@ -92,6 +92,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<Object_SO> inventory)
     {
+        print("okokokok");
         foreach (var item in inventory)
         {
             foreach (var toDraw in item.DrawParam)
@@ -113,7 +114,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<DrawVignette> inventory)
     {
-
             foreach (var toDraw in inventory)
             {
                 for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
@@ -128,7 +128,10 @@ public class LevelManager : MonoBehaviour
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
                 }
             }
-        
+        if (inventory.Count > 0)
+        {
+            SpawnObject(PlayerManager.instance.Inventory);
+        }
     }
 
     public void SpawnNegatifObject(int amount = 1)

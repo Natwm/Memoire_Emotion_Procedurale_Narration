@@ -270,6 +270,39 @@ public class GridManager : MonoBehaviour
 
     }
 
+    public void ClearGame() 
+    { 
+    
+        if(GameManager.instance.OrderCharacter.Count > 0)
+        {
+            print("cleatScene");
+            ClearScene();
+        }
+        else
+        {
+            print("cleatAll");
+            ClearAll();
+        }
+    }
+
+    public void ClearAll()
+    {
+        LevelManager.instance.AmountOfpageDone++;
+        List<GameObject> toDelete = new List<GameObject>(listOfTile);
+
+        ClearList();
+
+        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        {
+            Destroy(item.gameObject);
+        }
+
+        PlayerManager.instance.HandOfVignette.Clear();
+
+        CanvasManager.instance.UpdatePageIndicator();
+        PlayerManager.instance.ResetPlayerPosition();
+    }
+
     public void ClearScene()
     {
         LevelManager.instance.AmountOfpageDone++;
@@ -284,7 +317,7 @@ public class GridManager : MonoBehaviour
         m_EventGenerator.GenerateGrid();
 
         PlayerManager.instance.HandOfVignette.Clear();
-        PlayerManager.instance.SetUp();
+        //PlayerManager.instance.SetUp();
 
         LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
         CanvasManager.instance.UpdatePageIndicator();

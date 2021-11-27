@@ -191,10 +191,10 @@ public class CanvasManager : MonoBehaviour
         SetActiveMoveButton(false);
         WinPanel.SetActive(true);
         winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base";
-        if(GameManager.instance.OrderCharacter.Count > 0)
+        if(!(GameManager.instance.OrderCharacter.Count > 0))
         {
             GridManager.instance.ClearScene();
-            GamePanel.SetActive(false);
+            //GamePanel.SetActive(false);
             grid.SetActive(false);
         }
         
@@ -204,7 +204,14 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
-        looseIndicator.text = perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
+        looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
+
+        if (!(GameManager.instance.OrderCharacter.Count > 0))
+        {
+            GridManager.instance.ClearScene();
+            //GamePanel.SetActive(false);
+            grid.SetActive(false);
+        }
     }
 
     #endregion
@@ -218,7 +225,7 @@ public class CanvasManager : MonoBehaviour
         GridManager.instance.ClearScene();
         EventGenerator.instance.GenerateGrid();
         grid.SetActive(true);
-        LevelManager.instance.SpawnObject(PlayerManager.instance.Inventory);
+        //LevelManager.instance.SpawnObject(PlayerManager.instance.Inventory);
         //SetUpCharacterInfo();
 
     }

@@ -315,7 +315,6 @@ public class CreationManager : MonoBehaviour
     {
         foreach (var item in listOfCharacter)
         {
-            print(item);
             CreatePlayerInventory(item);
         }
     }
@@ -484,7 +483,6 @@ public class CreationManager : MonoBehaviour
             
         }
 
-        print("player.InventorySize - player.Inventory.Count " + (player.InventorySize - player.Inventory.Count));
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
             int index = Random.Range(0, pullOfObject.Count);
@@ -596,7 +594,6 @@ public class CreationManager : MonoBehaviour
         {
             if (item.Inventory.Count == 0 && GlobalInventory.Count >= 0)
                 can = false;
-            print(can + " " + item.name);
         }
         if (can) 
             LaunchGame();

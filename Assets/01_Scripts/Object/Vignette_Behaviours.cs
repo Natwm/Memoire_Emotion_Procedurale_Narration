@@ -121,8 +121,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         entry.callback.AddListener((data) => { OnDragDelegate((PointerEventData)data); });
         trigger.triggers.Add(entry);
 
-        print(trigger);
-
         m_IsVignetteShowUp = false;
 
         vignetteScene = transform.GetChild(1).gameObject;
@@ -192,7 +190,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         Categorie = categorie;
         categorieText.text = GetEnumName();
-        SpriteIndicator.sprite = GetSprite();
+        SpriteIndicator.sprite = null;
         SetUpUI();
     }
 
@@ -886,6 +884,36 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
             case VignetteCategories.SAVOIR_OCCULTE:
                 return "SAVOIR_OCCULTE";
+                break;
+            case VignetteCategories.SMALL_HEAL:
+                return "SMALL_HEAL";
+                break;
+            case VignetteCategories.BIG_HEAL:
+                return "BIG_HEAL";
+                break;
+            case VignetteCategories.ECLAIRER:
+                return "ECLAIRER";
+                break;
+            case VignetteCategories.RESSURECTION:
+                return "RESSURECTION";
+                break;
+            case VignetteCategories.PLANIFICATION:
+                return "PLANIFICATION";
+                break;
+            case VignetteCategories.SOIN_EQUIPE:
+                return "SOIN_EQUIPE";
+                break;
+            case VignetteCategories.DEBROUILLARD:
+                return "DEBROUILLARD";
+                break;
+            case VignetteCategories.SOUFFLER:
+                return "SOUFFLER";
+                break;
+            case VignetteCategories.INSTANTANE:
+                return "INSTANTANE";
+                break;
+            case VignetteCategories.RESSEMBLACE_ETRANGE:
+                return "RESSEMBLACE_ETRANGE";
                 break;
             default:
                 return "NEUTRE";

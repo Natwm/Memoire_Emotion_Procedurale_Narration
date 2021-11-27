@@ -155,6 +155,7 @@ public class GameManager : MonoBehaviour
     {
         if(m_OrderCharacter.Count > 0)
         {
+            print("next");
             CreationManager.instance.LaunchGame();
         }
         else
