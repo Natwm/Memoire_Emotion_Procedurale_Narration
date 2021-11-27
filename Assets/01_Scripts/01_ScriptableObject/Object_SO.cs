@@ -57,6 +57,7 @@ public class Object_SO : ScriptableObject
 
     [Space]
     [Header("UI")]
+    [TextArea(10,50)]
     [SerializeField] private string m_Description;
 
     #region Getter && Setter

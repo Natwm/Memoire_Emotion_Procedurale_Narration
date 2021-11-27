@@ -18,7 +18,7 @@ public class Vignette_Renderer : MonoBehaviour
     //XX_@_#_NAME
     void Start()
     {
-        
+        CreateVignette(testString, testVignette, TestColors[0]);
     }
 
     char[] separator = { '_' };
