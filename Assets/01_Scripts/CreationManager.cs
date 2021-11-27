@@ -502,12 +502,6 @@ public class CreationManager : MonoBehaviour
 
     public void LaunchGame()
     {
-        GameManager.instance.OrderCharacter = new List<Character_Button>();
-        foreach (var item in listOfCharacter)
-        {
-            GameManager.instance.OrderCharacter.Add(item);
-        }
-
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
         if (PlayerManager.instance.CharacterData != null)
         {
@@ -525,6 +519,16 @@ public class CreationManager : MonoBehaviour
 
         }
 
+    }
+
+    public void StartPull()
+    {
+        GameManager.instance.OrderCharacter = new List<Character_Button>();
+        foreach (var item in listOfCharacter)
+        {
+            GameManager.instance.OrderCharacter.Add(item);
+        }
+        NextCharacter();
     }
 
     public void NextCharacter()

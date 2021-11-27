@@ -161,7 +161,9 @@ public class CanvasManager : MonoBehaviour
 
     public void RemoveObjInPlayerInventory(int index)
     {
-        Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index));
+        print(index);
+        if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index) != null)
+            Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index).gameObject);
     }
 
     #endregion

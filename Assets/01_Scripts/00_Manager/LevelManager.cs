@@ -142,7 +142,7 @@ public class LevelManager : MonoBehaviour
             GameObject card = Instantiate(item, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
-            cardBd.SetUpCard();
+            //cardBd.SetUpCard();
 
 
             //Création de chaque clase de vignette
