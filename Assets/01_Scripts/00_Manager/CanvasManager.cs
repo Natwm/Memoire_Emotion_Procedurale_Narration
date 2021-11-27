@@ -114,7 +114,8 @@ public class CanvasManager : MonoBehaviour
     {
         for (int i = 0; i < PenPanel.transform.childCount; i++)
         {
-            PenPanel.transform.GetChild(i).GetComponent<Image>().color = Color.white;
+            if(i!= 4)
+                PenPanel.transform.GetChild(i).GetComponent<Image>().color = Color.white;
         }
     }
 

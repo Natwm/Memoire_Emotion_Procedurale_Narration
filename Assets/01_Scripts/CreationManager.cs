@@ -546,6 +546,13 @@ public class CreationManager : MonoBehaviour
     public void SelectPlayer(Character_Button player)
     {
         selectedPlayer = player;
+
+
+        foreach (var item in FindObjectsOfType<PenObject>())
+        {
+            item.GetComponent<Button>().interactable = true;
+            item.InitButton();
+        }
     }
 
     public void LaunchGame()
