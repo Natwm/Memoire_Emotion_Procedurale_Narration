@@ -265,9 +265,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
         foreach (var item in LevelManager.instance.PageInventory)
         {
-            CreationManager.instance.GlobalInventory.Add(item);
+            //CreationManager.instance.GlobalInventory.Add(item);
+            item.transform.parent = CreationManager.instance.pulledObject.transform;
+            item.gameObject.SetActive(false);
         }
-        CanvasManager.instance.ClearLevelInventory();
+        //CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<UsableObject>();
     }
 

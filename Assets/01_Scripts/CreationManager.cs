@@ -228,6 +228,8 @@ public class CreationManager : MonoBehaviour
         }
 
         listOfObject.Add(tempButton.GetComponent<UsableObject>());
+        GlobalInventory.Add(tempButton.GetComponent<UsableObject>());
+        GlobalInventoryObj.Add(tempButton.GetComponent<UsableObject>().Data);
     }
 
     private void CreateObjectButton(Object_SO tempObject)
@@ -365,6 +367,7 @@ public class CreationManager : MonoBehaviour
             print(i);
             UsableObject tempObject = pulledObject.transform.GetChild(i).gameObject.GetComponent<UsableObject>();
             CreateObjectButtonFromUsableObject(tempObject);
+
             Destroy(tempObject.gameObject);
         }
 
