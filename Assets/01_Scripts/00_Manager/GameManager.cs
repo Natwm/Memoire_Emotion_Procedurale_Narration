@@ -160,10 +160,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            PlayerManager.instance.HandOfVignette.Clear();
-            EventGenerator.instance.ClearGrid();
-            CanvasManager.instance.UpdatePageIndicator();
-            PlayerManager.instance.ResetPlayerPosition();
+            CreationManager.instance.ResetNegociationTime();
             CanvasManager.instance.SetUpCreationPanel();
         }
         

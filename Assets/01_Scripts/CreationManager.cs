@@ -859,6 +859,11 @@ public class CreationManager : MonoBehaviour
         }
     }
 
+    public void ResetNegociationTime()
+    {
+        negociationTime = 100;
+    }
+
     #region Getter && Setter
 
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
