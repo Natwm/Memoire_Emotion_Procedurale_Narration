@@ -221,6 +221,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Categorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = useObject.Data.Sprite;
+
+        if (useObject.IsCurse)
+            SpriteIndicator.color = Color.red;
+
         objectFrom = useObject;
         SetUpUI();
     }
@@ -252,7 +256,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
         foreach (var item in LevelManager.instance.PageInventory)
         {
-            CreationManager.instance.GlobalInventory.Add(item.Data);
+            CreationManager.instance.GlobalInventory.Add(item);
         }
         CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<UsableObject>();

@@ -127,7 +127,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         foreach (var item in data.Inventory)
         {
             Inventory.Add(item);
-            Instantiate(m_ToolButtonPrefabs, m_InventoryPanel.transform);
+            Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
         }
         SetUpCharacterUI();
     }
@@ -143,9 +143,9 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public void SetUpInventoryUI()
     {
         List<GameObject> toRemove = new List<GameObject>();
-        for (int i = 0; i < m_InventoryPanel.transform.childCount; i++)
+        for (int i = 0; i < InventoryPanel.transform.childCount; i++)
         {
-            toRemove.Add(m_InventoryPanel.transform.GetChild(i).gameObject);
+            toRemove.Add(InventoryPanel.transform.GetChild(i).gameObject);
         }
 
         foreach (var item in toRemove)
@@ -155,7 +155,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
 
         foreach (var item in m_Inventory)
         {
-            GameObject tempButton = Instantiate(m_ToolButtonPrefabs, m_InventoryPanel.transform);
+            GameObject tempButton = Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
             tempButton.AddComponent<UsableObject>();
             tempButton.GetComponent<UsableObject>().Data = item;
 
@@ -234,6 +234,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public string CharacterHurtSound { get => CharacterHurtSound1; set => CharacterHurtSound1 = value; }
     public string CharacterHurtSound1 { get => characterHurtSound; set => characterHurtSound = value; }
     public List<UsableObject> InventoryObj { get => m_InventoryObj; set => m_InventoryObj = value; }
+    public GameObject InventoryPanel { get => m_InventoryPanel; set => m_InventoryPanel = value; }
     #endregion
 
 }

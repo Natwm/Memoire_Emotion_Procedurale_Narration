@@ -390,6 +390,15 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     #endregion
 
+    public void ClearVignette()
+    {
+        foreach (var item in HandOfVignette)
+        {
+            Destroy(item.gameObject);
+        }
+        HandOfVignette.Clear();
+    }
+
     #region Getter && Setter
 
     public bool HaveKey { get => haveKey; set => haveKey = value; }

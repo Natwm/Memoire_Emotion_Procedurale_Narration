@@ -74,6 +74,9 @@ public class CanvasManager : MonoBehaviour
     public Image ObjectImage { get => objectImage; set => objectImage = value; }
     public TMP_Text ObjectTitle { get => objectTitle; set => objectTitle = value; }
     public TMP_Text ObjectDescription { get => objectDescription; set => objectDescription = value; }
+    public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
+    public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
+    public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
 
     void Awake()
     {
@@ -157,7 +160,8 @@ public class CanvasManager : MonoBehaviour
     {
         for (int i = 0; i < LevelInventoryPanel.transform.childCount; i++)
         {
-            Destroy(LevelInventoryPanel.transform.GetChild(i).gameObject);
+            LevelInventoryPanel.transform.GetChild(i).gameObject.SetActive(false);
+            LevelInventoryPanel.transform.GetChild(i).transform.parent = CreationManager.instance.pulledObject.transform;
         }
     }
 
@@ -197,6 +201,11 @@ public class CanvasManager : MonoBehaviour
             GridManager.instance.ClearScene();
             //GamePanel.SetActive(false);
             grid.SetActive(false);
+
+            PlayerManager.instance.ClearVignette();
+            EventGenerator.instance.ClearGrid();
+            CanvasManager.instance.UpdatePageIndicator();
+            PlayerManager.instance.ResetPlayerPosition();
         }
         
     }
@@ -212,6 +221,11 @@ public class CanvasManager : MonoBehaviour
             GridManager.instance.ClearScene();
             //GamePanel.SetActive(false);
             grid.SetActive(false);
+
+            PlayerManager.instance.ClearVignette();
+            EventGenerator.instance.ClearGrid();
+            CanvasManager.instance.UpdatePageIndicator();
+            PlayerManager.instance.ResetPlayerPosition();
         }
     }
 
@@ -219,8 +233,8 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpGamePanel()
     {
-        GamePanel.SetActive(true);
-        CreatePanel.SetActive(false);
+        GamePanel1.SetActive(true);
+        CreatePanel1.SetActive(false);
         SelectedCharacterPanel.SetActive(true);
         WaitingCharacterPanel.SetActive(true);
         GridManager.instance.ClearScene();
@@ -274,8 +288,9 @@ public class CanvasManager : MonoBehaviour
             CreationManager.instance.GlobalInventory.Add(item.Data);
         }*/
         CreationManager.instance.PutAllObjectInInventory();
-        CreationManager.instance.CreateObjectList();
-        GamePanel.SetActive(false);
-        CreatePanel.SetActive(true);
+        CreationManager.instance.CreateObjectListFromUsableObject();
+        GamePanel1.SetActive(false);
+        CreatePanel1.SetActive(true);
+
     }
 }

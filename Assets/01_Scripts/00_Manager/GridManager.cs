@@ -272,8 +272,7 @@ public class GridManager : MonoBehaviour
 
     public void ClearGame() 
     { 
-    
-        if(GameManager.instance.OrderCharacter.Count > 0)
+        if(GameManager.instance.OrderCharacter.Count >= 0 )
         {
             print("cleatScene");
             ClearScene();
@@ -290,26 +289,30 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
         Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
-
+        int index = -1;
         ClearList();
 
         for (int i = 0; i < allVignette.Length; i++)
         {
-            print("testsetsetsetset");
             if (!allVignette[i].OnGrid)
             {
-                if (LevelManager.instance.PageInventory.Count >= i && LevelManager.instance.PageInventory[i] != null)
+                index++;
+                if (LevelManager.instance.PageInventory.Count > index)
                 {
-                    LevelManager.instance.PageInventory[i].IsCurse = true;
-                    LevelManager.instance.PageInventory[i].MyCurse = new Curse();
-                    LevelManager.instance.PageInventory[i].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                    if (LevelManager.instance.PageInventory[index] != null)
+                    {
+                        LevelManager.instance.PageInventory[index].IsCurse = true;
+                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
+                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+
+                    }
                 }
             }
             Destroy(allVignette[i].gameObject);
         }
-
+        PlayerManager.instance.CharacterData = null;
         PlayerManager.instance.HandOfVignette.Clear();
-
+        EventGenerator.instance.ClearGrid();
         CanvasManager.instance.UpdatePageIndicator();
         PlayerManager.instance.ResetPlayerPosition();
     }
@@ -324,7 +327,6 @@ public class GridManager : MonoBehaviour
 
         for (int i = 0; i < allVignette.Length; i++)
         {
-            print("testsetsetsetset");
             if (!allVignette[i].OnGrid)
             {
                 index++;
@@ -343,15 +345,21 @@ public class GridManager : MonoBehaviour
             Destroy(allVignette[i].gameObject);
         }
 
-        m_EventGenerator.GenerateGrid();
+        
 
         PlayerManager.instance.HandOfVignette.Clear();
         //PlayerManager.instance.SetUp();
+        if (!CanvasManager.instance.CreatePanel1.activeSelf)
+        {
+            m_EventGenerator.GenerateGrid();
+            LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
+        }
 
-        LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
         CanvasManager.instance.UpdatePageIndicator();
 
         PlayerManager.instance.ResetPlayerPosition();
+
+        
     }
 
     private void ClearList()

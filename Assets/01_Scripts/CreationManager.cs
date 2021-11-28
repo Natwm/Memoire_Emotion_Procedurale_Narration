@@ -50,7 +50,8 @@ public class CreationManager : MonoBehaviour
 
     [Space]
     [Header("Global Inventory")]
-    [SerializeField] private List<Object_SO> m_GlobalInventory;
+    [SerializeField] private List<UsableObject> m_GlobalInventory;
+    [SerializeField] private List<Object_SO> m_GlobalInventoryObj;
 
     [Space]
     [Header("Vignette Render")]
@@ -86,7 +87,7 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(4);
+        PageCharacterList = CreateCharacterList(2);
         CreateObjectList();
     }
 
@@ -185,11 +186,57 @@ public class CreationManager : MonoBehaviour
     #endregion
 
     #region Create Object
+    private void CreateObjectButtonFromUsableObject(UsableObject tempObject)
+    {
+        GameObject tempButton = Instantiate(ObjectButton, objectListHolder.transform);
+        tempButton.AddComponent<UsableObject>();
+        tempButton.GetComponent<UsableObject>().Data = tempObject.Data;
+        tempButton.GetComponent<UsableObject>().IsCurse = tempObject.IsCurse;
+        tempButton.GetComponent<UsableObject>().MyCurse = tempObject.MyCurse;
+
+        UsableObject eventButton = tempButton.GetComponent<UsableObject>();
+
+        tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
+        if (tempButton.GetComponent<UsableObject>().IsCurse)
+            tempButton.GetComponent<Image>().color = Color.red;
+        //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
+
+        tempButton.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
+            UpdateDescriptionPanel(tempObject.Data);
+        }
+        );
+
+        EventTrigger buttonEvent;
+
+        if (tempButton.TryGetComponent<EventTrigger>(out buttonEvent))
+        {
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            EventTrigger.Entry exit = new EventTrigger.Entry();
+
+            entry.eventID = EventTriggerType.PointerEnter;
+            exit.eventID = EventTriggerType.PointerExit;
+
+            entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data); });
+            exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
+            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+
+            buttonEvent.triggers.Add(entry);
+            buttonEvent.triggers.Add(exit);
+        }
+
+        listOfObject.Add(tempButton.GetComponent<UsableObject>());
+    }
+
     private void CreateObjectButton(Object_SO tempObject)
     {
         GameObject tempButton = Instantiate(ObjectButton, objectListHolder.transform);
         tempButton.AddComponent<UsableObject>();
         tempButton.GetComponent<UsableObject>().Data = tempObject;
+        tempButton.GetComponent<UsableObject>().IsCurse = false;
+        tempButton.GetComponent<UsableObject>().MyCurse = null;
 
         UsableObject eventButton = tempButton.GetComponent<UsableObject>();
 
@@ -198,7 +245,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject);
         }
         );
@@ -221,7 +268,7 @@ public class CreationManager : MonoBehaviour
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
         }
-
+        GlobalInventory.Add(eventButton);
         listOfObject.Add(tempButton.GetComponent<UsableObject>());
     }
 
@@ -296,9 +343,9 @@ public class CreationManager : MonoBehaviour
     {
         List<Object_SO> tempList = new List<Object_SO>();
 
-        for (int i = 0; i < GlobalInventory.Count; i++)
+        for (int i = 0; i < GlobalInventoryObj.Count; i++)
         {
-            Object_SO tempObject = GlobalInventory[i];
+            Object_SO tempObject = GlobalInventoryObj[i];
 
             tempList.Add(tempObject);
 
@@ -308,6 +355,31 @@ public class CreationManager : MonoBehaviour
         }
         return tempList == null ? null : tempList;
     }
+
+    public List<UsableObject> CreateObjectListFromUsableObject()
+    {
+        List<UsableObject> tempList = new List<UsableObject>();
+
+        for (int i = 0; i < pulledObject.transform.childCount; i++)
+        {
+            print(i);
+            UsableObject tempObject = pulledObject.transform.GetChild(i).gameObject.GetComponent<UsableObject>();
+            CreateObjectButtonFromUsableObject(tempObject);
+            Destroy(tempObject.gameObject);
+        }
+
+        /*for (int i = 0; i < GlobalInventory.Count; i++)
+        {
+            UsableObject tempObject = GlobalInventory[i];
+
+            tempList.Add(tempObject);
+
+            CreateObjectButtonFromUsableObject(tempObject);
+            //GlobalInventory.Remove(tempObject);
+            //CharacterList.Remove(tempCharacter);
+        }*/
+        return tempList == null ? null : tempList;
+    }
     #endregion
 
     #endregion
@@ -315,9 +387,12 @@ public class CreationManager : MonoBehaviour
     {
         foreach (var item in listOfCharacter)
         {
-            foreach (var obj in item.Inventory)
+            int index = -1;
+            foreach (var obj in item.InventoryObj)
             {
-                GlobalInventory.Add(obj);
+                index++;
+                obj.gameObject.transform.parent = pulledObject.transform;
+                Destroy(item.InventoryPanel.transform.GetChild(index).gameObject);
             }
             item.Inventory.Clear();
             item.InventoryObj.Clear();
@@ -330,6 +405,15 @@ public class CreationManager : MonoBehaviour
         {
             CreatePlayerInventory(item);
         }
+        print("objectListHolder.transform.childCount" + objectListHolder.transform.childCount);
+
+        foreach (var item in GlobalInventory)
+        {
+            item.transform.parent = pulledObject.transform;
+            item.gameObject.SetActive(false);
+        }
+        GlobalInventory.Clear();
+        GlobalInventoryObj.Clear();
     }
     public bool test()
     {
@@ -415,14 +499,14 @@ public class CreationManager : MonoBehaviour
                 pullOfObject.Add(ObjetToTake);
                 break;
             case UsableObject.ObjectStatus.CLAIM:
-                if (m_GlobalInventory.Contains(ObjetToTake.Data))
+                if (m_GlobalInventory.Contains(ObjetToTake))
                 {
                     if(player == ObjetToTake.Stat.character)
                     {
                         player.Inventory.Add(ObjetToTake.Data);
                         player.InventoryObj.Add(ObjetToTake);
                         ObjetToTake.gameObject.SetActive(false);
-                        m_GlobalInventory.Remove(ObjetToTake.Data);
+                        m_GlobalInventory.Remove(ObjetToTake);
                     }
                 }
                 break;
@@ -454,11 +538,11 @@ public class CreationManager : MonoBehaviour
                     pullOfObject.Add(ObjetToTake);
                     break;
                 case UsableObject.ObjectStatus.CLAIM:
-                    if (m_GlobalInventory.Contains(ObjetToTake.Data))
+                    if (m_GlobalInventory.Contains(ObjetToTake))
                     {
                         ObjetToTake.Stat.character.Inventory.Add(ObjetToTake.Data);
                         ObjetToTake.gameObject.SetActive(false);
-                        m_GlobalInventory.Remove(ObjetToTake.Data);
+                        m_GlobalInventory.Remove(ObjetToTake);
                     }
                     break;
                 case UsableObject.ObjectStatus.WANT:
@@ -576,9 +660,13 @@ public class CreationManager : MonoBehaviour
     public void LaunchGame()
     {
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
+        
+        PlayerManager.instance.Inventory.Clear();
+        PlayerManager.instance.InventoryObj.Clear();
+
         if (PlayerManager.instance.CharacterData != null)
         {
-            foreach (var item in PlayerManager.instance.Inventory)
+            foreach (var item in PlayerManager.instance.InventoryObj)
             {
                 GlobalInventory.Add(item);
             }
@@ -775,8 +863,9 @@ public class CreationManager : MonoBehaviour
 
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
     public int NegociationTime { get => negociationTime; set => negociationTime = value; }
-    public List<Object_SO> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
+    public List<UsableObject> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
     public List<Character_SO> GlobalCrew { get => m_GlobalCrew; set => m_GlobalCrew = value; }
+    public List<Object_SO> GlobalInventoryObj { get => m_GlobalInventoryObj; set => m_GlobalInventoryObj = value; }
 
     #endregion
 }
