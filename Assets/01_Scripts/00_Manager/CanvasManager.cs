@@ -146,10 +146,11 @@ public class CanvasManager : MonoBehaviour
         vignetteText.text = "Next Vignette : " + amoutOfVignette;
     }
 
-    public void NewItemInLevelInventory(Object_SO item)
+    public GameObject NewItemInLevelInventory(Object_SO item)
     {
         GameObject newItemInInventory = Instantiate(levelInventoryButtonPrefabs, LevelInventoryPanel.transform);
         newItemInInventory.GetComponent<Image>().sprite = item.Sprite;
+        return newItemInInventory;
     }
 
     public void ClearLevelInventory()
@@ -268,11 +269,11 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpCreationPanel()
     {
-        foreach (var item in LevelManager.instance.PageInventory)
+        /*foreach (var item in LevelManager.instance.PageInventory)
         {
-            CreationManager.instance.GlobalInventory.Add(item);
-        }
-
+            CreationManager.instance.GlobalInventory.Add(item.Data);
+        }*/
+        CreationManager.instance.PutAllObjectInInventory();
         CreationManager.instance.CreateObjectList();
         GamePanel.SetActive(false);
         CreatePanel.SetActive(true);

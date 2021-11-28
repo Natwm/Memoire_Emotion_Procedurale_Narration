@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            LevelManager.instance.NewPage();
+            //LevelManager.instance.NewPage();
         }
     }
 

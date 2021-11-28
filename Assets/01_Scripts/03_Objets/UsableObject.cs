@@ -40,26 +40,36 @@ public class UsableObject : abstractUsableObject
         REJECT,
         EXCLUDE
     }
+
     [SerializeField] private ObjectStatus m_Status;
 
-    [SerializeField] private Object_SO m_Data;
+    [SerializeField] protected Object_SO m_Data;
 
     [SerializeField] private ReclameStatus stat;
+
+    [Space]
+    [Header("Curse")]
+    [SerializeField] private bool isCurse;
+    [SerializeField] private Curse m_MyCurse;
 
     #region Awake || Start || Update
     // Start is called before the first frame update
     void Start()
     {
-
+        MyCurse = new Curse();
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     #endregion
+
+    public UsableObject(Object_SO objRef)
+    {
+        Data = objRef;
+    }
 
     public void AffectByPlayer(UnityEngine.UI.Button myButton, Character_Button player)
     {
@@ -280,6 +290,8 @@ public class UsableObject : abstractUsableObject
     public ObjectStatus Status { get => m_Status; set => m_Status = value; }
     public Object_SO Data { get => m_Data; set => m_Data = value; }
     public ReclameStatus Stat { get => stat; set => stat = value; }
+    public bool IsCurse { get => isCurse; set => isCurse = value; }
+    public Curse MyCurse { get => m_MyCurse; set => m_MyCurse = value; }
 
     #endregion
 

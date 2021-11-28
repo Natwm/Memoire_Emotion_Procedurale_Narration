@@ -170,7 +170,7 @@ public class GridManager : MonoBehaviour
                             }
                             catch
                             {
-                                print("error");
+                                //print("error");
 
                             }
                         }
@@ -263,10 +263,10 @@ public class GridManager : MonoBehaviour
         }
         test.Clear();
         test = listOfVignetteMovement;
-        foreach (var item in listOfVignetteMovement)
+        /*foreach (var item in listOfVignetteMovement)
         {
             print(item);
-        }
+        }*/
 
     }
 
@@ -289,12 +289,23 @@ public class GridManager : MonoBehaviour
     {
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
+        Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
 
         ClearList();
 
-        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        for (int i = 0; i < allVignette.Length; i++)
         {
-            Destroy(item.gameObject);
+            print("testsetsetsetset");
+            if (!allVignette[i].OnGrid)
+            {
+                if (LevelManager.instance.PageInventory.Count >= i && LevelManager.instance.PageInventory[i] != null)
+                {
+                    LevelManager.instance.PageInventory[i].IsCurse = true;
+                    LevelManager.instance.PageInventory[i].MyCurse = new Curse();
+                    LevelManager.instance.PageInventory[i].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                }
+            }
+            Destroy(allVignette[i].gameObject);
         }
 
         PlayerManager.instance.HandOfVignette.Clear();
@@ -307,13 +318,31 @@ public class GridManager : MonoBehaviour
     {
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
-
+        Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
+        int index = -1;
         ClearList();
 
-        foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
+        for (int i = 0; i < allVignette.Length; i++)
         {
-            Destroy(item.gameObject);
+            print("testsetsetsetset");
+            if (!allVignette[i].OnGrid)
+            {
+                index++;
+                if (LevelManager.instance.PageInventory.Count > index )
+                {
+                    print("Index = " + index);
+                    if(LevelManager.instance.PageInventory[index] != null)
+                    {
+                        LevelManager.instance.PageInventory[index].IsCurse = true;
+                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
+                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+
+                    }
+                }
+            }
+            Destroy(allVignette[i].gameObject);
         }
+
         m_EventGenerator.GenerateGrid();
 
         PlayerManager.instance.HandOfVignette.Clear();

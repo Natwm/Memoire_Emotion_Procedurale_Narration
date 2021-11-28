@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UsableObject_Behaviours : UsableObject, IDamageable
+public class UsableObject_Behaviours : /*UsableObject,*/ IDamageable
 {
 
 

@@ -92,6 +92,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private GameObject physicsCheck;
 
     [Space]
+    [Header("Object")]
+    [SerializeField] private UsableObject objectFrom;
+
+    [Space]
     [Header("Sound Fmod Action")]
     FMOD.Studio.EventInstance takeVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string takeVignetteSound;
@@ -145,7 +149,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void ApplyVignetteEffect()
     {
-        // fait effet 
 
         // action spécifique
         switch (Categorie)
@@ -183,6 +186,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             default:
                 break;
         }
+
+        if (objectFrom != null)
+        {
+            if (objectFrom.IsCurse)
+            {
+                objectFrom.MyCurse.ApplyCurse();
+            }
+        }
     }
 
     #region SETUP
@@ -194,12 +205,23 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
 
+
     public void SetUpVignette(VignetteCategories categorie, Object_SO useObject)
     {
         Categorie = categorie;
         categorieText.text = GetEnumName();
         print(useObject);
         SpriteIndicator.sprite = useObject.Sprite;
+        objectFrom = null;
+        SetUpUI();
+    }
+
+    public void SetUpVignette(VignetteCategories categorie, UsableObject useObject)
+    {
+        Categorie = categorie;
+        categorieText.text = GetEnumName();
+        SpriteIndicator.sprite = useObject.Data.Sprite;
+        objectFrom = useObject;
         SetUpUI();
     }
     #endregion
@@ -218,8 +240,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
         Object_SO newItem = LevelManager.instance.UnlockableObject[randomIndex];
 
-        LevelManager.instance.PageInventory.Add(newItem);
-        CanvasManager.instance.NewItemInLevelInventory(newItem);
+        
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
     }
 
     public void TakeEffect()
@@ -227,10 +252,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
         foreach (var item in LevelManager.instance.PageInventory)
         {
-            CreationManager.instance.GlobalInventory.Add(item);
+            CreationManager.instance.GlobalInventory.Add(item.Data);
         }
         CanvasManager.instance.ClearLevelInventory();
-        LevelManager.instance.PageInventory = new List<Object_SO>();
+        LevelManager.instance.PageInventory = new List<UsableObject>();
     }
 
     public void FightEffect()
@@ -272,7 +297,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("Vent_GlacialEffect");
         CanvasManager.instance.ClearLevelInventory();
-        LevelManager.instance.PageInventory = new List<Object_SO>();
+        LevelManager.instance.PageInventory = new List<UsableObject>();
     }
 
     public void Savoir_OcculteEffect()
@@ -282,7 +307,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
 
-            LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
+            LevelManager.instance.PageInventory.Add(new UsableObject(LevelManager.instance.UnlockableObject[randomIndex]));
         }
 
         //draw 2 vignette negatif et 1 explorer.
@@ -307,7 +332,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
 
-            LevelManager.instance.PageInventory.Add(LevelManager.instance.UnlockableObject[randomIndex]);
+            LevelManager.instance.PageInventory.Add(new UsableObject(LevelManager.instance.UnlockableObject[randomIndex]));
         }
     }
 
@@ -336,7 +361,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                         foreach (var item in condition.CaseResult)
                         {
-                            LevelManager.instance.PageInventory.Add(item);
+                            LevelManager.instance.PageInventory.Add(new UsableObject(item));
                         }
                         return true;
                     }
@@ -617,12 +642,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         NextMove = check != this ? check : null;
         if (NextMove != null)
         {
-            print("Next move is :    " + NextMove.gameObject);
+            //print("Next move is :    " + NextMove.gameObject);
         }
         else
         {
-            print("NextMove est sensé être  =" + check);
-            print("il est null car : check != this =" + (check != this));
+            //print("NextMove est sensé être  =" + check);
+            //print("il est null car : check != this =" + (check != this));
         }
 
     }
@@ -1081,5 +1106,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public bool OnGrid { get => onGrid; set => onGrid = value; }
     public List<CaseContener_SO> ListOfCaseEventObject { get => listOfCaseEventObject; set => listOfCaseEventObject = value; }
     public VignetteCategories Categorie { get => categorie; set => categorie = value; }
+    public UsableObject ObjectFrom { get => objectFrom; set => objectFrom = value; }
     #endregion
 }

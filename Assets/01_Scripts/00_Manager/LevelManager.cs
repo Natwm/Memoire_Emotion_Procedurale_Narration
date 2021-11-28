@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     [Header("Page Inventory")]
-    [SerializeField] private List<Object_SO> pageInventory = new List<Object_SO> ();
+    [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject> ();
 
     void Awake()
     {
@@ -112,6 +112,28 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void SpawnObject(List<UsableObject> inventory)
+    {
+        print("okokokok");
+        foreach (var item in inventory)
+        {
+            foreach (var toDraw in item.Data.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                    GameObject card = Instantiate(vignette, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                }
+            }
+        }
+    }
+
     public void SpawnObject(List<DrawVignette> inventory)
     {
             foreach (var toDraw in inventory)
@@ -130,7 +152,7 @@ public class LevelManager : MonoBehaviour
             }
         if (inventory.Count > 0)
         {
-            SpawnObject(PlayerManager.instance.Inventory);
+            SpawnObject(PlayerManager.instance.InventoryObj);
         }
     }
 
@@ -245,7 +267,7 @@ public class LevelManager : MonoBehaviour
 
     public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
     public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
-    public List<Object_SO> PageInventory { get => pageInventory; set => pageInventory = value; }
+    public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
     public List<Object_SO> UnlockableObject { get => unlockableObject; set => unlockableObject = value; }
 
     #endregion

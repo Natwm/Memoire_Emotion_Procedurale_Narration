@@ -38,6 +38,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     [Space]
 
     [SerializeField] private List<Object_SO> m_Inventory;
+    [SerializeField] private List<UsableObject> m_InventoryObj = new List<UsableObject>();
 
     [Header("Text")]
     [Header("UI")]
@@ -232,6 +233,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public string CharacterSelectedSound { get => characterSelectedSound; set => characterSelectedSound = value; }
     public string CharacterHurtSound { get => CharacterHurtSound1; set => CharacterHurtSound1 = value; }
     public string CharacterHurtSound1 { get => characterHurtSound; set => characterHurtSound = value; }
+    public List<UsableObject> InventoryObj { get => m_InventoryObj; set => m_InventoryObj = value; }
     #endregion
 
 }

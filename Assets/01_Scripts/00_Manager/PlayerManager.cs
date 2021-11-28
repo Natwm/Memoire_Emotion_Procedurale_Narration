@@ -35,6 +35,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Space]
 
     [SerializeField] private List<Object_SO> m_Inventory;
+    [SerializeField] private List<UsableObject> m_InventoryObj;
 
 
     [Space]
@@ -128,6 +129,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
         foreach (var item in characterData.Inventory)
         {
             Inventory.Add(item);
+        }
+
+        foreach (var item in characterData.InventoryObj)
+        {
+            InventoryObj.Add(item);
         }
 
         CharacterData = characterData.AssignedElement;
@@ -401,5 +407,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public Character_Button CharacterContener { get => characterContener; set => characterContener = value; }
     public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
     public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
+    public List<UsableObject> InventoryObj { get => m_InventoryObj; set => m_InventoryObj = value; }
     #endregion
 }

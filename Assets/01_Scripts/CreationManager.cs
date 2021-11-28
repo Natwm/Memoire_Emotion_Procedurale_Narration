@@ -311,6 +311,19 @@ public class CreationManager : MonoBehaviour
     #endregion
 
     #endregion
+    public void PutAllObjectInInventory()
+    {
+        foreach (var item in listOfCharacter)
+        {
+            foreach (var obj in item.Inventory)
+            {
+                GlobalInventory.Add(obj);
+            }
+            item.Inventory.Clear();
+            item.InventoryObj.Clear();
+        }
+    }
+
     public void RepartitionObject()
     {
         foreach (var item in listOfCharacter)
@@ -407,6 +420,7 @@ public class CreationManager : MonoBehaviour
                     if(player == ObjetToTake.Stat.character)
                     {
                         player.Inventory.Add(ObjetToTake.Data);
+                        player.InventoryObj.Add(ObjetToTake);
                         ObjetToTake.gameObject.SetActive(false);
                         m_GlobalInventory.Remove(ObjetToTake.Data);
                     }
@@ -490,6 +504,9 @@ public class CreationManager : MonoBehaviour
             if (!player.Inventory.Contains(pullOfObject[index].Data))
             {
                 player.Inventory.Add(pullOfObject[index].Data);
+
+                player.InventoryObj.Add(pullOfObject[index]);
+
                 pullOfObject[index].gameObject.SetActive(false);
             }
             UsableObject obj = pullOfObject[index];
