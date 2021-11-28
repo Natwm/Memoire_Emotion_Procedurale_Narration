@@ -399,6 +399,33 @@ public class PlayerManager : MonoBehaviour, IDamageable
         HandOfVignette.Clear();
     }
 
+    public void ApplyCurseOnObject()
+    {
+        Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
+        int index = -1;
+        for (int i = 0; i < allVignette.Length; i++)
+        {
+            if (!allVignette[i].OnGrid)
+            {
+                index++;
+                if (LevelManager.instance.PageInventory.Count > index)
+                {
+                    print("Index = " + index);
+                    if (LevelManager.instance.PageInventory[index] != null)
+                    {
+                        LevelManager.instance.PageInventory[index].IsCurse = true;
+                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
+                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+
+                    }
+                }
+                Destroy(allVignette[i].gameObject);
+            }
+            
+        }
+        MoveToAnotherStep();
+    }
+
     #region Getter && Setter
 
     public bool HaveKey { get => haveKey; set => haveKey = value; }

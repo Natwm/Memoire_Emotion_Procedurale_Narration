@@ -289,25 +289,11 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
         Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
-        int index = -1;
+
         ClearList();
 
         for (int i = 0; i < allVignette.Length; i++)
         {
-            if (!allVignette[i].OnGrid)
-            {
-                index++;
-                if (LevelManager.instance.PageInventory.Count > index)
-                {
-                    if (LevelManager.instance.PageInventory[index] != null)
-                    {
-                        LevelManager.instance.PageInventory[index].IsCurse = true;
-                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
-                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-
-                    }
-                }
-            }
             Destroy(allVignette[i].gameObject);
         }
         PlayerManager.instance.CharacterData = null;
@@ -322,30 +308,13 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.AmountOfpageDone++;
         List<GameObject> toDelete = new List<GameObject>(listOfTile);
         Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
-        int index = -1;
-        ClearList();
 
         for (int i = 0; i < allVignette.Length; i++)
         {
-            if (!allVignette[i].OnGrid)
-            {
-                index++;
-                if (LevelManager.instance.PageInventory.Count > index )
-                {
-                    print("Index = " + index);
-                    if(LevelManager.instance.PageInventory[index] != null)
-                    {
-                        LevelManager.instance.PageInventory[index].IsCurse = true;
-                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
-                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
-
-                    }
-                }
-            }
             Destroy(allVignette[i].gameObject);
         }
 
-        
+        ClearList();
 
         PlayerManager.instance.HandOfVignette.Clear();
         //PlayerManager.instance.SetUp();

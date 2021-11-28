@@ -162,6 +162,12 @@ public class GameManager : MonoBehaviour
         {
             CreationManager.instance.ResetNegociationTime();
             CanvasManager.instance.SetUpCreationPanel();
+
+            foreach (var item in LevelManager.instance.PageInventory)
+            {
+                Destroy(item.gameObject);
+            }
+            LevelManager.instance.PageInventory = new List<UsableObject>();
         }
         
     }

@@ -263,6 +263,7 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
+
     #region Getter && Setter
 
     public int AmountOfpageDone { get => amountOfpageDone; set => amountOfpageDone = value; }
