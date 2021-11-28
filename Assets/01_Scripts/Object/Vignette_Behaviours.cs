@@ -225,10 +225,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
 
+    string vignetteText;
+    string curseText;
     public void SetUpVignette(VignetteCategories categorie, UsableObject useObject)
     {
         Categorie = categorie;
-        categorieText.text = GetEnumName();
+        vignetteText = GetEnumName();
+        categorieText.text = vignetteText + curseText;
         SpriteIndicator.sprite = useObject.Data.Sprite;
 
         if (useObject.IsCurse)
@@ -900,58 +903,58 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         switch (categorie)
         {
             case VignetteCategories.NEUTRE:
-                return "NEUTRE";
+                return "<br>Neutre";
                 break;
             case VignetteCategories.EXPLORER:
-                return "EXPLORER";
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
                 break;
             case VignetteCategories.PRENDRE:
-                return "PRENDRE";
+                return "<color=#B5935A><sprite=3 color=#B5935A></color=#B5935A><br>Prendre";
                 break;
             case VignetteCategories.COMBATTRE:
-                return "COMBATTRE";
+                return "<color=#B5935A>-2<sprite=0 color=#B5935A></color=#B5935A><br>Combattre";
                 break;
             case VignetteCategories.UTILISER:
-                return "UTILISER";
+                return "<br>Utiliser";
                 break;
             case VignetteCategories.PIEGE:
-                return "PIEGE";
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A></color=#B5935A><br>Piège";
                 break;
             case VignetteCategories.CURSE:
-                return "CURSE";
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A></color=#B5935A><br>Malédiction";
                 break;
             case VignetteCategories.PERTE_OBJET:
-                return "PERTE_OBJET";
+                return "<color=#B5935A>-1<sprite=1 color=#B5935A></color=#B5935A><br>Perte d'objet";
                 break;
             case VignetteCategories.VENT_GLACIAL:
                 return "VENT_GLACIAL";
                 break;
             case VignetteCategories.SAVOIR_OCCULTE:
-                return "SAVOIR_OCCULTE";
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=1 color=#B5935A></color=#B5935A><br>Savoir Occulte";
                 break;
             case VignetteCategories.SMALL_HEAL:
-                return "SMALL_HEAL";
+                return "<color=#B5935A>+1<sprite=0 color=#B5935A></color=#B5935A><br>Soin Léger";
                 break;
             case VignetteCategories.BIG_HEAL:
-                return "BIG_HEAL";
+                return "<color=#B5935A>+1<sprite=0 color=#B5935A></color=#B5935A><br>Soin Léger";
                 break;
             case VignetteCategories.ECLAIRER:
-                return "ECLAIRER";
+                return "<color=#B5935A>+2<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Éclairer";
                 break;
             case VignetteCategories.RESSURECTION:
-                return "RESSURECTION";
+                return "<color=#B5935A><sprite=4 color=#B5935A></color=#B5935A><br><size=90%>Résurrection";
                 break;
             case VignetteCategories.PLANIFICATION:
-                return "PLANIFICATION";
+                return "<color=#B5935A>+30<sprite=5 color=#B5935A></color=#B5935A><br><size=90%>Planification";
                 break;
             case VignetteCategories.SOIN_EQUIPE:
-                return "SOIN_EQUIPE";
+                return "<color=#B5935A>(Tous) +1<sprite=0 color=#B5935A></color=#B5935A><br><size=90%>Soin de l'équipe";
                 break;
             case VignetteCategories.DEBROUILLARD:
-                return "DEBROUILLARD";
+                return "<color=#B5935A>Utilisable sur toute les cases</color=#B5935A><br><size=90%>Débrouillard";
                 break;
             case VignetteCategories.SOUFFLER:
-                return "SOUFFLER";
+                return "<color=#B5935A>+ 1<sprite=2 color=#B5935A></color=#B5935A><br><size=100%>Bref Répit";
                 break;
             case VignetteCategories.INSTANTANE:
                 return "INSTANTANE";
@@ -960,7 +963,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 return "RESSEMBLACE_ETRANGE";
                 break;
             default:
-                return "NEUTRE";
+                return "<br> Neutre";
                 break;
         }
     }

@@ -19,8 +19,7 @@ MonoBehaviour:
   - categoryToDraw: 2
     amountOfCardToDraw: 2
   m_ObjectName: AttacheCase
-  m_sprite: {fileID: -1753073280405322283, guid: 17f4271e42e1d7d4a915e1c90cc68cfb,
-    type: 3}
+  m_sprite: {fileID: 21300000, guid: 188fffa1cba50d9468b040daccf95ea4, type: 3}
   m_AmountOfUse: 0
   m_SizeInInventory: 0
   m_Description: 
