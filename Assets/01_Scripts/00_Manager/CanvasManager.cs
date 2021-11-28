@@ -77,6 +77,7 @@ public class CanvasManager : MonoBehaviour
     public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
     public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
     public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
+    public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
 
     void Awake()
     {
@@ -151,17 +152,17 @@ public class CanvasManager : MonoBehaviour
 
     public GameObject NewItemInLevelInventory(Object_SO item)
     {
-        GameObject newItemInInventory = Instantiate(levelInventoryButtonPrefabs, LevelInventoryPanel.transform);
+        GameObject newItemInInventory = Instantiate(levelInventoryButtonPrefabs, LevelInventoryPanel1.transform);
         newItemInInventory.GetComponent<Image>().sprite = item.Sprite;
         return newItemInInventory;
     }
 
     public void ClearLevelInventory()
     {
-        for (int i = 0; i < LevelInventoryPanel.transform.childCount; i++)
+        for (int i = 0; i < LevelInventoryPanel1.transform.childCount; i++)
         {
-            LevelInventoryPanel.transform.GetChild(i).gameObject.SetActive(false);
-            LevelInventoryPanel.transform.GetChild(i).transform.parent = CreationManager.instance.pulledObject.transform;
+            LevelInventoryPanel1.transform.GetChild(i).gameObject.SetActive(false);
+            LevelInventoryPanel1.transform.GetChild(i).transform.parent = CreationManager.instance.pulledObject.transform;
         }
     }
 
