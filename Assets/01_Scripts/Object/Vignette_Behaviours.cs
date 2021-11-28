@@ -183,6 +183,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.SAVOIR_OCCULTE:
                 Savoir_OcculteEffect();
                 break;
+            case VignetteCategories.SMALL_HEAL:
+                SmallHealEffect();
+                break;
+            case VignetteCategories.BIG_HEAL:
+                FullHealEffect();
+                break;
+            case VignetteCategories.SOUFFLER:
+                SoufflerEffect();
+                break;
             default:
                 break;
         }
@@ -315,6 +324,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
 
         //draw 2 vignette negatif et 1 explorer.
+    }
+    public void SoufflerEffect()
+    {
+        PlayerManager.instance.HealMentalPlayer(1);
     }
 
     public void SmallHealEffect()
@@ -709,6 +722,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.BIG_HEAL:
                 SetUpTextVignette(0, 0, 10);
                 break;
+            case VignetteCategories.SOUFFLER:
+                SetUpTextVignette(0,1,0);
+                break;
             /*case VignetteCategories.RESSURECTION:
                 SetUpTextVignette("");
                 break;
@@ -719,9 +735,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 SetUpTextVignette();
                 break;
             case VignetteCategories.DEBROUILLARD:
-                SetUpTextVignette();
-                break;
-            case VignetteCategories.SOUFFLER:
                 SetUpTextVignette();
                 break;
             case VignetteCategories.INSTANTANE:

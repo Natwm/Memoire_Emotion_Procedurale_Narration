@@ -15,13 +15,13 @@ MonoBehaviour:
   m_render: {fileID: 21300000, guid: 70e7cfad12f4bd340a43c42864f3c158, type: 3}
   m_CharacterName: Gudule
   maxHealth: 5
-  health: 4
+  health: 5
   m_Endurance: 4
   m_MaxEndurance: 1
-  m_MentalHealth: 0
-  m_MaxMentalHealth: 1
-  m_InventorySize: 1
-  m_MaxInventorySize: 1
+  m_MentalHealth: 5
+  m_MaxMentalHealth: 5
+  m_InventorySize: 2
+  m_MaxInventorySize: 2
   m_Inventory: []
   m_BaseHand:
   - categoryToDraw: 1

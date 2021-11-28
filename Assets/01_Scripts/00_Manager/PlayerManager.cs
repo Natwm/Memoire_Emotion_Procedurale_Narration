@@ -365,6 +365,23 @@ public class PlayerManager : MonoBehaviour, IDamageable
             health = maxHealth;
     }
 
+    public void HealMentalPlayer(int amountOfHeal)
+    {
+        MentalHealth += amountOfHeal;
+        if (MentalHealth > MaxMentalHealth)
+            MentalHealth = MaxMentalHealth;
+    }
+
+    public void ReduceMentalPlayer(int amountOfHeal)
+    {
+        MentalHealth -= amountOfHeal;
+        if (MentalHealth < 0)
+            MentalHealth = 0;
+
+        if (IsDead())
+            Death();
+    }
+
     #region Interfaces
     public void GetDamage(int amountOfDamage)
     {
@@ -385,7 +402,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public bool IsDead()
     {
-        return health <= 0;
+        return health <= 0 || MentalHealth < 0;
     }
 
     #endregion
@@ -399,7 +416,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         HandOfVignette.Clear();
     }
 
-    public void ApplyCurseOnObject()
+    public IEnumerator ApplyCurseOnEachObject()
     {
         Vignette_Behaviours[] allVignette = FindObjectsOfType<Vignette_Behaviours>();
         int index = -1;
@@ -420,10 +437,16 @@ public class PlayerManager : MonoBehaviour, IDamageable
                     }
                 }
                 Destroy(allVignette[i].gameObject);
+                yield return new WaitForSeconds(0.5f);
             }
-            
+
         }
         MoveToAnotherStep();
+    }
+
+    public void ApplyCurseOnObject()
+    {
+        StartCoroutine(ApplyCurseOnEachObject());
     }
 
     #region Getter && Setter
