@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: rotule
   m_EditorClassIdentifier: 
   caseName: 
-  objectsRequired:
-  - {fileID: 11400000, guid: c680ea16a3d831a4aa04de11bd6b81eb, type: 2}
-  caseResult:
-  - {fileID: 11400000, guid: c680ea16a3d831a4aa04de11bd6b81eb, type: 2}
+  anyVignette: 0
+  objectsRequired: 02000000
+  result: 0

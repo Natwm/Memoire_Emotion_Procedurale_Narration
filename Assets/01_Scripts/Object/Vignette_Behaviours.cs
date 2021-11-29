@@ -35,7 +35,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private Vector3 offset;
 
-    [SerializeField] private VignetteCategories categorie;
+    [SerializeField] private VignetteCategories currentCategorie;
+    [SerializeField] private VignetteCategories initCategorie;
+
     [SerializeField] private TMPro.TMP_Text categorieText;
 
     [Space]
@@ -208,7 +210,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     #region SETUP
     public void SetUpVignette(VignetteCategories categorie)
     {
-        Categorie = categorie;
+        Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = null;
         SetUpUI();
@@ -217,7 +219,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void SetUpVignette(VignetteCategories categorie, Object_SO useObject)
     {
-        Categorie = categorie;
+        Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         print(useObject);
         SpriteIndicator.sprite = useObject.Sprite;
@@ -230,7 +232,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     string curseText;
     public void SetUpVignette(VignetteCategories categorie, UsableObject useObject)
     {
-        Categorie = categorie;
+        Categorie = initCategorie = categorie;
         vignetteText = GetEnumName();
         
         SpriteIndicator.sprite = useObject.Data.Sprite;
@@ -296,7 +298,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void UseEffect()
     {
         print("UseEffect"); // check si il y a condition
-        CheckCaseCondition();
+        //CheckCaseCondition();
     }
 
     public void FallEffect()
@@ -386,20 +388,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             print("check");
             foreach (var condition in ListOfCaseEventObject)
             {
+                if (condition.AnyVignette)
+                {
+                    ApplyTileEffect(condition.CaseResult);
+                    return true;
+                }
                 foreach (var objectNeeded in condition.ObjectsRequired)
                 {
-                    if (PlayerManager.instance.Inventory.Contains(objectNeeded))
+                    if (currentCategorie == objectNeeded)
                     {
-                        PlayerManager.instance.Inventory.Remove(objectNeeded);
-
-                        foreach (var item in condition.CaseResult)
-                        {
-                            LevelManager.instance.PageInventory.Add(new UsableObject(item));
-                        }
+                        ApplyTileEffect(condition.CaseResult);
                         return true;
                     }
                 }
             }
+            //
         }
         return false;
     }
@@ -911,7 +914,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private string GetEnumName()
     {
-        switch (categorie)
+        switch (currentCategorie)
         {
             case VignetteCategories.NEUTRE:
                 return "<br>Neutre";
@@ -1003,6 +1006,24 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         return CreationManager.instance.GetVignetteSprite(this);
     }
 
+    #region Update Vignette
+
+    public void ApplyTileEffect(VignetteCategories newCategorie)
+    {
+        currentCategorie = newCategorie;
+        categorieText.text = GetEnumName();
+        SetUpUI();
+    }
+
+    public void ResetVignette()
+    {
+        currentCategorie = initCategorie;
+        categorieText.text = GetEnumName();
+        SetUpUI();
+    }
+
+    #endregion
+
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
     {
@@ -1087,10 +1108,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         GameManager.instance.IsMovementvalid();
         GridManager.instance.GetVignetteOrderByNeighbourg();
+
+        CheckCaseCondition();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        ResetVignette();
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
         data.z = transform.position.z;
         //AJouter la distance entre le pivot et le curseur;
@@ -1157,7 +1181,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public Vector2 VignetteShape { get => vignetteShape; set => vignetteShape = value; }
     public bool OnGrid { get => onGrid; set => onGrid = value; }
     public List<CaseContener_SO> ListOfCaseEventObject { get => listOfCaseEventObject; set => listOfCaseEventObject = value; }
-    public VignetteCategories Categorie { get => categorie; set => categorie = value; }
+    public VignetteCategories Categorie { get => currentCategorie; set => currentCategorie = value; }
     public UsableObject ObjectFrom { get => objectFrom; set => objectFrom = value; }
     #endregion
 }

@@ -7,10 +7,13 @@ public class CaseContener_SO : ScriptableObject
 {
     [SerializeField] private string caseName;
 
-    [SerializeField] private List<Object_SO> objectsRequired;
+    [SerializeField] private bool anyVignette;
 
-    [SerializeField] private List<Object_SO> caseResult;
+    [SerializeField] private List<Vignette_Behaviours.VignetteCategories> objectsRequired;
 
-    public List<Object_SO> ObjectsRequired { get => objectsRequired; set => objectsRequired = value; }
-    public List<Object_SO> CaseResult { get => caseResult; set => caseResult = value; }
+    [SerializeField] private Vignette_Behaviours.VignetteCategories result;
+
+    public List<Vignette_Behaviours.VignetteCategories> ObjectsRequired { get => objectsRequired; set => objectsRequired = value; }
+    public Vignette_Behaviours.VignetteCategories CaseResult { get => result; set => result = value; }
+    public bool AnyVignette { get => anyVignette; set => anyVignette = value; }
 }

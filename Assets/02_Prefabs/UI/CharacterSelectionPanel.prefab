@@ -100,6 +100,7 @@ MonoBehaviour:
   m_InventorySize: 0
   m_MaxInventorySize: 1
   m_Inventory: []
+  m_InventoryObj: []
   m_NameText: {fileID: 2054483881653702770}
   m_LifeText: {fileID: 2578640991937360555}
   m_enduranceText: {fileID: 8298610319587508773}
@@ -108,6 +109,8 @@ MonoBehaviour:
   m_ToolButtonPrefabs: {fileID: 3392285016570443742, guid: cd36d2b8293b6384ea1eb1f7c7664ad3,
     type: 3}
   m_cadre: {fileID: 0}
+  characterSelectedSound: 
+  characterHurtSound: 
 --- !u!114 &2109877700193865087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,7 +364,7 @@ PrefabInstance:
     - target: {fileID: 1340980208639133574, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
       propertyPath: m_fontSize
-      value: 22
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1340980208639133574, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
@@ -383,7 +386,7 @@ PrefabInstance:
     - target: {fileID: 1340980208639133574, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
       propertyPath: m_enableAutoSizing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3303333154081744223, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
@@ -405,7 +408,7 @@ PrefabInstance:
     - target: {fileID: 4791729032482502408, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
       propertyPath: m_fontSize
-      value: 22
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4791729032482502408, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
@@ -427,7 +430,7 @@ PrefabInstance:
     - target: {fileID: 4791729032482502408, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
       propertyPath: m_enableAutoSizing
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5553097227412225697, guid: 8c7390777d07b904ab91b680feec758e,
         type: 3}
