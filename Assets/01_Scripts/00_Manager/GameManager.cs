@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
                     {
                         Vignette_Behaviours stepBD = GridManager.instance.ListOfMovement[i].EventAssocier;
                         //print(i + "  stepBD = " + stepBD.gameObject);
-                        if (stepBD.NextMove != null)
-                            print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);
+                        /*if (stepBD.NextMove != null)
+                            print(i + "  NextstepBD = " + stepBD.NextMove.gameObject);*/
 
                         GameObject myStep = stepBD.gameObject;
                         if (myStep == entryGO)
@@ -127,10 +127,80 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-           // print("IsMovementvalid no");
+            // print("IsMovementvalid no");
             CanvasManager.instance.SetActiveMoveButton(false);
         }
+        //CheckIfAllAreConnect();
         //print("Valeue is : " + value);
+    }
+
+    public void CheckIfAllAreConnect()
+    {
+        int value = 0;
+        EventGenerator eventgenerator = FindObjectOfType<EventGenerator>();
+        GameObject entryGO = null;
+        GameObject exitGO = null;
+        GameObject keyGO = null;
+
+        if (eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
+            entryGO = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
+
+        if (eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
+            exitGO = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
+
+        if (eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier != null)
+            keyGO = eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
+
+        bool isEntryConnected = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
+        bool isExitConnected = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
+        bool isKeyConnected = keyGO != null;
+
+        if (isEntryConnected && isExitConnected && isKeyConnected)
+        {
+            GridManager.instance.SortList();
+
+            if (entryGO != null && exitGO != null && keyGO != null)
+            {
+                if (entryGO.GetComponent<Vignette_Behaviours>().OnGrid && exitGO.GetComponent<Vignette_Behaviours>().OnGrid && keyGO.GetComponent<Vignette_Behaviours>().OnGrid)
+                {
+                    GameObject current = entryGO.GetComponent<Vignette_Behaviours>().gameObject;
+                    while (current!=null)
+                    {
+                        if (current == entryGO || current == exitGO || current == keyGO)
+                        {
+                            print("J'augmente  " + current.gameObject.name);
+                            value++;
+                        }
+
+
+                        if (current.GetComponent<Vignette_Behaviours>().NextMove != null)
+                            if (current.GetComponent<Vignette_Behaviours>().NextMove.gameObject != current)
+                                current = current.GetComponent<Vignette_Behaviours>().NextMove.gameObject;
+                            else
+                                current = null;
+                        else
+                            current = null;
+                        //print(current.gameObject.name);
+                    }
+                }
+            }
+        }
+
+        GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject;
+
+        if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
+            value++;
+
+        if (value >= 3)
+        {
+            //print("IsMovementvalid yes ");
+            CanvasManager.instance.SetActiveMoveButton(true);
+        }
+        else
+        {
+            // print("IsMovementvalid no");
+            CanvasManager.instance.SetActiveMoveButton(false);
+        }
     }
 
     public void IsGameOver()
@@ -153,7 +223,7 @@ public class GameManager : MonoBehaviour
 
     public void NextPlayer()
     {
-        if(m_OrderCharacter.Count > 0)
+        if (m_OrderCharacter.Count > 0)
         {
             print("next");
             CreationManager.instance.LaunchGame();
@@ -169,7 +239,7 @@ public class GameManager : MonoBehaviour
             }
             LevelManager.instance.PageInventory = new List<UsableObject>();
         }
-        
+
     }
 
     public void QuitGame()
