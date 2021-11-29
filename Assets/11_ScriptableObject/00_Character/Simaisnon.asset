@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Simaisnon
   m_EditorClassIdentifier: 
   m_render: {fileID: 21300000, guid: a0072e8de6539b143a3aa0a25f9a834a, type: 3}
-  m_CharacterName: Simaisnon
+  m_CharacterName: Vincent
   maxHealth: 5
   health: 5
   m_Endurance: 1

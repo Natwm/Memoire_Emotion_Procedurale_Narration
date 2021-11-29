@@ -152,15 +152,21 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         {
             Destroy(item);
         }
-
+        int index = -1;
         foreach (var item in m_Inventory)
         {
+            print("ok");
+            index++;
             GameObject tempButton = Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
             tempButton.AddComponent<UsableObject>();
             tempButton.GetComponent<UsableObject>().Data = item;
 
             UsableObject eventButton = tempButton.GetComponent<UsableObject>();
             tempButton.GetComponent<Image>().sprite = item.Sprite;
+
+            print("Je fais un test = "+m_InventoryObj[index].IsCurse);
+            if(m_InventoryObj[index].IsCurse)
+                tempButton.GetComponent<Image>().color = new Color(104, 46, 68, 255);
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
         }
     }

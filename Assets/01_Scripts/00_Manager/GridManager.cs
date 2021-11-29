@@ -274,12 +274,10 @@ public class GridManager : MonoBehaviour
     { 
         if(GameManager.instance.OrderCharacter.Count >= 0 )
         {
-            print("cleatScene");
             ClearScene();
         }
         else
         {
-            print("cleatAll");
             ClearAll();
         }
     }

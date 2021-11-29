@@ -56,7 +56,6 @@ public class UsableObject : abstractUsableObject
     // Start is called before the first frame update
     void Start()
     {
-        MyCurse = new Curse();
     }
 
     // Update is called once per frame

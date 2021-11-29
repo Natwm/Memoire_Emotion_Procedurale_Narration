@@ -165,6 +165,12 @@ public class CanvasManager : MonoBehaviour
             LevelInventoryPanel1.transform.GetChild(i).transform.parent = CreationManager.instance.pulledObject.transform;
         }
     }
+    public void RemoveObjInLevelInventory(int index)
+    {
+        print(index);
+        if (LevelInventoryPanel1.transform.GetChild(index) != null)
+            Destroy(LevelInventoryPanel1.transform.GetChild(index).gameObject);
+    }
 
     public void RemoveObjInPlayerInventory(int index)
     {
@@ -293,5 +299,12 @@ public class CanvasManager : MonoBehaviour
         GamePanel1.SetActive(false);
         CreatePanel1.SetActive(true);
 
+    }
+
+    public void UpdateSelectedCharacterPanel()
+    {
+        SelectedCharacter_GAMEUI playerUI = SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>();
+        playerUI.LifeText.text = PlayerManager.instance.Health.ToString();
+        playerUI.MentalLifeText.text = PlayerManager.instance.MentalHealth.ToString();
     }
 }

@@ -225,17 +225,28 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
 
+
     string vignetteText;
     string curseText;
     public void SetUpVignette(VignetteCategories categorie, UsableObject useObject)
     {
         Categorie = categorie;
         vignetteText = GetEnumName();
-        categorieText.text = vignetteText + curseText;
+        
         SpriteIndicator.sprite = useObject.Data.Sprite;
 
         if (useObject.IsCurse)
-            SpriteIndicator.color = Color.red;
+        {
+            SpriteIndicator.color = new Color(104,46,68,255);
+            curseText = GetCurseName(useObject);
+        }
+        else
+        {
+            curseText = "";
+        }
+
+        categorieText.text = vignetteText + curseText;
+
 
         objectFrom = useObject;
         SetUpUI();
@@ -964,6 +975,25 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
             default:
                 return "<br> Neutre";
+                break;
+        }
+    }
+
+    private string GetCurseName(UsableObject useObject)
+    {
+        switch (useObject.MyCurse.CurseName)
+        {
+            case "Reduce Life":
+                return "<br><color=#682e44>-1<sprite=0 color=#682e44></color>";
+                break;
+            case "Reduce Mental":
+                return "<br><color=#682e44>-1<sprite=2 color=#682e44></color>";
+                break;
+            case "Loose an object":
+                return "<br><color=#682e44>-1<sprite=1 color=#682e44></color>";
+                break;
+            default:
+                return "";
                 break;
         }
     }

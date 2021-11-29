@@ -363,6 +363,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         health += amountOfHeal;
         if (health > maxHealth)
             health = maxHealth;
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
     }
 
     public void HealMentalPlayer(int amountOfHeal)
@@ -370,6 +371,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MentalHealth += amountOfHeal;
         if (MentalHealth > MaxMentalHealth)
             MentalHealth = MaxMentalHealth;
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
     }
 
     public void ReduceMentalPlayer(int amountOfHeal)
@@ -377,6 +379,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MentalHealth -= amountOfHeal;
         if (MentalHealth < 0)
             MentalHealth = 0;
+
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
 
         if (IsDead())
             Death();
@@ -387,6 +391,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         health -= amountOfDamage;
         characterContener.PlayDamageMusique();
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
         if (IsDead())
             Death();
     }
@@ -427,11 +432,37 @@ public class PlayerManager : MonoBehaviour, IDamageable
                 index++;
                 if (LevelManager.instance.PageInventory.Count > index)
                 {
-                    print("Index = " + index);
                     if (LevelManager.instance.PageInventory[index] != null)
                     {
+                        int randomCurse = Random.Range(0,3);
+
+                        Curse myCurse;
+
+                        switch (randomCurse)
+                        {
+                            case 0:
+                                myCurse = new Curse_ReduceLife();
+                                break;
+                            case 1:
+                                myCurse = new Curse_Loose_A_LevelObject();
+                                break;
+                            case 2:
+                                myCurse = new Curse_ReduceMental();
+                                break;
+                           /* case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;*/
+                            default:
+                                myCurse = new Curse_ReduceLife();
+                                break;
+                        }
+                        print(randomCurse);
+
                         LevelManager.instance.PageInventory[index].IsCurse = true;
-                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
+                        LevelManager.instance.PageInventory[index].MyCurse = myCurse;
                         LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
 
                     }

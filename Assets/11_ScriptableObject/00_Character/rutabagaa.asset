@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: rutabagaa
   m_EditorClassIdentifier: 
   m_render: {fileID: 21300000, guid: 8da032d98ee51f9498c3aac7e2504689, type: 3}
-  m_CharacterName: rutabagaa
+  m_CharacterName: Rozenn
   maxHealth: 5
   health: 5
   m_Endurance: 1

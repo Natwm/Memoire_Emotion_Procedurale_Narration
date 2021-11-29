@@ -87,7 +87,7 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(2);
+        PageCharacterList = CreateCharacterList(4);
         CreateObjectList();
     }
 
@@ -221,7 +221,7 @@ public class CreationManager : MonoBehaviour
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
             entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
-            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
@@ -265,7 +265,7 @@ public class CreationManager : MonoBehaviour
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
             entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
-            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);

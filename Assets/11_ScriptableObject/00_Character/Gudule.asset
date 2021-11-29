@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gudule
   m_EditorClassIdentifier: 
   m_render: {fileID: 21300000, guid: 70e7cfad12f4bd340a43c42864f3c158, type: 3}
-  m_CharacterName: Gudule
+  m_CharacterName: Kevin
   maxHealth: 5
   health: 5
   m_Endurance: 4
