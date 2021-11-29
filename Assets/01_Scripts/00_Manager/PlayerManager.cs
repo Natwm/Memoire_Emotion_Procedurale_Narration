@@ -102,6 +102,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MaxEndurance = characterData.MaxEndurance;
         Endurance = characterData.Endurance;
 
+        MaxMentalHealth = characterData.MaxMentalHealth;
+        MentalHealth = characterData.MentalHealth;
+
         MaxInventorySize = characterData.MaxInventorySize;
         InventorySize = characterData.InventorySize;
 
@@ -121,6 +124,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         MaxEndurance = characterData.MaxEndurance;
         Endurance = characterData.Endurance;
+
+        MaxMentalHealth = characterData.MaxMentalHealth;
+        MentalHealth = characterData.MentalHealth;
 
         MaxInventorySize = characterData.MaxInventorySize;
         InventorySize = characterData.InventorySize;
@@ -146,6 +152,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         MaxEndurance = characterContener.MaxEndurance;
         Endurance = characterContener.Endurance;
+
+        MaxMentalHealth = characterContener.MaxMentalHealth;
+        MentalHealth = characterContener.MentalHealth;
 
         MaxInventorySize = characterContener.MaxInventorySize;
         InventorySize = characterContener.InventorySize;

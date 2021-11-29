@@ -33,8 +33,8 @@ public class WaitingCharacterPanel : MonoBehaviour
 
     public void SetUpUI(Character_Button player)
     {
-        lifeText.text = player.Life.ToString();
-        mentalLifeText.text = player.MentalHealth.ToString();
+        lifeText.text = "<sprite=0> " + player.Life.ToString();
+        mentalLifeText.text = "<sprite=2> " + player.MentalHealth.ToString();
 
         characterRender.sprite = player.AssignedElement.Render;
     }

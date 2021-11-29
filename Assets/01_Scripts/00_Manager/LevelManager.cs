@@ -68,6 +68,8 @@ public class LevelManager : MonoBehaviour
             cardBd.SetUpCard();
 
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 
@@ -87,6 +89,8 @@ public class LevelManager : MonoBehaviour
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 
@@ -107,6 +111,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         }
@@ -129,6 +135,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         }
@@ -148,6 +156,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         if (inventory.Count > 0)
@@ -158,6 +168,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNegatifObject(int amount = 1)
     {
+        print("spaqwn");
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
@@ -172,6 +183,8 @@ public class LevelManager : MonoBehaviour
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 

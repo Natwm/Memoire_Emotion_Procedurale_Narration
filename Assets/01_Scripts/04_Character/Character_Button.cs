@@ -155,7 +155,6 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         int index = -1;
         foreach (var item in m_Inventory)
         {
-            print("ok");
             index++;
             GameObject tempButton = Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
             tempButton.AddComponent<UsableObject>();

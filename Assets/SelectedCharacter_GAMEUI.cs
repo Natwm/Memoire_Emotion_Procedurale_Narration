@@ -44,8 +44,8 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
     public void SetUpUI()
     {
         ClearInventoryUI();
-        LifeText.text = PlayerManager.instance.Health.ToString();
-        MentalLifeText.text = PlayerManager.instance.MentalHealth.ToString();
+        LifeText.text = "<sprite=0> " + PlayerManager.instance.Health.ToString();
+        MentalLifeText.text = "<sprite=2> " + PlayerManager.instance.MentalHealth.ToString();
         NameText.text = PlayerManager.instance.CharacterData.CharacterName;
 
         characterRender.sprite = PlayerManager.instance.CharacterData.Render;
