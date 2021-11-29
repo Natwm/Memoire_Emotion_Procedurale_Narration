@@ -300,6 +300,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     void EndMovement()
     {
+        foreach (var item in InventoryObj)
+        {
+            Destroy(item.gameObject);
+        }
+        InventoryObj.Clear();
+        Inventory.Clear();
+
         if (health <= 0) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
