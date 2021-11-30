@@ -310,7 +310,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("CurseEffect");
 
-        PlayerManager.instance.GetDamage(2);
+        PlayerManager.instance.ReduceMentalPlayer(2);
     }
 
     public void LooseObjectEffect()
@@ -404,6 +404,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             }
             //
         }
+        if(ListOfCaseEventObject[0].IsEchecResult)
+            ApplyTileEffect(ListOfCaseEventObject[0].EchecResult);
+
         return false;
     }
 

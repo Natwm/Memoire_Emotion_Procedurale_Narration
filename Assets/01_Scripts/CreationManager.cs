@@ -87,7 +87,7 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(4);
+        PageCharacterList = CreateCharacterList(1);
         CreateObjectList();
     }
 
@@ -198,7 +198,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
         if (tempButton.GetComponent<UsableObject>().IsCurse)
-            tempButton.GetComponent<Image>().color = Color.red;
+            tempButton.GetComponent<Image>().color = new Color(104, 46, 68, 255);
         //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
@@ -281,16 +281,16 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(-75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(-33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(-33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(-75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -306,16 +306,16 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -588,27 +588,33 @@ public class CreationManager : MonoBehaviour
         {
             int index = Random.Range(0, pullOfObject.Count);
 
-            if (!player.Inventory.Contains(pullOfObject[index].Data))
+            print("Random index " + index);
+            print("nombre d'obj dans le pull" + pullOfObject.Count);
+
+            if (pullOfObject.Count > 0)
             {
-                player.Inventory.Add(pullOfObject[index].Data);
-
-                player.InventoryObj.Add(pullOfObject[index]);
-
-                pullOfObject[index].gameObject.SetActive(false);
-            }
-            UsableObject obj = pullOfObject[index];
-            pullOfObject.RemoveAll(item => item == obj);
-
-            obj.gameObject.transform.parent = pulledObject.transform;
-
-            if (pullOfObject.Count <= 0)
-            {
-                foreach (var item in player.Inventory)
+                if (!player.Inventory.Contains(pullOfObject[index].Data))
                 {
-                    m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                    player.Inventory.Add(pullOfObject[index].Data);
+
+                    player.InventoryObj.Add(pullOfObject[index]);
+
+                    pullOfObject[index].gameObject.SetActive(false);
                 }
-                player.SetUpInventoryUI();
-                return true;
+                UsableObject obj = pullOfObject[index];
+                pullOfObject.RemoveAll(item => item == obj);
+
+                obj.gameObject.transform.parent = pulledObject.transform;
+
+                if (pullOfObject.Count <= 0)
+                {
+                    foreach (var item in player.Inventory)
+                    {
+                        m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                    }
+                    player.SetUpInventoryUI();
+                    return true;
+                }
             }
 
         }
@@ -678,6 +684,7 @@ public class CreationManager : MonoBehaviour
 
             PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
             CanvasManager.instance.SetUpGamePanel();
+            GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
 

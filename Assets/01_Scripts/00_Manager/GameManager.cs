@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     [SerializeField] private List<Character_Button> m_OrderCharacter;
+    [SerializeField] private List<Character_Button> m_WaitingCharacter;
 
     public List<Character_Button> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
+    public List<Character_Button> WaitingCharacter { get => m_WaitingCharacter; set => m_WaitingCharacter = value; }
 
     void Awake()
     {
@@ -186,10 +189,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject;
+        if(GridManager.instance.ListOfMovement.Count > 0)
+        {
+            GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
 
-        if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
-            value++;
+            if (lastStep != null)
+                if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
+                    value++;
+        }
+        
 
         if (value >= 3)
         {
@@ -223,12 +231,13 @@ public class GameManager : MonoBehaviour
 
     public void NextPlayer()
     {
+
         if (m_OrderCharacter.Count > 0)
         {
             print("next");
             CreationManager.instance.LaunchGame();
         }
-        else
+        else if(CreationManager.instance.listOfCharacter.Count > 0)
         {
             CreationManager.instance.ResetNegociationTime();
             CanvasManager.instance.SetUpCreationPanel();
@@ -239,7 +248,10 @@ public class GameManager : MonoBehaviour
             }
             LevelManager.instance.PageInventory = new List<UsableObject>();
         }
-
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void QuitGame()

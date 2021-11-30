@@ -221,7 +221,15 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
-        looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
+
+        if (FindObjectsOfType<Character_Button>().Length > 0)
+            looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
+        else
+        {
+            looseIndicator.text = "GameOver";
+        }
+            
+
 
         if (!(GameManager.instance.OrderCharacter.Count > 0))
         {

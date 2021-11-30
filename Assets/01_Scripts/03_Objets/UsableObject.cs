@@ -107,10 +107,10 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.CLAIM:
                     if (Status != ObjectStatus.CLAIM)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        if (CreationManager.instance.ReduceNegociationTime(0))
                         {
 
-                            CanvasManager.instance.UpdateInkSlider(-75);
+                            CanvasManager.instance.UpdateInkSlider(0);
                             //myButton.image.color = Color.green;
                             objStatus = ObjectStatus.CLAIM;
                             ClaimObject(player);
@@ -128,10 +128,10 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.WANT:
                     if (Status != ObjectStatus.WANT)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        if (CreationManager.instance.ReduceNegociationTime(0))
                         {
                             objStatus = ObjectStatus.WANT;
-                            CanvasManager.instance.UpdateInkSlider(-33);
+                            CanvasManager.instance.UpdateInkSlider(0);
                             //myButton.image.color = Color.gray;
                             WantObject(player);
 
@@ -149,10 +149,10 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.REJECT:
                     if (Status != ObjectStatus.REJECT)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        if (CreationManager.instance.ReduceNegociationTime(0))
                         {
                             objStatus = ObjectStatus.REJECT;
-                            CanvasManager.instance.UpdateInkSlider(-33);
+                            CanvasManager.instance.UpdateInkSlider(0);
                             //myButton.image.color = Color.yellow;
                             RejectObject(player);
 
@@ -169,10 +169,10 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.EXCLUDE:
                     if (Status != ObjectStatus.EXCLUDE)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        if (CreationManager.instance.ReduceNegociationTime(0))
                         {
                             objStatus = ObjectStatus.EXCLUDE;
-                            CanvasManager.instance.UpdateInkSlider(-75);
+                            CanvasManager.instance.UpdateInkSlider(0);
                             //myButton.image.color = Color.red;
                             ExcludeObject(player);
 
@@ -255,16 +255,16 @@ public class UsableObject : abstractUsableObject
             case ObjectStatus.NONE:
                 break;
             case ObjectStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case ObjectStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case ObjectStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             case ObjectStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.UpdateInkSlider(0);
                 break;
             default:
                 break;
