@@ -27,6 +27,10 @@ public class LevelManager : MonoBehaviour
     [Space]
     [Header("Page Inventory")]
     [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject> ();
+    [SerializeField] private List<UsableObject> basisPullOfObject = new List<UsableObject>();
+    [SerializeField] private List<UsableObject> healPullOfObject = new List<UsableObject>();
+    [SerializeField] private List<UsableObject> occultsPullOfObject = new List<UsableObject>();
+    [SerializeField] private List<UsableObject> rarePullOfObject = new List<UsableObject>();
 
     void Awake()
     {

@@ -312,7 +312,8 @@ public class CanvasManager : MonoBehaviour
     public void UpdateSelectedCharacterPanel()
     {
         SelectedCharacter_GAMEUI playerUI = SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>();
-        playerUI.LifeText.text = PlayerManager.instance.Health.ToString();
-        playerUI.MentalLifeText.text = PlayerManager.instance.MentalHealth.ToString();
+
+        playerUI.LifeText.text = "<sprite=0> " + PlayerManager.instance.Health.ToString();
+        playerUI.MentalLifeText.text = "<sprite=2> " + PlayerManager.instance.MentalHealth.ToString();
     }
 }
