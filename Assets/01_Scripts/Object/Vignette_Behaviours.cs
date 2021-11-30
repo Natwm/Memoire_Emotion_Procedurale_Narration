@@ -388,7 +388,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             print("check");
             foreach (var condition in ListOfCaseEventObject)
             {
-                if (condition.AnyVignette)
+                if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
                 {
                     ApplyTileEffect(condition.CaseResult);
                     return true;
