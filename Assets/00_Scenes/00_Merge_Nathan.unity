@@ -507,6 +507,11 @@ PrefabInstance:
       objectReference: {fileID: 852783476}
     - target: {fileID: 7115270376295457070, guid: 3092482a2d340574a8a0c88512e87f55,
         type: 3}
+      propertyPath: amountOfLevelInventory
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7115270376295457070, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
       propertyPath: pageInventory.Array.size
       value: 0
       objectReference: {fileID: 0}

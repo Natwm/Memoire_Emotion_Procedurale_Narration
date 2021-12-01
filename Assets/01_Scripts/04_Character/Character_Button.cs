@@ -166,7 +166,6 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
             if (m_InventoryObj[index].IsCurse)
             {
                 tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
-                UnityEditor.EditorUtility.SetDirty(tempButton.GetComponent<Image>());
             }
                 
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;

@@ -313,11 +313,13 @@ public class CanvasManager : MonoBehaviour
     public void SetUpCharacterInfo()
     {
         SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
-
-        for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
+        if (GameManager.instance.OrderCharacter.Count > 0)
         {
-            WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
-            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
+            for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
+            {
+                WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
+                WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
         }
 
         for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)

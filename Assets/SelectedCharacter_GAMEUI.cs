@@ -62,7 +62,6 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
             if (item.IsCurse)
             {
                 inventoryElt.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
-                UnityEditor.EditorUtility.SetDirty(inventoryElt.GetComponent<Image>());
             }
                 
         }
