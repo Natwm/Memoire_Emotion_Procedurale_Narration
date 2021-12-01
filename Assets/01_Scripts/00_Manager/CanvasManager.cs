@@ -15,6 +15,9 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject GamePanel;
     [SerializeField] private GameObject CreatePanel;
     [SerializeField] private GameObject LevelInventoryPanel;
+    [SerializeField] private List<GameObject> ContinuesPanel;
+    [SerializeField] private List<GameObject> EndGamePanel;
+    [SerializeField] private GameObject GameOverPanel;
 
     [Space]
     public GameObject SelectedCharacterPanel;
@@ -175,8 +178,9 @@ public class CanvasManager : MonoBehaviour
     public void RemoveObjInPlayerInventory(int index)
     {
         print(index);
-        if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index) != null)
-            Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index).gameObject);
+        if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.childCount > index )
+            if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index) != null)
+                Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index).gameObject);
     }
 
     #endregion
@@ -201,6 +205,7 @@ public class CanvasManager : MonoBehaviour
     public void PlayerWinTheGame(Character_SO perso)
     {
         SetActiveMoveButton(false);
+
         WinPanel.SetActive(true);
         winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base";
         if(!(GameManager.instance.OrderCharacter.Count > 0))
@@ -208,11 +213,32 @@ public class CanvasManager : MonoBehaviour
             GridManager.instance.ClearScene();
             //GamePanel.SetActive(false);
             grid.SetActive(false);
-
             PlayerManager.instance.ClearVignette();
             EventGenerator.instance.ClearGrid();
             CanvasManager.instance.UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
+
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(false);
+            }
         }
         
     }
@@ -222,15 +248,17 @@ public class CanvasManager : MonoBehaviour
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
 
-        if (FindObjectsOfType<Character_Button>().Length > 0)
+        if (GameManager.instance.OrderCharacter.Count > 0 || GameManager.instance.WaitingCharacter.Count > 0)
             looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
         else
         {
             looseIndicator.text = "GameOver";
+            LoosePanel.SetActive(false);
+            GameOverPanel.SetActive(true);
         }
-            
 
 
+        print(!(GameManager.instance.OrderCharacter.Count > 0));
         if (!(GameManager.instance.OrderCharacter.Count > 0))
         {
             GridManager.instance.ClearScene();
@@ -241,6 +269,28 @@ public class CanvasManager : MonoBehaviour
             EventGenerator.instance.ClearGrid();
             UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
+
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(false);
+            }
         }
     }
 
@@ -267,33 +317,28 @@ public class CanvasManager : MonoBehaviour
         for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
         {
             WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
+            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
         }
 
         for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)
         {
             WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(false);
         }
+    }
 
-        /*print("eefefe");
-        print(PlayerManager.instance.CharacterData);
-        Character_SO toSet = PlayerManager.instance.CharacterData;
+    public void SetUpWaitingCharacterInfo()
+    {
+        SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
 
-        //rt.offsetMin = rt.offsetMin = new Vector2(0,rt.offsetMin.y);
-        
-        playerName.text = toSet.CharacterName;
-
-        playerRender.sprite = toSet.Render;
-
-        for (int i = 0; i < inventoryPanel.transform.childCount; i++)
+        for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
         {
-            Destroy(inventoryPanel.transform.GetChild(i).gameObject);
+            WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
         }
 
-        foreach (var item in PlayerManager.instance.Inventory)
+        for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)
         {
-            GameObject myButton = Instantiate(inventoryButton, inventoryPanel.transform);
-            myButton.GetComponent<Image>().sprite = item.Sprite;
-        }*/
+            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     public void SetUpCreationPanel()

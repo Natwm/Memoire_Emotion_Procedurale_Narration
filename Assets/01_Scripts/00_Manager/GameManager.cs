@@ -254,6 +254,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ContinueAdventure()
+    {
+        foreach (var item in m_WaitingCharacter)
+        {
+            m_OrderCharacter.Add(item);
+
+            if(item.InventoryObj.Count > 0)
+            {
+                int index = Random.Range(0, item.InventoryObj.Count);
+                item.InventoryObj.RemoveAt(index);
+            }
+            
+        }
+        CanvasManager.instance.SetUpCharacterInfo();
+        NextPlayer();
+    }
+
     public void QuitGame()
     {
         Application.Quit();

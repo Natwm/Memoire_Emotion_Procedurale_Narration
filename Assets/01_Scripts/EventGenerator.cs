@@ -182,7 +182,7 @@ public class EventGenerator : MonoBehaviour
         
         tileType = modifiers[RandomType];
         tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[RandomType];
-        Debug.Break();
+        //Debug.Break();
         return tileType;
     }
 
@@ -241,7 +241,7 @@ public class EventGenerator : MonoBehaviour
             }
         }
 
-        key.GetComponent<Case_Behaviours>().CaseEffects = null;
+        //key.GetComponent<Case_Behaviours>().CaseEffects = null;
     }
 
     void Update()

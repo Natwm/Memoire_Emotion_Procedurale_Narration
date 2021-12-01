@@ -87,12 +87,13 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(4);
+        PageCharacterList = CreateCharacterList(2);
         CreateObjectList();
 
         listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
         listOfCharacter[0].SetUpColor();
-        print(selectedPlayer);
+
+        print(FindObjectsOfType<PenObject>().Length);
         foreach (var item in FindObjectsOfType<PenObject>())
         {
             item.GetComponent<Button>().interactable = true;
@@ -134,6 +135,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
+            print("pomme");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
             buttonScript.PlaySelectedMusique();
         });
@@ -695,6 +697,7 @@ public class CreationManager : MonoBehaviour
             GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
+            //CanvasManager.instance.SetUpWaitingCharacterInfo();
 
         }
 

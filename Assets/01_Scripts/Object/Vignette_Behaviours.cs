@@ -275,6 +275,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         item.GetComponent<UsableObject>().Data = newItem;
 
         LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
     }
 
     public void TakeEffect()
@@ -612,8 +615,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             //print(" pomme = " + "tilePos  " + tilePos);
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) || isNewLine)
                             {
-                                print(x + " " + y);
-                                Debug.Break();
                                 //print(" pomme2 = " + "tilePos  " + tilePos);
                                 try
                                 {
@@ -1016,34 +1017,35 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         currentCategorie = newCategorie;
         //categorieText.text = GetEnumName();
-        if (objectFrom.IsCurse)
+        curseText = "";
+        if (objectFrom != null)
         {
-            SpriteIndicator.color = new Color(104, 46, 68, 255);
-            curseText = GetCurseName(objectFrom);
+            if (objectFrom.IsCurse)
+            {
+                SpriteIndicator.color = new Color(104, 46, 68, 255);
+                curseText = GetCurseName(objectFrom);
+            }
         }
-        else
-        {
-            curseText = "";
-        }
+        
 
-        categorieText.text = vignetteText + curseText;
+        categorieText.text = GetEnumName() + curseText;
         SetUpUI();
     }
 
     public void ResetVignette()
     {
         currentCategorie = initCategorie;
-        if (objectFrom.IsCurse)
+        curseText = "";
+        if(objectFrom != null)
         {
-            SpriteIndicator.color = new Color(104, 46, 68, 255);
-            curseText = GetCurseName(objectFrom);
+            if (objectFrom.IsCurse)
+            {
+                SpriteIndicator.color = new Color(104, 46, 68, 255);
+                curseText = GetCurseName(objectFrom);
+            }
         }
-        else
-        {
-            curseText = "";
-        }
-
-        categorieText.text = vignetteText + curseText;
+        
+        categorieText.text = GetEnumName() + curseText;
 
         SetUpUI();
     }

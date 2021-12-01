@@ -32,6 +32,10 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<UsableObject> occultsPullOfObject = new List<UsableObject>();
     [SerializeField] private List<UsableObject> rarePullOfObject = new List<UsableObject>();
 
+    [Space]
+    [Header("PARAM")]
+    [SerializeField] private int amountOfLevelInventory = 0;
+
     void Awake()
     {
         if (instance != null)
@@ -286,6 +290,7 @@ public class LevelManager : MonoBehaviour
     public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
     public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
     public List<Object_SO> UnlockableObject { get => unlockableObject; set => unlockableObject = value; }
+    public int AmountOfLevelInventory { get => amountOfLevelInventory; set => amountOfLevelInventory = value; }
 
     #endregion
 

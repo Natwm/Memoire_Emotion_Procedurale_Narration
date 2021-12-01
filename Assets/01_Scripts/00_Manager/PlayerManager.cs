@@ -410,6 +410,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
         StopAllCoroutines();
         CreationManager.instance.GlobalCrew.Remove(CharacterData);
         CreationManager.instance.listOfCharacter.Remove(CharacterContener);
+
+        if(GameManager.instance.WaitingCharacter.Contains(characterContener))
+            GameManager.instance.WaitingCharacter.Remove(CharacterContener);
+
+        if (GameManager.instance.OrderCharacter.Contains(characterContener))
+            GameManager.instance.OrderCharacter.Remove(CharacterContener);
+
         Destroy(characterContener.gameObject);
         CanvasManager.instance.PlayerLooseTheGame(CharacterData);
     }
