@@ -27,10 +27,10 @@ public class LevelManager : MonoBehaviour
     [Space]
     [Header("Page Inventory")]
     [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject> ();
-    [SerializeField] private List<UsableObject> basisPullOfObject = new List<UsableObject>();
-    [SerializeField] private List<UsableObject> healPullOfObject = new List<UsableObject>();
-    [SerializeField] private List<UsableObject> occultsPullOfObject = new List<UsableObject>();
-    [SerializeField] private List<UsableObject> rarePullOfObject = new List<UsableObject>();
+    [SerializeField] private List<Object_SO> basisPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> healPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> occultsPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> rarePullOfObject = new List<Object_SO>();
 
     [Space]
     [Header("PARAM")]
@@ -291,6 +291,10 @@ public class LevelManager : MonoBehaviour
     public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
     public List<Object_SO> UnlockableObject { get => unlockableObject; set => unlockableObject = value; }
     public int AmountOfLevelInventory { get => amountOfLevelInventory; set => amountOfLevelInventory = value; }
+    public List<Object_SO> BasisPullOfObject { get => basisPullOfObject; set => basisPullOfObject = value; }
+    public List<Object_SO> HealPullOfObject { get => healPullOfObject; set => healPullOfObject = value; }
+    public List<Object_SO> OccultsPullOfObject { get => occultsPullOfObject; set => occultsPullOfObject = value; }
+    public List<Object_SO> RarePullOfObject { get => rarePullOfObject; set => rarePullOfObject = value; }
 
     #endregion
 

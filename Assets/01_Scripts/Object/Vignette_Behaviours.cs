@@ -28,7 +28,10 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         DEBROUILLARD,
         SOUFFLER,
         INSTANTANE,
-        RESSEMBLACE_ETRANGE
+        RESSEMBLACE_ETRANGE,
+        EXPLORER_RARE,
+        EXPLORER_MEDIC,
+        EXPLORER_OCCULT
     }
 
     #region param
@@ -194,10 +197,19 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.SOUFFLER:
                 SoufflerEffect();
                 break;
+            case VignetteCategories.EXPLORER_RARE:
+                ExploreRareEffect();
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                ExploreMedicEffect();
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                ExploreOccultEffect();
+                break;
             default:
                 break;
         }
-
+        
         if (objectFrom != null)
         {
             if (objectFrom.IsCurse)
@@ -267,10 +279,58 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("ExploreEffect");
 
-        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
-        Object_SO newItem = LevelManager.instance.UnlockableObject[randomIndex];
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.BasisPullOfObject.Count);
+        Object_SO newItem = LevelManager.instance.BasisPullOfObject[randomIndex];
 
         
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+    }
+    public void ExploreRareEffect()
+    {
+        print("ExploreEffect");
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.RarePullOfObject.Count);
+        Object_SO newItem = LevelManager.instance.RarePullOfObject[randomIndex];
+
+
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+    }
+    public void ExploreMedicEffect()
+    {
+        print("ExploreEffect");
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        Object_SO newItem = LevelManager.instance.HealPullOfObject[randomIndex];
+
+
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+    }
+    public void ExploreOccultEffect()
+    {
+        print("ExploreEffect");
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        Object_SO newItem = LevelManager.instance.OccultsPullOfObject[randomIndex];
+
+
         GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
         item.GetComponent<UsableObject>().Data = newItem;
 
@@ -749,6 +809,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.SOUFFLER:
                 SetUpTextVignette(0,1,0);
                 break;
+            case VignetteCategories.EXPLORER_RARE:
+                SetUpTextVignette(1, 0, 0);
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                SetUpTextVignette(1, 0, 0);
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                SetUpTextVignette(1, 0, 0);
+                break;
             /*case VignetteCategories.RESSURECTION:
                 SetUpTextVignette("");
                 break;
@@ -980,6 +1049,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
             case VignetteCategories.RESSEMBLACE_ETRANGE:
                 return "RESSEMBLACE_ETRANGE";
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                break;
+            case VignetteCategories.EXPLORER_RARE:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
                 break;
             default:
                 return "<br> Neutre";

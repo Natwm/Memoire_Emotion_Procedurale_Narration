@@ -874,6 +874,15 @@ public class CreationManager : MonoBehaviour
             case Vignette_Behaviours.VignetteCategories.SAVOIR_OCCULTE:
                 return vignetteRender[9];
                 break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_MEDIC:
+                return vignetteRender[1];
+                break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_OCCULT:
+                return vignetteRender[1];
+                break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_RARE:
+                return vignetteRender[1];
+                break;
             default:
                 return vignetteRender[0];
                 break;
