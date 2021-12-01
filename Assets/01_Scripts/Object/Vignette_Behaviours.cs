@@ -213,6 +213,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = null;
+        objectFrom = null;
         SetUpUI();
     }
 
@@ -1014,7 +1015,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ApplyTileEffect(VignetteCategories newCategorie)
     {
         currentCategorie = newCategorie;
-        categorieText.text = GetEnumName();
+        //categorieText.text = GetEnumName();
+        if (objectFrom.IsCurse)
+        {
+            SpriteIndicator.color = new Color(104, 46, 68, 255);
+            curseText = GetCurseName(objectFrom);
+        }
+        else
+        {
+            curseText = "";
+        }
+
+        categorieText.text = vignetteText + curseText;
         SetUpUI();
     }
 

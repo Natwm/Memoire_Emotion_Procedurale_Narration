@@ -163,7 +163,6 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
             UsableObject eventButton = tempButton.GetComponent<UsableObject>();
             tempButton.GetComponent<Image>().sprite = item.Sprite;
 
-            print("Je fais un test = "+m_InventoryObj[index].IsCurse);
             if(m_InventoryObj[index].IsCurse)
                 tempButton.GetComponent<Image>().color = new Color(104, 46, 68, 255);
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
@@ -205,7 +204,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         CharacterHurtEffect.start();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void SetUpColor()
     {
         foreach (var item in FindObjectsOfType<Character_Button>())
         {
@@ -213,6 +212,11 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         }
 
         transform.GetChild(0).GetComponent<Image>().color = assignedElement.Color;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        SetUpColor();
     }
 
 

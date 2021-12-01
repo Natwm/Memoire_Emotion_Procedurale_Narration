@@ -87,8 +87,17 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(1);
+        PageCharacterList = CreateCharacterList(4);
         CreateObjectList();
+
+        listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
+        listOfCharacter[0].SetUpColor();
+        print(selectedPlayer);
+        foreach (var item in FindObjectsOfType<PenObject>())
+        {
+            item.GetComponent<Button>().interactable = true;
+            item.InitButton();
+        }
     }
 
     // Update is called once per frame
@@ -181,6 +190,7 @@ public class CreationManager : MonoBehaviour
 
             CreateCharacterButton(tempCharacter, musique, hurt);
         }
+
         return tempList == null ? null : tempList;
     }
     #endregion
@@ -203,6 +213,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
+            print("kiki");
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
             UpdateDescriptionPanel(tempObject.Data);
         }
@@ -587,9 +598,6 @@ public class CreationManager : MonoBehaviour
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
             int index = Random.Range(0, pullOfObject.Count);
-
-            print("Random index " + index);
-            print("nombre d'obj dans le pull" + pullOfObject.Count);
 
             if (pullOfObject.Count > 0)
             {

@@ -124,7 +124,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<UsableObject> inventory)
     {
-        print("okokokok");
         foreach (var item in inventory)
         {
             foreach (var toDraw in item.Data.DrawParam)

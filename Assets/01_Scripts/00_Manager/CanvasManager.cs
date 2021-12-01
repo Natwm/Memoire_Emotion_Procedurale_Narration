@@ -239,7 +239,7 @@ public class CanvasManager : MonoBehaviour
 
             PlayerManager.instance.ClearVignette();
             EventGenerator.instance.ClearGrid();
-            CanvasManager.instance.UpdatePageIndicator();
+            UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
         }
     }
