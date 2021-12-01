@@ -1033,7 +1033,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ResetVignette()
     {
         currentCategorie = initCategorie;
-        categorieText.text = GetEnumName();
+        if (objectFrom.IsCurse)
+        {
+            SpriteIndicator.color = new Color(104, 46, 68, 255);
+            curseText = GetCurseName(objectFrom);
+        }
+        else
+        {
+            curseText = "";
+        }
+
+        categorieText.text = vignetteText + curseText;
+
         SetUpUI();
     }
 
