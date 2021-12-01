@@ -253,6 +253,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         if (useObject.IsCurse)
         {
             SpriteIndicator.color = new Color(104,46,68,255);
+            UnityEditor.EditorUtility.SetDirty(SpriteIndicator);
             curseText = GetCurseName(useObject);
         }
         else
@@ -1100,7 +1101,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             if (objectFrom.IsCurse)
             {
-                SpriteIndicator.color = new Color(104, 46, 68, 255);
+                SpriteIndicator.color = new Color32(104, 46, 68, 255);
+                UnityEditor.EditorUtility.SetDirty(SpriteIndicator);
                 curseText = GetCurseName(objectFrom);
             }
         }
@@ -1118,7 +1120,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
             if (objectFrom.IsCurse)
             {
-                SpriteIndicator.color = new Color(104, 46, 68, 255);
+                SpriteIndicator.color = new Color32(104, 46, 68, 255);
+                UnityEditor.EditorUtility.SetDirty(SpriteIndicator);
                 curseText = GetCurseName(objectFrom);
             }
         }

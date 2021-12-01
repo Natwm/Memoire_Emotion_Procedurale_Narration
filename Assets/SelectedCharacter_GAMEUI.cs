@@ -60,7 +60,11 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
             GameObject inventoryElt = Instantiate(inventoryObject, InventoryPanel.transform);
             inventoryElt.GetComponent<Image>().sprite = item.Data.Sprite;
             if (item.IsCurse)
-                inventoryElt.GetComponent<Image>().color = new Color(104, 46, 68, 255);
+            {
+                inventoryElt.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+                UnityEditor.EditorUtility.SetDirty(inventoryElt.GetComponent<Image>());
+            }
+                
         }
     }
 
