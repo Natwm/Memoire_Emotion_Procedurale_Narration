@@ -450,7 +450,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736983f8e0f4c8444adcefcaefaf161b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categorie: 0
+  currentCategorie: 0
+  initCategorie: 0
   categorieText: {fileID: 7343219314912935400}
   m_RadiusDetection: 0
   raycastSize: 120
@@ -484,6 +485,9 @@ MonoBehaviour:
   neighbourgCheck: []
   physicsCheck: {fileID: 2090647706155174554}
   objectFrom: {fileID: 0}
+  ResetRender: {fileID: 21300000, guid: d96b10583a8df0f4e98686c0967fccd3, type: 3}
+  hoverRender: {fileID: 21300000, guid: d549fad8ac259a64586e1bfc11b10aea, type: 3}
+  dragRender: {fileID: 21300000, guid: e2ec91257efd5f0408e69a1cb8960726, type: 3}
   takeVignetteSound: 
   dropVignetteSound: 
   transformationVignetteSound: 

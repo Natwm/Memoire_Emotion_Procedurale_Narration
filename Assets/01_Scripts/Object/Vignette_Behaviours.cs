@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
-public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum VignetteCategories
     {
@@ -99,6 +100,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [Space]
     [Header("Object")]
     [SerializeField] private UsableObject objectFrom;
+
+    [Space]
+    [Header("Sprite")]
+    [SerializeField] private Sprite ResetRender;
+    [SerializeField] private Sprite hoverRender;
+    [SerializeField] private Sprite dragRender;
 
     [Space]
     [Header("Sound Fmod Action")]
@@ -1218,6 +1225,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         GameManager.instance.CheckIfAllAreConnect();//IsMovementvalid();
 
         CheckCaseCondition();
+
+        GetComponent<SortingGroup>().sortingOrder = 0;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -1229,6 +1238,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         offset = transform.position - (Vector3)data;
 
         myEvent.ResetEvent();
+
+        GetComponent<SortingGroup>().sortingOrder = 100;
         // SetUpUI();
     }
 
@@ -1241,6 +1252,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
 
         rayPoint += offset;
+        //GetComponent<Renderer>().sortingOrder = 100;
 
         rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
         //Move the GameObject when you drag it
@@ -1264,6 +1276,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
             //  ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
         }
+
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = dragRender;
     }
 
     #endregion
@@ -1278,6 +1292,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             Gizmos.DrawWireCube(tile.transform.position, transform.localScale / raycastSize);
         }
         //Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / raycastSize);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = hoverRender;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ResetRender;
     }
 
 

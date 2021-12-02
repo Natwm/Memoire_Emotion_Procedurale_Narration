@@ -277,6 +277,9 @@ MonoBehaviour:
   neighbourgCheck: []
   physicsCheck: {fileID: 5921000095780532425}
   objectFrom: {fileID: 0}
+  ResetRender: {fileID: 21300000, guid: 0c1a7dd5d835cb04994490106b0e69ef, type: 3}
+  hoverRender: {fileID: 21300000, guid: 03a79840e5730df428fa93e2f36feeaa, type: 3}
+  dragRender: {fileID: 21300000, guid: 5c892a31307aa224a856158c591863be, type: 3}
   takeVignetteSound: 
   dropVignetteSound: 
   transformationVignetteSound: 
@@ -317,8 +320,8 @@ SortingGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3597433795236425078}
   m_Enabled: 1
-  m_SortingLayerID: -982331293
-  m_SortingLayer: 2
+  m_SortingLayerID: 2032087355
+  m_SortingLayer: 1
   m_SortingOrder: 0
 --- !u!114 &344773930346884392
 MonoBehaviour:
