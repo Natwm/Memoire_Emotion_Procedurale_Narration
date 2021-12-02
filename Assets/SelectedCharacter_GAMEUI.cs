@@ -24,10 +24,15 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject inventoryObject;
 
+    [Space]
+    [Header("Prefabs")]
+    [SerializeField] private Animator feedBackAnimator;
+
     public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
     public TMP_Text LifeText { get => lifeText; set => lifeText = value; }
     public TMP_Text MentalLifeText { get => mentalLifeText; set => mentalLifeText = value; }
     public TMP_Text NameText { get => nameText; set => nameText = value; }
+    public Animator FeedBackAnimator { get => feedBackAnimator; set => feedBackAnimator = value; }
 
     // Start is called before the first frame update
     void Start()

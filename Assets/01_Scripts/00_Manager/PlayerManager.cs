@@ -373,6 +373,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         if (health > maxHealth)
             health = maxHealth;
         CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Heal_Life");
     }
 
     public void HealMentalPlayer(int amountOfHeal)
@@ -381,6 +382,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         if (MentalHealth > MaxMentalHealth)
             MentalHealth = MaxMentalHealth;
         CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Heal_Sanity");
     }
 
     public void ReduceMentalPlayer(int amountOfHeal)
@@ -390,6 +392,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
             MentalHealth = 0;
 
         CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Hit_Sanity");
+        CameraManager.instance.ShakeFeedback();
 
         if (IsDead())
             Death();
@@ -401,6 +405,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
         health -= amountOfDamage;
         characterContener.PlayDamageMusique();
         CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Hit_Health");
+        CameraManager.instance.ShakeFeedback();
         if (IsDead())
             Death();
     }

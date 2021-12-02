@@ -23,6 +23,7 @@ public class CreationManager : MonoBehaviour
     [Space]
     [Header("Time")]
     [SerializeField] private int negociationTime = 100;
+    [SerializeField] private int currentNegociationTime = 100;
 
     [Space]
     [Header("Character Selected")]
@@ -61,6 +62,13 @@ public class CreationManager : MonoBehaviour
     [SerializeField] private m_PenStatus m_Pen;
 
     public GameObject pulledObject;
+
+    [Space]
+    [Header("Negociation Value")]
+    [SerializeField] private int reclamerValue;
+    [SerializeField] private int prendreValue;
+    [SerializeField] private int declinerValue;
+    [SerializeField] private int refuserValue;
 
     [Space]
     [Header("Fmod")]
@@ -213,13 +221,13 @@ public class CreationManager : MonoBehaviour
         {
             tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
         }
-            
+
         //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             print("kiki");
-            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject.Data);
         }
         );
@@ -297,16 +305,20 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + PrendreValue.ToString();
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + ReclamerValue.ToString();
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + DeclinerValue.ToString();
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + RefuserValue.ToString();
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -322,16 +334,20 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(0);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -474,7 +490,7 @@ public class CreationManager : MonoBehaviour
                 m_GlobalInventory.RemoveAll(obj => obj == item);
             }
             player.SetUpInventoryUI();
-            
+
         }
 
         return true;
@@ -520,7 +536,7 @@ public class CreationManager : MonoBehaviour
             case UsableObject.ObjectStatus.CLAIM:
                 if (m_GlobalInventory.Contains(ObjetToTake))
                 {
-                    if(player == ObjetToTake.Stat.character)
+                    if (player == ObjetToTake.Stat.character)
                     {
                         player.Inventory.Add(ObjetToTake.Data);
                         player.InventoryObj.Add(ObjetToTake);
@@ -597,7 +613,7 @@ public class CreationManager : MonoBehaviour
             {
                 pullOfObject.Add(item);
             }
-            
+
         }
 
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
@@ -650,6 +666,7 @@ public class CreationManager : MonoBehaviour
         if (negociationTime - reduceValue >= 0)
         {
             negociationTime -= reduceValue;
+            CanvasManager.instance.NegociationModificationText.text = "-" + reduceValue;
             return true;
         }
         return false;
@@ -657,14 +674,8 @@ public class CreationManager : MonoBehaviour
 
     public void IncreaseNegociationTime(int reduceValue)
     {
-        if (negociationTime + reduceValue < CanvasManager.instance.InkSlider.maxValue)
-        {
-            negociationTime += reduceValue;
-        }
-        else
-        {
-            negociationTime = (int)CanvasManager.instance.InkSlider.maxValue;
-        }
+        negociationTime += reduceValue;
+
     }
 
     public void SelectPlayer(Character_Button player)
@@ -682,7 +693,7 @@ public class CreationManager : MonoBehaviour
     public void LaunchGame()
     {
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
-        
+
         PlayerManager.instance.Inventory.Clear();
         PlayerManager.instance.InventoryObj.Clear();
 
@@ -724,7 +735,7 @@ public class CreationManager : MonoBehaviour
             if (item.Inventory.Count == 0 && GlobalInventory.Count >= 0)
                 can = false;
         }
-        if (can) 
+        if (can)
             LaunchGame();
         else
         {
@@ -904,6 +915,10 @@ public class CreationManager : MonoBehaviour
     public List<UsableObject> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
     public List<Character_SO> GlobalCrew { get => m_GlobalCrew; set => m_GlobalCrew = value; }
     public List<Object_SO> GlobalInventoryObj { get => m_GlobalInventoryObj; set => m_GlobalInventoryObj = value; }
+    public int ReclamerValue { get => reclamerValue; set => reclamerValue = value; }
+    public int PrendreValue { get => prendreValue; set => prendreValue = value; }
+    public int DeclinerValue { get => declinerValue; set => declinerValue = value; }
+    public int RefuserValue { get => refuserValue; set => refuserValue = value; }
 
     #endregion
 }

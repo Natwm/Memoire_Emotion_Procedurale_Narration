@@ -187,6 +187,7 @@ public class LevelManager : MonoBehaviour
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
             //cardBd.SetUpCard();
 
+            card.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(104, 46, 68, 255);
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);

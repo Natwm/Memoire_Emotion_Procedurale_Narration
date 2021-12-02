@@ -43,6 +43,12 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Slider")]
     [SerializeField] private Slider inkSlider;
+    [SerializeField] private TMP_Text negociationText;
+    [SerializeField] private TMP_Text negociationModificationText;
+    [Space]
+    [SerializeField] private int currentNegociationTime;
+    [SerializeField] private int negociationTime;
+    [SerializeField] private int initNegociationTime;
 
 
     [Space]
@@ -81,6 +87,10 @@ public class CanvasManager : MonoBehaviour
     public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
     public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
     public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
+    public int NegociationTime { get => negociationTime; set => negociationTime = value; }
+    public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
+    public TMP_Text NegociationText { get => negociationText; set => negociationText = value; }
+    public TMP_Text NegociationModificationText { get => negociationModificationText; set => negociationModificationText = value; }
 
     void Awake()
     {
@@ -95,8 +105,7 @@ public class CanvasManager : MonoBehaviour
         QuitPanel.SetActive(false);
         SelectedCharacterPanel.SetActive(false);
         WaitingCharacterPanel.SetActive(false);
-        InkSlider.maxValue = CreationManager.instance.NegociationTime;
-        InkSlider.value = InkSlider.maxValue;
+        negociationTime = currentNegociationTime = initNegociationTime;
     }
 
     private void Update()
@@ -190,14 +199,16 @@ public class CanvasManager : MonoBehaviour
         pageIndicator.text = "Nb page : " + LevelManager.instance.AmountOfpageDone;
     }
 
-    public void UpdateInkSlider(float value)
+    /*public void UpdateInkSlider(float value)
     {
         InkSlider.value += value;
-    }
+    }*/
 
     public void SetInkSlider()
     {
-        InkSlider.value = CreationManager.instance.NegociationTime;
+        //InkSlider.value = CreationManager.instance.NegociationTime;
+        currentNegociationTime = negociationTime;
+        NegociationText.text = CreationManager.instance.NegociationTime.ToString();
     }
 
     #region Win / Loose Panel

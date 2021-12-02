@@ -252,7 +252,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (useObject.IsCurse)
         {
-            SpriteIndicator.color = new Color(104,46,68,255);
+            SpriteIndicator.color = new Color32(104,46,68,255);
             curseText = GetCurseName(useObject);
         }
         else

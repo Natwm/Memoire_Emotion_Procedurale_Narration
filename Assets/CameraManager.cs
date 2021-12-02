@@ -11,6 +11,11 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private Vector3 resetPosition;
 
+    public float time;
+    public float strengh;
+    public int vibrato;
+    public float random;
+
     public float UnZoomValue { get => unZoomValue; set => unZoomValue = value; }
 
     void Awake()
@@ -25,6 +30,11 @@ public class CameraManager : MonoBehaviour
     {
         UnZoomValue = Camera.main.orthographicSize;
         resetPosition = transform.position;
+    }
+
+    private void Update()
+    {
+
     }
 
     public void ResetPosition()
@@ -54,5 +64,11 @@ public class CameraManager : MonoBehaviour
             yield return null;
         }
         Camera.main.orthographicSize = endValue;
+    }
+
+    public void ShakeFeedback() 
+    {
+        transform.DOShakeRotation(time, strengh, vibrato, random, true);
+        CanvasManager.instance.SelectedCharacterPanel.transform.parent.GetComponent<RectTransform>().DOShakePosition(time, strengh + 72, vibrato, random, true);
     }
 }
