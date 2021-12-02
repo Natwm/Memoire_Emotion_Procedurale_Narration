@@ -118,6 +118,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     FMOD.Studio.EventInstance transformationVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string transformationVignetteSound;
 
+    FMOD.Studio.EventInstance dropVignetteOnGridEffect;
+    [FMODUnity.EventRef] [SerializeField] private string dropVignetteOnGridSound;
+
+    FMOD.Studio.EventInstance dropVignetteNotOnGridEffect;
+    [FMODUnity.EventRef] [SerializeField] private string dropVignetteNotOnGridSound;
+
     [Space]
     [Header("Sound Fmod Resolution")]
     FMOD.Studio.EventInstance reveleEffect;
@@ -146,7 +152,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         myEvent = GetComponent<EventContener>();
         //SetUpCard();
-
+        SetUpSound();
 
     }
 
@@ -157,6 +163,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         {
 
         }
+    }
+
+    void SetUpSound()
+    {
+        takeVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(takeVignetteSound);
+        //dropVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteSound);
+        //transformationVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(transformationVignetteSound);
+        dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
+        dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
     }
 
     public void ApplyVignetteEffect()
@@ -286,6 +301,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("ExploreEffect");
 
+        CanvasManager.instance.SetUpLevelIndicator();
+        SoundManager.instance.PlaySound_GainObject();
+
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.BasisPullOfObject.Count);
         Object_SO newItem = LevelManager.instance.BasisPullOfObject[randomIndex];
 
@@ -302,6 +320,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("ExploreEffect");
 
+        CanvasManager.instance.SetUpLevelIndicator();
+        SoundManager.instance.PlaySound_GainObject();
+
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.RarePullOfObject.Count);
         Object_SO newItem = LevelManager.instance.RarePullOfObject[randomIndex];
 
@@ -317,6 +338,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ExploreMedicEffect()
     {
         print("ExploreEffect");
+        CanvasManager.instance.SetUpLevelIndicator();
+        SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
         Object_SO newItem = LevelManager.instance.HealPullOfObject[randomIndex];
@@ -334,6 +357,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("ExploreEffect");
 
+        CanvasManager.instance.SetUpLevelIndicator();
+        SoundManager.instance.PlaySound_GainObject();
+
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
         Object_SO newItem = LevelManager.instance.OccultsPullOfObject[randomIndex];
 
@@ -349,6 +375,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void TakeEffect()
     {
+        SoundManager.instance.PlaySound_GainObject();
         print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
         foreach (var item in LevelManager.instance.PageInventory)
         {
@@ -748,16 +775,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         Vignette_Behaviours check = CheckNextMove();
         NextMove = check != this ? check : null;
-        if (NextMove != null)
-        {
-            //print("Next move is :    " + NextMove.gameObject);
-        }
-        else
-        {
-            //print("NextMove est sensé être  =" + check);
-            //print("il est null car : check != this =" + (check != this));
-        }
-
+        /*if(GridManager.instance.ListOfMovement.Count >0 && NextMove !=null)
+            NextMove.previousMove = this;*/
     }
     #endregion
 
@@ -1181,12 +1200,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             {
                 ClearList();
             }
-
+            dropVignetteOnGridEffect.start();
         }
         else
         {
             OnGrid = false;
             nextMove = null;
+
+            dropVignetteNotOnGridEffect.start();
             //vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
 
@@ -1240,6 +1261,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         myEvent.ResetEvent();
 
         GetComponent<SortingGroup>().sortingOrder = 100;
+
+        takeVignetteEffect.start();
         // SetUpUI();
     }
 

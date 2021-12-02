@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviour
                     GameObject current = entryGO.GetComponent<Vignette_Behaviours>().gameObject;
                     while (current!=null)
                     {
+                        print(current.gameObject.name);
                         if (current == entryGO || current == exitGO || current == keyGO)
                         {
                             print("J'augmente  " + current.gameObject.name);
@@ -203,6 +204,7 @@ public class GameManager : MonoBehaviour
         {
             //print("IsMovementvalid yes ");
             CanvasManager.instance.SetActiveMoveButton(true);
+            SoundManager.instance.PlaySound_ResolutionAvailable();
         }
         else
         {

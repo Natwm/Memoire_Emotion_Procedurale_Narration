@@ -48,6 +48,9 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance endExpeditionEffect;
     [FMODUnity.EventRef] [SerializeField] private string endExpeditionSound;
 
+    FMOD.Studio.EventInstance curseEffect;
+    [FMODUnity.EventRef] [SerializeField] private string curseSound;
+
 
     public static SoundManager instance;
     void Awake()
@@ -89,26 +92,30 @@ public class SoundManager : MonoBehaviour
         endResolutionEffect = FMODUnity.RuntimeManager.CreateInstance(endResolutionSound);
         nextPersonnageEffect = FMODUnity.RuntimeManager.CreateInstance(nextPersonnageSound);
         endExpeditionEffect = FMODUnity.RuntimeManager.CreateInstance(endExpeditionSound);
+
+        curseEffect = FMODUnity.RuntimeManager.CreateInstance(curseSound);
     }
 
 
     //Negociation
     void PlaySound_SelectedPlayer(){uiSelectedPlayerEffect.start();}
-    void PlaySound_SelectedObject() { uiSelectedObjectEffect.start(); }
-    void PlaySound_SelectedNegociation() { uiSelectedNegociationEffect.start(); }
-    void PlaySound_CantUseNegociation() { uiSelectedCantUseNegociationEffect.start(); }
-    void PlaySound_Repartition() { uiSelectedRepartitionEffect.start(); }
-    void PlaySound_StartAdventure() { uiSelectedStartAdventureEffect.start(); }
+    public void PlaySound_SelectedObject() { uiSelectedObjectEffect.start(); }
+    public void PlaySound_SelectedNegociation() { uiSelectedNegociationEffect.start(); }
+    public void PlaySound_CantUseNegociation() { uiSelectedCantUseNegociationEffect.start(); }
+    public void PlaySound_Repartition() { uiSelectedRepartitionEffect.start(); }
+    public void PlaySound_StartAdventure() { uiSelectedStartAdventureEffect.start(); }
 
     //Vignette
-    void PlaySound_DrawVignette() { drawVignetteEffect.start(); }
-    void PlaySound_ResolutionAvailable() { resolutionAvailableEffect.start(); }
+    public void PlaySound_DrawVignette() { drawVignetteEffect.start(); }
+    public void PlaySound_ResolutionAvailable() { resolutionAvailableEffect.start(); }
 
 
     //Resolution
-    void PlaySound_GainObject() { gainObjectEffect.start(); }
-    void PlaySound_EndResolution() { endResolutionEffect.start(); }
-    void PlaySound_NextPersonnage() { nextPersonnageEffect.start(); }
-    void PlaySound_EndExpedition() { endExpeditionEffect.start(); }
+    public void PlaySound_GainObject() { gainObjectEffect.start(); }
+    public void PlaySound_EndResolution() { endResolutionEffect.start(); }
+    public void PlaySound_NextPersonnage() { nextPersonnageEffect.start(); }
+    public void PlaySound_EndExpedition() { endExpeditionEffect.start(); }
+
+    public void PlaySound_CurseObject() { curseEffect.start(); }
 
 }

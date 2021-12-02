@@ -61,6 +61,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text pageIndicator;
     [SerializeField] private TMP_Text winIndicator;
     [SerializeField] private TMP_Text looseIndicator;
+    [SerializeField] private TMP_Text levelInfo;
 
     [Space]
     [Header("Button")]
@@ -106,6 +107,7 @@ public class CanvasManager : MonoBehaviour
         SelectedCharacterPanel.SetActive(false);
         WaitingCharacterPanel.SetActive(false);
         negociationTime = currentNegociationTime = initNegociationTime;
+        SetUpLevelIndicator();
     }
 
     private void Update()
@@ -307,6 +309,11 @@ public class CanvasManager : MonoBehaviour
 
     #endregion
 
+
+    public void SetUpLevelIndicator()
+    {
+        levelInfo.text = LevelManager.instance.PageInventory.Count +" / " + LevelManager.instance.AmountOfLevelInventory;
+    }
     public void SetUpGamePanel()
     {
         GamePanel1.SetActive(true);

@@ -300,6 +300,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     void EndMovement()
     {
+        SoundManager.instance.PlaySound_EndResolution();
         if (health <= 0) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
@@ -489,6 +490,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
                     }
                 }
+                SoundManager.instance.PlaySound_CurseObject();
                 Destroy(allVignette[i].gameObject);
                 yield return new WaitForSeconds(0.5f);
             }

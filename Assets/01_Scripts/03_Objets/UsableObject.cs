@@ -109,13 +109,14 @@ public class UsableObject : abstractUsableObject
                     {
                         if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.PrendreValue))
                         {
-
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString(); 
                             //myButton.image.color = Color.green;
                             objStatus = ObjectStatus.CLAIM;
                             ClaimObject(player);
 
-                        }
+                        }else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -130,12 +131,14 @@ public class UsableObject : abstractUsableObject
                     {
                         if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.ReclamerValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.WANT;
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.gray;
                             WantObject(player);
 
-                        }
+                        }else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -151,12 +154,15 @@ public class UsableObject : abstractUsableObject
                     {
                         if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.DeclinerValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.REJECT;
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.yellow;
                             RejectObject(player);
 
                         }
+                        else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -171,12 +177,15 @@ public class UsableObject : abstractUsableObject
                     {
                         if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.RefuserValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.EXCLUDE;
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.red;
                             ExcludeObject(player);
 
                         }
+                        else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {

@@ -229,6 +229,7 @@ public class CreationManager : MonoBehaviour
             print("kiki");
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject.Data);
+            SoundManager.instance.PlaySound_SelectedObject();
         }
         );
 
