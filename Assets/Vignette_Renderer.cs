@@ -13,12 +13,21 @@ public class Vignette_Renderer : MonoBehaviour
     public Color[] vignetteColors;
     public GameObject[] Reveals;
     public Material LightEffect;
+    public static Vignette_Renderer instance;
     // Start is called before the first frame update
+    void Awake()
+    {
+        if (instance != null)
+            Debug.LogWarning("Multiple instance of same Singleton : CreationManager");
+        else
+            instance = this;
+
+    }
 
     //XX_@_#_NAME
     void Start()
     {
-        CreateVignette(testString, testVignette, TestColors[0]);
+        //CreateVignette(testString, testVignette, TestColors[0]);
     }
 
     char[] separator = { '_' };
@@ -288,18 +297,20 @@ public class Vignette_Renderer : MonoBehaviour
 
     }
     
-    public void CreateVignette(string type,GameObject vignette,Color characterColor)
+    public GameObject CreateVignette(string size,string vignette_name,Color characterColor)
     {
-        GameObject tempVignette = Instantiate(vignette);
+        
+        GameObject loadVignette = Resources.Load("Vignettes/" + vignette_name) as GameObject;
+        GameObject tempVignette = Instantiate(loadVignette);
         tempVignette.SetActive(true);
         tempVignette.transform.position = Vector3.zero;
         OrderObject(tempVignette);
         RandomiseVignette(tempVignette);
         Colorize(tempVignette,characterColor);
-        SetToMask(tempVignette,type);
-        CleanObject(testVignette);
-        SetReveal(type, tempVignette);
-
+        SetToMask(tempVignette,size);
+        CleanObject(tempVignette);
+        SetReveal(size, tempVignette);
+        return tempVignette;
     }
 
     void CleanObject(GameObject vignette)
@@ -330,7 +341,7 @@ public class Vignette_Renderer : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            CreateVignette(testString, testVignette,TestColors[2]);
+           // CreateVignette(testString, testVignette,TestColors[2]);
         }
     }
 }

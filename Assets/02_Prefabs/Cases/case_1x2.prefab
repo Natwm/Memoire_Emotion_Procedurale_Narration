@@ -242,7 +242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 736983f8e0f4c8444adcefcaefaf161b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  categorie: 0
+  currentCategorie: 0
+  initCategorie: 0
   categorieText: {fileID: 4149852734312767310}
   m_RadiusDetection: 0
   raycastSize: 120
@@ -252,7 +253,7 @@ MonoBehaviour:
   m_LayerDetectionGrid:
     serializedVersion: 2
     m_Bits: 1024
-  vignetteShape: {x: 2, y: 1}
+  vignetteShape: {x: 1, y: 2}
   VignetteSize: 2
   cardImage: {fileID: 0}
   vignetteScene: {fileID: 0}
