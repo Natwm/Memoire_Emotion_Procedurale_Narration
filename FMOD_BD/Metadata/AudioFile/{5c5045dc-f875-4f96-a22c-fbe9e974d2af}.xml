@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{5c5045dc-f875-4f96-a22c-fbe9e974d2af}">
+		<property name="assetPath">
+			<value>Vignette_posé_ingame_1.1_R .wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{843bd7c8-9ebc-4fdb-ae9b-4dfc1d9f98af}</destination>
+		</relationship>
+	</object>
+</objects>

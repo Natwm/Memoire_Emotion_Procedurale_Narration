@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{59dbee52-a410-498a-b1ad-c2ac7dd8e38a}">
+		<property name="assetPath">
+			<value>Vignette_Exploration_3.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>11.683666666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{843bd7c8-9ebc-4fdb-ae9b-4dfc1d9f98af}</destination>
+		</relationship>
+	</object>
+</objects>
