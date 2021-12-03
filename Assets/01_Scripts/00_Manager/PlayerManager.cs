@@ -301,6 +301,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     void EndMovement()
     {
         SoundManager.instance.PlaySound_EndResolution();
+        CanvasManager.instance.LevelInventoryPanel1.transform.parent.gameObject.SetActive(false);
         if (health <= 0) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();

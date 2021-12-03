@@ -18,6 +18,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private List<GameObject> ContinuesPanel;
     [SerializeField] private List<GameObject> EndGamePanel;
     [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private List<GameObject> levelOBJpanel;
 
     [Space]
     public GameObject SelectedCharacterPanel;
@@ -231,14 +232,39 @@ public class CanvasManager : MonoBehaviour
             CanvasManager.instance.UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
 
+            if(levelOBJpanel[1].transform.childCount > 0)
+            {
+                for (int i = 0; i < levelOBJpanel[1].transform.childCount; i++)
+                {
+                    Destroy(levelOBJpanel[1].transform.GetChild(i).gameObject);
+                }
+            }
+            
+            if(levelOBJpanel[0].transform.childCount > 0)
+            {
+                for (int i = 0; i < levelOBJpanel[0].transform.childCount; i++)
+                {
+                    Destroy(levelOBJpanel[0].transform.GetChild(i).gameObject);
+                }
+            }
+
             foreach (var item in ContinuesPanel)
             {
                 item.SetActive(false);
             }
 
             foreach (var item in EndGamePanel)
-            {
+            {             
                 item.SetActive(true);
+            }
+
+            foreach (var obj in LevelManager.instance.PageInventory)
+            {
+                GameObject img = Instantiate(levelInventoryButtonPrefabs, levelOBJpanel[0].transform);
+                img.GetComponent<Image>().sprite = obj.Data.Sprite;
+                if (obj.IsCurse)
+                    img.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+                print("ooo");
             }
         }
         else
@@ -251,6 +277,13 @@ public class CanvasManager : MonoBehaviour
             foreach (var item in EndGamePanel)
             {
                 item.SetActive(false);
+            }
+
+            foreach (var obj in LevelManager.instance.PageInventory)
+            {
+                print("ooo");
+                GameObject img = Instantiate(levelInventoryButtonPrefabs, levelOBJpanel[1].transform);
+                img.GetComponent<Image>().sprite = obj.Data.Sprite;
             }
         }
         

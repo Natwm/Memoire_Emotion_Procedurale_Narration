@@ -238,6 +238,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             {
                 objectFrom.MyCurse.ApplyCurse();
                 cursed = true;
+                SoundManager.instance.PlaySound_CurseObject();
             }
         }
         string vSize = VignetteShape.x+"x"+ VignetteShape.y;
@@ -306,8 +307,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ExploreEffect()
     {
         print("ExploreEffect");
-
-        CanvasManager.instance.SetUpLevelIndicator();
+        
         SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.BasisPullOfObject.Count);
@@ -321,12 +321,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
             TakeEffect();
+        CanvasManager.instance.SetUpLevelIndicator();
     }
     public void ExploreRareEffect()
     {
         print("ExploreEffect");
 
-        CanvasManager.instance.SetUpLevelIndicator();
         SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.RarePullOfObject.Count);
@@ -340,11 +340,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
             TakeEffect();
+        CanvasManager.instance.SetUpLevelIndicator();
     }
     public void ExploreMedicEffect()
     {
         print("ExploreEffect");
-        CanvasManager.instance.SetUpLevelIndicator();
         SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
@@ -358,12 +358,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
             TakeEffect();
+
+        CanvasManager.instance.SetUpLevelIndicator();
     }
     public void ExploreOccultEffect()
     {
         print("ExploreEffect");
 
-        CanvasManager.instance.SetUpLevelIndicator();
         SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
@@ -377,6 +378,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
             TakeEffect();
+
+        CanvasManager.instance.SetUpLevelIndicator();
     }
 
     public void TakeEffect()

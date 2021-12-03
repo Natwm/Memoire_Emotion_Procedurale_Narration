@@ -443,11 +443,7 @@ public class CreationManager : MonoBehaviour
         }
         print("objectListHolder.transform.childCount" + objectListHolder.transform.childCount);
 
-        foreach (var item in GlobalInventory)
-        {
-            item.transform.parent = pulledObject.transform;
-            item.gameObject.SetActive(false);
-        }
+        
         GlobalInventory.Clear();
         GlobalInventoryObj.Clear();
     }
@@ -694,7 +690,11 @@ public class CreationManager : MonoBehaviour
     public void LaunchGame()
     {
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
-
+        foreach (var item in GlobalInventory)
+        {
+            item.transform.parent = pulledObject.transform;
+            item.gameObject.SetActive(false);
+        }
         PlayerManager.instance.Inventory.Clear();
         PlayerManager.instance.InventoryObj.Clear();
 
