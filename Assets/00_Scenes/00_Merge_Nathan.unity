@@ -938,10 +938,11 @@ MonoBehaviour:
   drawVignetteSound: event:/Music/Choix_Perso_1
   resolutionAvailableSound: event:/Music/Choix_Perso_1
   gainObjectSound: event:/Music/Choix_Perso_1
-  endResolutionSound: event:/Music/Choix_Perso_1
+  endResolutionSound: event:/Music/Page_qui_tourne
   nextPersonnageSound: event:/Music/Choix_Perso_1
   endExpeditionSound: event:/Music/Choix_Perso_1
   curseSound: "event:/SD/Vignette/Event/Vignette_Mal\xE9diction"
+  looseObjectSound: "event:/Music/Objet_D\xE9truit"
 --- !u!114 &594406400
 MonoBehaviour:
   m_ObjectHideFlags: 0

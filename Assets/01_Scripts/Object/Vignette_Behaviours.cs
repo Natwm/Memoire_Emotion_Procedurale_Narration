@@ -425,6 +425,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             int index = UnityEngine.Random.Range(0, PlayerManager.instance.Inventory.Count);
             PlayerManager.instance.Inventory.RemoveAt(index);
             CanvasManager.instance.RemoveObjInPlayerInventory(index);
+            SoundManager.instance.PlaySound_LooseObject();
         }
     }
 

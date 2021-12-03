@@ -51,6 +51,9 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance curseEffect;
     [FMODUnity.EventRef] [SerializeField] private string curseSound;
 
+    FMOD.Studio.EventInstance looseObjectEffect;
+    [FMODUnity.EventRef] [SerializeField] private string looseObjectSound;
+
 
     public static SoundManager instance;
     void Awake()
@@ -94,6 +97,7 @@ public class SoundManager : MonoBehaviour
         endExpeditionEffect = FMODUnity.RuntimeManager.CreateInstance(endExpeditionSound);
 
         curseEffect = FMODUnity.RuntimeManager.CreateInstance(curseSound);
+        looseObjectEffect = FMODUnity.RuntimeManager.CreateInstance(looseObjectSound);
     }
 
 
@@ -117,5 +121,6 @@ public class SoundManager : MonoBehaviour
     public void PlaySound_EndExpedition() { endExpeditionEffect.start(); }
 
     public void PlaySound_CurseObject() { curseEffect.start(); }
+    public void PlaySound_LooseObject() { looseObjectEffect.start(); }
 
 }
