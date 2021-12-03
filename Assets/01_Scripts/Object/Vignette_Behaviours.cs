@@ -176,7 +176,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void ApplyVignetteEffect()
     {
-
+        bool cursed=false;
         // action spécifique
         switch (Categorie)
         {
@@ -237,8 +237,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             if (objectFrom.IsCurse)
             {
                 objectFrom.MyCurse.ApplyCurse();
+                cursed = true;
             }
         }
+        string vSize = VignetteShape.x+"x"+ VignetteShape.y;
+        GameObject newVignette = Vignette_Renderer.instance.CreateVignette(vSize, Categorie.ToString(),PlayerManager.instance.CharacterData.Color, cursed);
+        newVignette.transform.parent = transform;
+        newVignette.transform.localPosition = Vector3.zero;
+
     }
 
     #region SETUP
