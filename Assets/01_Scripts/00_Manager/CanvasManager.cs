@@ -109,6 +109,7 @@ public class CanvasManager : MonoBehaviour
         WaitingCharacterPanel.SetActive(false);
         negociationTime = currentNegociationTime = initNegociationTime;
         SetUpLevelIndicator();
+        SetInkSlider();
     }
 
     private void Update()

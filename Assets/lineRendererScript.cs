@@ -30,9 +30,13 @@ public class lineRendererScript : MonoBehaviour
         int index = -1;
         foreach (var item in GridManager.instance.ListOfMovement)
         {
-            index++;
-            myLine.positionCount = GridManager.instance.ListOfMovement.Count;
-            myLine.SetPosition(index, item.transform.position);
+            if (item.EventAssocier.OnGrid)
+            {
+                index++;
+                myLine.positionCount = GridManager.instance.ListOfMovement.Count;
+                myLine.SetPosition(index, item.transform.position);
+            }
+            
         }
     }
 }

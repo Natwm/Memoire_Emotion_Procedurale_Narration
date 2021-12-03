@@ -394,6 +394,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
         //CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<UsableObject>();
+        CanvasManager.instance.SetUpLevelIndicator();
     }
 
     public void FightEffect()
