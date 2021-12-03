@@ -1258,6 +1258,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         CheckCaseCondition();
 
         GetComponent<SortingGroup>().sortingOrder = 0;
+
+        lineRendererScript.instance.DrawLineRenderer();
     }
 
     public void OnPointerDown(PointerEventData eventData)
