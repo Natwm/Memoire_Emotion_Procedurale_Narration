@@ -22,6 +22,5 @@ MonoBehaviour:
   m_sprite: {fileID: 21300000, guid: 8fa75d5d469dccf4095946a1c71b4da3, type: 3}
   m_AmountOfUse: 1
   m_SizeInInventory: 0
-  m_Description: "Donne une vignette <i><b> Soin L\xE9ger </b></i>. Est d\xE9pens\xE9
-    apr\xE8s utilisation.\n\n<i></b> Soin L\xE9ger : </i></b> Le personnage regagne
-    un point de vie."
+  m_Description: "Donne une vignette <i><b>Soin L\xE9ger</b></i>. (D\xE9truite apr\xE8s
+    utilisation.)\r\n<br>\r\n<i><b>Soin L\xE9ger :</i></b> \n+1 <sprite=0>"

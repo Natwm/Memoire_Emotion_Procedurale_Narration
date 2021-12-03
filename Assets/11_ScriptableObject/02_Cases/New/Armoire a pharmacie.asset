@@ -15,8 +15,8 @@ MonoBehaviour:
   caseName: Armoire a pharmacie
   anyVignette: 0
   useSpecifiqueObject: 1
-  isEchecResult: 1
+  isEchecResult: 0
   objectsRequired: 04000000
   specifiqueObject: {fileID: 11400000, guid: 61acae94126d5094d8da6d127172343c, type: 2}
-  result: 11
+  result: 21
   echecResult: 0

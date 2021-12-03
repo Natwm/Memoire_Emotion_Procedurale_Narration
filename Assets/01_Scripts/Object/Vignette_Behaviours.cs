@@ -32,7 +32,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         RESSEMBLACE_ETRANGE,
         EXPLORER_RARE,
         EXPLORER_MEDIC,
-        EXPLORER_OCCULT
+        EXPLORER_OCCULT,
+        RASOIR,
+        RASOIR_USE,
+        ARTEFACT,
+        FOOD_OLD
     }
 
     #region param
@@ -228,6 +232,24 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.EXPLORER_OCCULT:
                 ExploreOccultEffect();
                 break;
+            case VignetteCategories.RASOIR:
+                UseEffect();
+                FallEffect();
+                break;
+            case VignetteCategories.RASOIR_USE:
+                FallEffect();
+                ExploreRareEffect();
+                break;
+            case VignetteCategories.ARTEFACT:
+                BigSanityLossEffect();
+                break;
+            case VignetteCategories.FOOD_OLD:
+                CurseEffect();
+                SmallHealEffect();
+
+                break;
+
+                break;
             default:
                 break;
         }
@@ -418,7 +440,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("CurseEffect");
 
-        PlayerManager.instance.ReduceMentalPlayer(2);
+        PlayerManager.instance.ReduceMentalPlayer(1);
     }
 
     public void LooseObjectEffect()
@@ -478,6 +500,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
             LevelManager.instance.PageInventory.Add(new UsableObject(LevelManager.instance.UnlockableObject[randomIndex]));
         }
+    }
+
+    public void BigSanityLossEffect()
+    {
+        PlayerManager.instance.ReduceMentalPlayer(2);
     }
 
     public void CameraEffect()
@@ -1085,7 +1112,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 return "INSTANTANE";
                 break;
             case VignetteCategories.RESSEMBLACE_ETRANGE:
-                return "RESSEMBLACE_ETRANGE";
+                return "RESSEMBLANCE_ETRANGE";
                 break;
             case VignetteCategories.EXPLORER_MEDIC:
                 return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
@@ -1096,6 +1123,17 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.EXPLORER_RARE:
                 return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
                 break;
+            case VignetteCategories.RASOIR:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A></color=#B5935A><br><size=100%>Blessure Maladroite";
+                break;
+            case VignetteCategories.RASOIR_USE:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A><br>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Blessure aux mains";
+                break;
+            case VignetteCategories.ARTEFACT:
+                return "<color=#B5935A>-2<sprite=2 color=#B5935A></color=#B5935A><br>Contemplation Morbide";
+                break;
+            case VignetteCategories.FOOD_OLD:
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=0 color=#B5935A></color=#B5935A><br>Dégoût";
             default:
                 return "<br> Neutre";
                 break;

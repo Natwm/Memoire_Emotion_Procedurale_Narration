@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caseName: Armoire
   anyVignette: 1
-  objectsRequired: 
-  result: 1
+  useSpecifiqueObject: 1
+  isEchecResult: 0
+  objectsRequired: 00000000
+  specifiqueObject: {fileID: 0}
+  result: 20
+  echecResult: 0

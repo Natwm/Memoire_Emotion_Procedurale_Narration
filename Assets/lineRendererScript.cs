@@ -6,9 +6,9 @@ public class lineRendererScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public static lineRendererScript instance;
-
+    Material LineMat;
     LineRenderer myLine;
-
+    public float scrollSpeed;
     void Awake()
     {
         if (instance != null)
@@ -21,8 +21,15 @@ public class lineRendererScript : MonoBehaviour
     void Start()
     {
         myLine = GetComponent<LineRenderer>();
+        LineMat = myLine.material;
     }
 
+    Vector2 offset;
+    public void Update()
+    {
+        offset.x += Time.time*scrollSpeed;
+        LineMat.SetTextureOffset("_MainTex",offset);
+    }
 
     public void DrawLineRenderer()
     {

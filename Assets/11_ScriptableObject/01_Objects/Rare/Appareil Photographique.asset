@@ -22,6 +22,6 @@ MonoBehaviour:
   m_sprite: {fileID: 21300000, guid: da9105e0544e6714f88dd62d79ea0c6c, type: 3}
   m_AmountOfUse: 1
   m_SizeInInventory: 0
-  m_Description: "Donne deux vignettes <i><b> Instantan\xE9 </i></b>.\n\n<i><b> Instantan\xE9
-    </i></b> : Copie une des vignettes de la main du joueur. La vignette choisie
+  m_Description: "Donne deux vignettes <i><b> Instantan\xE9 </i></b>.\n\n<i><b>Instantan\xE9
+    :</i></b>  \nCopie une des vignettes de la main du joueur. \nLa vignette choisie
     est al\xE9atoire et la copie applique les effets de la vignette copi\xE9e."
