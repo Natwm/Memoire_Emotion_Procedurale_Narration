@@ -435,6 +435,14 @@ public class CreationManager : MonoBehaviour
         }
     }
 
+    public void SetUpAllCharacter()
+    {
+        foreach (var item in listOfCharacter)
+        {
+            item.SetUpCharacterUI();
+        }    
+    }
+
     public void RepartitionObject()
     {
         foreach (var item in listOfCharacter)
@@ -680,11 +688,11 @@ public class CreationManager : MonoBehaviour
         selectedPlayer = player;
 
 
-        foreach (var item in FindObjectsOfType<PenObject>())
+        /*foreach (var item in FindObjectsOfType<PenObject>())
         {
             item.GetComponent<Button>().interactable = true;
             item.InitButton();
-        }
+        }*/
     }
 
     public void LaunchGame()

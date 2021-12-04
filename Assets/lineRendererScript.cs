@@ -35,15 +35,19 @@ public class lineRendererScript : MonoBehaviour
     {
         myLine.positionCount = 0;
         int index = -1;
-        foreach (var item in GridManager.instance.ListOfMovement)
+        
+        myLine.positionCount = GridManager.instance.ListOfMovement.Count;
+
+        foreach (var item in GridManager.instance.Test)
         {
-            if (item.EventAssocier.OnGrid)
+            if (item.OnGrid)
             {
                 index++;
-                myLine.positionCount = GridManager.instance.ListOfMovement.Count;
                 myLine.SetPosition(index, item.transform.position);
             }
-            
         }
+
+        if (GridManager.instance.ListOfMovement.Count > 0 && myLine.GetPosition(myLine.positionCount-1) == Vector3.zero)
+            myLine.positionCount = myLine.positionCount - 1;
     }
 }

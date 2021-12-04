@@ -262,7 +262,12 @@ public class GridManager : MonoBehaviour
             }
         }
         test.Clear();
-        test = listOfVignetteMovement;
+
+        foreach (var item in listOfVignetteMovement)
+        {
+            if(item.OnGrid)
+                test.Add(item);
+        }
         /*foreach (var item in listOfVignetteMovement)
         {
             print(item);
