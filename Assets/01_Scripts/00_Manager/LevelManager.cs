@@ -27,6 +27,14 @@ public class LevelManager : MonoBehaviour
     [Space]
     [Header("Page Inventory")]
     [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject> ();
+    [SerializeField] private List<Object_SO> basisPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> healPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> occultsPullOfObject = new List<Object_SO>();
+    [SerializeField] private List<Object_SO> rarePullOfObject = new List<Object_SO>();
+
+    [Space]
+    [Header("PARAM")]
+    [SerializeField] private int amountOfLevelInventory = 0;
 
     void Awake()
     {
@@ -68,6 +76,8 @@ public class LevelManager : MonoBehaviour
             cardBd.SetUpCard();
 
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 
@@ -87,6 +97,8 @@ public class LevelManager : MonoBehaviour
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 
@@ -107,6 +119,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         }
@@ -114,7 +128,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<UsableObject> inventory)
     {
-        print("okokokok");
         foreach (var item in inventory)
         {
             foreach (var toDraw in item.Data.DrawParam)
@@ -129,6 +142,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         }
@@ -148,6 +163,8 @@ public class LevelManager : MonoBehaviour
                     cardBd.SetUpVignette(toDraw.CategoryToDraw);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
         if (inventory.Count > 0)
@@ -158,6 +175,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNegatifObject(int amount = 1)
     {
+        print("spaqwn");
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
@@ -169,9 +187,12 @@ public class LevelManager : MonoBehaviour
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
             //cardBd.SetUpCard();
 
+            card.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color32(104, 46, 68, 255);
 
             //Création de chaque clase de vignette
             PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+            card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
         }
     }
 
@@ -270,6 +291,11 @@ public class LevelManager : MonoBehaviour
     public BranchingCondition CurrentBranching { get => currentBranching; set => currentBranching = value; }
     public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
     public List<Object_SO> UnlockableObject { get => unlockableObject; set => unlockableObject = value; }
+    public int AmountOfLevelInventory { get => amountOfLevelInventory; set => amountOfLevelInventory = value; }
+    public List<Object_SO> BasisPullOfObject { get => basisPullOfObject; set => basisPullOfObject = value; }
+    public List<Object_SO> HealPullOfObject { get => healPullOfObject; set => healPullOfObject = value; }
+    public List<Object_SO> OccultsPullOfObject { get => occultsPullOfObject; set => occultsPullOfObject = value; }
+    public List<Object_SO> RarePullOfObject { get => rarePullOfObject; set => rarePullOfObject = value; }
 
     #endregion
 

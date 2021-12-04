@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using DG.Tweening;
 
-public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
+public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public enum VignetteCategories
     {
@@ -28,14 +29,23 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         DEBROUILLARD,
         SOUFFLER,
         INSTANTANE,
-        RESSEMBLACE_ETRANGE
+        RESSEMBLACE_ETRANGE,
+        EXPLORER_RARE,
+        EXPLORER_MEDIC,
+        EXPLORER_OCCULT,
+        RASOIR,
+        RASOIR_USE,
+        ARTEFACT,
+        FOOD_OLD
     }
 
     #region param
 
     private Vector3 offset;
 
-    [SerializeField] private VignetteCategories categorie;
+    [SerializeField] private VignetteCategories currentCategorie;
+    [SerializeField] private VignetteCategories initCategorie;
+
     [SerializeField] private TMPro.TMP_Text categorieText;
 
     [Space]
@@ -96,6 +106,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [SerializeField] private UsableObject objectFrom;
 
     [Space]
+    [Header("Sprite")]
+    [SerializeField] private Sprite ResetRender;
+    [SerializeField] private Sprite hoverRender;
+    [SerializeField] private Sprite dragRender;
+
+    [Space]
     [Header("Sound Fmod Action")]
     FMOD.Studio.EventInstance takeVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string takeVignetteSound;
@@ -105,6 +121,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     FMOD.Studio.EventInstance transformationVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string transformationVignetteSound;
+
+    FMOD.Studio.EventInstance dropVignetteOnGridEffect;
+    [FMODUnity.EventRef] [SerializeField] private string dropVignetteOnGridSound;
+
+    FMOD.Studio.EventInstance dropVignetteNotOnGridEffect;
+    [FMODUnity.EventRef] [SerializeField] private string dropVignetteNotOnGridSound;
 
     [Space]
     [Header("Sound Fmod Resolution")]
@@ -134,7 +156,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         myEvent = GetComponent<EventContener>();
         //SetUpCard();
-
+        SetUpSound();
 
     }
 
@@ -147,9 +169,18 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
+    void SetUpSound()
+    {
+        takeVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(takeVignetteSound);
+        //dropVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteSound);
+        //transformationVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(transformationVignetteSound);
+        dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
+        dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
+    }
+
     public void ApplyVignetteEffect()
     {
-
+        bool cursed=false;
         // action spécifique
         switch (Categorie)
         {
@@ -192,32 +223,67 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.SOUFFLER:
                 SoufflerEffect();
                 break;
+            case VignetteCategories.EXPLORER_RARE:
+                ExploreRareEffect();
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                ExploreMedicEffect();
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                ExploreOccultEffect();
+                break;
+            case VignetteCategories.RASOIR:
+                UseEffect();
+                FallEffect();
+                break;
+            case VignetteCategories.RASOIR_USE:
+                FallEffect();
+                ExploreRareEffect();
+                break;
+            case VignetteCategories.ARTEFACT:
+                BigSanityLossEffect();
+                break;
+            case VignetteCategories.FOOD_OLD:
+                CurseEffect();
+                SmallHealEffect();
+
+                break;
+
+                break;
             default:
                 break;
         }
-
+        
         if (objectFrom != null)
         {
             if (objectFrom.IsCurse)
             {
                 objectFrom.MyCurse.ApplyCurse();
+                cursed = true;
+                SoundManager.instance.PlaySound_CurseObject();
             }
         }
+        string vSize = VignetteShape.x+"x"+ VignetteShape.y;
+        GameObject newVignette = Vignette_Renderer.instance.CreateVignette(vSize, Categorie.ToString(),PlayerManager.instance.CharacterData.Color, cursed);
+        newVignette.transform.parent = transform;
+        newVignette.transform.localPosition = Vector3.zero;
+
     }
 
     #region SETUP
     public void SetUpVignette(VignetteCategories categorie)
     {
-        Categorie = categorie;
+        Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = null;
+        objectFrom = null;
         SetUpUI();
     }
 
 
     public void SetUpVignette(VignetteCategories categorie, Object_SO useObject)
     {
-        Categorie = categorie;
+        Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         print(useObject);
         SpriteIndicator.sprite = useObject.Sprite;
@@ -225,14 +291,28 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
 
+
+    string vignetteText;
+    string curseText;
     public void SetUpVignette(VignetteCategories categorie, UsableObject useObject)
     {
-        Categorie = categorie;
-        categorieText.text = GetEnumName();
+        Categorie = initCategorie = categorie;
+        vignetteText = GetEnumName();
+        
         SpriteIndicator.sprite = useObject.Data.Sprite;
 
         if (useObject.IsCurse)
-            SpriteIndicator.color = Color.red;
+        {
+            SpriteIndicator.color = new Color32(104,46,68,255);
+            curseText = GetCurseName(useObject);
+        }
+        else
+        {
+            curseText = "";
+        }
+
+        categorieText.text = vignetteText + curseText;
+
 
         objectFrom = useObject;
         SetUpUI();
@@ -249,19 +329,84 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ExploreEffect()
     {
         print("ExploreEffect");
+        
+        SoundManager.instance.PlaySound_GainObject();
 
-        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
-        Object_SO newItem = LevelManager.instance.UnlockableObject[randomIndex];
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.BasisPullOfObject.Count);
+        Object_SO newItem = LevelManager.instance.BasisPullOfObject[randomIndex];
 
         
         GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
         item.GetComponent<UsableObject>().Data = newItem;
 
         LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+        CanvasManager.instance.SetUpLevelIndicator();
+    }
+    public void ExploreRareEffect()
+    {
+        print("ExploreEffect");
+
+        SoundManager.instance.PlaySound_GainObject();
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.RarePullOfObject.Count);
+        Object_SO newItem = LevelManager.instance.RarePullOfObject[randomIndex];
+
+
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+        CanvasManager.instance.SetUpLevelIndicator();
+    }
+    public void ExploreMedicEffect()
+    {
+        print("ExploreEffect");
+        SoundManager.instance.PlaySound_GainObject();
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        Object_SO newItem = LevelManager.instance.HealPullOfObject[randomIndex];
+
+
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+
+        CanvasManager.instance.SetUpLevelIndicator();
+    }
+    public void ExploreOccultEffect()
+    {
+        print("ExploreEffect");
+
+        SoundManager.instance.PlaySound_GainObject();
+
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        Object_SO newItem = LevelManager.instance.OccultsPullOfObject[randomIndex];
+
+
+        GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
+        item.GetComponent<UsableObject>().Data = newItem;
+
+        LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+            TakeEffect();
+
+        CanvasManager.instance.SetUpLevelIndicator();
     }
 
     public void TakeEffect()
     {
+        SoundManager.instance.PlaySound_GainObject();
         print("Take Effect off : " + LevelManager.instance.PageInventory.Count + " Item");
         foreach (var item in LevelManager.instance.PageInventory)
         {
@@ -271,6 +416,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
         //CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<UsableObject>();
+        CanvasManager.instance.SetUpLevelIndicator();
     }
 
     public void FightEffect()
@@ -282,7 +428,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void UseEffect()
     {
         print("UseEffect"); // check si il y a condition
-        CheckCaseCondition();
+        //CheckCaseCondition();
     }
 
     public void FallEffect()
@@ -294,7 +440,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("CurseEffect");
 
-        PlayerManager.instance.GetDamage(2);
+        PlayerManager.instance.ReduceMentalPlayer(1);
     }
 
     public void LooseObjectEffect()
@@ -305,6 +451,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             int index = UnityEngine.Random.Range(0, PlayerManager.instance.Inventory.Count);
             PlayerManager.instance.Inventory.RemoveAt(index);
             CanvasManager.instance.RemoveObjInPlayerInventory(index);
+            SoundManager.instance.PlaySound_LooseObject();
         }
     }
 
@@ -355,6 +502,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
+    public void BigSanityLossEffect()
+    {
+        PlayerManager.instance.ReduceMentalPlayer(2);
+    }
+
     public void CameraEffect()
     {
         print("Camera Effect");
@@ -372,21 +524,25 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             print("check");
             foreach (var condition in ListOfCaseEventObject)
             {
+                if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
+                {
+                    ApplyTileEffect(condition.CaseResult);
+                    return true;
+                }
                 foreach (var objectNeeded in condition.ObjectsRequired)
                 {
-                    if (PlayerManager.instance.Inventory.Contains(objectNeeded))
+                    if (currentCategorie == objectNeeded)
                     {
-                        PlayerManager.instance.Inventory.Remove(objectNeeded);
-
-                        foreach (var item in condition.CaseResult)
-                        {
-                            LevelManager.instance.PageInventory.Add(new UsableObject(item));
-                        }
+                        ApplyTileEffect(condition.CaseResult);
                         return true;
                     }
                 }
             }
+            if (ListOfCaseEventObject[0].IsEchecResult)
+                ApplyTileEffect(ListOfCaseEventObject[0].EchecResult);
+            //
         }
+
         return false;
     }
 
@@ -591,8 +747,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             //print(" pomme = " + "tilePos  " + tilePos);
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) || isNewLine)
                             {
-                                print(x + " " + y);
-                                Debug.Break();
                                 //print(" pomme2 = " + "tilePos  " + tilePos);
                                 try
                                 {
@@ -659,16 +813,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         Vignette_Behaviours check = CheckNextMove();
         NextMove = check != this ? check : null;
-        if (NextMove != null)
-        {
-            //print("Next move is :    " + NextMove.gameObject);
-        }
-        else
-        {
-            //print("NextMove est sensé être  =" + check);
-            //print("il est null car : check != this =" + (check != this));
-        }
-
+        /*if(GridManager.instance.ListOfMovement.Count >0 && NextMove !=null)
+            NextMove.previousMove = this;*/
     }
     #endregion
 
@@ -726,6 +872,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 break;
             case VignetteCategories.SOUFFLER:
                 SetUpTextVignette(0,1,0);
+                break;
+            case VignetteCategories.EXPLORER_RARE:
+                SetUpTextVignette(1, 0, 0);
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                SetUpTextVignette(1, 0, 0);
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                SetUpTextVignette(1, 0, 0);
                 break;
             /*case VignetteCategories.RESSURECTION:
                 SetUpTextVignette("");
@@ -897,70 +1052,109 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     private string GetEnumName()
     {
-        switch (categorie)
+        switch (currentCategorie)
         {
             case VignetteCategories.NEUTRE:
-                return "NEUTRE";
+                return "<br>Neutre";
                 break;
             case VignetteCategories.EXPLORER:
-                return "EXPLORER";
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
                 break;
             case VignetteCategories.PRENDRE:
-                return "PRENDRE";
+                return "<color=#B5935A><sprite=3 color=#B5935A></color=#B5935A><br>Prendre";
                 break;
             case VignetteCategories.COMBATTRE:
-                return "COMBATTRE";
+                return "<color=#B5935A>-2<sprite=0 color=#B5935A></color=#B5935A><br>Combattre";
                 break;
             case VignetteCategories.UTILISER:
-                return "UTILISER";
+                return "<br>Utiliser";
                 break;
             case VignetteCategories.PIEGE:
-                return "PIEGE";
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A></color=#B5935A><br>Piège";
                 break;
             case VignetteCategories.CURSE:
-                return "CURSE";
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A></color=#B5935A><br>Malédiction";
                 break;
             case VignetteCategories.PERTE_OBJET:
-                return "PERTE_OBJET";
+                return "<color=#B5935A>-1<sprite=1 color=#B5935A></color=#B5935A><br>Perte d'objet";
                 break;
             case VignetteCategories.VENT_GLACIAL:
                 return "VENT_GLACIAL";
                 break;
             case VignetteCategories.SAVOIR_OCCULTE:
-                return "SAVOIR_OCCULTE";
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=1 color=#B5935A></color=#B5935A><br>Savoir Occulte";
                 break;
             case VignetteCategories.SMALL_HEAL:
-                return "SMALL_HEAL";
+                return "<color=#B5935A>+1<sprite=0 color=#B5935A></color=#B5935A><br>Soin Léger";
                 break;
             case VignetteCategories.BIG_HEAL:
-                return "BIG_HEAL";
+                return "<color=#B5935A>+1<sprite=0 color=#B5935A></color=#B5935A><br>Soin Léger";
                 break;
             case VignetteCategories.ECLAIRER:
-                return "ECLAIRER";
+                return "<color=#B5935A>+2<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Éclairer";
                 break;
             case VignetteCategories.RESSURECTION:
-                return "RESSURECTION";
+                return "<color=#B5935A><sprite=4 color=#B5935A></color=#B5935A><br><size=90%>Résurrection";
                 break;
             case VignetteCategories.PLANIFICATION:
-                return "PLANIFICATION";
+                return "<color=#B5935A>+30<sprite=5 color=#B5935A></color=#B5935A><br><size=90%>Planification";
                 break;
             case VignetteCategories.SOIN_EQUIPE:
-                return "SOIN_EQUIPE";
+                return "<color=#B5935A>(Tous) +1<sprite=0 color=#B5935A></color=#B5935A><br><size=90%>Soin de l'équipe";
                 break;
             case VignetteCategories.DEBROUILLARD:
-                return "DEBROUILLARD";
+                return "<color=#B5935A>Utilisable sur toute les cases</color=#B5935A><br><size=90%>Débrouillard";
                 break;
             case VignetteCategories.SOUFFLER:
-                return "SOUFFLER";
+                return "<color=#B5935A>+ 1<sprite=2 color=#B5935A></color=#B5935A><br><size=100%>Bref Répit";
                 break;
             case VignetteCategories.INSTANTANE:
                 return "INSTANTANE";
                 break;
             case VignetteCategories.RESSEMBLACE_ETRANGE:
-                return "RESSEMBLACE_ETRANGE";
+                return "RESSEMBLANCE_ETRANGE";
+                break;
+            case VignetteCategories.EXPLORER_MEDIC:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                break;
+            case VignetteCategories.EXPLORER_OCCULT:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                break;
+            case VignetteCategories.EXPLORER_RARE:
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                break;
+            case VignetteCategories.RASOIR:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A></color=#B5935A><br><size=100%>Blessure Maladroite";
+                break;
+            case VignetteCategories.RASOIR_USE:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A><br>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Blessure aux mains";
+                break;
+            case VignetteCategories.ARTEFACT:
+                return "<color=#B5935A>-2<sprite=2 color=#B5935A></color=#B5935A><br>Contemplation Morbide";
+                break;
+            case VignetteCategories.FOOD_OLD:
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=0 color=#B5935A></color=#B5935A><br>Dégoût";
+            default:
+                return "<br> Neutre";
+                break;
+        }
+    }
+
+    private string GetCurseName(UsableObject useObject)
+    {
+        switch (useObject.MyCurse.CurseName)
+        {
+            case "Reduce Life":
+                return "<br><color=#682e44>-1<sprite=0 color=#682e44></color>";
+                break;
+            case "Reduce Mental":
+                return "<br><color=#682e44>-1<sprite=2 color=#682e44></color>";
+                break;
+            case "Loose an object":
+                return "<br><color=#682e44>-1<sprite=1 color=#682e44></color>";
                 break;
             default:
-                return "NEUTRE";
+                return "";
                 break;
         }
     }
@@ -969,6 +1163,47 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         return CreationManager.instance.GetVignetteSprite(this);
     }
+
+    #region Update Vignette
+
+    public void ApplyTileEffect(VignetteCategories newCategorie)
+    {
+        currentCategorie = newCategorie;
+        //categorieText.text = GetEnumName();
+        curseText = "";
+        if (objectFrom != null)
+        {
+            if (objectFrom.IsCurse)
+            {
+                SpriteIndicator.color = new Color32(104, 46, 68, 255);
+                curseText = GetCurseName(objectFrom);
+            }
+        }
+        
+
+        categorieText.text = GetEnumName() + curseText;
+        SetUpUI();
+    }
+
+    public void ResetVignette()
+    {
+        currentCategorie = initCategorie;
+        curseText = "";
+        if(objectFrom != null)
+        {
+            if (objectFrom.IsCurse)
+            {
+                SpriteIndicator.color = new Color32(104, 46, 68, 255);
+                curseText = GetCurseName(objectFrom);
+            }
+        }
+        
+        categorieText.text = GetEnumName() + curseText;
+
+        SetUpUI();
+    }
+
+    #endregion
 
     #region Interface
     public void OnPointerUp(PointerEventData eventData)
@@ -1014,12 +1249,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             {
                 ClearList();
             }
-
+            dropVignetteOnGridEffect.start();
         }
         else
         {
             OnGrid = false;
             nextMove = null;
+
+            dropVignetteNotOnGridEffect.start();
             //vignetteScene.transform.GetChild(1).GetComponent<SpriteRenderer>().color = Color.white;
         }
 
@@ -1052,18 +1289,31 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         }
 
-        GameManager.instance.IsMovementvalid();
+        
         GridManager.instance.GetVignetteOrderByNeighbourg();
+
+        GameManager.instance.CheckIfAllAreConnect();//IsMovementvalid();
+
+        CheckCaseCondition();
+
+        GetComponent<SortingGroup>().sortingOrder = 0;
+
+        lineRendererScript.instance.DrawLineRenderer();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        ResetVignette();
         Vector3 data = Camera.main.ScreenToWorldPoint(eventData.position);
         data.z = transform.position.z;
         //AJouter la distance entre le pivot et le curseur;
         offset = transform.position - (Vector3)data;
 
         myEvent.ResetEvent();
+
+        GetComponent<SortingGroup>().sortingOrder = 100;
+
+        takeVignetteEffect.start();
         // SetUpUI();
     }
 
@@ -1076,6 +1326,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Vector3 rayPoint = ray.GetPoint(Vector3.Distance(transform.position, Camera.main.transform.position));
 
         rayPoint += offset;
+        //GetComponent<Renderer>().sortingOrder = 100;
 
         rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
         //Move the GameObject when you drag it
@@ -1099,6 +1350,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
             //  ShowVignetteElt(vignetteInfo, vignetteImage, .2f);
         }
+
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = dragRender;
     }
 
     #endregion
@@ -1115,6 +1368,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         //Gizmos.DrawWireCube(transform.GetChild(0).position, transform.localScale / raycastSize);
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = hoverRender;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ResetRender;
+    }
+
 
     #region Getter & Setter
     public List<GameObject> ListOfAffectedObject { get => listOfAffectedObject; set => listOfAffectedObject = value; }
@@ -1124,7 +1387,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public Vector2 VignetteShape { get => vignetteShape; set => vignetteShape = value; }
     public bool OnGrid { get => onGrid; set => onGrid = value; }
     public List<CaseContener_SO> ListOfCaseEventObject { get => listOfCaseEventObject; set => listOfCaseEventObject = value; }
-    public VignetteCategories Categorie { get => categorie; set => categorie = value; }
+    public VignetteCategories Categorie { get => currentCategorie; set => currentCategorie = value; }
     public UsableObject ObjectFrom { get => objectFrom; set => objectFrom = value; }
     #endregion
 }

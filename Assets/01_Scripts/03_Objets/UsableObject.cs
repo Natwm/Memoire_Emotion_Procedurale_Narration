@@ -56,7 +56,6 @@ public class UsableObject : abstractUsableObject
     // Start is called before the first frame update
     void Start()
     {
-        MyCurse = new Curse();
     }
 
     // Update is called once per frame
@@ -82,16 +81,16 @@ public class UsableObject : abstractUsableObject
                 case ObjectStatus.NONE:
                     break;
                 case ObjectStatus.CLAIM:
-                    CreationManager.instance.IncreaseNegociationTime(75);
+                    CreationManager.instance.IncreaseNegociationTime(CreationManager.instance.PrendreValue);
                     break;
                 case ObjectStatus.WANT:
-                    CreationManager.instance.IncreaseNegociationTime(33);
+                    CreationManager.instance.IncreaseNegociationTime(CreationManager.instance.ReclamerValue);
                     break;
                 case ObjectStatus.REJECT:
-                    CreationManager.instance.IncreaseNegociationTime(33);
+                    CreationManager.instance.IncreaseNegociationTime(CreationManager.instance.DeclinerValue);
                     break;
                 case ObjectStatus.EXCLUDE:
-                    CreationManager.instance.IncreaseNegociationTime(75);
+                    CreationManager.instance.IncreaseNegociationTime(CreationManager.instance.RefuserValue);
                     break;
                 default:
                     break;
@@ -108,15 +107,16 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.CLAIM:
                     if (Status != ObjectStatus.CLAIM)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.PrendreValue))
                         {
-
-                            CanvasManager.instance.UpdateInkSlider(-75);
+                            SoundManager.instance.PlaySound_SelectedNegociation();
+                            CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString(); 
                             //myButton.image.color = Color.green;
                             objStatus = ObjectStatus.CLAIM;
                             ClaimObject(player);
 
-                        }
+                        }else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -129,14 +129,16 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.WANT:
                     if (Status != ObjectStatus.WANT)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.ReclamerValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.WANT;
-                            CanvasManager.instance.UpdateInkSlider(-33);
+                            CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.gray;
                             WantObject(player);
 
-                        }
+                        }else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -150,14 +152,17 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.REJECT:
                     if (Status != ObjectStatus.REJECT)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(33))
+                        if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.DeclinerValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.REJECT;
-                            CanvasManager.instance.UpdateInkSlider(-33);
+                            CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.yellow;
                             RejectObject(player);
 
                         }
+                        else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -170,14 +175,17 @@ public class UsableObject : abstractUsableObject
                 case CreationManager.m_PenStatus.EXCLUDE:
                     if (Status != ObjectStatus.EXCLUDE)
                     {
-                        if (CreationManager.instance.ReduceNegociationTime(75))
+                        if (CreationManager.instance.ReduceNegociationTime(CreationManager.instance.RefuserValue))
                         {
+                            SoundManager.instance.PlaySound_SelectedNegociation();
                             objStatus = ObjectStatus.EXCLUDE;
-                            CanvasManager.instance.UpdateInkSlider(-75);
+                            CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.red;
                             ExcludeObject(player);
 
                         }
+                        else
+                            SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
                     {
@@ -256,16 +264,16 @@ public class UsableObject : abstractUsableObject
             case ObjectStatus.NONE:
                 break;
             case ObjectStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                 break;
             case ObjectStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                 break;
             case ObjectStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                 break;
             case ObjectStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                 break;
             default:
                 break;

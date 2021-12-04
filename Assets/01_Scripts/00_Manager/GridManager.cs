@@ -274,12 +274,10 @@ public class GridManager : MonoBehaviour
     { 
         if(GameManager.instance.OrderCharacter.Count >= 0 )
         {
-            print("cleatScene");
             ClearScene();
         }
         else
         {
-            print("cleatAll");
             ClearAll();
         }
     }
@@ -320,15 +318,13 @@ public class GridManager : MonoBehaviour
         //PlayerManager.instance.SetUp();
         if (!CanvasManager.instance.CreatePanel1.activeSelf)
         {
-            m_EventGenerator.GenerateGrid();
+            //m_EventGenerator.GenerateGrid();
             LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
         }
 
         CanvasManager.instance.UpdatePageIndicator();
 
         PlayerManager.instance.ResetPlayerPosition();
-
-        
     }
 
     private void ClearList()

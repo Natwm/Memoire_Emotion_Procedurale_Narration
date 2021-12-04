@@ -152,15 +152,22 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         {
             Destroy(item);
         }
-
+        int index = -1;
         foreach (var item in m_Inventory)
         {
+            index++;
             GameObject tempButton = Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
             tempButton.AddComponent<UsableObject>();
             tempButton.GetComponent<UsableObject>().Data = item;
 
             UsableObject eventButton = tempButton.GetComponent<UsableObject>();
             tempButton.GetComponent<Image>().sprite = item.Sprite;
+
+            if (m_InventoryObj[index].IsCurse)
+            {
+                tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+            }
+                
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
         }
     }
@@ -200,7 +207,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         CharacterHurtEffect.start();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void SetUpColor()
     {
         foreach (var item in FindObjectsOfType<Character_Button>())
         {
@@ -208,6 +215,11 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         }
 
         transform.GetChild(0).GetComponent<Image>().color = assignedElement.Color;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        SetUpColor();
     }
 
 

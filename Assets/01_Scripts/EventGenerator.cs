@@ -119,6 +119,7 @@ public class EventGenerator : MonoBehaviour
         {
             occupiedTiles.Add(GetRandomClearTile());
         }
+        print("occupiedTiles.Count " + occupiedTiles.Count);
     }
 
 
@@ -150,20 +151,22 @@ public class EventGenerator : MonoBehaviour
     public void DetermineTileType()
     {
         
-        for (int i = 0; i < occupiedTiles.Count-1; i++)
+        for (int i = 0; i < occupiedTiles.Count-2; i++)
         {
+            print("i =  " + i + "   " + occupiedTiles[i]);
             GameObject tmp = SpawnGraphics(DetermineEventType(occupiedTiles[i]), occupiedTiles[i]);
             allGraphics.Add(tmp);
         }
         GameObject keyGraphics = Instantiate(key, occupiedTiles[occupiedTiles.Count-1].transform);
         keyGraphics.transform.localPosition = Vector3.zero;
         allGraphics.Add(keyGraphics);
-
     }
 
     public GameObject SpawnGraphics(GameObject objToSpawn, GameObject tile)
     {
+        //Debug.Log("SpawnGraphic_CALL " + tile.name);
         GameObject newGraphic = Instantiate(objToSpawn, tile.transform);
+        //print("SpawnGraphic_CALL newGraphic = " + newGraphic.transform.parent.gameObject.name);
         newGraphic.transform.localPosition = Vector3.zero;
         return newGraphic;
     }
@@ -172,34 +175,14 @@ public class EventGenerator : MonoBehaviour
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
     {
-        string chemin = "Generation/Composition/";
+        //Debug.Log("EventType_CALL " + tileToModify.name);
         int RandomType = Random.Range(0, modifiers.Length);
         GameObject tileType=null;
         //Debug.Log("TILETYPE:  " + RandomType);
-        if (RandomType == 0)
-        {
-            tileType = modifiers[0];
-            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[0];
-                //tileToModify.AddComponent<ElementBehaviours_Angry>().AmountOfAngryOrfear = 1;
-        }
-        else if (RandomType == 1)
-        {
-            tileType = modifiers[1];
-            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[1];
-            //tileToModify.AddComponent<ElementBehaviours_Fear>().AmountOfAngryOrfear = -1;
-        }
-        else if (RandomType == 2)
-        {
-            tileType = modifiers[2];
-            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[2];
-            //tileToModify.AddComponent<ElementBehaviours_Joy>().AmountOfJoySad = 1;
-        }
-        else if (RandomType == 3)
-        {
-            tileType = modifiers[3];
-            tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[3];
-            //tileToModify.AddComponent<ElementBehaviours_Sad>().AmountOfJoySad = -1;
-        }
+        
+        tileType = modifiers[RandomType];
+        tileToModify.GetComponent<Case_Behaviours>().CaseEffects = modifiersEvent[RandomType];
+        //Debug.Break();
         return tileType;
     }
 
@@ -212,15 +195,17 @@ public class EventGenerator : MonoBehaviour
             listToDestroy[i] = allGraphics[i];
         }
         allGraphics.Clear();
+
         foreach (GameObject item in occupiedTiles)
         {
+            print("Item name destroyed = " + item.name);
             ElementBehaviours dest = item.GetComponent<ElementBehaviours>();
             Destroy(dest);
         }
+
         occupiedTiles.Clear();
         foreach (GameObject item in listToDestroy)
         {
-            
             Destroy(item);
         }
     }
@@ -244,6 +229,19 @@ public class EventGenerator : MonoBehaviour
     {
         PopulateTiles(tilenumber);
         DetermineTileType();
+
+        foreach (GameObject item in GridManager.instance.ListOfTile)
+        {
+            
+            if (item.transform.childCount == 0)
+            {
+                print(item.name + "item.transform.childCount == 0  = " + (item.transform.childCount == 0));
+                item.GetComponent<Case_Behaviours>().CaseEffects = null;
+                print(item.GetComponent<Case_Behaviours>().CaseEffects);
+            }
+        }
+
+        //key.GetComponent<Case_Behaviours>().CaseEffects = null;
     }
 
     void Update()

@@ -102,6 +102,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MaxEndurance = characterData.MaxEndurance;
         Endurance = characterData.Endurance;
 
+        MaxMentalHealth = characterData.MaxMentalHealth;
+        MentalHealth = characterData.MentalHealth;
+
         MaxInventorySize = characterData.MaxInventorySize;
         InventorySize = characterData.InventorySize;
 
@@ -121,6 +124,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         MaxEndurance = characterData.MaxEndurance;
         Endurance = characterData.Endurance;
+
+        MaxMentalHealth = characterData.MaxMentalHealth;
+        MentalHealth = characterData.MentalHealth;
 
         MaxInventorySize = characterData.MaxInventorySize;
         InventorySize = characterData.InventorySize;
@@ -146,6 +152,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         MaxEndurance = characterContener.MaxEndurance;
         Endurance = characterContener.Endurance;
+
+        MaxMentalHealth = characterContener.MaxMentalHealth;
+        MentalHealth = characterContener.MentalHealth;
 
         MaxInventorySize = characterContener.MaxInventorySize;
         InventorySize = characterContener.InventorySize;
@@ -291,6 +300,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     void EndMovement()
     {
+        SoundManager.instance.PlaySound_EndResolution();
+        CanvasManager.instance.LevelInventoryPanel1.transform.parent.gameObject.SetActive(false);
         if (health <= 0) {
             print("nope Death");
             //DebugManager.instance.ReloadScene();
@@ -363,6 +374,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
         health += amountOfHeal;
         if (health > maxHealth)
             health = maxHealth;
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Heal_Life");
     }
 
     public void HealMentalPlayer(int amountOfHeal)
@@ -370,6 +383,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MentalHealth += amountOfHeal;
         if (MentalHealth > MaxMentalHealth)
             MentalHealth = MaxMentalHealth;
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Heal_Sanity");
     }
 
     public void ReduceMentalPlayer(int amountOfHeal)
@@ -377,6 +392,10 @@ public class PlayerManager : MonoBehaviour, IDamageable
         MentalHealth -= amountOfHeal;
         if (MentalHealth < 0)
             MentalHealth = 0;
+
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Hit_Sanity");
+        CameraManager.instance.ShakeFeedback();
 
         if (IsDead())
             Death();
@@ -387,6 +406,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         health -= amountOfDamage;
         characterContener.PlayDamageMusique();
+        CanvasManager.instance.UpdateSelectedCharacterPanel();
+        CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Hit_Health");
+        CameraManager.instance.ShakeFeedback();
         if (IsDead())
             Death();
     }
@@ -396,6 +418,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
         StopAllCoroutines();
         CreationManager.instance.GlobalCrew.Remove(CharacterData);
         CreationManager.instance.listOfCharacter.Remove(CharacterContener);
+
+        if(GameManager.instance.WaitingCharacter.Contains(characterContener))
+            GameManager.instance.WaitingCharacter.Remove(CharacterContener);
+
+        if (GameManager.instance.OrderCharacter.Contains(characterContener))
+            GameManager.instance.OrderCharacter.Remove(CharacterContener);
+
         Destroy(characterContener.gameObject);
         CanvasManager.instance.PlayerLooseTheGame(CharacterData);
     }
@@ -427,15 +456,42 @@ public class PlayerManager : MonoBehaviour, IDamageable
                 index++;
                 if (LevelManager.instance.PageInventory.Count > index)
                 {
-                    print("Index = " + index);
                     if (LevelManager.instance.PageInventory[index] != null)
                     {
+                        int randomCurse = Random.Range(0,3);
+
+                        Curse myCurse;
+
+                        switch (randomCurse)
+                        {
+                            case 0:
+                                myCurse = new Curse_ReduceLife();
+                                break;
+                            case 1:
+                                myCurse = new Curse_Loose_A_LevelObject();
+                                break;
+                            case 2:
+                                myCurse = new Curse_ReduceMental();
+                                break;
+                           /* case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 5:
+                                break;*/
+                            default:
+                                myCurse = new Curse_ReduceLife();
+                                break;
+                        }
+                        print(randomCurse);
+
                         LevelManager.instance.PageInventory[index].IsCurse = true;
-                        LevelManager.instance.PageInventory[index].MyCurse = new Curse();
-                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+                        LevelManager.instance.PageInventory[index].MyCurse = myCurse;
+                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color32(104, 46, 68, 255);
 
                     }
                 }
+                SoundManager.instance.PlaySound_CurseObject();
                 Destroy(allVignette[i].gameObject);
                 yield return new WaitForSeconds(0.5f);
             }

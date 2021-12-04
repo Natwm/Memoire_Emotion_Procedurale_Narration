@@ -24,7 +24,15 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private GameObject inventoryObject;
 
+    [Space]
+    [Header("Prefabs")]
+    [SerializeField] private Animator feedBackAnimator;
+
     public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
+    public TMP_Text LifeText { get => lifeText; set => lifeText = value; }
+    public TMP_Text MentalLifeText { get => mentalLifeText; set => mentalLifeText = value; }
+    public TMP_Text NameText { get => nameText; set => nameText = value; }
+    public Animator FeedBackAnimator { get => feedBackAnimator; set => feedBackAnimator = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -41,21 +49,26 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
     public void SetUpUI()
     {
         ClearInventoryUI();
-        lifeText.text = PlayerManager.instance.Health.ToString();
-        mentalLifeText.text = PlayerManager.instance.MentalHealth.ToString();
-        nameText.text = PlayerManager.instance.CharacterData.CharacterName;
+        LifeText.text = "<sprite=0> " + PlayerManager.instance.Health.ToString();
+        MentalLifeText.text = "<sprite=2> " + PlayerManager.instance.MentalHealth.ToString();
+        NameText.text = PlayerManager.instance.CharacterData.CharacterName;
 
         characterRender.sprite = PlayerManager.instance.CharacterData.Render;
 
-        SetUpInventoryUI(PlayerManager.instance.Inventory);
+        SetUpInventoryUI(PlayerManager.instance.InventoryObj);
     }
 
-    void SetUpInventoryUI(List<Object_SO> listOfObject)
+    void SetUpInventoryUI(List<UsableObject> listOfObject)
     {
         foreach (var item in listOfObject)
         {
             GameObject inventoryElt = Instantiate(inventoryObject, InventoryPanel.transform);
-            inventoryElt.GetComponent<Image>().sprite = item.Sprite;
+            inventoryElt.GetComponent<Image>().sprite = item.Data.Sprite;
+            if (item.IsCurse)
+            {
+                inventoryElt.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+            }
+                
         }
     }
 

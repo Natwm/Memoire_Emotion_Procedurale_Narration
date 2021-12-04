@@ -15,6 +15,10 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject GamePanel;
     [SerializeField] private GameObject CreatePanel;
     [SerializeField] private GameObject LevelInventoryPanel;
+    [SerializeField] private List<GameObject> ContinuesPanel;
+    [SerializeField] private List<GameObject> EndGamePanel;
+    [SerializeField] private GameObject GameOverPanel;
+    [SerializeField] private List<GameObject> levelOBJpanel;
 
     [Space]
     public GameObject SelectedCharacterPanel;
@@ -40,6 +44,12 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Slider")]
     [SerializeField] private Slider inkSlider;
+    [SerializeField] private TMP_Text negociationText;
+    [SerializeField] private TMP_Text negociationModificationText;
+    [Space]
+    [SerializeField] private int currentNegociationTime;
+    [SerializeField] private int negociationTime;
+    [SerializeField] private int initNegociationTime;
 
 
     [Space]
@@ -52,6 +62,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private TMP_Text pageIndicator;
     [SerializeField] private TMP_Text winIndicator;
     [SerializeField] private TMP_Text looseIndicator;
+    [SerializeField] private TMP_Text levelInfo;
 
     [Space]
     [Header("Button")]
@@ -78,6 +89,10 @@ public class CanvasManager : MonoBehaviour
     public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
     public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
     public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
+    public int NegociationTime { get => negociationTime; set => negociationTime = value; }
+    public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
+    public TMP_Text NegociationText { get => negociationText; set => negociationText = value; }
+    public TMP_Text NegociationModificationText { get => negociationModificationText; set => negociationModificationText = value; }
 
     void Awake()
     {
@@ -92,8 +107,9 @@ public class CanvasManager : MonoBehaviour
         QuitPanel.SetActive(false);
         SelectedCharacterPanel.SetActive(false);
         WaitingCharacterPanel.SetActive(false);
-        InkSlider.maxValue = CreationManager.instance.NegociationTime;
-        InkSlider.value = InkSlider.maxValue;
+        negociationTime = currentNegociationTime = initNegociationTime;
+        SetUpLevelIndicator();
+        SetInkSlider();
     }
 
     private void Update()
@@ -165,12 +181,19 @@ public class CanvasManager : MonoBehaviour
             LevelInventoryPanel1.transform.GetChild(i).transform.parent = CreationManager.instance.pulledObject.transform;
         }
     }
+    public void RemoveObjInLevelInventory(int index)
+    {
+        print(index);
+        if (LevelInventoryPanel1.transform.GetChild(index) != null)
+            Destroy(LevelInventoryPanel1.transform.GetChild(index).gameObject);
+    }
 
     public void RemoveObjInPlayerInventory(int index)
     {
         print(index);
-        if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index) != null)
-            Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index).gameObject);
+        if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.childCount > index )
+            if(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index) != null)
+                Destroy(SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().InventoryPanel.transform.GetChild(index).gameObject);
     }
 
     #endregion
@@ -180,14 +203,16 @@ public class CanvasManager : MonoBehaviour
         pageIndicator.text = "Nb page : " + LevelManager.instance.AmountOfpageDone;
     }
 
-    public void UpdateInkSlider(float value)
+    /*public void UpdateInkSlider(float value)
     {
         InkSlider.value += value;
-    }
+    }*/
 
     public void SetInkSlider()
     {
-        InkSlider.value = CreationManager.instance.NegociationTime;
+        //InkSlider.value = CreationManager.instance.NegociationTime;
+        currentNegociationTime = negociationTime;
+        NegociationText.text = CreationManager.instance.NegociationTime.ToString();
     }
 
     #region Win / Loose Panel
@@ -195,6 +220,7 @@ public class CanvasManager : MonoBehaviour
     public void PlayerWinTheGame(Character_SO perso)
     {
         SetActiveMoveButton(false);
+
         WinPanel.SetActive(true);
         winIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " a survécu !\n C'est au tour de " + GameManager.instance.OrderCharacter[0].AssignedElement.CharacterName : "retouner à la base";
         if(!(GameManager.instance.OrderCharacter.Count > 0))
@@ -202,11 +228,64 @@ public class CanvasManager : MonoBehaviour
             GridManager.instance.ClearScene();
             //GamePanel.SetActive(false);
             grid.SetActive(false);
-
             PlayerManager.instance.ClearVignette();
             EventGenerator.instance.ClearGrid();
             CanvasManager.instance.UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
+
+            if(levelOBJpanel[1].transform.childCount > 0)
+            {
+                for (int i = 0; i < levelOBJpanel[1].transform.childCount; i++)
+                {
+                    Destroy(levelOBJpanel[1].transform.GetChild(i).gameObject);
+                }
+            }
+            
+            if(levelOBJpanel[0].transform.childCount > 0)
+            {
+                for (int i = 0; i < levelOBJpanel[0].transform.childCount; i++)
+                {
+                    Destroy(levelOBJpanel[0].transform.GetChild(i).gameObject);
+                }
+            }
+
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in EndGamePanel)
+            {             
+                item.SetActive(true);
+            }
+
+            foreach (var obj in LevelManager.instance.PageInventory)
+            {
+                GameObject img = Instantiate(levelInventoryButtonPrefabs, levelOBJpanel[0].transform);
+                img.GetComponent<Image>().sprite = obj.Data.Sprite;
+                if (obj.IsCurse)
+                    img.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+                print("ooo");
+            }
+        }
+        else
+        {
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var obj in LevelManager.instance.PageInventory)
+            {
+                print("ooo");
+                GameObject img = Instantiate(levelInventoryButtonPrefabs, levelOBJpanel[1].transform);
+                img.GetComponent<Image>().sprite = obj.Data.Sprite;
+            }
         }
         
     }
@@ -215,8 +294,18 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         LoosePanel.SetActive(true);
-        looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
 
+        if (GameManager.instance.OrderCharacter.Count > 0 || GameManager.instance.WaitingCharacter.Count > 0)
+            looseIndicator.text = GameManager.instance.OrderCharacter.Count > 0 ? perso.CharacterName + " est mort !\n Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !" : perso.CharacterName + " est mort !\n retouner à la base. Il ne vous reste plus que " + CreationManager.instance.listOfCharacter.Count + " membres !";
+        else
+        {
+            looseIndicator.text = "GameOver";
+            LoosePanel.SetActive(false);
+            GameOverPanel.SetActive(true);
+        }
+
+
+        print(!(GameManager.instance.OrderCharacter.Count > 0));
         if (!(GameManager.instance.OrderCharacter.Count > 0))
         {
             GridManager.instance.ClearScene();
@@ -225,13 +314,40 @@ public class CanvasManager : MonoBehaviour
 
             PlayerManager.instance.ClearVignette();
             EventGenerator.instance.ClearGrid();
-            CanvasManager.instance.UpdatePageIndicator();
+            UpdatePageIndicator();
             PlayerManager.instance.ResetPlayerPosition();
+
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(false);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (var item in ContinuesPanel)
+            {
+                item.SetActive(true);
+            }
+
+            foreach (var item in EndGamePanel)
+            {
+                item.SetActive(false);
+            }
         }
     }
 
     #endregion
 
+
+    public void SetUpLevelIndicator()
+    {
+        levelInfo.text = LevelManager.instance.PageInventory.Count +" / " + LevelManager.instance.AmountOfLevelInventory;
+    }
     public void SetUpGamePanel()
     {
         GamePanel1.SetActive(true);
@@ -249,6 +365,24 @@ public class CanvasManager : MonoBehaviour
     public void SetUpCharacterInfo()
     {
         SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
+        if (GameManager.instance.OrderCharacter.Count > 0)
+        {
+            for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
+            {
+                WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
+                WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
+            }
+        }
+
+        for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)
+        {
+            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(false);
+        }
+    }
+
+    public void SetUpWaitingCharacterInfo()
+    {
+        SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().SetUpUI();
 
         for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
         {
@@ -257,29 +391,8 @@ public class CanvasManager : MonoBehaviour
 
         for (int i = GameManager.instance.OrderCharacter.Count; i < WaitingCharacterPanel.transform.childCount; i++)
         {
-            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(false);
+            WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
         }
-
-        /*print("eefefe");
-        print(PlayerManager.instance.CharacterData);
-        Character_SO toSet = PlayerManager.instance.CharacterData;
-
-        //rt.offsetMin = rt.offsetMin = new Vector2(0,rt.offsetMin.y);
-        
-        playerName.text = toSet.CharacterName;
-
-        playerRender.sprite = toSet.Render;
-
-        for (int i = 0; i < inventoryPanel.transform.childCount; i++)
-        {
-            Destroy(inventoryPanel.transform.GetChild(i).gameObject);
-        }
-
-        foreach (var item in PlayerManager.instance.Inventory)
-        {
-            GameObject myButton = Instantiate(inventoryButton, inventoryPanel.transform);
-            myButton.GetComponent<Image>().sprite = item.Sprite;
-        }*/
     }
 
     public void SetUpCreationPanel()
@@ -293,5 +406,13 @@ public class CanvasManager : MonoBehaviour
         GamePanel1.SetActive(false);
         CreatePanel1.SetActive(true);
 
+    }
+
+    public void UpdateSelectedCharacterPanel()
+    {
+        SelectedCharacter_GAMEUI playerUI = SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>();
+
+        playerUI.LifeText.text = "<sprite=0> " + PlayerManager.instance.Health.ToString();
+        playerUI.MentalLifeText.text = "<sprite=2> " + PlayerManager.instance.MentalHealth.ToString();
     }
 }

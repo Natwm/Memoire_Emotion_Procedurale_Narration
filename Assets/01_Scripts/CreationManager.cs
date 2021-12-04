@@ -23,6 +23,7 @@ public class CreationManager : MonoBehaviour
     [Space]
     [Header("Time")]
     [SerializeField] private int negociationTime = 100;
+    [SerializeField] private int currentNegociationTime = 100;
 
     [Space]
     [Header("Character Selected")]
@@ -63,6 +64,13 @@ public class CreationManager : MonoBehaviour
     public GameObject pulledObject;
 
     [Space]
+    [Header("Negociation Value")]
+    [SerializeField] private int reclamerValue;
+    [SerializeField] private int prendreValue;
+    [SerializeField] private int declinerValue;
+    [SerializeField] private int refuserValue;
+
+    [Space]
     [Header("Fmod")]
     [FMODUnity.EventRef] [SerializeField] private string Character1Sound;
     [FMODUnity.EventRef] [SerializeField] private string Character2Sound;
@@ -89,6 +97,16 @@ public class CreationManager : MonoBehaviour
     {
         PageCharacterList = CreateCharacterList(2);
         CreateObjectList();
+
+        listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
+        listOfCharacter[0].SetUpColor();
+
+        print(FindObjectsOfType<PenObject>().Length);
+        foreach (var item in FindObjectsOfType<PenObject>())
+        {
+            item.GetComponent<Button>().interactable = true;
+            item.InitButton();
+        }
     }
 
     // Update is called once per frame
@@ -125,6 +143,7 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
+            print("pomme");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
             buttonScript.PlaySelectedMusique();
         });
@@ -181,6 +200,7 @@ public class CreationManager : MonoBehaviour
 
             CreateCharacterButton(tempCharacter, musique, hurt);
         }
+
         return tempList == null ? null : tempList;
     }
     #endregion
@@ -198,13 +218,18 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
         if (tempButton.GetComponent<UsableObject>().IsCurse)
-            tempButton.GetComponent<Image>().color = Color.red;
+        {
+            tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+        }
+
         //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(),selectedPlayer);
+            print("kiki");
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject.Data);
+            SoundManager.instance.PlaySound_SelectedObject();
         }
         );
 
@@ -221,7 +246,7 @@ public class CreationManager : MonoBehaviour
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
             entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
-            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
@@ -265,7 +290,7 @@ public class CreationManager : MonoBehaviour
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
             entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
-            exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
@@ -281,16 +306,20 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(-75);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + PrendreValue.ToString();
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(-33);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + ReclamerValue.ToString();
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(-33);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + DeclinerValue.ToString();
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(-75);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + RefuserValue.ToString();
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -306,16 +335,20 @@ public class CreationManager : MonoBehaviour
             case m_PenStatus.NONE:
                 break;
             case m_PenStatus.CLAIM:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.WANT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.REJECT:
-                CanvasManager.instance.UpdateInkSlider(33);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.EXCLUDE:
-                CanvasManager.instance.UpdateInkSlider(75);
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
                 break;
             case m_PenStatus.DRAW:
                 break;
@@ -410,11 +443,7 @@ public class CreationManager : MonoBehaviour
         }
         print("objectListHolder.transform.childCount" + objectListHolder.transform.childCount);
 
-        foreach (var item in GlobalInventory)
-        {
-            item.transform.parent = pulledObject.transform;
-            item.gameObject.SetActive(false);
-        }
+        
         GlobalInventory.Clear();
         GlobalInventoryObj.Clear();
     }
@@ -458,7 +487,7 @@ public class CreationManager : MonoBehaviour
                 m_GlobalInventory.RemoveAll(obj => obj == item);
             }
             player.SetUpInventoryUI();
-            
+
         }
 
         return true;
@@ -504,7 +533,7 @@ public class CreationManager : MonoBehaviour
             case UsableObject.ObjectStatus.CLAIM:
                 if (m_GlobalInventory.Contains(ObjetToTake))
                 {
-                    if(player == ObjetToTake.Stat.character)
+                    if (player == ObjetToTake.Stat.character)
                     {
                         player.Inventory.Add(ObjetToTake.Data);
                         player.InventoryObj.Add(ObjetToTake);
@@ -581,34 +610,37 @@ public class CreationManager : MonoBehaviour
             {
                 pullOfObject.Add(item);
             }
-            
+
         }
 
         for (int i = 0; i < player.InventorySize - player.Inventory.Count; i++)
         {
             int index = Random.Range(0, pullOfObject.Count);
 
-            if (!player.Inventory.Contains(pullOfObject[index].Data))
+            if (pullOfObject.Count > 0)
             {
-                player.Inventory.Add(pullOfObject[index].Data);
-
-                player.InventoryObj.Add(pullOfObject[index]);
-
-                pullOfObject[index].gameObject.SetActive(false);
-            }
-            UsableObject obj = pullOfObject[index];
-            pullOfObject.RemoveAll(item => item == obj);
-
-            obj.gameObject.transform.parent = pulledObject.transform;
-
-            if (pullOfObject.Count <= 0)
-            {
-                foreach (var item in player.Inventory)
+                if (!player.Inventory.Contains(pullOfObject[index].Data))
                 {
-                    m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                    player.Inventory.Add(pullOfObject[index].Data);
+
+                    player.InventoryObj.Add(pullOfObject[index]);
+
+                    pullOfObject[index].gameObject.SetActive(false);
                 }
-                player.SetUpInventoryUI();
-                return true;
+                UsableObject obj = pullOfObject[index];
+                pullOfObject.RemoveAll(item => item == obj);
+
+                obj.gameObject.transform.parent = pulledObject.transform;
+
+                if (pullOfObject.Count <= 0)
+                {
+                    foreach (var item in player.Inventory)
+                    {
+                        m_GlobalInventory.RemoveAll(objToRemove => objToRemove == item);
+                    }
+                    player.SetUpInventoryUI();
+                    return true;
+                }
             }
 
         }
@@ -631,6 +663,7 @@ public class CreationManager : MonoBehaviour
         if (negociationTime - reduceValue >= 0)
         {
             negociationTime -= reduceValue;
+            CanvasManager.instance.NegociationModificationText.text = "-" + reduceValue;
             return true;
         }
         return false;
@@ -638,14 +671,8 @@ public class CreationManager : MonoBehaviour
 
     public void IncreaseNegociationTime(int reduceValue)
     {
-        if (negociationTime + reduceValue < CanvasManager.instance.InkSlider.maxValue)
-        {
-            negociationTime += reduceValue;
-        }
-        else
-        {
-            negociationTime = (int)CanvasManager.instance.InkSlider.maxValue;
-        }
+        negociationTime += reduceValue;
+
     }
 
     public void SelectPlayer(Character_Button player)
@@ -663,7 +690,11 @@ public class CreationManager : MonoBehaviour
     public void LaunchGame()
     {
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
-        
+        foreach (var item in GlobalInventory)
+        {
+            item.transform.parent = pulledObject.transform;
+            item.gameObject.SetActive(false);
+        }
         PlayerManager.instance.Inventory.Clear();
         PlayerManager.instance.InventoryObj.Clear();
 
@@ -678,8 +709,10 @@ public class CreationManager : MonoBehaviour
 
             PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
             CanvasManager.instance.SetUpGamePanel();
+            GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
+            //CanvasManager.instance.SetUpWaitingCharacterInfo();
 
         }
 
@@ -703,7 +736,7 @@ public class CreationManager : MonoBehaviour
             if (item.Inventory.Count == 0 && GlobalInventory.Count >= 0)
                 can = false;
         }
-        if (can) 
+        if (can)
             LaunchGame();
         else
         {
@@ -856,6 +889,15 @@ public class CreationManager : MonoBehaviour
             case Vignette_Behaviours.VignetteCategories.SAVOIR_OCCULTE:
                 return vignetteRender[9];
                 break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_MEDIC:
+                return vignetteRender[1];
+                break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_OCCULT:
+                return vignetteRender[1];
+                break;
+            case Vignette_Behaviours.VignetteCategories.EXPLORER_RARE:
+                return vignetteRender[1];
+                break;
             default:
                 return vignetteRender[0];
                 break;
@@ -874,6 +916,10 @@ public class CreationManager : MonoBehaviour
     public List<UsableObject> GlobalInventory { get => m_GlobalInventory; set => m_GlobalInventory = value; }
     public List<Character_SO> GlobalCrew { get => m_GlobalCrew; set => m_GlobalCrew = value; }
     public List<Object_SO> GlobalInventoryObj { get => m_GlobalInventoryObj; set => m_GlobalInventoryObj = value; }
+    public int ReclamerValue { get => reclamerValue; set => reclamerValue = value; }
+    public int PrendreValue { get => prendreValue; set => prendreValue = value; }
+    public int DeclinerValue { get => declinerValue; set => declinerValue = value; }
+    public int RefuserValue { get => refuserValue; set => refuserValue = value; }
 
     #endregion
 }
