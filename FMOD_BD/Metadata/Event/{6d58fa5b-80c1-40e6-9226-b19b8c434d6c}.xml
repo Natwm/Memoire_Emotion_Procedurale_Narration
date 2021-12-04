@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{6d58fa5b-80c1-40e6-9226-b19b8c434d6c}">
 		<property name="name">
-			<value>Vignette_Explorer</value>
+			<value>Vignette_EXPLORER</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{2c212e6b-2ea2-4fa3-bc63-d58edca7051a}</destination>
+			<destination>{a7021066-f278-4f87-90a7-9dd35f1c63d9}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{4b43ec70-ba36-44bf-8f70-c7c95eb70ef9}</destination>
@@ -98,6 +98,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{c5afdbd7-49c3-49d3-95e9-34bc0927e575}">
+		<property name="volume">
+			<value>9</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

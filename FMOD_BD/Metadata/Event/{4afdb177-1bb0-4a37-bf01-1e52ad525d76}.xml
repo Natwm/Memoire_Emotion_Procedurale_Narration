@@ -2,13 +2,14 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{4afdb177-1bb0-4a37-bf01-1e52ad525d76}">
 		<property name="name">
-			<value>Vignette_Prendre</value>
+			<value>Vignette_PRENDRE</value>
 		</property>
+		<property name="note" />
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{2c212e6b-2ea2-4fa3-bc63-d58edca7051a}</destination>
+			<destination>{a7021066-f278-4f87-90a7-9dd35f1c63d9}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{22a05fe2-2ab6-4d8a-9212-1863aa9d6646}</destination>

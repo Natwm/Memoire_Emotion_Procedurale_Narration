@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{f82f7269-01d5-41e5-83b1-a0dee28e6610}">
 		<property name="name">
-			<value>Vignette_Malédiction</value>
+			<value>Vignette_CURSE</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{aa0f237e-411e-44ed-a571-eede951da063}</destination>
+			<destination>{a7021066-f278-4f87-90a7-9dd35f1c63d9}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{dd8e97e9-7660-4d30-9fb9-68490f3610ae}</destination>
