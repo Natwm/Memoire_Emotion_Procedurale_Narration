@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: -4483605318641839965}
   - component: {fileID: 7366804720955337693}
   - component: {fileID: 6797197380637838676}
+  - component: {fileID: 8110778929114780889}
   m_Layer: 8
   m_Name: case_2x2
   m_TagString: Untagged
@@ -232,6 +233,22 @@ MonoBehaviour:
   currentAmountOfVignetteToDraw: 0
   isKey: 0
   currentKeyState: 0
+--- !u!114 &8110778929114780889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2324215710218136383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898926882e7aa33459b245339da0a561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SDName: event:/SD/Vignette/
+  MusicName: event:/Music
+  SD_Event: {fileID: 0}
+  Music_Event: {fileID: 0}
 --- !u!1 &2410540432786630750
 GameObject:
   m_ObjectHideFlags: 0

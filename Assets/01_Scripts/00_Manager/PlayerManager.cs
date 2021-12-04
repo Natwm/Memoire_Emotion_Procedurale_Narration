@@ -184,6 +184,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public void MoveToAnotherStep()
     {
         print(GridManager.instance.ListOfMovement.Count);
+        
         if(GridManager.instance.ListOfMovement.Count >0)
             StartCoroutine(MoveToLocationByVignette());
         else
@@ -314,6 +315,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
             CanvasManager.instance.PlayerWinTheGame(CharacterData);
         }
         UpdatePlayerContener();
+        lineRendererScript.instance.DrawLineRenderer();
     }
 
     #endregion
@@ -322,6 +324,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         characterContener.Life = health;
         characterContener.Endurance = Endurance;
+        characterContener.MentalHealth = MentalHealth;
         characterContener.Inventory.Clear();
 
         foreach (var item in Inventory)
@@ -502,6 +505,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void ApplyCurseOnObject()
     {
+        CanvasManager.instance.MoveButton.interactable = false;
         StartCoroutine(ApplyCurseOnEachObject());
     }
 

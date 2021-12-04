@@ -43,6 +43,16 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
         }
     }
 
+    public void DisableInteraction()
+    {
+        render.sprite = disable;
+    }
+
+    public void EnableInteraction()
+    {
+        render.sprite = neutre;
+    }
+
     public void OnPointerDown(PointerEventData eventData)
     {
         if (GetComponent<Button>().interactable)

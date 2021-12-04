@@ -192,7 +192,8 @@ public class GameManager : MonoBehaviour
 
         if(GridManager.instance.ListOfMovement.Count > 0)
         {
-            GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
+            print(GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null);
+            GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
 
             if (lastStep != null)
                 if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
@@ -258,6 +259,7 @@ public class GameManager : MonoBehaviour
 
     public void ContinueAdventure()
     {
+        m_OrderCharacter.Clear();
         foreach (var item in m_WaitingCharacter)
         {
             m_OrderCharacter.Add(item);
@@ -269,6 +271,8 @@ public class GameManager : MonoBehaviour
             }
             
         }
+        m_WaitingCharacter.Clear();
+
         CanvasManager.instance.SetUpCharacterInfo();
         NextPlayer();
     }

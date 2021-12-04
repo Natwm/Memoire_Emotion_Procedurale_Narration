@@ -181,6 +181,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ApplyVignetteEffect()
     {
         bool cursed=false;
+        GetComponent<VignetteMusicLoader>().SetEvent(currentCategorie.ToString());
+        //GetComponent<VignetteMusicLoader>().PlayEvents();
         // action spécifique
         switch (Categorie)
         {
@@ -668,7 +670,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                     isDecal = true;
                                 }
 
-                                if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
+                                if (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
 
@@ -1211,13 +1213,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         ClearList();
 
         GridManager.instance.CheckTile();
-        GridManager.instance.SortList();
+        //GridManager.instance.SortList();
 
         RaycastHit[] hit;
         int amountOfModifier = 0;
 
         hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / raycastSize, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
-        if (hit.Length > 0)
+        if (hit.Length > 0 && hit.Length <= VignetteSize)
         {
             foreach (var item in hit)
             {
@@ -1276,17 +1278,20 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         }
 
-        GridManager.instance.SortList();
+        
 
         //GridManager.instance.Test.Clear();
         foreach (var item in GridManager.instance.ListOfMovement)
         {
             Vignette_Behaviours check = item.EventAssocier;
-            if (check.OnGrid && check.vignetteTile.Count > 0)
+            print("check = " + check);
+            if (check != null)
             {
-                check.GetNextMove();
+                if (check.OnGrid && check.vignetteTile.Count > 0)
+                {
+                    check.GetNextMove();
+                }
             }
-
         }
 
         
@@ -1297,8 +1302,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         CheckCaseCondition();
 
         GetComponent<SortingGroup>().sortingOrder = 0;
-
+        GridManager.instance.SortList();
         lineRendererScript.instance.DrawLineRenderer();
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
