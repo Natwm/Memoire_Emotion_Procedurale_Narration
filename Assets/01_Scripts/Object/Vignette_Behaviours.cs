@@ -181,6 +181,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void ApplyVignetteEffect()
     {
         bool cursed=false;
+        GetComponent<VignetteMusicLoader>().SetEvent(currentCategorie.ToString());
+        //GetComponent<VignetteMusicLoader>().PlayEvents();
         // action spécifique
         switch (Categorie)
         {
