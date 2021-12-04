@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{c3401dc2-39d2-49ce-880d-5d7772ceed94}">
+		<property name="assetPath">
+			<value>negatif_17.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{843bd7c8-9ebc-4fdb-ae9b-4dfc1d9f98af}</destination>
+		</relationship>
+	</object>
+</objects>

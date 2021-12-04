@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.00.00">
 	<object class="Event" id="{50954085-5988-4a1a-b624-709c324d5037}">
 		<property name="name">
-			<value>Vignette_COMBAT</value>
+			<value>Vignette_COMBATTRE</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -53,7 +53,7 @@
 			<destination>{ec9eb608-2979-4124-a611-ef61f2d4c4bb}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{c50a3553-7a4b-4903-b5d0-a54f3459f6ba}</destination>
+			<destination>{d679953f-2586-407e-ad94-60f8151303d0}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{4115217d-7277-4d6c-be49-ea94fb36d461}" />
@@ -97,6 +97,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{52fc8cf2-a179-411d-81c0-d68ab9b5dcf4}">
+		<property name="volume">
+			<value>-6</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

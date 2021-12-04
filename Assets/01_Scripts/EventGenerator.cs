@@ -125,7 +125,7 @@ public class EventGenerator : MonoBehaviour
 
     public GameObject GetRandomClearTile()
     {
-        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Capacity-1);
+        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Count-1);
         GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
         if (potentialTile != ExitTile && potentialTile != EntryTile)
         {
