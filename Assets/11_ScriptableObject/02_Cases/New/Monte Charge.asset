@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caseName: Monte Charge
   anyVignette: 1
+  useSpecifiqueObject: 0
+  isEchecResult: 0
   objectsRequired: 
+  specifiqueObject: {fileID: 0}
   result: 2
+  echecResult: 0
+  TileObject: {fileID: 8933427331047666015, guid: f9d5dd245089c2c43a7ff78fdfee44a4,
+    type: 3}

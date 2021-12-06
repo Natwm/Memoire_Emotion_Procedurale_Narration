@@ -31,11 +31,11 @@ public class CaseContener_SO : ScriptableObject
     public bool IsEchecResult { get => isEchecResult; set => isEchecResult = value; }
     public GameObject TileToInstanciate { get => TileObject; set => TileObject = value; }
 
-    public void SpawnAsset(GameObject _tile)
+    public CaseContener_SO SpawnAsset(GameObject _tile)
     {
         GameObject tempTile = Instantiate(TileObject) as GameObject;
         tempTile.transform.parent = _tile.transform;
         tempTile.transform.localPosition = Vector3.zero;
-        _tile.GetComponent<Case_Behaviours>().CaseEffects = this;
+        return this;
     }
 }

@@ -12,11 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: RoomTest
   m_EditorClassIdentifier: 
-  m_RoomName: 
-  m_Roomsize: {x: 4, y: 4}
-  m_containedObjects:
+  m_RoomName: Salle de test
+  m_Roomsize: {x: 3, y: 8}
+  m_possibleObjects:
   - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
+  - {fileID: 11400000, guid: 5934aa6577340f6499a64d5a03b4bd32, type: 2}
   - {fileID: 11400000, guid: 766b228439df61349a4b8be70e00aee4, type: 2}
-  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
-  m_IntroText: 
-  m_OutroText: 
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
+  m_Object_Distribution: 3
+  m_PossibleExits: []
+  m_IntroText: "Votre groupe entre dans une salle \xE0 l'odeur naus\xE9abonde. Cette
+    salle poss\xE8de un monte-charge. Apr\xE8s r\xE9flexion, le groupe se rappelle
+    en avoir vu un similaire dans la safe-room. Peut \xEAtre que celui-ci est reli\xE9
+    ?"
+  m_OutroText: "En sortant de la salle, le groupe prend un moment pour d\xE9lib\xE9rer
+    sur la prochaine action."

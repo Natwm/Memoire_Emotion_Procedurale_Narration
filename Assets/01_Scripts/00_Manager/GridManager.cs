@@ -24,7 +24,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private IModifier a;
 
     [SerializeField] private List<Vignette_Behaviours> test = new List<Vignette_Behaviours> ();
-
+    public bool debug;
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
@@ -54,8 +54,11 @@ public class GridManager : MonoBehaviour
         {
             ListOfTile2D.Add(new List<GameObject>());
         }
-
-        CreateTerrain();
+        if (!debug)
+        {
+            CreateTerrain();
+        }
+        
     }
 
     // Update is called once per frame

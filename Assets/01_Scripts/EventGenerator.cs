@@ -21,7 +21,8 @@ public class EventGenerator : MonoBehaviour
     GameObject[] stamina;
     GameObject[] cartes;
     GameObject[] pvs;
-    
+
+    GameObject keyTile;
 
     public GameObject key;
 
@@ -122,30 +123,48 @@ public class EventGenerator : MonoBehaviour
         print("occupiedTiles.Count " + occupiedTiles.Count);
     }
 
+    public void DetermineKey()
+    {
+        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Count - 1);
+        GameObject keyObject = GridManager.instance.ListOfTile[randomInt];
+        keyObject.GetComponent<MeshRenderer>().material.color = Color.green;
+
+        keyTile = keyObject;
+        SpawnGraphics(key, keyTile);
+    }
 
     public GameObject GetRandomClearTile()
     {
         int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Count-1);
         GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
-        if (potentialTile != ExitTile && potentialTile != EntryTile)
+        if (potentialTile != keyTile)
         {
-            foreach (GameObject item in occupiedTiles)
+            if (potentialTile != ExitTile && potentialTile != EntryTile)
             {
-                if (item == potentialTile)
+                foreach (GameObject item in occupiedTiles)
                 {
-                   // Debug.Log("Hit Already Occupied Tile : " + item.name);
+                    if (item == potentialTile)
+                    {
+                        // Debug.Log("Hit Already Occupied Tile : " + item.name);
 
-                    return GetRandomClearTile();
+                        return GetRandomClearTile();
+                    }
+                    
                 }
+            }
+            else
+            {
+                Debug.Log("Hit Door");
+                return GetRandomClearTile();
             }
         }
         else
         {
-            Debug.Log("Hit Door");
             return GetRandomClearTile();
         }
         potentialTile.GetComponent<MeshRenderer>().material.color = Color.yellow;
         return potentialTile;
+        
     }
 
     public void DetermineTileType()
