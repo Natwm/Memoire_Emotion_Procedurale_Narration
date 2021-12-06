@@ -64,6 +64,18 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
         {
             GameObject inventoryElt = Instantiate(inventoryObject, InventoryPanel.transform);
             inventoryElt.GetComponent<Image>().sprite = item.Data.Sprite;
+
+            inventoryElt.GetComponent<Button>().onClick.AddListener(delegate
+            {
+                LevelManager.instance.SpawnObject(item.Data);
+                PlayerManager.instance.Inventory.Remove(item.Data);
+                PlayerManager.instance.InventoryObj.Remove(item);
+                PlayerManager.instance.CharacterContener.InventoryObj.Remove(item);
+
+                Destroy(item.gameObject);
+                Destroy(inventoryElt.gameObject);
+            });
+
             if (item.IsCurse)
             {
                 inventoryElt.GetComponent<Image>().color = new Color32(104, 46, 68, 255);

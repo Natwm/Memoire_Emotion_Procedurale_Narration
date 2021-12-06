@@ -424,12 +424,16 @@ public class CreationManager : MonoBehaviour
         foreach (var item in listOfCharacter)
         {
             int index = -1;
-            foreach (var obj in item.InventoryObj)
+            if (item.InventoryObj.Count > 0) 
             {
-                index++;
-                obj.gameObject.transform.parent = pulledObject.transform;
-                Destroy(item.InventoryPanel.transform.GetChild(index).gameObject);
+                foreach (var obj in item.InventoryObj)
+                {
+                    index++;
+                    obj.gameObject.transform.parent = pulledObject.transform;
+                    Destroy(item.InventoryPanel.transform.GetChild(index).gameObject);
+                }
             }
+            
             item.Inventory.Clear();
             item.InventoryObj.Clear();
         }
@@ -705,6 +709,7 @@ public class CreationManager : MonoBehaviour
         }
         PlayerManager.instance.Inventory.Clear();
         PlayerManager.instance.InventoryObj.Clear();
+        PlayerManager.instance.VisitedVignette.Clear();
 
         if (PlayerManager.instance.CharacterData != null)
         {

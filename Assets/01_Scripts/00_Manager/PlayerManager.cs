@@ -81,7 +81,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         amountOfCardToDraw = minCardToDraw;
 
-        visitedVignette = new List<Vignette_Behaviours>();
+        VisitedVignette = new List<Vignette_Behaviours>();
         SetUpsound();
         //CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
@@ -250,9 +250,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         newPosition.Set(newPosition.x, newPosition.y, -5f);
 
-        if (!visitedVignette.Contains(targetedVignette))
+        if (!VisitedVignette.Contains(targetedVignette))
         {
-            visitedVignette.Add(targetedVignette);
+            VisitedVignette.Add(targetedVignette);
             this.transform.DOMove(newPosition, 1f);
 
             CanvasManager.instance.NewLogEntry("");
@@ -543,5 +543,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
     public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
     public List<UsableObject> InventoryObj { get => m_InventoryObj; set => m_InventoryObj = value; }
+    public List<Vignette_Behaviours> VisitedVignette { get => visitedVignette; set => visitedVignette = value; }
     #endregion
 }

@@ -126,6 +126,26 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void SpawnObject(Object_SO obj)
+    {
+            foreach (var toDraw in obj.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                    GameObject card = Instantiate(vignette, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, obj);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
+                }
+            }
+    }
+
     public void SpawnObject(List<UsableObject> inventory)
     {
         foreach (var item in inventory)
@@ -167,10 +187,10 @@ public class LevelManager : MonoBehaviour
                     card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
-        if (inventory.Count > 0)
+       /* if (inventory.Count > 0)
         {
             SpawnObject(PlayerManager.instance.InventoryObj);
-        }
+        }*/
     }
 
     public void SpawnNegatifObject(int amount = 1)
