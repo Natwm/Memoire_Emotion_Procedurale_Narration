@@ -6,7 +6,7 @@ using FMODUnity;
 public class VignetteMusicLoader : MonoBehaviour
 {
     [FMODUnity.EventRef]
-    public string SDName = "event:/SD/Vignette/";
+    public string SDName = "event:/SD/Vignette/Vignette_";
     [FMODUnity.EventRef]
     public string MusicName = "event:/Music";
 
@@ -15,7 +15,7 @@ public class VignetteMusicLoader : MonoBehaviour
 
     public string LoadSDString(string vignetteCategory)
     {
-        string loadSD = SDName + "" +vignetteCategory;
+        string loadSD = SDName + "Vignette_" + vignetteCategory;
         return loadSD;
     }
 
@@ -27,8 +27,10 @@ public class VignetteMusicLoader : MonoBehaviour
 
     public void SetEvent(string vignetteCategory)
     {
-        SD_Event.Event = LoadSDString(vignetteCategory);
-        Music_Event.Event = LoadMusicString(vignetteCategory);
+        //print();
+        FMODUnity.RuntimeManager.CreateInstance(LoadSDString(vignetteCategory)).start();
+        //SD_Event.Event = LoadSDString(vignetteCategory);
+        //Music_Event.Event = LoadMusicString(vignetteCategory);
     }
 
     public void PlayEvents()
