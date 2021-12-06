@@ -6,7 +6,7 @@ using FMODUnity;
 public class VignetteMusicLoader : MonoBehaviour
 {
     [FMODUnity.EventRef]
-    public string SDName = "event:/SD/Vignette/";
+    public string SDName = "event:/SD/Vignette/Vignette_";
     [FMODUnity.EventRef]
     public string MusicName = "event:/Music";
 
@@ -28,13 +28,13 @@ public class VignetteMusicLoader : MonoBehaviour
     public void SetEvent(string vignetteCategory)
     {
         SD_Event.Event = LoadSDString(vignetteCategory);
-        Music_Event.Event = LoadMusicString(vignetteCategory);
+       
     }
 
     public void PlayEvents()
     {
         SD_Event.Play();
-        Music_Event.Play();
+       
     }
 
     // Start is called before the first frame update

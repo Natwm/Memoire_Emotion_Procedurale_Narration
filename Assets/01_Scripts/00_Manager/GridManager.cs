@@ -63,6 +63,36 @@ public class GridManager : MonoBehaviour
     {
     }
 
+    public void CreateTerrainWithParam(Vector2 _parameters)
+    {
+        int index = 0;
+        for (int i = 0; i < _parameters.x; i++)
+        {
+            ListOfTile2D.Add(new List<GameObject>());
+        }
+        for (int x = 0; x < _parameters.x; x++)
+        {
+            for (int y = 0; y < _parameters.y; y++)
+            {
+                GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 1.2f * m_Size, Quaternion.identity, this.transform);
+                tile.transform.localScale *= m_Size;
+
+                ListOfTile2D[x].Add(tile);
+
+                TileElt_Behaviours tileBehaviours = tile.GetComponent<TileElt_Behaviours>();
+                tileBehaviours.Tileposition = new Vector2(x, y);
+                tileBehaviours.Index = index;
+
+                tile.name += tile.transform.position.ToString();
+
+                index++;
+                ListOfTile.Add(tile);
+            }
+        }
+        //m_EventGenerator.GenerateGrid();
+    }
+
+
     void CreateTerrain()
     {
         int index = 0;
