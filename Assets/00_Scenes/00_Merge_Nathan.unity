@@ -812,6 +812,16 @@ PrefabInstance:
       propertyPath: CharacterJaugesMaximumAmount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9046827260490077028, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: m_GridSize.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046827260490077028, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: m_GridSize.y
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3092482a2d340574a8a0c88512e87f55, type: 3}
 --- !u!1 &594406397
@@ -1439,6 +1449,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2132764054040352087, guid: 89f4548cfd2dd6d498c3e0869b87ca25,
+        type: 3}
+      propertyPath: mentalDamageSound
+      value: event:/Music/PerD_1_POINT_SANTE_MENTALE
+      objectReference: {fileID: 0}
+    - target: {fileID: 2132764054040352087, guid: 89f4548cfd2dd6d498c3e0869b87ca25,
+        type: 3}
+      propertyPath: bigMentalDamageSound
+      value: event:/Music/PerD_SANTE_MENTALE
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89f4548cfd2dd6d498c3e0869b87ca25, type: 3}
 --- !u!1001 &1944815498
@@ -1609,6 +1629,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 522491765, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.5956726
+      objectReference: {fileID: 0}
     - target: {fileID: 545347242, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

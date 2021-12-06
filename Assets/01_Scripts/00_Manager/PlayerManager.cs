@@ -55,7 +55,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
+    [Space]
+    [Header("Sound Fmod Action")]
+    FMOD.Studio.EventInstance mentalDamageEffect;
+    [FMODUnity.EventRef] [SerializeField] private string mentalDamageSound;
 
+    FMOD.Studio.EventInstance bigMentalDamageEffect;
+    [FMODUnity.EventRef] [SerializeField] private string bigMentalDamageSound;
 
     //fairesantémental.
     void Awake()
@@ -76,7 +82,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         amountOfCardToDraw = minCardToDraw;
 
         visitedVignette = new List<Vignette_Behaviours>();
-
+        SetUpsound();
         //CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
     }
@@ -87,6 +93,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
         
     }
 
+    private void SetUpsound()
+    {
+        mentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(mentalDamageSound);
+        bigMentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(bigMentalDamageSound);
+    }
 
     public void SetUp()
     {
@@ -392,6 +403,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void ReduceMentalPlayer(int amountOfHeal)
     {
+        if (amountOfHeal > 1)
+            bigMentalDamageEffect.start();
+        else
+            mentalDamageEffect.start();
+
         MentalHealth -= amountOfHeal;
         if (MentalHealth < 0)
             MentalHealth = 0;
