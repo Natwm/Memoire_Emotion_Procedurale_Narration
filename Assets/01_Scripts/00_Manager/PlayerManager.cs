@@ -194,8 +194,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void MoveToAnotherStep()
     {
-        print(GridManager.instance.ListOfMovement.Count);
-        
         if(GridManager.instance.ListOfMovement.Count >0)
             StartCoroutine(MoveToLocationByVignette());
         else

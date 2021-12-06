@@ -156,7 +156,7 @@ private void Awake()
 
     public Color GetRandomCharacterColor()
     {
-        Debug.Log(CharacterColors.Length);
+        //Debug.Log(CharacterColors.Length);
         int randIndex = Random.Range(0, CharacterColors.Length);
         
         return CharacterColors[randIndex];
@@ -196,9 +196,7 @@ private void Awake()
     }
 
     public void SetCharacterToVignette(Vignette _vignetteToSet, Character_SO[] allCast)
-    {
-        print("popopo " + _vignetteToSet.ObjectsNumber);
-        
+    {        
         //_vignetteToSet.inVignetteCharacter = getCharacterDistribution(_vignetteToSet.ObjectsNumber, allCast);
         for (int i = 0; i < _vignetteToSet.ObjectsNumber; i++)
         {

@@ -169,10 +169,8 @@ public class GameManager : MonoBehaviour
                     GameObject current = entryGO.GetComponent<Vignette_Behaviours>().gameObject;
                     while (current!=null)
                     {
-                        print(current.gameObject.name);
                         if (current == entryGO || current == exitGO || current == keyGO)
                         {
-                            print("J'augmente  " + current.gameObject.name);
                             value++;
                         }
 
@@ -192,7 +190,6 @@ public class GameManager : MonoBehaviour
 
         if(GridManager.instance.ListOfMovement.Count > 0)
         {
-            print(GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null);
             GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
 
             if (lastStep != null)
@@ -237,7 +234,6 @@ public class GameManager : MonoBehaviour
 
         if (m_OrderCharacter.Count > 0)
         {
-            print("next");
             CreationManager.instance.LaunchGame();
         }
         else if(CreationManager.instance.listOfCharacter.Count > 0)
