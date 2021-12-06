@@ -171,6 +171,11 @@ public class EventGenerator : MonoBehaviour
         return newGraphic;
     }
 
+    public CaseContener_SO DetermineTypeFromRoom(Room_So _roomTiles)
+    {
+        int RandomListIndex = Random.Range(0, _roomTiles.PossibleTiles.Count - 1);
+        return _roomTiles.PossibleTiles[RandomListIndex];
+    }
 
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
