@@ -119,7 +119,6 @@ public class EventGenerator : MonoBehaviour
         {
             occupiedTiles.Add(GetRandomClearTile());
         }
-        print("occupiedTiles.Count " + occupiedTiles.Count);
     }
 
 
@@ -153,7 +152,6 @@ public class EventGenerator : MonoBehaviour
         
         for (int i = 0; i < occupiedTiles.Count-2; i++)
         {
-            print("i =  " + i + "   " + occupiedTiles[i]);
             GameObject tmp = SpawnGraphics(DetermineEventType(occupiedTiles[i]), occupiedTiles[i]);
             allGraphics.Add(tmp);
         }
@@ -203,7 +201,6 @@ public class EventGenerator : MonoBehaviour
 
         foreach (GameObject item in occupiedTiles)
         {
-            print("Item name destroyed = " + item.name);
             ElementBehaviours dest = item.GetComponent<ElementBehaviours>();
             Destroy(dest);
         }
@@ -240,9 +237,7 @@ public class EventGenerator : MonoBehaviour
             
             if (item.transform.childCount == 0)
             {
-                print(item.name + "item.transform.childCount == 0  = " + (item.transform.childCount == 0));
                 item.GetComponent<Case_Behaviours>().CaseEffects = null;
-                print(item.GetComponent<Case_Behaviours>().CaseEffects);
             }
         }
 
