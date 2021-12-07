@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6df9da9c65239a648a8eaf1033a89d8b, type: 3}
-  m_Name: Armoire
+  m_Name: Paranoia
   m_EditorClassIdentifier: 
-  caseName: Armoire
+  caseName: 
   anyVignette: 1
   useSpecifiqueObject: 0
   isEchecResult: 0
-  objectsRequired: 00000000
+  objectsRequired: 
   specifiqueObject: {fileID: 0}
-  result: 1
+  result: 6
   echecResult: 0
-  TileObject: {fileID: 8933427331047666015, guid: 6aa1ec017de89704fb782162df125615,
-    type: 3}
+  TileObject: {fileID: 0}

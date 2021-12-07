@@ -95,6 +95,7 @@ public class RoomGenerator : MonoBehaviour
         Intro.SetActive(true);
         Outro.SetActive(true);
         IntroText.gameObject.SetActive(true);
+       
     }
 
     public void FadeOut()
@@ -152,6 +153,7 @@ public class RoomGenerator : MonoBehaviour
     void Start()
     {
         InitialiseRoomToUi(TestRoom);
+        SetIntro();
         
     }
 
