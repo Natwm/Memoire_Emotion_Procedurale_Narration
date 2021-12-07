@@ -101,7 +101,6 @@ public class CreationManager : MonoBehaviour
         listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
         listOfCharacter[0].SetUpColor();
 
-        print(FindObjectsOfType<PenObject>().Length);
         foreach (var item in FindObjectsOfType<PenObject>())
         {
             item.GetComponent<Button>().interactable = true;
@@ -143,7 +142,6 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            print("pomme");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
             buttonScript.PlaySelectedMusique();
         });
@@ -453,8 +451,6 @@ public class CreationManager : MonoBehaviour
         {
             CreatePlayerInventory(item);
         }
-        print("objectListHolder.transform.childCount" + objectListHolder.transform.childCount);
-
         
         GlobalInventory.Clear();
         GlobalInventoryObj.Clear();

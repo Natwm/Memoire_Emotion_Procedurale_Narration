@@ -164,9 +164,13 @@ public class GameManager : MonoBehaviour
 
             if (entryGO != null && exitGO != null && keyGO != null)
             {
+                print("all Are Conected");
                 if (entryGO.GetComponent<Vignette_Behaviours>().OnGrid && exitGO.GetComponent<Vignette_Behaviours>().OnGrid && keyGO.GetComponent<Vignette_Behaviours>().OnGrid)
                 {
                     GameObject current = entryGO.GetComponent<Vignette_Behaviours>().gameObject;
+
+                    /*if (entryGO.GetComponent<Vignette_Behaviours>().NextMove == null)
+                        entryGO.GetComponent<Vignette_Behaviours>().CheckNextMove();*/
                     while (current!=null)
                     {
                         if (current == entryGO || current == exitGO || current == keyGO)

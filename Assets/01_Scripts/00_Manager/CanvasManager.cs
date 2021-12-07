@@ -389,7 +389,6 @@ public class CanvasManager : MonoBehaviour
         {
             for (int i = 0; i < GameManager.instance.OrderCharacter.Count; i++)
             {
-                print("le test = " + i +"  Character = " + GameManager.instance.OrderCharacter[i]);
                 WaitingCharacterPanel.transform.GetChild(i).GetComponent<WaitingCharacterPanel>().SetUpUI(GameManager.instance.OrderCharacter[i]);
                 WaitingCharacterPanel.transform.GetChild(i).gameObject.SetActive(true);
             }

@@ -557,7 +557,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         for (int i = 0; i < physicsCheck.transform.childCount; i++)
         {
-            print(this.gameObject.name + "  " + i);
             GameObject tile = physicsCheck.transform.GetChild(i).gameObject;
             Physics.Raycast(tile.gameObject.transform.position, Vector3.forward, out hit, Mathf.Infinity, m_LayerDetection);
             if (hit.collider != null)
@@ -588,15 +587,16 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         if (OnGrid)
         {
+            print(this.gameObject.name + "is ongrid");
             GridManager.instance.Test.Clear();
             a = false;
             previousMove = nextMove = null;
             bool isDecal = false;
             TileElt_Behaviours tileEvent;
 
-            print("La tile qui vérifie est : " + this.gameObject.name);
+           /* print("La tile qui vérifie est : " + this.gameObject.name);
             print("les voisin de " + this.gameObject.name + "sont = " + neighbourgCheck.Count);
-            print(this.gameObject.name + " est de taille = " + vignetteShape);
+            print(this.gameObject.name + " est de taille = " + vignetteShape);*/
             foreach (var hoveredTile in neighbourgCheck)
             {
                 //print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
@@ -618,7 +618,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                             isDecal = true;
                         }
                         //print(this.gameObject.name + "   Check = " + tilePos);
-                        print(this.gameObject.name + "   est ce que vignettetile le contiens = " + vignetteTile.Contains(tilePos));
+                        //print(this.gameObject.name + "   est ce que vignettetile le contiens = " + vignetteTile.Contains(tilePos));
 
                         if (!vignetteTile.Contains(tilePos))
                         {
@@ -639,7 +639,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                     if (tileEvent != null)
                                     {
-                                        //print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
+                                        print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
 
                                         if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
                                         {
@@ -648,7 +648,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                             {
                                                 a = true;
                                                 tileEvent.EventAssocier.previousMove = this;
-                                                print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
+                                                //print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
                                                 return tileEvent.EventAssocier;
                                             }
                                             if (hoveredTile == Vector2.zero)
@@ -813,6 +813,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void GetNextMove()
     {
+        print("11 " + this.gameObject.name);
         Vignette_Behaviours check = CheckNextMove();
         NextMove = check != this ? check : null;
         /*if(GridManager.instance.ListOfMovement.Count >0 && NextMove !=null)
@@ -1278,12 +1279,14 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         }
 
-        
+
 
         //GridManager.instance.Test.Clear();
+        GridManager.instance.SortList();
         foreach (var item in GridManager.instance.ListOfMovement)
         {
             Vignette_Behaviours check = item.EventAssocier;
+            print(item.gameObject.name + " je regarde ici et check = " + check);
             if (check != null)
             {
                 if (check.OnGrid && check.vignetteTile.Count > 0)

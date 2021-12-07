@@ -37,6 +37,5 @@ public class WaitingCharacterPanel : MonoBehaviour
         mentalLifeText.text = "<sprite=2> " + player.MentalHealth.ToString();
 
         characterRender.sprite = player.AssignedElement.Render;
-        print("NAMEE = " + player.AssignedElement.CharacterName);
     }
 }
