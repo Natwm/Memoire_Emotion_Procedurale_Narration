@@ -87,6 +87,7 @@ public class RoomGenerator : MonoBehaviour
                 newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
             }
         }
+        RoomToCreate.ApplyEffect();
     }
 
     public void FadeIn()

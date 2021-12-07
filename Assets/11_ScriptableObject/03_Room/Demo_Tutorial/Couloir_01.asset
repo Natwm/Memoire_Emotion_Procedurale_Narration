@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Couloir_01
   m_EditorClassIdentifier: 
   m_RoomName: Couloir
-  m_Roomsize: {x: 3, y: 4}
+  m_Roomsize: {x: 2, y: 4}
   m_possibleObjects: []
   m_garanteedObjects: []
   m_Object_Distribution: 0

@@ -18,7 +18,9 @@ MonoBehaviour:
   m_garanteedObjects:
   - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
   m_Object_Distribution: 0
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 0}
+    m_ExitText: "Phase de n\xE9gociation"
   m_IntroText: "Les membres du groupe sont \xE0 bout de souffle, et visiblement secou\xE9s.
     \"Qu'est ce que c'\xE9tait ?\" Demande l'un des membres. Bien que tout le monde
     s'en soit sorti vivant, il est clair que ce manoir est dangereux."
