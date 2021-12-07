@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
         if (isEntryConnected && isExitConnected && isKeyConnected)
         {
-            GridManager.instance.SortList();
+            
 
             if (entryGO != null && exitGO != null && keyGO != null)
             {

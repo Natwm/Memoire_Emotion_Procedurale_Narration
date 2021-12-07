@@ -1282,7 +1282,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
 
         //GridManager.instance.Test.Clear();
-        GridManager.instance.SortList();
+        GridManager.instance.SortList();--
         foreach (var item in GridManager.instance.ListOfMovement)
         {
             Vignette_Behaviours check = item.EventAssocier;
