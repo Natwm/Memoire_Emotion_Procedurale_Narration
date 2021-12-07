@@ -21,7 +21,9 @@ MonoBehaviour:
   m_garanteedObjects:
   - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
   m_Object_Distribution: 3
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 557189e210f4bec449e207d3e2e17386, type: 2}
+    m_ExitText: "Le couloir par lequel je suis arriv\xE9"
   m_IntroText: "Votre groupe entre dans une salle \xE0 l'odeur naus\xE9abonde. Cette
     salle poss\xE8de un monte-charge. Apr\xE8s r\xE9flexion, le groupe se rappelle
     en avoir vu un similaire dans la safe-room. Peut \xEAtre que celui-ci est reli\xE9

@@ -27,7 +27,9 @@ public class RoomGenerator : MonoBehaviour
     public GameObject LayoutGroup;
 
     // RoomManagement
-    public RoomExit RoomToExitTo { get => RoomToExitTo; set => RoomToExitTo = value; }
+    public Room_So CurrentRoom;
+    public RoomExit GoToRoom;
+
     
 
     void Awake()
@@ -36,16 +38,36 @@ public class RoomGenerator : MonoBehaviour
             Debug.LogWarning("Multiple instance of same Singleton : RoomGenerator");
         else
             instance = this;
+
+        InitializeToCanvas();
+    }
+
+    public void InitializeToCanvas()
+    {
+        RoomPanel.transform.parent = GameObject.Find("Canvas").transform;
+    }
+
+    public void SetIntro()
+    {
+        Intro.SetActive(true);
+        Outro.SetActive(false);
+    }
+
+    public void SetOutro()
+    {
+        Debug.Log("Outro");
+        Outro.SetActive(true);
+        Intro.SetActive(false);
     }
 
     public void GenerateRoom(Room_So RoomToCreate)
     {
         int distribution = (RoomToCreate.Room_Size.x * RoomToCreate.Room_Size.y) / 3;
-        EventGenerator.instance.ClearGrid();
-        GridManager.instance.CreateTerrainWithParam(TestRoom.Room_Size);
+        
+        GridManager.instance.CreateTerrainWithParam(RoomToCreate.Room_Size);
         EventGenerator.instance.DetermineDoors(false);
         EventGenerator.instance.DetermineKey();
-        EventGenerator.instance.PopulateTiles(TestRoom.ObjectDistribution);
+        EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
         foreach (GameObject item in EventGenerator.instance.occupiedTiles)
         {
            int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count - 1);
@@ -72,13 +94,29 @@ public class RoomGenerator : MonoBehaviour
         RoomPanel.GetComponent<Animator>().SetTrigger("Reveal");
         Intro.SetActive(true);
         Outro.SetActive(true);
+        IntroText.gameObject.SetActive(true);
     }
 
     public void FadeOut()
     {
+        
+        GenerateRoom(CurrentRoom);
         RoomPanel.GetComponent<Animator>().SetTrigger("FadeOut");
         Intro.SetActive(false);
         Outro.SetActive(false);
+        IntroText.gameObject.SetActive(false);
+    }
+
+    public void TransitionAnim()
+    {
+        RoomPanel.GetComponent<Animator>().SetTrigger("RoomTransition");
+    }
+
+    public void OnRoomCompletion()
+    {
+        FadeIn();
+        SetOutro();
+        EventGenerator.instance.TempClearGrid();
     }
 
     public void InitialiseRoomToUi(Room_So Room)
@@ -86,6 +124,14 @@ public class RoomGenerator : MonoBehaviour
         TitleText.text = Room.RoomName;
         IntroText.text = Room.Room_IntroText;
         OutroText.text = Room.Room_OutroText;
+        if (LayoutGroup.transform.childCount>0)
+        {
+            foreach (Transform child in LayoutGroup.transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+        }
+        
         for (int i = 0; i < Room.PossibleExits.Length; i++)
         {
             CreateExitButton(Room.PossibleExits[i]);
@@ -101,16 +147,20 @@ public class RoomGenerator : MonoBehaviour
     }
     
 
+
     // Start is called before the first frame update
     void Start()
     {
         InitialiseRoomToUi(TestRoom);
-        GenerateRoom(TestRoom);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            OnRoomCompletion();
+        }   
     }
 }
