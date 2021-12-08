@@ -75,7 +75,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     [Header("Boolean/flag")]
     [SerializeField] private bool onGrid = false;
-    [SerializeField] private bool m_IsLook;
+    [SerializeField] private bool m_IsLock;
     [SerializeField] private bool m_IsVignetteShowUp;
 
     [Space]
@@ -104,6 +104,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [Space]
     [Header("Object")]
     [SerializeField] private UsableObject objectFrom;
+    [SerializeField] private Object_SO objHave;
 
     [Space]
     [Header("Sprite")]
@@ -177,12 +178,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
         dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
     }
+    
 
-    public void ApplyVignetteEffect()
+public void ApplyVignetteEffect()
     {
         bool cursed=false;
         GetComponent<VignetteMusicLoader>().SetEvent(currentCategorie.ToString());
-        //GetComponent<VignetteMusicLoader>().PlayEvents();
+        ReciveSpecifiqueObj();
+
+        
         // action spécifique
         switch (Categorie)
         {
@@ -319,6 +323,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
     #endregion
+
+    private void ReciveSpecifiqueObj()
+    {
+        if (objHave != null)
+        {
+            GameObject item = CanvasManager.instance.NewItemInLevelInventory(objHave);
+            item.GetComponent<UsableObject>().Data = objHave;
+
+            LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+            if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+                TakeEffect();
+            CanvasManager.instance.SetUpLevelIndicator();
+        }
+    }
 
     #region VIgnette Effect
 
@@ -525,6 +544,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             print("check");
             foreach (var condition in ListOfCaseEventObject)
             {
+                if (condition.DoLock)
+                    this.m_IsLock = true;
+
                 if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
                 {
                     ApplyTileEffect(condition.CaseResult);
@@ -1282,7 +1304,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
 
         //GridManager.instance.Test.Clear();
-        GridManager.instance.SortList();--
+        GridManager.instance.SortList();
         foreach (var item in GridManager.instance.ListOfMovement)
         {
             Vignette_Behaviours check = item.EventAssocier;
@@ -1338,7 +1360,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
         //Move the GameObject when you drag it
-        if (!m_IsLook)
+        if (!m_IsLock)
             transform.position = rayPoint;
 
         RaycastHit hit;

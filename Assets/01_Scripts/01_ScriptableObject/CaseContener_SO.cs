@@ -23,6 +23,8 @@ public class CaseContener_SO : ScriptableObject
 
     [SerializeField] private GameObject TileObject;
 
+    [SerializeField] private bool doLock;
+
     public List<Vignette_Behaviours.VignetteCategories> ObjectsRequired { get => objectsRequired; set => objectsRequired = value; }
     public Vignette_Behaviours.VignetteCategories CaseResult { get => result; set => result = value; }
     public bool AnyVignette { get => anyVignette; set => anyVignette = value; }
@@ -30,6 +32,7 @@ public class CaseContener_SO : ScriptableObject
     public Object_SO SpecifiqueObject { get => specifiqueObject; set => specifiqueObject = value; }
     public bool IsEchecResult { get => isEchecResult; set => isEchecResult = value; }
     public GameObject TileToInstanciate { get => TileObject; set => TileObject = value; }
+    public bool DoLock { get => doLock; set => doLock = value; }
 
     public CaseContener_SO SpawnAsset(GameObject _tile)
     {
