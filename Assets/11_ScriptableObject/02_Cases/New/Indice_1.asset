@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df9da9c65239a648a8eaf1033a89d8b, type: 3}
   m_Name: Indice_1
   m_EditorClassIdentifier: 
-  caseName: 
-  anyVignette: 0
+  caseName: Indice_1
+  anyVignette: 1
   useSpecifiqueObject: 0
   isEchecResult: 0
   objectsRequired: 

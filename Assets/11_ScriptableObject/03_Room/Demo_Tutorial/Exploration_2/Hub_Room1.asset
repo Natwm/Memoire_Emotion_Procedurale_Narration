@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: Hub_Room1
   m_EditorClassIdentifier: 
-  m_RoomName: 
-  m_Roomsize: {x: 0, y: 0}
+  m_RoomName: Hub_Room_1
+  m_Roomsize: {x: 4, y: 4}
   m_possibleObjects: []
-  m_garanteedObjects: []
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
   m_Object_Distribution: 0
   m_Effect_Of_Room: 0
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 5125dcb2c35077846bf90889147a7cf1, type: 2}
+    m_ExitText: "Aller \xE0 Ritual_Room"
+  - m_ExitFromRoom: {fileID: 11400000, guid: 6ed9d8d38a02bdc41bf3fbd2c1dee9e1, type: 2}
+    m_ExitText: 
+  - m_ExitFromRoom: {fileID: 11400000, guid: 7743454a77b19bc4a8b0b2f0e06d6fa3, type: 2}
+    m_ExitText: 
   m_IntroText: 
   m_OutroText: 

@@ -143,7 +143,7 @@ public class RoomGenerator : MonoBehaviour
     public void CreateExitButton(RoomExit Exit)
     {
         GameObject ExitButton = GameObject.Instantiate(BaseOutroButton);
-        if (Exit.Exit_Text != null)
+        if (Exit.Exit_Text != "")
         {
             ExitButton.GetComponent<TMP_Text>().text = Exit.Exit_Text;
         }

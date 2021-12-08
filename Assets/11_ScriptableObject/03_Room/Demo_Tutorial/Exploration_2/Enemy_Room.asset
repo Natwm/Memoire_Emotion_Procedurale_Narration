@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: Enemy_Room
   m_EditorClassIdentifier: 
-  m_RoomName: 
-  m_Roomsize: {x: 0, y: 0}
-  m_possibleObjects: []
+  m_RoomName: Ennemy Room
+  m_Roomsize: {x: 2, y: 4}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: 0a8e613a97305764abef479f01e916df, type: 2}
   m_garanteedObjects: []
-  m_Object_Distribution: 0
+  m_Object_Distribution: 4
   m_Effect_Of_Room: 0
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 8da1a8d342c9d6c43b6934559965d7dc, type: 2}
+    m_ExitText: 
   m_IntroText: 
   m_OutroText: 

@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df9da9c65239a648a8eaf1033a89d8b, type: 3}
   m_Name: "Pi\xE8ge"
   m_EditorClassIdentifier: 
-  caseName: 
-  anyVignette: 0
+  caseName: "Pi\xE8ge"
+  anyVignette: 1
   useSpecifiqueObject: 0
   isEchecResult: 0
   objectsRequired: 
   specifiqueObject: {fileID: 0}
-  result: 0
+  result: 5
   echecResult: 0
   TileObject: {fileID: 0}
   doLock: 0

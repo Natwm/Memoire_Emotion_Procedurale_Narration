@@ -3146,7 +3146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de75760b10d89d24e8dafb8a6dcb3a09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestRoom: {fileID: 11400000, guid: 7379c000dd1d3634ebbea112a01ba7dc, type: 2}
+  TestRoom: {fileID: 11400000, guid: 8da1a8d342c9d6c43b6934559965d7dc, type: 2}
   RoomPanel: {fileID: 1973270454}
   TitleText: {fileID: 1785080050}
   Intro: {fileID: 1235257767}
@@ -3156,7 +3156,7 @@ MonoBehaviour:
   BaseOutroButton: {fileID: 4743305539610203632, guid: 1e4ebf2c8355ef542b73f7e23110e72d,
     type: 3}
   LayoutGroup: {fileID: 1621222507}
-  CurrentRoom: {fileID: 11400000, guid: 7379c000dd1d3634ebbea112a01ba7dc, type: 2}
+  CurrentRoom: {fileID: 11400000, guid: 8da1a8d342c9d6c43b6934559965d7dc, type: 2}
   GoToRoom:
     m_ExitFromRoom: {fileID: 0}
     m_ExitText: 

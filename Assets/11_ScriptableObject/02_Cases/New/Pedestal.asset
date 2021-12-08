@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df9da9c65239a648a8eaf1033a89d8b, type: 3}
   m_Name: Pedestal
   m_EditorClassIdentifier: 
-  caseName: 
+  caseName: "Pi\xE9destal"
   anyVignette: 0
-  useSpecifiqueObject: 0
+  useSpecifiqueObject: 1
   isEchecResult: 0
   objectsRequired: 
-  specifiqueObject: {fileID: 0}
+  specifiqueObject: {fileID: 11400000, guid: 404f91c3ad3b17b428b8f77a6e717c39, type: 2}
   result: 0
-  echecResult: 0
+  echecResult: 6
   TileObject: {fileID: 0}
-  doLock: 0
+  doLock: 1

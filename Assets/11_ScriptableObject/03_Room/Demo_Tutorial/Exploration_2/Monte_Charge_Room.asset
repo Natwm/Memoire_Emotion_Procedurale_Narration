@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: Monte_Charge_Room
   m_EditorClassIdentifier: 
-  m_RoomName: 
-  m_Roomsize: {x: 0, y: 0}
-  m_possibleObjects: []
-  m_garanteedObjects: []
-  m_Object_Distribution: 0
+  m_RoomName: Monte Charge Room
+  m_Roomsize: {x: 3, y: 4}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
+  - {fileID: 11400000, guid: 766b228439df61349a4b8be70e00aee4, type: 2}
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
+  m_Object_Distribution: 3
   m_Effect_Of_Room: 0
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 7743454a77b19bc4a8b0b2f0e06d6fa3, type: 2}
+    m_ExitText: 
   m_IntroText: 
   m_OutroText: 
