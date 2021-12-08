@@ -25,6 +25,7 @@ public class EventGenerator : MonoBehaviour
     GameObject keyTile;
 
     public GameObject key;
+    public bool debug=false;
 
     GameObject entryTile;
     GameObject exitTile;
@@ -110,8 +111,11 @@ public class EventGenerator : MonoBehaviour
 
     public void PopulateTiles(int iteration)
     {
-        
-       // DetermineDoors(false);
+        if (debug)
+        {
+            DetermineDoors(false);
+        }
+       // 
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;

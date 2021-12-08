@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: Hub_Room1
+  m_EditorClassIdentifier: 
+  m_RoomName: 
+  m_Roomsize: {x: 0, y: 0}
+  m_possibleObjects: []
+  m_garanteedObjects: []
+  m_Object_Distribution: 0
+  m_Effect_Of_Room: 0
+  m_PossibleExits: []
+  m_IntroText: 
+  m_OutroText: 
