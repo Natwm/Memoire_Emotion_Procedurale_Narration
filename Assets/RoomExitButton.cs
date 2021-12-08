@@ -7,6 +7,8 @@ public class RoomExitButton : MonoBehaviour
     public RoomExit RoomToExitTo;
     public void OnButtonClick()
     {
-        RoomGenerator.instance.RoomToExitTo = RoomToExitTo;
+        RoomGenerator.instance.GoToRoom = RoomToExitTo;
+        RoomGenerator.instance.TransitionAnim();
+       
     }
 }

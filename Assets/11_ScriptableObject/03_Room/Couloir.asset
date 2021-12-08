@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Couloir
   m_EditorClassIdentifier: 
   m_RoomName: Couloir Sombre
-  m_Roomsize: {x: 2, y: 5}
+  m_Roomsize: {x: 2, y: 2}
   m_possibleObjects:
   - {fileID: 11400000, guid: 5934aa6577340f6499a64d5a03b4bd32, type: 2}
-  - {fileID: 11400000, guid: 0a8e613a97305764abef479f01e916df, type: 2}
   m_garanteedObjects: []
-  m_Object_Distribution: 2
+  m_Object_Distribution: 1
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000}
     m_ExitText: "Un couloir Sombre, duquel provient une odeur naus\xE9abonde."

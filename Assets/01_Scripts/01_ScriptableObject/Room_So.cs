@@ -24,6 +24,13 @@ public class Room_So : ScriptableObject
     [SerializeField] private List<CaseContener_SO> m_possibleObjects;
     [SerializeField] private List<CaseContener_SO> m_garanteedObjects;
     [SerializeField] private int m_Object_Distribution;
+    [SerializeField] private CustomEffect m_Effect_Of_Room;
+    public enum CustomEffect
+    {
+        NONE,
+        DARK
+
+    }
 
     [Space]
     [Header("Exit")]
@@ -47,7 +54,30 @@ public class Room_So : ScriptableObject
     public string Room_OutroText { get => m_OutroText; set => m_OutroText = value; }
     public int ObjectDistribution { get => m_Object_Distribution; set => m_Object_Distribution = value; }
     public RoomExit[] PossibleExits { get => m_PossibleExits; set => m_PossibleExits = value; }
+    public CustomEffect Effect_Of_Room { get => m_Effect_Of_Room; set => m_Effect_Of_Room = value; }
 
     #endregion
+
+    public void ApplyEffect()
+    {
+        switch (Effect_Of_Room)
+        {
+            case CustomEffect.NONE:
+                break;
+            case CustomEffect.DARK:
+                {
+                 foreach (GameObject item in GridManager.instance.ListOfTile)
+                 {
+                        if (item.GetComponent<Case_Behaviours>().CaseEffects != null)
+                        {
+                            item.transform.GetChild(0).gameObject.SetActive(false);
+                        }
+                        
+                 }
+                    
+                 break;
+                }
+        }
+    }
 
 }

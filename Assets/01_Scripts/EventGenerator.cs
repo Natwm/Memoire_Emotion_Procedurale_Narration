@@ -98,6 +98,7 @@ public class EventGenerator : MonoBehaviour
             EntryTile = GridManager.instance.ListOfTile[0]; 
             ExitTile = GridManager.instance.ListOfTile[GridManager.instance.ListOfTile.Count-1];
         }
+
         GameObject newEntry = Instantiate(doors[0], EntryTile.transform);
         newEntry.transform.localPosition = Vector3.zero;
         GameObject newExit = Instantiate(doors[1], ExitTile.transform);
@@ -109,8 +110,8 @@ public class EventGenerator : MonoBehaviour
 
     public void PopulateTiles(int iteration)
     {
-        ClearGrid();
-        DetermineDoors(false);
+        
+       // DetermineDoors(false);
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -207,6 +208,18 @@ public class EventGenerator : MonoBehaviour
         //Debug.Break();
         return tileType;
     }
+    
+    public void TempClearGrid()
+    {
+        //MESURES TEMPORAIRE ---- A CHANGER POUR AVOIR LA BONNE BOUCLE
+        // LA MÉTHODE DETRUIT JUSTE TOUTE LES DONNEES PRESENTES (TABLEAUX ET GAME OBJECTS)
+        ClearGrid();
+        GridManager.instance.ListOfTile.Clear();
+        foreach (Transform item in transform)
+        {
+            Destroy(item.gameObject);
+        }
+    }
 
     public void ClearGrid()
     {
@@ -217,6 +230,7 @@ public class EventGenerator : MonoBehaviour
             listToDestroy[i] = allGraphics[i];
         }
         allGraphics.Clear();
+        allGraphics.Capacity = 0;
 
         foreach (GameObject item in occupiedTiles)
         {
