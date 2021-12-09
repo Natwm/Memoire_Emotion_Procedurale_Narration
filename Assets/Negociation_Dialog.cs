@@ -14,11 +14,14 @@ public class Negociation_Dialog : MonoBehaviour
     [Space]
     public string testString;
 
-
+    public Character_SO[] charaTest;
 
     Dialog CurrentDialog;
     string Action;
     string Answer;
+
+    Color Chara1;
+    Color Chara2;
 
     void Awake()
     {
@@ -35,9 +38,18 @@ public class Negociation_Dialog : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A))
         {
             GetDialog(Prendre_SO);
+            GetCharacters(charaTest[3], charaTest);
             Action = SwapObject(CurrentDialog.Action_Phrase, testString);
             StartCoroutine(ShowActionLine(CurrentDialog));
         }
+    }
+
+    public void StartDialog(Dialog_SO action,Character_SO firstCharacter,Character_SO[] allCharacter,string objet)
+    {
+        GetDialog(action);
+        GetCharacters(firstCharacter, allCharacter);
+        Action = SwapObject(CurrentDialog.Action_Phrase, objet);
+        StartCoroutine(ShowActionLine(CurrentDialog));
     }
 
     public string SwapObject(string _toReplace,string by)
@@ -50,13 +62,32 @@ public class Negociation_Dialog : MonoBehaviour
         CurrentDialog = _dialog.GetDialog();
     }
 
+    public void GetCharacters(Character_SO firstCharacter,Character_SO[] _Allcharacters)
+    {
+        Chara1 = firstCharacter.Color;
+        for (int i = 0; i < _Allcharacters.Length; i++)
+        {
+            if (_Allcharacters[i] == firstCharacter)
+            {
+                if (i == _Allcharacters.Length-1)
+                {
+                    Chara2 = _Allcharacters[0].Color;
+                }
+                else
+                {
+                    Chara2 = _Allcharacters[i+1].Color;
+                }
+            }
+        }
+    }
+
     IEnumerator ShowAnswerLine(Dialog _dialog)
     {
 
         m_textMeshPro.text = _dialog.GetAnswer();
         // Force and update of the mesh to get valid information.
         m_textMeshPro.ForceMeshUpdate();
-
+        m_textMeshPro.color = Chara2;
         bool stop = false;
         int totalVisibleCharacters = m_textMeshPro.textInfo.characterCount; // Get # of Visible Character in text object
         int counter = 0;
@@ -72,7 +103,7 @@ public class Negociation_Dialog : MonoBehaviour
 
                 stop = true;
                 yield return new WaitForSeconds(2f);
-                
+                m_textMeshPro.text = "";
 
             }
 
@@ -90,7 +121,7 @@ public class Negociation_Dialog : MonoBehaviour
         m_textMeshPro.text = Action;
         // Force and update of the mesh to get valid information.
         m_textMeshPro.ForceMeshUpdate();
-        
+        m_textMeshPro.color = Chara1;
         bool stop=false;
         int totalVisibleCharacters = m_textMeshPro.textInfo.characterCount; // Get # of Visible Character in text object
         int counter = 0;
