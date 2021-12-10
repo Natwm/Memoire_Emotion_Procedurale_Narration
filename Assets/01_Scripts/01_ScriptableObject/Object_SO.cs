@@ -59,10 +59,12 @@ public class Object_SO : ScriptableObject
     [Header("UI")]
     [TextArea(10,50)]
     [SerializeField] private string m_Description;
+    [SerializeField] private string m_NarrationName;
 
 
     #region Getter && Setter
 
+    public string NarrationName { get => m_NarrationName; set => m_NarrationName=value; }
     public ObjectTarget Target { get => m_Target; set => m_Target = value; }
     public ObjectCategory Category { get => m_Category; set => m_Category = value; }
     public ObjectAction Action { get => m_Action; set => m_Action = value; }

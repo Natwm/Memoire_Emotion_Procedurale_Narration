@@ -102,6 +102,12 @@ public class RoomGenerator : MonoBehaviour
         
     }
 
+    public void SwitchToRoom(Room_So _roomToGo)
+    {
+        CurrentRoom = _roomToGo;
+        TestRoom = _roomToGo;
+    }
+
     public void FadeIn()
     {
         RoomPanel.GetComponent<Animator>().SetTrigger("Reveal");

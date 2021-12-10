@@ -114,6 +114,7 @@ public class UsableObject : abstractUsableObject
                             //myButton.image.color = Color.green;
                             objStatus = ObjectStatus.CLAIM;
                             ClaimObject(player);
+                            Negociation_Dialog.instance.StartDialog(Negociation_Dialog.instance.Prendre_SO, player.AssignedElement, CreationManager.instance.GlobalCrew.ToArray(), Data.NarrationName);
 
                         }else
                             SoundManager.instance.PlaySound_CantUseNegociation();
@@ -136,8 +137,10 @@ public class UsableObject : abstractUsableObject
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.gray;
                             WantObject(player);
+                            Negociation_Dialog.instance.StartDialog(Negociation_Dialog.instance.Demander_SO, player.AssignedElement, CreationManager.instance.GlobalCrew.ToArray(), Data.NarrationName);
 
-                        }else
+                        }
+                        else
                             SoundManager.instance.PlaySound_CantUseNegociation();
                     }
                     else
@@ -145,6 +148,7 @@ public class UsableObject : abstractUsableObject
                         objStatus = ObjectStatus.NONE;
                         myButton.image.color = Color.white;
                         ResetObjectStatus();
+
                     }
 
                     break;
@@ -159,7 +163,7 @@ public class UsableObject : abstractUsableObject
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.yellow;
                             RejectObject(player);
-
+                            Negociation_Dialog.instance.StartDialog(Negociation_Dialog.instance.Decliner_SO, player.AssignedElement, CreationManager.instance.GlobalCrew.ToArray(), Data.NarrationName);
                         }
                         else
                             SoundManager.instance.PlaySound_CantUseNegociation();
@@ -182,7 +186,7 @@ public class UsableObject : abstractUsableObject
                             CanvasManager.instance.NegociationText.text = CreationManager.instance.NegociationTime.ToString();
                             //myButton.image.color = Color.red;
                             ExcludeObject(player);
-
+                            Negociation_Dialog.instance.StartDialog(Negociation_Dialog.instance.Refuser_SO, player.AssignedElement, CreationManager.instance.GlobalCrew.ToArray(), Data.NarrationName);
                         }
                         else
                             SoundManager.instance.PlaySound_CantUseNegociation();

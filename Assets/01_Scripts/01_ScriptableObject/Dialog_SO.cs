@@ -15,7 +15,7 @@ public class Dialog
 
     public string GetAnswer()
     {
-        return Answers[Random.Range(0, Answers.Length-1)];
+        return Answers[Random.Range(0, Answers.Length)];
     }
 }
 
@@ -27,6 +27,6 @@ public class Dialog_SO : ScriptableObject
 
     public Dialog GetDialog()
     {
-        return ActionPhrases[Random.Range(0, ActionPhrases.Length - 1)];
+        return ActionPhrases[Random.Range(0, ActionPhrases.Length )];
     }
 }

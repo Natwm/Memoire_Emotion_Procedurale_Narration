@@ -23,11 +23,13 @@ public class Negociation_Dialog : MonoBehaviour
     Color Chara1;
     Color Chara2;
 
+    public static Negociation_Dialog instance;
+
     void Awake()
     {
         // Get Reference to TextMeshPro Component
         m_textMeshPro = GetComponent<TMP_Text>();
-
+        instance = this;
         m_textMeshPro.enableWordWrapping = true;
         m_textMeshPro.alignment = TextAlignmentOptions.Top;
 
