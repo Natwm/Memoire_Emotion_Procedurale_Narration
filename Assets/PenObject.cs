@@ -39,18 +39,18 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
             render.sprite = neutre;
         else
         {
-            render.sprite = disable;
+            GetComponent<Image>().sprite = disable;
         }
     }
 
     public void DisableInteraction()
     {
-        render.sprite = disable;
+        GetComponent<Image>().sprite = disable;
     }
 
     public void EnableInteraction()
     {
-        render.sprite = neutre;
+        GetComponent<Image>().sprite = neutre;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -59,16 +59,16 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
         {
             foreach (var item in FindObjectsOfType<PenObject>())
             {
-                item.Render.sprite = item.neutre;
+                item.GetComponent<Image>().sprite = item.neutre;
             }
             if (Render.sprite != presed && !pressed)
             {
-                Render.sprite = presed;
+                GetComponent<Image>().sprite = presed;
                 pressed = true;
             }
             else
             {
-                Render.sprite = neutre;
+                GetComponent<Image>().sprite = neutre;
                 pressed = false;
             }
         }
@@ -79,15 +79,15 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         if(GetComponent<Button>().interactable)
-            Render.sprite = hover;
+            GetComponent<Image>().sprite = hover;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (GetComponent<Button>().interactable)
         {
-            if (Render.sprite != presed)
-                Render.sprite = Neutre;
+            if (GetComponent<Image>().sprite != presed)
+                GetComponent<Image>().sprite = Neutre;
         }
         
     }
