@@ -498,6 +498,7 @@ MonoBehaviour:
   dropVignetteNotOnGridSound: event:/SD/Vignette/Gameplay/Vignette_Pi
   reveleSound: 
   a: 0
+  animation_Feedback: {fileID: 5161598769103795180}
 --- !u!114 &6600330793845246714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +663,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1026413274550574100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5161598769103795180 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5304998283529383928, guid: e127aa23f797efb418962fea6c611b92,
+    type: 3}
+  m_PrefabInstance: {fileID: 1026413274550574100}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b229a5aac13fca4b98b79a91d8fbd07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1073493477283961774
 PrefabInstance:
   m_ObjectHideFlags: 0
