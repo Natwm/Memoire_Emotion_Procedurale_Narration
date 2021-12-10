@@ -25,3 +25,4 @@ MonoBehaviour:
   m_Description: "Donne une vignette <i><b>Soin de l'\xE9quipe.</i></b> (D\xE9truite
     apr\xE8s utilisation.)\r\n<br>\r\n<i><b>Soin de l'\xE9quipe :</i></b> \nS'applique
     \xE0 tout les personnages +1 <sprite=0>"
+  m_NarrationName: le manuel

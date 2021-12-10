@@ -15,19 +15,20 @@ MonoBehaviour:
   m_RoomName: "Entr\xE9e"
   m_Roomsize: {x: 4, y: 4}
   m_possibleObjects: []
-  m_garanteedObjects: []
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
   m_Object_Distribution: 0
   m_Effect_Of_Room: 0
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 74b77edef307eb445867e49ffcae25a9, type: 2}
-    m_ExitText: "Le groupe d\xE9cide de traverser la porte, et de s'enfoncer plus
-      profond\xE9ment dans le manoir."
-  - m_ExitFromRoom: {fileID: 11400000, guid: 2242ae6113d26d0439bd5dac2bbe0333, type: 2}
-    m_ExitText: "Skip to n\xE9gociation"
-  m_IntroText: "Vous entendez les portes se refermer brutalement derri\xE8re vous.
-    Il n'est plus possible de faire demi-tour maintenant. Une fois que tout le monde
-    \xE0 repris ses esprits, vous d\xE9cidez de progresser dans la pi\xE8ce qui se
-    trouve fa\xE7e \xE0 vous."
-  m_OutroText: "Un certain malaise se fait ressentir dans le groupe. En traversant
-    la salle, les statues semblent d\xE9visager les membres du groupe. Cette salle
-    ne semble contenir qu'une seule sortie, une porte d'apparence assez banale."
+    m_ExitText: "Vous d\xE9cidez de traverser cette porte et de vous enfoncer plus
+      profond\xE9ment dans ces lieux."
+  m_IntroText: "Un bruit de portes qui claquent se fait entendre. En ouvrant les
+    yeux, vous constatez que vous \xEAtes quatre \xE0 vous r\xE9veiller dans cette
+    salle. Il n\u2019y a rien d\u2019autre autour de vous hormis une double porte
+    et l\u2019acc\xE8s \xE0 un couloir.\nApr\xE8s avoir tent\xE9 d\u2019ouvrir les
+    portes sans succ\xE8s\u2026 et quelques \xE9changes, vous d\xE9cidez tous d\u2019explorer
+    les lieux pour trouver une autre issue."
+  m_OutroText: "Vous ressentez une tension autour de vous\u2026 Les statues semblent
+    vous suivre du regard.\nLa seule issue, est la porte \xE0 l\u2019oppos\xE9 de
+    cette pi\xE8ce."

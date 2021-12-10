@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne deux vignettes <i><b> Premier Soin</b></i>. (D\xE9truite
     apr\xE8s utilisation.)\r\n<br>\r\n<i><b>Premier Soin : </b></i>\n+Max <sprite=0>"
+  m_NarrationName: la trousse

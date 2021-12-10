@@ -17,12 +17,13 @@ MonoBehaviour:
   m_possibleObjects: []
   m_garanteedObjects: []
   m_Object_Distribution: 0
+  m_Effect_Of_Room: 0
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 74b77edef307eb445867e49ffcae25a9, type: 2}
     m_ExitText: Retourner vers le hall.
   - m_ExitFromRoom: {fileID: 11400000, guid: 6e4007f3f38372e488d399dd073fe42f, type: 2}
     m_ExitText: Entrer dans la salle.
-  m_IntroText: "Le groupe entre dans un couloir d\xE9cr\xE9pit. "
+  m_IntroText: 
   m_OutroText: "Au bout du couloir, une porte. Vous apercevez un rai de lumi\xE8re,
     qui filtre \xE0 travers cette derni\xE8re. Plusieurs s'options s'offrent \xE0
     vous."

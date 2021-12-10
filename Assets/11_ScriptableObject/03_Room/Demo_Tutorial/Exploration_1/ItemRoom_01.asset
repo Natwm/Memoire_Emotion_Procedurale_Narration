@@ -19,12 +19,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d3d82012b3110649a50b9c0dbf55337, type: 2}
   m_garanteedObjects: []
   m_Object_Distribution: 3
+  m_Effect_Of_Room: 0
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 6745858432de74f40a5f51ee94aed957, type: 2}
-    m_ExitText: "Le groupe d\xE9cide de repasser par le couloir, et de revenir sur
-      ses pas."
-  m_IntroText: "En entrant dans la salle, le groupe remarque une bougie allum\xE9e,
-    pos\xE9e sur une des \xE9tag\xE8res. La salle semble \xEAtre un r\xE9duit utilis\xE9
-    pour stocker diff\xE9rents objets d'entretients."
-  m_OutroText: "La bougie s'est \xE9teinte, enti\xE8rement consum\xE9e. Le groupe
-    d\xE9cide de repartir."
+    m_ExitText: "Vous d\xE9cidez "
+  m_IntroText: "La faible lueur d\u2019une bougie \xE9claire son \xE9tag\xE8re et
+    ce qui se trouve \xE0 proximit\xE9.\r\nUn amas d\u2019objets indissociables y
+    sont entass\xE9s."
+  m_OutroText: 

@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612581cd02a722141a07cdb5f91914ac, type: 3}
   m_Name: Reclamer
   m_EditorClassIdentifier: 
-  m_ActionsPhrases: []
+  m_ActionsPhrases:
+  - m_ActionPhrase: J'aimerais bien prendre _.
+    m_Answers:
+    - "Ca ne devrait pas poser de probl\xE8mes"
+    - Pas de soucis.
+  - m_ActionPhrase: Est ce que je peux avoir _?
+    m_Answers:
+    - Ca marche.
+    - "Tr\xE8s bien."

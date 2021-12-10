@@ -22,17 +22,15 @@ MonoBehaviour:
   m_Effect_Of_Room: 0
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 6745858432de74f40a5f51ee94aed957, type: 2}
-    m_ExitText: "Un porte entrouverte, qui laisse entrevoir un couloir. Il vous semble
-      aper\xE7evoir de la lumi\xE8re au fond du couloir."
+    m_ExitText: Vous choisissez de prendre le couloir de gauche.
   - m_ExitFromRoom: {fileID: 11400000, guid: 9fb4361e23a81fb499a24e218ccc10de, type: 2}
-    m_ExitText: "Une ouverture, qui donne sur un couloir. Vous n'arrivez pas \xE0
-      percevoir le bout du couloir."
+    m_ExitText: Vous optez pour le couloir de droite.
   - m_ExitFromRoom: {fileID: 11400000, guid: 17341fda5c6599d458182016277afc17, type: 2}
-    m_ExitText: "Le hall donne vers une salle, qui \xE0 l'air vide. Vous etendez
-      quelques bruits \xE9touff\xE9s qui proviennent de cette direction."
-  m_IntroText: "En arrivant dans le hall, le groupe d\xE9cide de fouiller les environs.
-    Vous remarquez que la plupart des meubles sont d\xE9truits. Cependant, le groupe
-    d\xE9cide qu'il serait judicieux d'explorer la salle."
-  m_OutroText: "En fouillant la salle, le groupe \xE0 trouv\xE9 quelques objets.
-    (Introduction phase de n\xE9gociation ?). Le groupe d\xE9cide de continuer. Plusieurs
-    choix s'offrent \xE0 vous."
+    m_ExitText: Vous vous engagez vers la salle en face.
+  m_IntroText: "Vous arrivez dans ce qui ressemble \xE0 un hall, la salle est vaste
+    et tr\xE8s haute de plafond.\nEn fouillant les environs vous remarquez que les
+    lieux et meubles sont dans un \xE9tat de d\xE9gradation avanc\xE9. Vous d\xE9cidez
+    de fouiller la salle dans l\u2019espoir de trouver des choses utiles."
+  m_OutroText: "Vous avez fouill\xE9 la salle et trouv\xE9 quelques objets, une dispute
+    \xE9clate pour l\u2019obtention de certains outils. Apr\xE8s discussion, vous
+    d\xE9cidez de vous les r\xE9partir plus tard."

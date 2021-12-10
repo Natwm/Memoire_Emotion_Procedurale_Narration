@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>Crochetage</i></b>.\n\n<i><b>Crochetage:</i></b>
     \nPeut \xEAtre appliqu\xE9e sur certaines cases.\n-1 <sprite=0>\n\n"
+  m_NarrationName: la lame

@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612581cd02a722141a07cdb5f91914ac, type: 3}
   m_Name: Exclure
   m_EditorClassIdentifier: 
-  m_ActionsPhrases: []
+  m_ActionsPhrases:
+  - m_ActionPhrase: Je ne veux pas _.
+    m_Answers:
+    - C'est ta peau.
+    - Comme tu veux.
+  - m_ActionPhrase: _? Jamais de la vie !
+    m_Answers:
+    - Du calme ...
+    - Comme tu veux.

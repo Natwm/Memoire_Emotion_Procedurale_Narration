@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>D\xE9go\xFBt.</i></b>\r\n<br>\r\n<i><b>D\xE9go\xFBt
     :</i></b>  \n-1 <sprite=2>\n+1 <sprite=0>"
+  m_NarrationName: le sandwich

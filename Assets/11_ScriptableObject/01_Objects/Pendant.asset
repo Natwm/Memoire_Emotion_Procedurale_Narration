@@ -23,3 +23,4 @@ MonoBehaviour:
   m_AmountOfUse: 0
   m_SizeInInventory: 0
   m_Description: Quelle est sa valeur ?
+  m_NarrationName: le pendentif

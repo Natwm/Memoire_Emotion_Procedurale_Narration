@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>Planification</i></b>.\r\n<br>\r\n<i><b>Planification
     :</i></b>  \nDonne un bonus de temps \xE0 la prochaine phase de n\xE9gociation."
+  m_NarrationName: la montre

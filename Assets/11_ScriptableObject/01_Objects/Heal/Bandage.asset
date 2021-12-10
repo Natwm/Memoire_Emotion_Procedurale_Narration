@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>Soin L\xE9ger</b></i>. (D\xE9truite apr\xE8s
     utilisation.)\r\n<br>\r\n<i><b>Soin L\xE9ger :</i></b> \n+1 <sprite=0>"
+  m_NarrationName: le bandage
