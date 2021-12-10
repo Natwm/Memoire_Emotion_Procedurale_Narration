@@ -28,7 +28,8 @@ public class Room_So : ScriptableObject
     public enum CustomEffect
     {
         NONE,
-        DARK
+        DARK,
+        NEGO
 
     }
 
@@ -76,6 +77,11 @@ public class Room_So : ScriptableObject
                  }
                     
                  break;
+                }
+            case CustomEffect.NEGO:
+                {
+
+                    break;
                 }
         }
     }
