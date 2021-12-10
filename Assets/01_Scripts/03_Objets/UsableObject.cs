@@ -47,10 +47,14 @@ public class UsableObject : abstractUsableObject
 
     [SerializeField] private ReclameStatus stat;
 
+    [SerializeField] private int amountOfUse;
+
     [Space]
     [Header("Curse")]
     [SerializeField] private bool isCurse;
     [SerializeField] private Curse m_MyCurse;
+
+    
 
     #region Awake || Start || Update
     // Start is called before the first frame update
@@ -68,6 +72,7 @@ public class UsableObject : abstractUsableObject
     public UsableObject(Object_SO objRef)
     {
         Data = objRef;
+        AmountOfUse = objRef.AmountOfUse;
     }
 
     public void AffectByPlayer(UnityEngine.UI.Button myButton, Character_Button player)
@@ -304,6 +309,7 @@ public class UsableObject : abstractUsableObject
     public ReclameStatus Stat { get => stat; set => stat = value; }
     public bool IsCurse { get => isCurse; set => isCurse = value; }
     public Curse MyCurse { get => m_MyCurse; set => m_MyCurse = value; }
+    public int AmountOfUse { get => amountOfUse; set => amountOfUse = value; }
 
     #endregion
 

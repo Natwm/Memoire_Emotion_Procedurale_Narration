@@ -72,8 +72,14 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
                 PlayerManager.instance.InventoryObj.Remove(item);
                 PlayerManager.instance.CharacterContener.InventoryObj.Remove(item);
 
-                Destroy(item.gameObject);
-                Destroy(inventoryElt.gameObject);
+                item.AmountOfUse--;
+
+                if(item.AmountOfUse <= 0)
+                {
+                    Destroy(item.gameObject);
+                    Destroy(inventoryElt.gameObject);
+                }
+                
             });
 
             if (item.IsCurse)
