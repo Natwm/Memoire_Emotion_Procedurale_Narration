@@ -157,8 +157,8 @@ public class RoomGenerator : MonoBehaviour
         if (PlayerManager.instance.CharacterData != null)
         {
             //SET UP CHARA
-            PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
-            CanvasManager.instance.SetUpGamePanel();
+            //PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
+            //CanvasManager.instance.SetUpGamePanel();
 
             //SET WAITING LIST
            
