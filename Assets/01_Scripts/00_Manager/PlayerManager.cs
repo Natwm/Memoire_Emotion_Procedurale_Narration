@@ -444,7 +444,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
             GameManager.instance.OrderCharacter.Remove(CharacterContener);
 
         Destroy(characterContener.gameObject);
-        CanvasManager.instance.PlayerLooseTheGame(CharacterData);
+        RoomGenerator.instance.OnRoomCompletion();
     }
 
     public bool IsDead()
