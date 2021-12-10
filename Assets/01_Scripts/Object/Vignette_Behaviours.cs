@@ -32,7 +32,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         RESSEMBLACE_ETRANGE,
         EXPLORER_RARE,
         EXPLORER_MEDIC,
-        EXPLORER_OCCULT
+        EXPLORER_OCCULT,
+        RASOIR,
+        RASOIR_USE,
+        ARTEFACT,
+        FOOD_OLD
     }
 
     #region param
@@ -71,7 +75,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     [Header("Boolean/flag")]
     [SerializeField] private bool onGrid = false;
-    [SerializeField] private bool m_IsLook;
+    [SerializeField] private bool m_IsLock;
     [SerializeField] private bool m_IsVignetteShowUp;
 
     [Space]
@@ -100,6 +104,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     [Space]
     [Header("Object")]
     [SerializeField] private UsableObject objectFrom;
+    [SerializeField] private Object_SO objHave;
 
     [Space]
     [Header("Sprite")]
@@ -173,10 +178,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
         dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
     }
+    
 
-    public void ApplyVignetteEffect()
+public void ApplyVignetteEffect()
     {
         bool cursed=false;
+        GetComponent<VignetteMusicLoader>().SetEvent(currentCategorie.ToString());
+        ReciveSpecifiqueObj();
+
+        
         // action spécifique
         switch (Categorie)
         {
@@ -228,6 +238,24 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.EXPLORER_OCCULT:
                 ExploreOccultEffect();
                 break;
+            case VignetteCategories.RASOIR:
+                UseEffect();
+                FallEffect();
+                break;
+            case VignetteCategories.RASOIR_USE:
+                FallEffect();
+                ExploreRareEffect();
+                break;
+            case VignetteCategories.ARTEFACT:
+                BigSanityLossEffect();
+                break;
+            case VignetteCategories.FOOD_OLD:
+                CurseEffect();
+                SmallHealEffect();
+
+                break;
+
+                break;
             default:
                 break;
         }
@@ -263,7 +291,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
-        print(useObject);
         SpriteIndicator.sprite = useObject.Sprite;
         objectFrom = null;
         SetUpUI();
@@ -296,6 +323,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         SetUpUI();
     }
     #endregion
+
+    private void ReciveSpecifiqueObj()
+    {
+        if (objHave != null)
+        {
+            GameObject item = CanvasManager.instance.NewItemInLevelInventory(objHave);
+            item.GetComponent<UsableObject>().Data = objHave;
+
+            LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
+
+            if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+                TakeEffect();
+            CanvasManager.instance.SetUpLevelIndicator();
+        }
+    }
 
     #region VIgnette Effect
 
@@ -418,7 +460,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         print("CurseEffect");
 
-        PlayerManager.instance.ReduceMentalPlayer(2);
+        PlayerManager.instance.ReduceMentalPlayer(1);
     }
 
     public void LooseObjectEffect()
@@ -480,6 +522,11 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
     }
 
+    public void BigSanityLossEffect()
+    {
+        PlayerManager.instance.ReduceMentalPlayer(2);
+    }
+
     public void CameraEffect()
     {
         print("Camera Effect");
@@ -497,6 +544,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             print("check");
             foreach (var condition in ListOfCaseEventObject)
             {
+                if (condition.DoLock)
+                    this.m_IsLock = true;
+
                 if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
                 {
                     ApplyTileEffect(condition.CaseResult);
@@ -559,19 +609,20 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     {
         if (OnGrid)
         {
+            print(this.gameObject.name + "is ongrid");
             GridManager.instance.Test.Clear();
             a = false;
             previousMove = nextMove = null;
             bool isDecal = false;
             TileElt_Behaviours tileEvent;
 
-            /*print("La tile qui vérifie est : " + this.gameObject.name);
+           /* print("La tile qui vérifie est : " + this.gameObject.name);
             print("les voisin de " + this.gameObject.name + "sont = " + neighbourgCheck.Count);
             print(this.gameObject.name + " est de taille = " + vignetteShape);*/
             foreach (var hoveredTile in neighbourgCheck)
             {
                 //print("La tile qui vérifie est : " + this.gameObject.name + "____________________________________________________________");
-                //print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);
+                print("La tile qui vérifie est : " + this.gameObject.name +"Tile check is = "+hoveredTile);
                 for (int x = 0; x <= 1; x++)
                 {
                     for (int y = 0; y <= 1; y++)
@@ -610,7 +661,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
                                     if (tileEvent != null)
                                     {
-                                        //print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
+                                        print("La tile  est : " + tile.gameObject.name + " et possède TileElt_Behaviours  " + tileEvent);
 
                                         if (tileEvent != null && tileEvent.EventAssocier != null && tileEvent.EventAssocier != this)
                                         {
@@ -641,7 +692,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                                     isDecal = true;
                                 }
 
-                                if (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y)
+                                if (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
 
@@ -784,6 +835,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void GetNextMove()
     {
+        print("11 " + this.gameObject.name);
         Vignette_Behaviours check = CheckNextMove();
         NextMove = check != this ? check : null;
         /*if(GridManager.instance.ListOfMovement.Count >0 && NextMove !=null)
@@ -1085,7 +1137,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
                 return "INSTANTANE";
                 break;
             case VignetteCategories.RESSEMBLACE_ETRANGE:
-                return "RESSEMBLACE_ETRANGE";
+                return "RESSEMBLANCE_ETRANGE";
                 break;
             case VignetteCategories.EXPLORER_MEDIC:
                 return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
@@ -1096,6 +1148,17 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             case VignetteCategories.EXPLORER_RARE:
                 return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
                 break;
+            case VignetteCategories.RASOIR:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A></color=#B5935A><br><size=100%>Blessure Maladroite";
+                break;
+            case VignetteCategories.RASOIR_USE:
+                return "<color=#B5935A>-1<sprite=0 color=#B5935A><br>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Blessure aux mains";
+                break;
+            case VignetteCategories.ARTEFACT:
+                return "<color=#B5935A>-2<sprite=2 color=#B5935A></color=#B5935A><br>Contemplation Morbide";
+                break;
+            case VignetteCategories.FOOD_OLD:
+                return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=0 color=#B5935A></color=#B5935A><br>Dégoût";
             default:
                 return "<br> Neutre";
                 break;
@@ -1173,13 +1236,13 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         ClearList();
 
         GridManager.instance.CheckTile();
-        GridManager.instance.SortList();
+        //GridManager.instance.SortList();
 
         RaycastHit[] hit;
         int amountOfModifier = 0;
 
         hit = Physics.BoxCastAll(transform.GetChild(0).position, transform.localScale / raycastSize, Vector3.forward, Quaternion.identity, Mathf.Infinity, m_LayerDetection);
-        if (hit.Length > 0)
+        if (hit.Length > 0 && hit.Length <= VignetteSize)
         {
             foreach (var item in hit)
             {
@@ -1238,17 +1301,21 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         }
 
-        GridManager.instance.SortList();
+
 
         //GridManager.instance.Test.Clear();
+        GridManager.instance.SortList();
         foreach (var item in GridManager.instance.ListOfMovement)
         {
             Vignette_Behaviours check = item.EventAssocier;
-            if (check.OnGrid && check.vignetteTile.Count > 0)
+            print(item.gameObject.name + " je regarde ici et check = " + check);
+            if (check != null)
             {
-                check.GetNextMove();
+                if (check.OnGrid && check.vignetteTile.Count > 0)
+                {
+                    check.GetNextMove();
+                }
             }
-
         }
 
         
@@ -1259,8 +1326,9 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         CheckCaseCondition();
 
         GetComponent<SortingGroup>().sortingOrder = 0;
-
+        GridManager.instance.SortList();
         lineRendererScript.instance.DrawLineRenderer();
+
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -1292,7 +1360,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         rayPoint.Set(rayPoint.x, rayPoint.y, -2f);
         //Move the GameObject when you drag it
-        if (!m_IsLook)
+        if (!m_IsLock)
             transform.position = rayPoint;
 
         RaycastHit hit;

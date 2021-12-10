@@ -6,9 +6,9 @@ public class lineRendererScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public static lineRendererScript instance;
-
+    Material LineMat;
     LineRenderer myLine;
-
+    public float scrollSpeed;
     void Awake()
     {
         if (instance != null)
@@ -21,22 +21,33 @@ public class lineRendererScript : MonoBehaviour
     void Start()
     {
         myLine = GetComponent<LineRenderer>();
+        LineMat = myLine.material;
     }
 
+    Vector2 offset;
+    public void Update()
+    {
+        offset.x += Time.time*scrollSpeed;
+        LineMat.SetTextureOffset("_MainTex",offset);
+    }
 
     public void DrawLineRenderer()
     {
         myLine.positionCount = 0;
         int index = -1;
-        foreach (var item in GridManager.instance.ListOfMovement)
+        
+        myLine.positionCount = GridManager.instance.ListOfMovement.Count;
+
+        foreach (var item in GridManager.instance.Test)
         {
-            if (item.EventAssocier.OnGrid)
+            if (item.OnGrid)
             {
                 index++;
-                myLine.positionCount = GridManager.instance.ListOfMovement.Count;
                 myLine.SetPosition(index, item.transform.position);
             }
-            
         }
+
+        if (GridManager.instance.ListOfMovement.Count > 0 && myLine.GetPosition(myLine.positionCount-1) == Vector3.zero)
+            myLine.positionCount = myLine.positionCount - 1;
     }
 }

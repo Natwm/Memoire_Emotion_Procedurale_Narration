@@ -160,19 +160,21 @@ public class GameManager : MonoBehaviour
 
         if (isEntryConnected && isExitConnected && isKeyConnected)
         {
-            GridManager.instance.SortList();
+            
 
             if (entryGO != null && exitGO != null && keyGO != null)
             {
+                print("all Are Conected");
                 if (entryGO.GetComponent<Vignette_Behaviours>().OnGrid && exitGO.GetComponent<Vignette_Behaviours>().OnGrid && keyGO.GetComponent<Vignette_Behaviours>().OnGrid)
                 {
                     GameObject current = entryGO.GetComponent<Vignette_Behaviours>().gameObject;
+
+                    /*if (entryGO.GetComponent<Vignette_Behaviours>().NextMove == null)
+                        entryGO.GetComponent<Vignette_Behaviours>().CheckNextMove();*/
                     while (current!=null)
                     {
-                        print(current.gameObject.name);
                         if (current == entryGO || current == exitGO || current == keyGO)
                         {
-                            print("J'augmente  " + current.gameObject.name);
                             value++;
                         }
 
@@ -192,7 +194,7 @@ public class GameManager : MonoBehaviour
 
         if(GridManager.instance.ListOfMovement.Count > 0)
         {
-            GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
+            GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
 
             if (lastStep != null)
                 if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
@@ -236,7 +238,6 @@ public class GameManager : MonoBehaviour
 
         if (m_OrderCharacter.Count > 0)
         {
-            print("next");
             CreationManager.instance.LaunchGame();
         }
         else if(CreationManager.instance.listOfCharacter.Count > 0)
@@ -258,6 +259,7 @@ public class GameManager : MonoBehaviour
 
     public void ContinueAdventure()
     {
+        m_OrderCharacter.Clear();
         foreach (var item in m_WaitingCharacter)
         {
             m_OrderCharacter.Add(item);
@@ -269,6 +271,8 @@ public class GameManager : MonoBehaviour
             }
             
         }
+        m_WaitingCharacter.Clear();
+
         CanvasManager.instance.SetUpCharacterInfo();
         NextPlayer();
     }

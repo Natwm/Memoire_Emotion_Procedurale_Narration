@@ -21,9 +21,11 @@ public class EventGenerator : MonoBehaviour
     GameObject[] stamina;
     GameObject[] cartes;
     GameObject[] pvs;
-    
+
+    GameObject keyTile;
 
     public GameObject key;
+    public bool debug=false;
 
     GameObject entryTile;
     GameObject exitTile;
@@ -97,6 +99,7 @@ public class EventGenerator : MonoBehaviour
             EntryTile = GridManager.instance.ListOfTile[0]; 
             ExitTile = GridManager.instance.ListOfTile[GridManager.instance.ListOfTile.Count-1];
         }
+
         GameObject newEntry = Instantiate(doors[0], EntryTile.transform);
         newEntry.transform.localPosition = Vector3.zero;
         GameObject newExit = Instantiate(doors[1], ExitTile.transform);
@@ -108,8 +111,11 @@ public class EventGenerator : MonoBehaviour
 
     public void PopulateTiles(int iteration)
     {
-        ClearGrid();
-        DetermineDoors(false);
+        if (debug)
+        {
+            DetermineDoors(false);
+        }
+       // 
         foreach (GameObject item in occupiedTiles)
         {
             item.GetComponent<MeshRenderer>().material.color = Color.white;
@@ -119,33 +125,50 @@ public class EventGenerator : MonoBehaviour
         {
             occupiedTiles.Add(GetRandomClearTile());
         }
-        print("occupiedTiles.Count " + occupiedTiles.Count);
     }
 
+    public void DetermineKey()
+    {
+        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Count - 1);
+        GameObject keyObject = GridManager.instance.ListOfTile[randomInt];
+        keyObject.GetComponent<MeshRenderer>().material.color = Color.green;
+
+        keyTile = keyObject;
+        SpawnGraphics(key, keyTile);
+    }
 
     public GameObject GetRandomClearTile()
     {
-        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Capacity-1);
+        int randomInt = Random.Range(1, GridManager.instance.ListOfTile.Count-1);
         GameObject potentialTile = GridManager.instance.ListOfTile[randomInt];
-        if (potentialTile != ExitTile && potentialTile != EntryTile)
+        if (potentialTile != keyTile)
         {
-            foreach (GameObject item in occupiedTiles)
+            if (potentialTile != ExitTile && potentialTile != EntryTile)
             {
-                if (item == potentialTile)
+                foreach (GameObject item in occupiedTiles)
                 {
-                   // Debug.Log("Hit Already Occupied Tile : " + item.name);
+                    if (item == potentialTile)
+                    {
+                        // Debug.Log("Hit Already Occupied Tile : " + item.name);
 
-                    return GetRandomClearTile();
+                        return GetRandomClearTile();
+                    }
+                    
                 }
+            }
+            else
+            {
+                Debug.Log("Hit Door");
+                return GetRandomClearTile();
             }
         }
         else
         {
-            Debug.Log("Hit Door");
             return GetRandomClearTile();
         }
         potentialTile.GetComponent<MeshRenderer>().material.color = Color.yellow;
         return potentialTile;
+        
     }
 
     public void DetermineTileType()
@@ -153,7 +176,6 @@ public class EventGenerator : MonoBehaviour
         
         for (int i = 0; i < occupiedTiles.Count-2; i++)
         {
-            print("i =  " + i + "   " + occupiedTiles[i]);
             GameObject tmp = SpawnGraphics(DetermineEventType(occupiedTiles[i]), occupiedTiles[i]);
             allGraphics.Add(tmp);
         }
@@ -171,6 +193,11 @@ public class EventGenerator : MonoBehaviour
         return newGraphic;
     }
 
+    public CaseContener_SO DetermineTypeFromRoom(Room_So _roomTiles)
+    {
+        int RandomListIndex = Random.Range(0, _roomTiles.PossibleTiles.Count - 1);
+        return _roomTiles.PossibleTiles[RandomListIndex];
+    }
 
     ///RÉGLER LE BORDEL LA DEDANS
     public GameObject DetermineEventType(GameObject tileToModify)
@@ -185,6 +212,18 @@ public class EventGenerator : MonoBehaviour
         //Debug.Break();
         return tileType;
     }
+    
+    public void TempClearGrid()
+    {
+        //MESURES TEMPORAIRE ---- A CHANGER POUR AVOIR LA BONNE BOUCLE
+        // LA MÉTHODE DETRUIT JUSTE TOUTE LES DONNEES PRESENTES (TABLEAUX ET GAME OBJECTS)
+        ClearGrid();
+        GridManager.instance.ListOfTile.Clear();
+        foreach (Transform item in transform)
+        {
+            Destroy(item.gameObject);
+        }
+    }
 
     public void ClearGrid()
     {
@@ -195,10 +234,10 @@ public class EventGenerator : MonoBehaviour
             listToDestroy[i] = allGraphics[i];
         }
         allGraphics.Clear();
+        allGraphics.Capacity = 0;
 
         foreach (GameObject item in occupiedTiles)
         {
-            print("Item name destroyed = " + item.name);
             ElementBehaviours dest = item.GetComponent<ElementBehaviours>();
             Destroy(dest);
         }
@@ -235,9 +274,7 @@ public class EventGenerator : MonoBehaviour
             
             if (item.transform.childCount == 0)
             {
-                print(item.name + "item.transform.childCount == 0  = " + (item.transform.childCount == 0));
                 item.GetComponent<Case_Behaviours>().CaseEffects = null;
-                print(item.GetComponent<Case_Behaviours>().CaseEffects);
             }
         }
 

@@ -53,20 +53,12 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            foreach (var item in FindObjectsOfType<Vignette_Behaviours>())
-            {
-                print(item.name + " = " + item.NextMove);
-            }
-        }
     }
 
     public void SpawnObject()
     {
         Object[] listOfSO = Resources.LoadAll(Chemin, typeof(Carte_SO));
         int nbElement = listOfSO.Length;
-        print(nbElement);
         foreach (var item in listOfObjectToSpawn)
         {
             GameObject card = Instantiate(item, parent);
@@ -104,7 +96,6 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<Object_SO> inventory)
     {
-        print("okokokok");
         foreach (var item in inventory)
         {
             foreach (var toDraw in item.DrawParam)
@@ -124,6 +115,26 @@ public class LevelManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SpawnObject(Object_SO obj)
+    {
+            foreach (var toDraw in obj.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                    GameObject card = Instantiate(vignette, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, obj);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
+                }
+            }
     }
 
     public void SpawnObject(List<UsableObject> inventory)
@@ -167,15 +178,14 @@ public class LevelManager : MonoBehaviour
                     card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
                 }
             }
-        if (inventory.Count > 0)
+       /* if (inventory.Count > 0)
         {
             SpawnObject(PlayerManager.instance.InventoryObj);
-        }
+        }*/
     }
 
     public void SpawnNegatifObject(int amount = 1)
     {
-        print("spaqwn");
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
@@ -200,12 +210,10 @@ public class LevelManager : MonoBehaviour
     {
         if (ChangeNarrativeBranch()) 
         {
-            print("changement de branche");
             GridManager.instance.ClearScene();
         }
         else
         {
-            print("pas de changement");
             GridManager.instance.ClearScene();
         }
     }
@@ -222,8 +230,6 @@ public class LevelManager : MonoBehaviour
         nextCheck--;
         if(nextCheck <= 0)
         {
-            print("check");
-            print(CastingManager.instance.AllCharacters.Length);
             // vérifie si un des persos valide la condition
             foreach (Character item in CastingManager.instance.AllCharacters)
             {
@@ -231,11 +237,6 @@ public class LevelManager : MonoBehaviour
                 // check dans toutes les branches possible si il en existe au moins une de valide
                 foreach (var stepCondition in nextCondition)
                 {
-                    print(item.currentRole + "  " + stepCondition.RoleCondition + "   = " + (item.currentRole != stepCondition.RoleCondition));
-                    print(item.currentJauge+"  " + EmotionJauge.Jauge_PeurColere + "   = " + (item.currentJauge == EmotionJauge.Jauge_PeurColere));
-                    print(item.jaugeNumber + "  " + stepCondition.JaugeValueCondition + "   = " + (item.jaugeNumber == stepCondition.JaugeValueCondition));
-
-
                     if (item.currentRole != stepCondition.RoleCondition)
                         return false;
 
@@ -251,7 +252,6 @@ public class LevelManager : MonoBehaviour
                                 nextCheck = stepCondition.NextCheck; 
                                 nextCondition = stepCondition.NextMove;
                                 currentBranching = stepCondition;
-                                print("new branching is " + currentBranching.BranchName);
                                 return true;
                             }
 
@@ -266,7 +266,6 @@ public class LevelManager : MonoBehaviour
                                 nextCheck = stepCondition.NextCheck;
                                 nextCondition = stepCondition.NextMove;
                                 currentBranching = stepCondition;
-                                print("new branching is " + currentBranching.BranchName);
                                 return true;
                             }
  

@@ -24,7 +24,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private IModifier a;
 
     [SerializeField] private List<Vignette_Behaviours> test = new List<Vignette_Behaviours> ();
-
+    public bool debug;
     public List<TileElt_Behaviours> ListOfEvent { get => listOfEvent; set => listOfEvent = value; }
     public List<GameObject> ListOfTile { get => listOfTile; set => listOfTile = value; }
     public List<TileElt_Behaviours> ListOfMovement { get => listOfMovement; set => listOfMovement = value; }
@@ -54,14 +54,47 @@ public class GridManager : MonoBehaviour
         {
             ListOfTile2D.Add(new List<GameObject>());
         }
-
-        CreateTerrain();
+        if (!debug)
+        {
+            CreateTerrain();
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
     }
+
+    public void CreateTerrainWithParam(Vector2 _parameters)
+    {
+        int index = 0;
+        for (int i = 0; i < _parameters.x; i++)
+        {
+            ListOfTile2D.Add(new List<GameObject>());
+        }
+        for (int x = 0; x < _parameters.x; x++)
+        {
+            for (int y = 0; y < _parameters.y; y++)
+            {
+                GameObject tile = Instantiate(m_TilesPrefabs, new Vector3(y, -x, -.5f) * 1.2f * m_Size, Quaternion.identity, this.transform);
+                tile.transform.localScale *= m_Size;
+
+                ListOfTile2D[x].Add(tile);
+
+                TileElt_Behaviours tileBehaviours = tile.GetComponent<TileElt_Behaviours>();
+                tileBehaviours.Tileposition = new Vector2(x, y);
+                tileBehaviours.Index = index;
+
+                tile.name += tile.transform.position.ToString();
+
+                index++;
+                ListOfTile.Add(tile);
+            }
+        }
+        //m_EventGenerator.GenerateGrid();
+    }
+
 
     void CreateTerrain()
     {
@@ -262,7 +295,12 @@ public class GridManager : MonoBehaviour
             }
         }
         test.Clear();
-        test = listOfVignetteMovement;
+
+        foreach (var item in listOfVignetteMovement)
+        {
+            if(item.OnGrid)
+                test.Add(item);
+        }
         /*foreach (var item in listOfVignetteMovement)
         {
             print(item);

@@ -55,7 +55,13 @@ public class PlayerManager : MonoBehaviour, IDamageable
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
+    [Space]
+    [Header("Sound Fmod Action")]
+    FMOD.Studio.EventInstance mentalDamageEffect;
+    [FMODUnity.EventRef] [SerializeField] private string mentalDamageSound;
 
+    FMOD.Studio.EventInstance bigMentalDamageEffect;
+    [FMODUnity.EventRef] [SerializeField] private string bigMentalDamageSound;
 
     //fairesantémental.
     void Awake()
@@ -75,8 +81,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         amountOfCardToDraw = minCardToDraw;
 
-        visitedVignette = new List<Vignette_Behaviours>();
-
+        VisitedVignette = new List<Vignette_Behaviours>();
+        SetUpsound();
         //CanvasManager.instance.UpdateInformationText(player_Happy_SadValue, player_Angry_FearValue, amountOfCardToDraw);
 
     }
@@ -87,6 +93,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
         
     }
 
+    private void SetUpsound()
+    {
+        mentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(mentalDamageSound);
+        bigMentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(bigMentalDamageSound);
+    }
 
     public void SetUp()
     {
@@ -183,7 +194,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void MoveToAnotherStep()
     {
-        print(GridManager.instance.ListOfMovement.Count);
         if(GridManager.instance.ListOfMovement.Count >0)
             StartCoroutine(MoveToLocationByVignette());
         else
@@ -238,9 +248,9 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
         newPosition.Set(newPosition.x, newPosition.y, -5f);
 
-        if (!visitedVignette.Contains(targetedVignette))
+        if (!VisitedVignette.Contains(targetedVignette))
         {
-            visitedVignette.Add(targetedVignette);
+            VisitedVignette.Add(targetedVignette);
             this.transform.DOMove(newPosition, 1f);
 
             CanvasManager.instance.NewLogEntry("");
@@ -314,6 +324,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
             CanvasManager.instance.PlayerWinTheGame(CharacterData);
         }
         UpdatePlayerContener();
+        lineRendererScript.instance.DrawLineRenderer();
     }
 
     #endregion
@@ -322,6 +333,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         characterContener.Life = health;
         characterContener.Endurance = Endurance;
+        characterContener.MentalHealth = MentalHealth;
         characterContener.Inventory.Clear();
 
         foreach (var item in Inventory)
@@ -389,6 +401,11 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void ReduceMentalPlayer(int amountOfHeal)
     {
+        if (amountOfHeal > 1)
+            bigMentalDamageEffect.start();
+        else
+            mentalDamageEffect.start();
+
         MentalHealth -= amountOfHeal;
         if (MentalHealth < 0)
             MentalHealth = 0;
@@ -502,6 +519,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     public void ApplyCurseOnObject()
     {
+        CanvasManager.instance.MoveButton.interactable = false;
         StartCoroutine(ApplyCurseOnEachObject());
     }
 
@@ -523,5 +541,6 @@ public class PlayerManager : MonoBehaviour, IDamageable
     public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
     public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
     public List<UsableObject> InventoryObj { get => m_InventoryObj; set => m_InventoryObj = value; }
+    public List<Vignette_Behaviours> VisitedVignette { get => visitedVignette; set => visitedVignette = value; }
     #endregion
 }

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: Dark_Room_1
+  m_EditorClassIdentifier: 
+  m_RoomName: Dark Room
+  m_Roomsize: {x: 5, y: 3}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
+  - {fileID: 11400000, guid: d25d424e916afe44988c89f020e1d4dc, type: 2}
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 7d06bddc457650e44ab1bd6629e21e69, type: 2}
+  m_Object_Distribution: 5
+  m_Effect_Of_Room: 1
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 5125dcb2c35077846bf90889147a7cf1, type: 2}
+    m_ExitText: 
+  - m_ExitFromRoom: {fileID: 11400000, guid: 6910c5e9d4933c24296add7cae42ab58, type: 2}
+    m_ExitText: 
+  m_IntroText: 
+  m_OutroText: 

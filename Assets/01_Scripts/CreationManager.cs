@@ -101,7 +101,6 @@ public class CreationManager : MonoBehaviour
         listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
         listOfCharacter[0].SetUpColor();
 
-        print(FindObjectsOfType<PenObject>().Length);
         foreach (var item in FindObjectsOfType<PenObject>())
         {
             item.GetComponent<Button>().interactable = true;
@@ -143,7 +142,6 @@ public class CreationManager : MonoBehaviour
 
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
-            print("pomme");
             SelectPlayer(tempButton.GetComponent<Character_Button>());
             buttonScript.PlaySelectedMusique();
         });
@@ -424,15 +422,27 @@ public class CreationManager : MonoBehaviour
         foreach (var item in listOfCharacter)
         {
             int index = -1;
-            foreach (var obj in item.InventoryObj)
+            if (item.InventoryObj.Count > 0) 
             {
-                index++;
-                obj.gameObject.transform.parent = pulledObject.transform;
-                Destroy(item.InventoryPanel.transform.GetChild(index).gameObject);
+                foreach (var obj in item.InventoryObj)
+                {
+                    index++;
+                    obj.gameObject.transform.parent = pulledObject.transform;
+                    Destroy(item.InventoryPanel.transform.GetChild(index).gameObject);
+                }
             }
+            
             item.Inventory.Clear();
             item.InventoryObj.Clear();
         }
+    }
+
+    public void SetUpAllCharacter()
+    {
+        foreach (var item in listOfCharacter)
+        {
+            item.SetUpCharacterUI();
+        }    
     }
 
     public void RepartitionObject()
@@ -441,8 +451,6 @@ public class CreationManager : MonoBehaviour
         {
             CreatePlayerInventory(item);
         }
-        print("objectListHolder.transform.childCount" + objectListHolder.transform.childCount);
-
         
         GlobalInventory.Clear();
         GlobalInventoryObj.Clear();
@@ -680,11 +688,11 @@ public class CreationManager : MonoBehaviour
         selectedPlayer = player;
 
 
-        foreach (var item in FindObjectsOfType<PenObject>())
+        /*foreach (var item in FindObjectsOfType<PenObject>())
         {
             item.GetComponent<Button>().interactable = true;
             item.InitButton();
-        }
+        }*/
     }
 
     public void LaunchGame()
@@ -697,6 +705,7 @@ public class CreationManager : MonoBehaviour
         }
         PlayerManager.instance.Inventory.Clear();
         PlayerManager.instance.InventoryObj.Clear();
+        PlayerManager.instance.VisitedVignette.Clear();
 
         if (PlayerManager.instance.CharacterData != null)
         {

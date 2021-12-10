@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df9da9c65239a648a8eaf1033a89d8b, type: 3}
+  m_Name: RetourNego
+  m_EditorClassIdentifier: 
+  caseName: Rentrer
+  anyVignette: 1
+  useSpecifiqueObject: 0
+  isEchecResult: 0
+  objectsRequired: 
+  specifiqueObject: {fileID: 0}
+  result: 0
+  echecResult: 0
+  TileObject: {fileID: 0}
+  doLock: 0

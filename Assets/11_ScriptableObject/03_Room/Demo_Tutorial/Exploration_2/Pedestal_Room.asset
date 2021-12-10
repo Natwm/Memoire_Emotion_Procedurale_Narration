@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: Pedestal_Room
+  m_EditorClassIdentifier: 
+  m_RoomName: Pedestal Room
+  m_Roomsize: {x: 5, y: 5}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: f65b0c2235d09ea4aa7c63bfa66828f4, type: 2}
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 56923a118452d5641998e11b34a859f8, type: 2}
+  m_Object_Distribution: 5
+  m_Effect_Of_Room: 0
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 2ef1d2b7a624d9a459447e0bc02f614a, type: 2}
+    m_ExitText: 
+  m_IntroText: 
+  m_OutroText: 

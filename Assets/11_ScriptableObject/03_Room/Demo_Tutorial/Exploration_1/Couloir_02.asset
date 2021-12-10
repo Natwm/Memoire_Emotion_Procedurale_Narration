@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: Couloir_02
+  m_EditorClassIdentifier: 
+  m_RoomName: Couloir
+  m_Roomsize: {x: 2, y: 6}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: 0a8e613a97305764abef479f01e916df, type: 2}
+  - {fileID: 11400000, guid: f65b0c2235d09ea4aa7c63bfa66828f4, type: 2}
+  m_garanteedObjects: []
+  m_Object_Distribution: 5
+  m_Effect_Of_Room: 1
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 4bbeda977c2a27247b120a273bc545c2, type: 2}
+    m_ExitText: Ouvrir la porte, et entrer.
+  m_IntroText: "Mis \xE0 part la faible lumi\xE8re provenant de la porte du hall,
+    l'enti\xE8ret\xE9 du couloir est plong\xE9e dans l'obscurit\xE9. Le groupe d\xE9cide
+    continuer \xE0 avancer, \xE0 l'aveugle, dans le couloir. //NOTE : Le couloir
+    est rempli de cases combat, et de cases mal\xE9dictions, qui sont invisibles
+    //"
+  m_OutroText: "Au bout d'un temps qui para\xEEt interminable, le groupe arrive au
+    bout du couloir. L'un des membre parvient \xE0 discerner la poign\xE9e d'une
+    porte. "

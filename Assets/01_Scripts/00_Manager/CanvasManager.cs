@@ -67,6 +67,7 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Button")]
     [SerializeField] private Button moveButton;
+    [SerializeField] private Button distribuerButton;
 
     [Space]
     [Header("Prefabs")]
@@ -93,6 +94,7 @@ public class CanvasManager : MonoBehaviour
     public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
     public TMP_Text NegociationText { get => negociationText; set => negociationText = value; }
     public TMP_Text NegociationModificationText { get => negociationModificationText; set => negociationModificationText = value; }
+    public Button MoveButton { get => moveButton; set => moveButton = value; }
 
     void Awake()
     {
@@ -123,11 +125,11 @@ public class CanvasManager : MonoBehaviour
     public void SetActiveMoveButton(bool activeObject)
     {
         if (activeObject)
-            moveButton.gameObject.GetComponent<Image>().color = Color.green;
+            MoveButton.gameObject.GetComponent<Image>().color = Color.green;
         else
-            moveButton.gameObject.GetComponent<Image>().color = Color.red;
+            MoveButton.gameObject.GetComponent<Image>().color = Color.red;
 
-        moveButton.interactable = activeObject;
+        MoveButton.interactable = activeObject;
     }
 
     public void SetSelectedPen()
@@ -344,6 +346,24 @@ public class CanvasManager : MonoBehaviour
     #endregion
 
 
+    public void DisablePenObj()
+    {
+        foreach (var item in FindObjectsOfType<PenObject>())
+        {
+            item.GetComponent<Button>().interactable = false;
+            item.DisableInteraction();
+        }
+    }
+
+    public void EnablePenObj()
+    {
+        foreach (var item in FindObjectsOfType<PenObject>())
+        {
+            item.GetComponent<Button>().interactable = true;
+            item.EnableInteraction();
+        }
+    }
+
     public void SetUpLevelIndicator()
     {
         levelInfo.text = LevelManager.instance.PageInventory.Count +" / " + LevelManager.instance.AmountOfLevelInventory;
@@ -401,10 +421,14 @@ public class CanvasManager : MonoBehaviour
         {
             CreationManager.instance.GlobalInventory.Add(item.Data);
         }*/
+        
         CreationManager.instance.PutAllObjectInInventory();
         CreationManager.instance.CreateObjectListFromUsableObject();
+        CreationManager.instance.SetUpAllCharacter();
         GamePanel1.SetActive(false);
         CreatePanel1.SetActive(true);
+        distribuerButton.gameObject.SetActive(true);
+        EnablePenObj();
 
     }
 

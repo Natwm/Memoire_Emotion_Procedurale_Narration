@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   caseName: Armoire
   anyVignette: 1
-  objectsRequired: 
+  useSpecifiqueObject: 0
+  isEchecResult: 0
+  objectsRequired: 00000000
+  specifiqueObject: {fileID: 0}
   result: 1
+  echecResult: 0
+  TileObject: {fileID: 8933427331047666015, guid: 6aa1ec017de89704fb782162df125615,
+    type: 3}
