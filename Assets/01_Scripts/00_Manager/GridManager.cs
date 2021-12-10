@@ -56,7 +56,7 @@ public class GridManager : MonoBehaviour
         }
         if (!debug)
         {
-            CreateTerrain();
+            //CreateTerrain();
         }
         
     }
@@ -68,6 +68,7 @@ public class GridManager : MonoBehaviour
 
     public void CreateTerrainWithParam(Vector2 _parameters)
     {
+        
         int index = 0;
         for (int i = 0; i < _parameters.x; i++)
         {
@@ -98,6 +99,7 @@ public class GridManager : MonoBehaviour
 
     void CreateTerrain()
     {
+        
         int index = 0;
         for (int x = 0; x < GridSize.x; x++)
         {
@@ -354,11 +356,11 @@ public class GridManager : MonoBehaviour
 
         PlayerManager.instance.HandOfVignette.Clear();
         //PlayerManager.instance.SetUp();
-        if (!CanvasManager.instance.CreatePanel1.activeSelf)
-        {
-            //m_EventGenerator.GenerateGrid();
-            LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
-        }
+        /* if (!CanvasManager.instance.CreatePanel1.activeSelf)
+         {
+             //m_EventGenerator.GenerateGrid();
+             //LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
+         }*/
 
         CanvasManager.instance.UpdatePageIndicator();
 

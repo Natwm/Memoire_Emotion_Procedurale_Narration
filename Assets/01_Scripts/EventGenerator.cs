@@ -22,7 +22,7 @@ public class EventGenerator : MonoBehaviour
     GameObject[] cartes;
     GameObject[] pvs;
 
-    GameObject keyTile;
+    public GameObject keyTile;
 
     public GameObject key;
     public bool debug=false;
@@ -224,7 +224,7 @@ public class EventGenerator : MonoBehaviour
         GameManager.instance.NextPlayer();
         GridManager.instance.ClearGame();
         lineRendererScript.instance.DrawLineRenderer();
-
+        CanvasManager.instance.ResetGamePanelUI();
 
         foreach (Transform item in transform)
         {
@@ -275,7 +275,7 @@ public class EventGenerator : MonoBehaviour
     {
         PopulateTiles(tilenumber);
         DetermineTileType();
-
+        
         foreach (GameObject item in GridManager.instance.ListOfTile)
         {
             

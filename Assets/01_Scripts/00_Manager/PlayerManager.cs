@@ -316,13 +316,14 @@ public class PlayerManager : MonoBehaviour, IDamageable
             print("nope Death");
             //DebugManager.instance.ReloadScene();
             StopAllCoroutines();
-            CanvasManager.instance.PlayerLooseTheGame(CharacterData);
+            //CanvasManager.instance.PlayerLooseTheGame(CharacterData);
         }
         else
         {
             //GridManager.instance.ClearScene();
-            CanvasManager.instance.PlayerWinTheGame(CharacterData);
+            //CanvasManager.instance.PlayerWinTheGame(CharacterData);
         }
+        RoomGenerator.instance.OnRoomCompletion();
         UpdatePlayerContener();
         lineRendererScript.instance.DrawLineRenderer();
     }

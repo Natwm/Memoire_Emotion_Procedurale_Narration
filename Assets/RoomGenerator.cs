@@ -42,6 +42,11 @@ public class RoomGenerator : MonoBehaviour
         InitializeToCanvas();
     }
 
+    public void Start()
+    {
+       
+    }
+
     public void InitializeToCanvas()
     {
         RoomPanel.transform.parent = GameObject.Find("Canvas").transform;
@@ -63,7 +68,8 @@ public class RoomGenerator : MonoBehaviour
     public void GenerateRoom(Room_So RoomToCreate)
     {
         int distribution = (RoomToCreate.Room_Size.x * RoomToCreate.Room_Size.y) / 3;
-        
+        GridManager.instance.ListOfTile.Clear();
+        GridManager.instance.ListOfTile2D.Clear();
         GridManager.instance.CreateTerrainWithParam(RoomToCreate.Room_Size);
         EventGenerator.instance.DetermineDoors(false);
         EventGenerator.instance.DetermineKey();
@@ -76,7 +82,7 @@ public class RoomGenerator : MonoBehaviour
         foreach (CaseContener_SO item in RoomToCreate.GaranteedTiles)
         {
             GameObject newcase = EventGenerator.instance.GetRandomClearTile();
-            Debug.Log("Garanteed " + newcase.name);
+            
             if (newcase.GetComponent<Case_Behaviours>().CaseEffects == null)
             {
                 newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
@@ -88,6 +94,7 @@ public class RoomGenerator : MonoBehaviour
             }
         }
         RoomToCreate.ApplyEffect();
+        LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
     }
 
     public void FadeIn()
@@ -143,7 +150,10 @@ public class RoomGenerator : MonoBehaviour
 
     public void InitialiseGame()
     {
-        PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
+        CreationManager.instance.StartPull();
+        
+        //PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
+        Debug.Log(CreationManager.instance.listOfCharacter.Count);
         if (PlayerManager.instance.CharacterData != null)
         {
             //SET UP CHARA
@@ -151,13 +161,11 @@ public class RoomGenerator : MonoBehaviour
             CanvasManager.instance.SetUpGamePanel();
 
             //SET WAITING LIST
-            GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
-            GameManager.instance.OrderCharacter.RemoveAt(0);
-            CanvasManager.instance.SetUpCharacterInfo();
+           
 
             //SET NARRATION
             InitialiseRoomToUi(CurrentRoom);
-            GenerateRoom(CurrentRoom);
+            //GenerateRoom(CurrentRoom);
         }
     }
 

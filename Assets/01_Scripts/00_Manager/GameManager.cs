@@ -151,8 +151,8 @@ public class GameManager : MonoBehaviour
         if (eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
             exitGO = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
-        if (eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier != null)
-            keyGO = eventgenerator.occupiedTiles[eventgenerator.occupiedTiles.Count - 1].GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
+        if (eventgenerator.keyTile.GetComponent<TileElt_Behaviours>().EventAssocier != null)
+            keyGO = eventgenerator.keyTile.GetComponent<TileElt_Behaviours>().EventAssocier.gameObject;
 
         bool isEntryConnected = eventgenerator.EntryTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;
         bool isExitConnected = eventgenerator.ExitTile.GetComponent<TileElt_Behaviours>().EventAssocier != null;

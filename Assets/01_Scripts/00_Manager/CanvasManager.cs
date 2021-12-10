@@ -376,8 +376,8 @@ public class CanvasManager : MonoBehaviour
         SelectedCharacterPanel.SetActive(true);
         WaitingCharacterPanel.SetActive(true);
 
-        GridManager.instance.ClearScene();
-        EventGenerator.instance.GenerateGrid();
+       // GridManager.instance.ClearScene();
+        //EventGenerator.instance.GenerateGrid();
 
         grid.SetActive(true);
         //LevelManager.instance.SpawnObject(PlayerManager.instance.Inventory);

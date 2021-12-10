@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Character_Button : MonoBehaviour,IPointerDownHandler
+public class Character_Button : MonoBehaviour, IPointerDownHandler
 {
     #region Param
     private bool m_IsSelected = false;
@@ -143,14 +143,19 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
     public void SetUpInventoryUI()
     {
         List<GameObject> toRemove = new List<GameObject>();
-        for (int i = 0; i < InventoryPanel.transform.childCount; i++)
+        if (InventoryPanel.transform.childCount>0)
         {
-            toRemove.Add(InventoryPanel.transform.GetChild(i).gameObject);
-        }
 
-        foreach (var item in toRemove)
-        {
-            Destroy(item);
+
+            for (int i = 0; i < InventoryPanel.transform.childCount; i++)
+            {
+                toRemove.Add(InventoryPanel.transform.GetChild(i).gameObject);
+            }
+
+            foreach (var item in toRemove)
+            {
+                Destroy(item);
+            }
         }
         int index = -1;
         foreach (var item in m_Inventory)
@@ -167,7 +172,7 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
             {
                 tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
             }
-                
+
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
         }
     }
@@ -178,16 +183,16 @@ public class Character_Button : MonoBehaviour,IPointerDownHandler
         CharacterHurtEffect = FMODUnity.RuntimeManager.CreateInstance(CharacterHurtSound);
     }
 
-   /* public void SelectPlayer()
-    {
-        foreach (var item in FindObjectsOfType<Character_Button>())
-        {
-            item.GetComponent<Button>().image.color = Color.white;
-            item.IsSelected = false;
-        }
-        IsSelected = true;
-        GetComponent<Button>().image.color = Color.red;
-    }*/
+    /* public void SelectPlayer()
+     {
+         foreach (var item in FindObjectsOfType<Character_Button>())
+         {
+             item.GetComponent<Button>().image.color = Color.white;
+             item.IsSelected = false;
+         }
+         IsSelected = true;
+         GetComponent<Button>().image.color = Color.red;
+     }*/
 
     public void SelectPlayer()
     {

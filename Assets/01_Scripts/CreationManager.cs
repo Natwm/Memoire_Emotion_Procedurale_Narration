@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[DefaultExecutionOrder(0)]
 public class CreationManager : MonoBehaviour
 {
     public enum m_PenStatus
@@ -95,7 +96,7 @@ public class CreationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PageCharacterList = CreateCharacterList(2);
+        PageCharacterList = CreateCharacterList(4);
         CreateObjectList();
 
         listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
@@ -106,6 +107,8 @@ public class CreationManager : MonoBehaviour
             item.GetComponent<Button>().interactable = true;
             item.InitButton();
         }
+
+        RoomGenerator.instance.InitialiseGame();
     }
 
     // Update is called once per frame
@@ -117,7 +120,7 @@ public class CreationManager : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.A))
         {
-            CreateVignette();
+           // CreateVignette();
         }
     }
     #endregion
@@ -697,6 +700,7 @@ public class CreationManager : MonoBehaviour
 
     public void LaunchGame()
     {
+        print("FAKE NEWS");
         PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
         foreach (var item in GlobalInventory)
         {
@@ -733,24 +737,32 @@ public class CreationManager : MonoBehaviour
         foreach (var item in listOfCharacter)
         {
             GameManager.instance.OrderCharacter.Add(item);
+            print(item.name);
         }
         NextCharacter();
     }
 
     public void NextCharacter()
     {
+        int index = 0;
         bool can = true;
         foreach (var item in listOfCharacter)
         {
-            if (item.Inventory.Count == 0 && GlobalInventory.Count >= 0)
+            if (item.Inventory.Count == 0) {
+                index++;
                 can = false;
+            }
         }
         if (can)
             LaunchGame();
-        else
+        else if(index<4)
         {
             RepartitionObject();
             NextCharacter();
+        }
+        else
+        {
+            LaunchGame();
         }
 
     }
