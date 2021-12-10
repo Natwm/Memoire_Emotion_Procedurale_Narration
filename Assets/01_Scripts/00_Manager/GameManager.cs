@@ -173,7 +173,17 @@ public class GameManager : MonoBehaviour
                         entryGO.GetComponent<Vignette_Behaviours>().CheckNextMove();*/
                     while (current!=null)
                     {
-                        if (current == entryGO || current == exitGO || current == keyGO)
+                        if (current == entryGO )
+                        {
+                            value++;
+                        }
+
+                        if (current == exitGO)
+                        {
+                            value++;
+                        }
+
+                        if (current == keyGO)
                         {
                             value++;
                         }
@@ -192,14 +202,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(GridManager.instance.ListOfMovement.Count > 0)
+        /*if(GridManager.instance.ListOfMovement.Count > 0)
         {
             GameObject lastStep = GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier != null ? GridManager.instance.ListOfMovement[GridManager.instance.ListOfMovement.Count - 1].EventAssocier.gameObject : null; ;
 
             if (lastStep != null)
                 if (lastStep == entryGO || lastStep == exitGO || lastStep == keyGO)
                     value++;
-        }
+        }*/
         
 
         if (value >= 3)

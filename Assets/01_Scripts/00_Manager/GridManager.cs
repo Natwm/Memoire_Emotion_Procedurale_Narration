@@ -93,6 +93,7 @@ public class GridManager : MonoBehaviour
                 ListOfTile.Add(tile);
             }
         }
+        GridSize = _parameters;
         //m_EventGenerator.GenerateGrid();
     }
 
