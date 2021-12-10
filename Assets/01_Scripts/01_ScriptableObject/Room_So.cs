@@ -88,6 +88,9 @@ public class Room_So : ScriptableObject
                         Destroy(item.gameObject);
                     }
                     LevelManager.instance.PageInventory = new List<UsableObject>();
+
+                    GameManager.instance.OrderCharacter.Clear();
+                    GameManager.instance.WaitingCharacter.Clear();
                     break;
                 }
         }
