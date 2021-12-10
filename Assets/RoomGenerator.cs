@@ -67,34 +67,39 @@ public class RoomGenerator : MonoBehaviour
 
     public void GenerateRoom(Room_So RoomToCreate)
     {
-        int distribution = (RoomToCreate.Room_Size.x * RoomToCreate.Room_Size.y) / 3;
-        GridManager.instance.ListOfTile.Clear();
-        GridManager.instance.ListOfTile2D.Clear();
-        GridManager.instance.CreateTerrainWithParam(RoomToCreate.Room_Size);
-        EventGenerator.instance.DetermineDoors(false);
-        EventGenerator.instance.DetermineKey();
-        EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
-        foreach (GameObject item in EventGenerator.instance.occupiedTiles)
+        if (RoomToCreate.Effect_Of_Room != Room_So.CustomEffect.NEGO)
         {
-           int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count - 1);
-            item.GetComponent<Case_Behaviours>().CaseEffects = RoomToCreate.PossibleTiles[randomInt].SpawnAsset(item);
-        }
-        foreach (CaseContener_SO item in RoomToCreate.GaranteedTiles)
-        {
-            GameObject newcase = EventGenerator.instance.GetRandomClearTile();
-            
-            if (newcase.GetComponent<Case_Behaviours>().CaseEffects == null)
+            int distribution = (RoomToCreate.Room_Size.x * RoomToCreate.Room_Size.y) / 3;
+            GridManager.instance.ListOfTile.Clear();
+            GridManager.instance.ListOfTile2D.Clear();
+            GridManager.instance.CreateTerrainWithParam(RoomToCreate.Room_Size);
+            EventGenerator.instance.DetermineDoors(false);
+            EventGenerator.instance.DetermineKey();
+            EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
+            foreach (GameObject item in EventGenerator.instance.occupiedTiles)
             {
-                newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
+                int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count - 1);
+                item.GetComponent<Case_Behaviours>().CaseEffects = RoomToCreate.PossibleTiles[randomInt].SpawnAsset(item);
             }
-            else
+            foreach (CaseContener_SO item in RoomToCreate.GaranteedTiles)
             {
-                Destroy(newcase.transform.GetChild(0).gameObject);
-                newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
+                GameObject newcase = EventGenerator.instance.GetRandomClearTile();
+
+                if (newcase.GetComponent<Case_Behaviours>().CaseEffects == null)
+                {
+                    newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
+                }
+                else
+                {
+                    Destroy(newcase.transform.GetChild(0).gameObject);
+                    newcase.GetComponent<Case_Behaviours>().CaseEffects = item.SpawnAsset(newcase);
+                }
             }
+            LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
         }
+        
         RoomToCreate.ApplyEffect();
-        LevelManager.instance.SpawnObject(PlayerManager.instance.CharacterData.BaseHand);
+        
     }
 
     public void FadeIn()

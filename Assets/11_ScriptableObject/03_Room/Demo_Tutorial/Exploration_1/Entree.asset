@@ -17,10 +17,13 @@ MonoBehaviour:
   m_possibleObjects: []
   m_garanteedObjects: []
   m_Object_Distribution: 0
+  m_Effect_Of_Room: 0
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 74b77edef307eb445867e49ffcae25a9, type: 2}
     m_ExitText: "Le groupe d\xE9cide de traverser la porte, et de s'enfoncer plus
       profond\xE9ment dans le manoir."
+  - m_ExitFromRoom: {fileID: 11400000, guid: 2242ae6113d26d0439bd5dac2bbe0333, type: 2}
+    m_ExitText: "Skip to n\xE9gociation"
   m_IntroText: "Vous entendez les portes se refermer brutalement derri\xE8re vous.
     Il n'est plus possible de faire demi-tour maintenant. Une fois que tout le monde
     \xE0 repris ses esprits, vous d\xE9cidez de progresser dans la pi\xE8ce qui se

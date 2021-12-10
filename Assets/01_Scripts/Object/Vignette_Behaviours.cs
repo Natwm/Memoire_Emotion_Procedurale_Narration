@@ -439,6 +439,7 @@ public void ApplyVignetteEffect()
         //CanvasManager.instance.ClearLevelInventory();
         LevelManager.instance.PageInventory = new List<UsableObject>();
         CanvasManager.instance.SetUpLevelIndicator();
+        GameObject.Find("Feedback_Stockage").GetComponent<Inventaire_Feedback>().PlayStockageFeedback();
     }
 
     public void FightEffect()

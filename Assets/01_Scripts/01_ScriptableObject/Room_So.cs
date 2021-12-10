@@ -28,7 +28,8 @@ public class Room_So : ScriptableObject
     public enum CustomEffect
     {
         NONE,
-        DARK
+        DARK,
+        NEGO
 
     }
 
@@ -76,6 +77,18 @@ public class Room_So : ScriptableObject
                  }
                     
                  break;
+                }
+            case CustomEffect.NEGO:
+                {
+                    CreationManager.instance.ResetNegociationTime();
+                    CanvasManager.instance.SetUpCreationPanel();
+
+                    foreach (var item in LevelManager.instance.PageInventory)
+                    {
+                        Destroy(item.gameObject);
+                    }
+                    LevelManager.instance.PageInventory = new List<UsableObject>();
+                    break;
                 }
         }
     }
