@@ -295,6 +295,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c9e220a540b0cb4e8c3ee8e774055e7, type: 3}
+--- !u!1 &322453193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 545347240, guid: e2ef0f212a3701a44be3b3466b05fd62,
+    type: 3}
+  m_PrefabInstance: {fileID: 4861438487459282128}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &351358660 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7115270374395424486, guid: 3092482a2d340574a8a0c88512e87f55,
@@ -317,7 +323,7 @@ PrefabInstance:
     - target: {fileID: 1299286321755509712, guid: 3092482a2d340574a8a0c88512e87f55,
         type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299286321755509712, guid: 3092482a2d340574a8a0c88512e87f55,
         type: 3}
@@ -820,6 +826,11 @@ PrefabInstance:
     - target: {fileID: 9046827260490077027, guid: 3092482a2d340574a8a0c88512e87f55,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046827260490077028, guid: 3092482a2d340574a8a0c88512e87f55,
+        type: 3}
+      propertyPath: debug
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9046827260490077028, guid: 3092482a2d340574a8a0c88512e87f55,
@@ -1627,6 +1638,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 522491765, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.5956726
+      objectReference: {fileID: 0}
     - target: {fileID: 545347242, guid: e2ef0f212a3701a44be3b3466b05fd62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1938,6 +1953,11 @@ PrefabInstance:
       propertyPath: grid
       value: 
       objectReference: {fileID: 111309286}
+    - target: {fileID: 7994139361478528807, guid: e2ef0f212a3701a44be3b3466b05fd62,
+        type: 3}
+      propertyPath: drawButton
+      value: 
+      objectReference: {fileID: 322453193}
     - target: {fileID: 8545000747992890730, guid: e2ef0f212a3701a44be3b3466b05fd62,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

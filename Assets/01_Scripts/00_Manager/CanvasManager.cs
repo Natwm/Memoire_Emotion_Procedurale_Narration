@@ -27,6 +27,7 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("ButtonList")]
     [SerializeField] private GameObject PenPanel;
+    [SerializeField] private GameObject drawButton;
 
     [Space]
     [Header("Information Panel")]
@@ -374,8 +375,10 @@ public class CanvasManager : MonoBehaviour
         CreatePanel1.SetActive(false);
         SelectedCharacterPanel.SetActive(true);
         WaitingCharacterPanel.SetActive(true);
+
         GridManager.instance.ClearScene();
         EventGenerator.instance.GenerateGrid();
+
         grid.SetActive(true);
         //LevelManager.instance.SpawnObject(PlayerManager.instance.Inventory);
         //SetUpCharacterInfo();
@@ -438,5 +441,12 @@ public class CanvasManager : MonoBehaviour
 
         playerUI.LifeText.text = "<sprite=0> " + PlayerManager.instance.Health.ToString();
         playerUI.MentalLifeText.text = "<sprite=2> " + PlayerManager.instance.MentalHealth.ToString();
+    }
+
+    public void ResetGamePanelUI()
+    {
+        LevelInventoryPanel.SetActive(true);
+        moveButton.interactable = true;
+        drawButton.SetActive(true);
     }
 }
