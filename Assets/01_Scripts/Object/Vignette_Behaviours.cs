@@ -138,6 +138,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
 
     public bool a = false;
+
+    [SerializeField] private Animation_Feedback animation_Feedback;
     // Start is called before the first frame update
     void Start()
     {
@@ -545,7 +547,11 @@ public void ApplyVignetteEffect()
             foreach (var condition in ListOfCaseEventObject)
             {
                 if (condition.DoLock)
+                {
                     this.m_IsLock = true;
+                    animation_Feedback.PlayLock();
+                }
+                    
 
                 if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
                 {
@@ -1200,7 +1206,8 @@ public void ApplyVignetteEffect()
                 curseText = GetCurseName(objectFrom);
             }
         }
-        
+
+        animation_Feedback.PlayTransformation();
 
         categorieText.text = GetEnumName() + curseText;
         SetUpUI();
@@ -1208,6 +1215,10 @@ public void ApplyVignetteEffect()
 
     public void ResetVignette()
     {
+        bool isChange = false;
+        if (currentCategorie != initCategorie)
+            isChange = true;
+
         currentCategorie = initCategorie;
         curseText = "";
         if(objectFrom != null)
@@ -1220,6 +1231,9 @@ public void ApplyVignetteEffect()
         }
         
         categorieText.text = GetEnumName() + curseText;
+
+        if(isChange)
+            animation_Feedback.PlayTransformation();
 
         SetUpUI();
     }
