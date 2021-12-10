@@ -138,6 +138,27 @@ public class RoomGenerator : MonoBehaviour
         {
             CreateExitButton(Room.PossibleExits[i]);
         }
+        
+    }
+
+    public void InitialiseGame()
+    {
+        PlayerManager.instance.CharacterData = GameManager.instance.OrderCharacter[0].AssignedElement;
+        if (PlayerManager.instance.CharacterData != null)
+        {
+            //SET UP CHARA
+            PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
+            CanvasManager.instance.SetUpGamePanel();
+
+            //SET WAITING LIST
+            GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
+            GameManager.instance.OrderCharacter.RemoveAt(0);
+            CanvasManager.instance.SetUpCharacterInfo();
+
+            //SET NARRATION
+            InitialiseRoomToUi(CurrentRoom);
+            GenerateRoom(CurrentRoom);
+        }
     }
 
     public void CreateExitButton(RoomExit Exit)
@@ -156,6 +177,10 @@ public class RoomGenerator : MonoBehaviour
         ExitButton.transform.parent = LayoutGroup.transform;
     }
     
+    public void StartRoom(Room_So RoomToStart)
+    {
+
+    }
 
 
     // Start is called before the first frame update

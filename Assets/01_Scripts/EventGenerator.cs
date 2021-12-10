@@ -218,7 +218,14 @@ public class EventGenerator : MonoBehaviour
         //MESURES TEMPORAIRE ---- A CHANGER POUR AVOIR LA BONNE BOUCLE
         // LA MÉTHODE DETRUIT JUSTE TOUTE LES DONNEES PRESENTES (TABLEAUX ET GAME OBJECTS)
         ClearGrid();
-        GridManager.instance.ListOfTile.Clear();
+
+        //RESET GAME
+        CameraManager.instance.ResetPosition();
+        GameManager.instance.NextPlayer();
+        GridManager.instance.ClearGame();
+        lineRendererScript.instance.DrawLineRenderer();
+
+
         foreach (Transform item in transform)
         {
             Destroy(item.gameObject);
