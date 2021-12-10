@@ -50,7 +50,9 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
 
     public void EnableInteraction()
     {
+        print("OBJECT : " + gameObject.name);
         render.sprite = neutre;
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)

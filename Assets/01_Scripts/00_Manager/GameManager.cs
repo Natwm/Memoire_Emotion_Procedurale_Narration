@@ -252,14 +252,7 @@ public class GameManager : MonoBehaviour
         }
         else if(CreationManager.instance.listOfCharacter.Count > 0)
         {
-            CreationManager.instance.ResetNegociationTime();
-            CanvasManager.instance.SetUpCreationPanel();
-
-            foreach (var item in LevelManager.instance.PageInventory)
-            {
-                Destroy(item.gameObject);
-            }
-            LevelManager.instance.PageInventory = new List<UsableObject>();
+            
         }
         else
         {
