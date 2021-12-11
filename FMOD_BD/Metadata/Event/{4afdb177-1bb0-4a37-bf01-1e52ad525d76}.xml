@@ -4,7 +4,6 @@
 		<property name="name">
 			<value>Vignette_PRENDRE</value>
 		</property>
-		<property name="note" />
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
@@ -54,7 +53,7 @@
 			<destination>{f4de6a70-9245-41a4-9a0b-3191eb8ed6bf}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{d679953f-2586-407e-ad94-60f8151303d0}</destination>
+			<destination>{b5c6328e-99a8-4d86-8b10-675ae4501d09}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{d08c3a85-3260-4a2f-bec8-74a5a7d444f6}" />
