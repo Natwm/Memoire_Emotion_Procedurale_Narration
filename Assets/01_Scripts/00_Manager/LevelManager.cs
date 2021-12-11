@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     private int amountOfpageDone = 0;
+    [SerializeField] private float radius = 1;
 
     [Space]
     [Header("BranchingCondition")]
@@ -147,8 +148,9 @@ public class LevelManager : MonoBehaviour
                 {
                     int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
                     GameObject vignette = listOfObjectToSpawn[vignetteShape];
-                    GameObject card = Instantiate(vignette, parent);
 
+                    GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
+                    
                     Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
@@ -168,9 +170,9 @@ public class LevelManager : MonoBehaviour
                 {
                     int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
                     GameObject vignette = listOfObjectToSpawn[vignetteShape];
-                    GameObject card = Instantiate(vignette, parent);
+                GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
 
-                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
                     cardBd.SetUpVignette(toDraw.CategoryToDraw);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
@@ -192,7 +194,7 @@ public class LevelManager : MonoBehaviour
 
             GameObject item = listOfObjectToSpawn[vignette];
 
-            GameObject card = Instantiate(item, parent);
+            GameObject card = Instantiate(item, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
             //cardBd.SetUpCard();
@@ -283,6 +285,10 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(parent.transform.position , radius);
+    }
 
     #region Getter && Setter
 

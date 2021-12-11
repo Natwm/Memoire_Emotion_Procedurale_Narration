@@ -721,10 +721,10 @@ public class CreationManager : MonoBehaviour
             PlayerManager.instance.Inventory.Clear();
 
             PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
-            CanvasManager.instance.SetUpGamePanel();
             GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
+            CanvasManager.instance.SetUpGamePanel();
             //CanvasManager.instance.SetUpWaitingCharacterInfo();
 
         }
