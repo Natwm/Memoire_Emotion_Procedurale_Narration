@@ -21,9 +21,6 @@
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
-		<relationship name="sidechains">
-			<destination>{9728c217-5638-4841-aaab-142d504a3537}</destination>
-		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{c11d5fe4-7bdd-458a-8b87-e54712607bbc}">
 		<relationship name="effects">

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{b95d40fd-edac-4477-978e-82efaba93ed3}">
+		<property name="name">
+			<value>Negotiation</value>
+		</property>
+		<relationship name="folder">
+			<destination>{93c51711-1fe6-4cbe-bea5-244a3d777902}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{12dabe80-2ff1-4b6a-8192-a2e00f34d736}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{12dabe80-2ff1-4b6a-8192-a2e00f34d736}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>2</value>
+		</property>
+		<property name="seekSpeedDescending">
+			<value>2</value>
+		</property>
+		<property name="seekSpeedAsymmetric">
+			<value>true</value>
+		</property>
+	</object>
+</objects>
