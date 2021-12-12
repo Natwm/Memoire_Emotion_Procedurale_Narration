@@ -114,22 +114,23 @@ public class RoomGenerator : MonoBehaviour
         Intro.SetActive(true);
         Outro.SetActive(true);
         IntroText.gameObject.SetActive(true);
-       
+        SoundManager.instance.PlaySound_Woosh();
     }
 
     public void FadeOut()
     {
-        
         GenerateRoom(CurrentRoom);
         RoomPanel.GetComponent<Animator>().SetTrigger("FadeOut");
         Intro.SetActive(false);
         Outro.SetActive(false);
         IntroText.gameObject.SetActive(false);
+        SoundManager.instance.PlaySound_Woosh();
     }
 
     public void TransitionAnim()
     {
         RoomPanel.GetComponent<Animator>().SetTrigger("RoomTransition");
+        SoundManager.instance.PlaySound_Woosh();
     }
 
     public void OnRoomCompletion()

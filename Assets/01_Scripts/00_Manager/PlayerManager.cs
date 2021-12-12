@@ -63,6 +63,8 @@ public class PlayerManager : MonoBehaviour, IDamageable
     FMOD.Studio.EventInstance bigMentalDamageEffect;
     [FMODUnity.EventRef] [SerializeField] private string bigMentalDamageSound;
 
+    FMOD.Studio.EventInstance healthDamageEffect;
+    [FMODUnity.EventRef] [SerializeField] private string healthDamageSound;
     //fairesantémental.
     void Awake()
     {
@@ -97,6 +99,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
     {
         mentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(mentalDamageSound);
         bigMentalDamageEffect = FMODUnity.RuntimeManager.CreateInstance(bigMentalDamageSound);
+        healthDamageEffect = FMODUnity.RuntimeManager.CreateInstance(healthDamageSound);
     }
 
     public void SetUp()
@@ -427,6 +430,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
         CanvasManager.instance.UpdateSelectedCharacterPanel();
         CanvasManager.instance.SelectedCharacterPanel.GetComponent<SelectedCharacter_GAMEUI>().FeedBackAnimator.SetTrigger("Hit_Health");
         CameraManager.instance.ShakeFeedback();
+        healthDamageEffect.start();
         if (IsDead())
             Death();
     }

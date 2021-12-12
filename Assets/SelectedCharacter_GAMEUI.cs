@@ -71,6 +71,7 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
                 PlayerManager.instance.Inventory.Remove(item.Data);
                 PlayerManager.instance.InventoryObj.Remove(item);
                 PlayerManager.instance.CharacterContener.InventoryObj.Remove(item);
+                item.Data.PlaySound();
 
                 item.AmountOfUse--;
 

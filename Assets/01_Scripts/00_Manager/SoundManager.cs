@@ -54,6 +54,11 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance looseObjectEffect;
     [FMODUnity.EventRef] [SerializeField] private string looseObjectSound;
 
+    FMOD.Studio.EventInstance wooshEffect;
+    [FMODUnity.EventRef] [SerializeField] private string wooshSound;
+
+    public FMOD.Studio.EventInstance LoopEffect;
+    [FMODUnity.EventRef] [SerializeField] private string LoopSound;
 
     public static SoundManager instance;
     void Awake()
@@ -68,6 +73,7 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         SetUpSound();
+        LoopEffect.start();
     }
 
     // Update is called once per frame
@@ -98,6 +104,11 @@ public class SoundManager : MonoBehaviour
 
         curseEffect = FMODUnity.RuntimeManager.CreateInstance(curseSound);
         looseObjectEffect = FMODUnity.RuntimeManager.CreateInstance(looseObjectSound);
+
+        wooshEffect = FMODUnity.RuntimeManager.CreateInstance(wooshSound);
+
+        LoopEffect = FMODUnity.RuntimeManager.CreateInstance(LoopSound);
+
     }
 
 
@@ -122,5 +133,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound_CurseObject() { curseEffect.start(); }
     public void PlaySound_LooseObject() { looseObjectEffect.start(); }
+
+    public void PlaySound_Woosh() { wooshEffect.start(); }
 
 }

@@ -207,6 +207,7 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
     {
         CharacterSelectedEffect.start();
     }
+
     public void PlayDamageMusique()
     {
         CharacterHurtEffect.start();

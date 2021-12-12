@@ -26,3 +26,4 @@ MonoBehaviour:
     apr\xE8s utilisation.)\r\n<br>\r\n<i><b>Soin de l'\xE9quipe :</i></b> \nS'applique
     \xE0 tout les personnages +1 <sprite=0>"
   m_NarrationName: le manuel
+  SelectedSound: event:/SD/Matiere/Matiere_Tissus

@@ -84,6 +84,8 @@ public class CreationManager : MonoBehaviour
     [FMODUnity.EventRef] [SerializeField] private string CharacterHurt3Sound;
     [FMODUnity.EventRef] [SerializeField] private string CharacterHurt4Sound;
 
+    private bool muteFirstSound = false;
+
     #region Awake || Start || Update
     void Awake()
     {
@@ -114,14 +116,7 @@ public class CreationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            //CreatePlayerInventory(PlayerManager.instance);
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-           // CreateVignette();
-        }
+
     }
     #endregion
 
@@ -146,7 +141,8 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             SelectPlayer(tempButton.GetComponent<Character_Button>());
-            buttonScript.PlaySelectedMusique();
+            if(muteFirstSound)
+                buttonScript.PlaySelectedMusique();
         });
 
         listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
@@ -231,6 +227,7 @@ public class CreationManager : MonoBehaviour
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject.Data);
             SoundManager.instance.PlaySound_SelectedObject();
+            tempObject.Data.PlaySound();
         }
         );
 
@@ -275,6 +272,7 @@ public class CreationManager : MonoBehaviour
         {
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
             UpdateDescriptionPanel(tempObject);
+            tempObject.PlaySound();
         }
         );
 
@@ -725,10 +723,13 @@ public class CreationManager : MonoBehaviour
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
             CanvasManager.instance.SetUpGamePanel();
+
+            if(muteFirstSound)
+                PlayerManager.instance.CharacterContener.CharacterSelectedEffect.start();
             //CanvasManager.instance.SetUpWaitingCharacterInfo();
 
         }
-
+        muteFirstSound = true;
     }
 
     public void StartPull()

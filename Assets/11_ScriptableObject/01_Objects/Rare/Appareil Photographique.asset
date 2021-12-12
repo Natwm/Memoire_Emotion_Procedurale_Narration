@@ -26,3 +26,4 @@ MonoBehaviour:
     :</i></b>  \nCopie une des vignettes de la main du joueur. \nLa vignette choisie
     est al\xE9atoire et la copie applique les effets de la vignette copi\xE9e."
   m_NarrationName: l'appareil photo
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"
