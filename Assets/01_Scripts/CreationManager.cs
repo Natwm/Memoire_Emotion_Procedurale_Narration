@@ -216,7 +216,7 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
         if (tempButton.GetComponent<UsableObject>().IsCurse)
         {
-            tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+            tempButton.GetComponent<Image>().color = GameManager.instance.curseColor;
         }
 
         //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;

@@ -170,7 +170,7 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
 
             if (m_InventoryObj[index].IsCurse)
             {
-                tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+                tempButton.GetComponent<Image>().color = GameManager.instance.curseColor;
             }
 
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;

@@ -509,7 +509,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
                         LevelManager.instance.PageInventory[index].IsCurse = true;
                         LevelManager.instance.PageInventory[index].MyCurse = myCurse;
-                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = new Color32(104, 46, 68, 255);
+                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = GameManager.instance.curseColor;
 
                     }
                 }
