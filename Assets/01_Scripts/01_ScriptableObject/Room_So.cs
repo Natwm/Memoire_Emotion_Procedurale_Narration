@@ -29,7 +29,8 @@ public class Room_So : ScriptableObject
     {
         NONE,
         DARK,
-        NEGO
+        NEGO,
+        HUB
 
     }
 
@@ -99,6 +100,11 @@ public class Room_So : ScriptableObject
 
                     GameManager.instance.OrderCharacter.Clear();
                     GameManager.instance.WaitingCharacter.Clear();
+                    break;
+                }
+            case CustomEffect.HUB:
+                {
+
                     break;
                 }
         }
