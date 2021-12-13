@@ -631,13 +631,13 @@ public void ApplyVignetteEffect()
                 {
                     for (int y = 0; y <= 1; y++)
                     {
-                        print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
+                        /*print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
 
-                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);
+                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);*/
 
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
                         
-                        print(this.gameObject.name +  " tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                        //print(this.gameObject.name +  " tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                         if (tilePos.y > GridManager.instance.GridSize.y)
                         {
@@ -649,13 +649,13 @@ public void ApplyVignetteEffect()
 
                         if (!vignetteTile.Contains(tilePos))
                         {
-                            print(this.gameObject.name + " VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
+                            //print(this.gameObject.name + " VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                             {
                                 /*print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
                                 print("La tile qui vérifie est : " + this.gameObject.name +" et possède la bonne distance de  " + tilePos);
                                 print("La tile qui vérifie est : " + this.gameObject.name + " check si elle est au bonne endroit  " + (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y));*/
-                                print(this.gameObject.name + " tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
+                                //print(this.gameObject.name + " tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
                                 if (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
