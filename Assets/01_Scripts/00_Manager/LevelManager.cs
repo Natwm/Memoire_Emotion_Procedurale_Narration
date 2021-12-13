@@ -164,6 +164,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<DrawVignette> inventory)
     {
+        SoundManager.instance.PlaySound_DrawVignette();
             foreach (var toDraw in inventory)
             {
                 for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
@@ -188,6 +189,7 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNegatifObject(int amount = 1)
     {
+        SoundManager.instance.PlaySound_DrawCurseVignette();
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);

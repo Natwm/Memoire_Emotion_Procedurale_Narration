@@ -34,6 +34,9 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance resolutionAvailableEffect;
     [FMODUnity.EventRef] [SerializeField] private string resolutionAvailableSound;
 
+    FMOD.Studio.EventInstance drawCurseEffect;
+    [FMODUnity.EventRef] [SerializeField] private string drawCurseSound;
+
     [Space]
     [Header("Sound Fmod Resolution")]
     FMOD.Studio.EventInstance gainObjectEffect;
@@ -95,6 +98,7 @@ public class SoundManager : MonoBehaviour
         uiSelectedStartAdventureEffect = FMODUnity.RuntimeManager.CreateInstance(uiSelectedStartAdventureSound);
 
         drawVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(drawVignetteSound);
+        drawCurseEffect = FMODUnity.RuntimeManager.CreateInstance(drawCurseSound);
         resolutionAvailableEffect = FMODUnity.RuntimeManager.CreateInstance(resolutionAvailableSound);
 
         gainObjectEffect = FMODUnity.RuntimeManager.CreateInstance(gainObjectSound);
@@ -122,6 +126,7 @@ public class SoundManager : MonoBehaviour
 
     //Vignette
     public void PlaySound_DrawVignette() { drawVignetteEffect.start(); }
+    public void PlaySound_DrawCurseVignette() { drawCurseEffect.start(); }
     public void PlaySound_ResolutionAvailable() { resolutionAvailableEffect.start(); }
 
 

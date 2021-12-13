@@ -117,12 +117,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     FMOD.Studio.EventInstance takeVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string takeVignetteSound;
 
-    FMOD.Studio.EventInstance dropVignetteEffect;
-    [FMODUnity.EventRef] [SerializeField] private string dropVignetteSound;
-
-    FMOD.Studio.EventInstance transformationVignetteEffect;
-    [FMODUnity.EventRef] [SerializeField] private string transformationVignetteSound;
-
     FMOD.Studio.EventInstance dropVignetteOnGridEffect;
     [FMODUnity.EventRef] [SerializeField] private string dropVignetteOnGridSound;
 
@@ -131,8 +125,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     [Space]
     [Header("Sound Fmod Resolution")]
-    FMOD.Studio.EventInstance reveleEffect;
-    [FMODUnity.EventRef] [SerializeField] private string reveleSound;
+
+    FMOD.Studio.EventInstance lockEffect;
+    [FMODUnity.EventRef] [SerializeField] private string lockSound;
+
+    FMOD.Studio.EventInstance transformationEffect;
+    [FMODUnity.EventRef] [SerializeField] private string transformationSound;
 
     #endregion
 
@@ -175,10 +173,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     void SetUpSound()
     {
         takeVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(takeVignetteSound);
-        //dropVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteSound);
-        //transformationVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(transformationVignetteSound);
         dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
         dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
+
+        transformationEffect = FMODUnity.RuntimeManager.CreateInstance(transformationSound);
+
+        lockEffect = FMODUnity.RuntimeManager.CreateInstance(lockSound);
     }
     
 
@@ -551,6 +551,7 @@ public void ApplyVignetteEffect()
                 {
                     this.m_IsLock = true;
                     animation_Feedback.PlayLock();
+                    lockEffect.start();
                 }
                     
 
@@ -1209,6 +1210,7 @@ public void ApplyVignetteEffect()
         }
 
         animation_Feedback.PlayTransformation();
+        transformationEffect.start();
 
         categorieText.text = GetEnumName() + curseText;
         SetUpUI();
