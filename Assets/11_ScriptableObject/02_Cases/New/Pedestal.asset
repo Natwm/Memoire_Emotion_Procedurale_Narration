@@ -20,5 +20,6 @@ MonoBehaviour:
   specifiqueObject: {fileID: 11400000, guid: 404f91c3ad3b17b428b8f77a6e717c39, type: 2}
   result: 0
   echecResult: 6
-  TileObject: {fileID: 0}
+  TileObject: {fileID: 8933427331047666015, guid: 97eaf0c81aa4e224b86511d9bdb14f85,
+    type: 3}
   doLock: 1

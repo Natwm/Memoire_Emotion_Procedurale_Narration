@@ -18,7 +18,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
   - {fileID: 11400000, guid: 7d3d82012b3110649a50b9c0dbf55337, type: 2}
   m_garanteedObjects:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 9dccb7283efe99142b1bf06f5cad1fe6, type: 2}
   m_Object_Distribution: 3
   m_Effect_Of_Room: 0
   m_PossibleExits:

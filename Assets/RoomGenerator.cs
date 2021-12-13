@@ -78,7 +78,7 @@ public class RoomGenerator : MonoBehaviour
             EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
             foreach (GameObject item in EventGenerator.instance.occupiedTiles)
             {
-                int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count - 1);
+                int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count);
                 item.GetComponent<Case_Behaviours>().CaseEffects = RoomToCreate.PossibleTiles[randomInt].SpawnAsset(item);
             }
             foreach (CaseContener_SO item in RoomToCreate.GaranteedTiles)

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 public class EventGenerator : MonoBehaviour
 {
@@ -35,6 +35,26 @@ public class EventGenerator : MonoBehaviour
     public GameObject EntryTile { get => entryTile; set => entryTile = value; }
     public GameObject ExitTile { get => exitTile; set => exitTile = value; }
 
+    public void FadeAll()
+    {
+        foreach (Transform item in transform)
+        {
+            item.GetComponent<MeshRenderer>().material.DOFade(0, 0.2f);
+            if (item.childCount>0)
+            {
+                foreach (Transform c_item in item)
+                {
+                    c_item.GetComponent<SpriteRenderer>().material.DOFade(0,0.2f);
+                }
+            }
+        }
+        Camera.main.transform.GetChild(0).GetComponent<SpriteRenderer>().material.DOFade(0, 0.2f);
+    }
+
+    public void RevealAll()
+    {
+        Camera.main.transform.GetChild(0).GetComponent<SpriteRenderer>().material.DOFade(1, 0f);
+    }
 
     void Awake()
     {

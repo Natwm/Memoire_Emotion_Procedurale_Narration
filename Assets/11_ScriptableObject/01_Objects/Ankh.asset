@@ -25,3 +25,5 @@ MonoBehaviour:
   m_Description: "Donne une vignette <i><b>R\xE9surrection.</i></b> (D\xE9truite
     apr\xE8s utilisation.)\r\n<br>\r\n<i><b>R\xE9surrection :</i></b>  \nSi un personnage
     meurt, il revient \xE0 la vie avec ses points de vie au maximum."
+  m_NarrationName: l'ankh
+  SelectedSound: event:/SD/Matiere/Matiere_Arcane

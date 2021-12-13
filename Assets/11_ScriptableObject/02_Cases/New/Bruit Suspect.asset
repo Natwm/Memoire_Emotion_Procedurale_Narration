@@ -22,3 +22,4 @@ MonoBehaviour:
   echecResult: 3
   TileObject: {fileID: 8933427331047666015, guid: 418e065ab9a91af419d876690309f6da,
     type: 3}
+  doLock: 1
