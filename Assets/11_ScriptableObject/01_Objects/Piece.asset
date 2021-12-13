@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: Peu utile ici.
   m_NarrationName: "la pi\xE8ce"
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"

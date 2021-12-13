@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Elle n'est pas \xE0 la bonne taille."
   m_NarrationName: la botte
+  SelectedSound: event:/SD/Matiere/Matiere_Platique

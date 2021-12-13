@@ -25,9 +25,7 @@ MonoBehaviour:
     m_ExitText: Ouvrir la porte, et entrer.
   m_IntroText: "Mis \xE0 part la faible lumi\xE8re provenant de la porte du hall,
     l'enti\xE8ret\xE9 du couloir est plong\xE9e dans l'obscurit\xE9. Le groupe d\xE9cide
-    continuer \xE0 avancer, \xE0 l'aveugle, dans le couloir. //NOTE : Le couloir
-    est rempli de cases combat, et de cases mal\xE9dictions, qui sont invisibles
-    //"
+    continuer \xE0 avancer, \xE0 l'aveugle, dans le couloir."
   m_OutroText: "Au bout d'un temps qui para\xEEt interminable, le groupe arrive au
     bout du couloir. L'un des membre parvient \xE0 discerner la poign\xE9e d'une
     porte. "

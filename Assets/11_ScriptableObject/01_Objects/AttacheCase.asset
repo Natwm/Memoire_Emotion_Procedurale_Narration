@@ -24,3 +24,5 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>Prendre</i></b>.\n\n<i><b>Prendre :</i></b>
     Le personnage peut stocker imm\xE9diatement les objets qu'il a trouv\xE9."
+  m_NarrationName: la valise
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"
