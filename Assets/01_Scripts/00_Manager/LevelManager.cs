@@ -138,6 +138,29 @@ public class LevelManager : MonoBehaviour
             }
     }
 
+    public void SpawnObject(UsableObject inventory)
+    {
+
+            foreach (var toDraw in inventory.Data.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+
+                    GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, inventory);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
+                }
+            }
+        
+    }
+
     public void SpawnObject(List<UsableObject> inventory)
     {
         foreach (var item in inventory)

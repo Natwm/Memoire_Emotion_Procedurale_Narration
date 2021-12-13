@@ -326,8 +326,10 @@ public class PlayerManager : MonoBehaviour, IDamageable
             //GridManager.instance.ClearScene();
             //CanvasManager.instance.PlayerWinTheGame(CharacterData);
         }
-        RoomGenerator.instance.OnRoomCompletion();
         UpdatePlayerContener();
+
+        RoomGenerator.instance.OnRoomCompletion();
+        
         lineRendererScript.instance.DrawLineRenderer();
     }
 
@@ -335,6 +337,7 @@ public class PlayerManager : MonoBehaviour, IDamageable
 
     void UpdatePlayerContener()
     {
+        print("health = " + health);
         characterContener.Life = health;
         characterContener.Endurance = Endurance;
         characterContener.MentalHealth = MentalHealth;

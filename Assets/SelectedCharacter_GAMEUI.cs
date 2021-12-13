@@ -67,7 +67,7 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
 
             inventoryElt.GetComponent<Button>().onClick.AddListener(delegate
             {
-                LevelManager.instance.SpawnObject(item.Data);
+                LevelManager.instance.SpawnObject(item);
                 PlayerManager.instance.Inventory.Remove(item.Data);
                 PlayerManager.instance.InventoryObj.Remove(item);
                 PlayerManager.instance.CharacterContener.InventoryObj.Remove(item);
