@@ -1197,7 +1197,12 @@ public void ApplyVignetteEffect()
 
     public void ApplyTileEffect(VignetteCategories newCategorie)
     {
+        bool isChange = false;
+        if (currentCategorie != initCategorie)
+            isChange = true;
+
         currentCategorie = newCategorie;
+
         //categorieText.text = GetEnumName();
         curseText = "";
         if (objectFrom != null)
@@ -1209,8 +1214,11 @@ public void ApplyVignetteEffect()
             }
         }
 
-        animation_Feedback.PlayTransformation();
-        transformationEffect.start();
+        if (isChange)
+        {
+            animation_Feedback.PlayTransformation();
+            transformationEffect.start();
+        }
 
         categorieText.text = GetEnumName() + curseText;
         SetUpUI();
@@ -1223,6 +1231,7 @@ public void ApplyVignetteEffect()
             isChange = true;
 
         currentCategorie = initCategorie;
+
         curseText = "";
         if(objectFrom != null)
         {
@@ -1235,8 +1244,12 @@ public void ApplyVignetteEffect()
         
         categorieText.text = GetEnumName() + curseText;
 
-        if(isChange)
+        if (isChange)
+        {
             animation_Feedback.PlayTransformation();
+            transformationEffect.start();
+        }
+            
 
         SetUpUI();
     }

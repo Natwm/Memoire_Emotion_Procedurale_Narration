@@ -225,7 +225,7 @@ public class CreationManager : MonoBehaviour
         {
             print("kiki");
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
-            UpdateDescriptionPanel(tempObject.Data);
+            UpdateDescriptionPanel(tempObject.Data,tempObject.MyCurse);
             SoundManager.instance.PlaySound_SelectedObject();
             tempObject.Data.PlaySound();
         }
@@ -242,7 +242,7 @@ public class CreationManager : MonoBehaviour
             exit.eventID = EventTriggerType.PointerExit;
 
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
-            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data, tempObject.MyCurse); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
             //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
@@ -271,7 +271,7 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
-            UpdateDescriptionPanel(tempObject);
+            UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse);
             tempObject.PlaySound();
         }
         );
@@ -287,7 +287,7 @@ public class CreationManager : MonoBehaviour
             exit.eventID = EventTriggerType.PointerExit;
 
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
-            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
             //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
@@ -357,9 +357,14 @@ public class CreationManager : MonoBehaviour
         CanvasManager.instance.SetInkSlider();
     }
 
-    private void UpdateDescriptionPanel(Object_SO data)
+    private void UpdateDescriptionPanel(Object_SO data, Curse isCurse)
     {
-        CanvasManager.instance.ObjectDescription.text = data.Description;
+        string curseText = "";
+        if (isCurse != null)
+        {
+            curseText = GetCurseName(isCurse);
+        }
+        CanvasManager.instance.ObjectDescription.text = data.Description + curseText;
         CanvasManager.instance.ObjectTitle.text = data.ObjectName != " " || data.ObjectName != string.Empty ? data.ObjectName : data.name;
 
         CanvasManager.instance.ObjectImage.sprite = data.Sprite;
@@ -416,6 +421,25 @@ public class CreationManager : MonoBehaviour
         return tempList == null ? null : tempList;
     }
     #endregion
+
+    private string GetCurseName(Curse useObject)
+    {
+        switch (useObject.CurseName)
+        {
+            case "Reduce Life":
+                return "<br><color=#682e44>-1<sprite=0 color=#682e44></color>";
+                break;
+            case "Reduce Mental":
+                return "<br><color=#682e44>-1<sprite=2 color=#682e44></color>";
+                break;
+            case "Loose an object":
+                return "<br><color=#682e44>-1<sprite=1 color=#682e44></color>";
+                break;
+            default:
+                return "";
+                break;
+        }
+    }
 
     #endregion
     public void PutAllObjectInInventory()
