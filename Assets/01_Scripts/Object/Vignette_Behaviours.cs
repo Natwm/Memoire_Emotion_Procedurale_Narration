@@ -365,7 +365,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         LevelManager.instance.PageInventory.Add(item.GetComponent<UsableObject>());
 
-        if (LevelManager.instance.PageInventory.Count == LevelManager.instance.AmountOfLevelInventory)
+        if (LevelManager.instance.PageInventory.Count >= LevelManager.instance.AmountOfLevelInventory)
             TakeEffect();
         CanvasManager.instance.SetUpLevelIndicator();
     }
@@ -1228,6 +1228,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     public void ResetVignette()
     {
+        SetUpUI();
+
         bool isChange = false;
         if (currentCategorie != initCategorie)
             isChange = true;
@@ -1253,7 +1255,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         }
 
 
-        SetUpUI();
+        
     }
 
     #endregion
