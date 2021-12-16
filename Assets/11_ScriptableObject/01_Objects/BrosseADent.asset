@@ -24,3 +24,4 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: Manque plus que le dentifrice...
   m_NarrationName: "la brosse \xE0 dent"
+  SelectedSound: event:/SD/Matiere/Matiere_Platique

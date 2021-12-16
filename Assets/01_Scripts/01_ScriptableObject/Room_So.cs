@@ -29,7 +29,8 @@ public class Room_So : ScriptableObject
     {
         NONE,
         DARK,
-        NEGO
+        NEGO,
+        HUB
 
     }
 
@@ -64,10 +65,15 @@ public class Room_So : ScriptableObject
         switch (Effect_Of_Room)
         {
             case CustomEffect.NONE:
+                SoundManager.instance.LoopEffect.setParameterByName("Resolution", 1);
+                SoundManager.instance.LoopEffect.setParameterByName("Negotiation", 0);
                 break;
+
             case CustomEffect.DARK:
                 {
-                 foreach (GameObject item in GridManager.instance.ListOfTile)
+                    SoundManager.instance.LoopEffect.setParameterByName("Resolution",1);
+                    SoundManager.instance.LoopEffect.setParameterByName("Negotiation", 0);
+                    foreach (GameObject item in GridManager.instance.ListOfTile)
                  {
                         if (item.GetComponent<Case_Behaviours>().CaseEffects != null)
                         {
@@ -80,6 +86,9 @@ public class Room_So : ScriptableObject
                 }
             case CustomEffect.NEGO:
                 {
+                    SoundManager.instance.LoopEffect.setParameterByName("Resolution", 0);
+                    SoundManager.instance.LoopEffect.setParameterByName("Negotiation", 1);
+
                     CreationManager.instance.ResetNegociationTime();
                     CanvasManager.instance.SetUpCreationPanel();
 
@@ -91,6 +100,11 @@ public class Room_So : ScriptableObject
 
                     GameManager.instance.OrderCharacter.Clear();
                     GameManager.instance.WaitingCharacter.Clear();
+                    break;
+                }
+            case CustomEffect.HUB:
+                {
+
                     break;
                 }
         }

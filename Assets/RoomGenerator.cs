@@ -29,7 +29,7 @@ public class RoomGenerator : MonoBehaviour
     // RoomManagement
     public Room_So CurrentRoom;
     public RoomExit GoToRoom;
-
+    List<Room_So> CompletedRoom;
     
 
     void Awake()
@@ -40,6 +40,7 @@ public class RoomGenerator : MonoBehaviour
             instance = this;
 
         InitializeToCanvas();
+        CompletedRoom = new List<Room_So>();
     }
 
     public void Start()
@@ -78,7 +79,7 @@ public class RoomGenerator : MonoBehaviour
             EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
             foreach (GameObject item in EventGenerator.instance.occupiedTiles)
             {
-                int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count - 1);
+                int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count);
                 item.GetComponent<Case_Behaviours>().CaseEffects = RoomToCreate.PossibleTiles[randomInt].SpawnAsset(item);
             }
             foreach (CaseContener_SO item in RoomToCreate.GaranteedTiles)
@@ -113,27 +114,48 @@ public class RoomGenerator : MonoBehaviour
         RoomPanel.GetComponent<Animator>().SetTrigger("Reveal");
         Intro.SetActive(true);
         Outro.SetActive(true);
+        TitleText.gameObject.SetActive(true);
         IntroText.gameObject.SetActive(true);
-       
+        SoundManager.instance.PlaySound_Woosh();
     }
 
     public void FadeOut()
     {
-        
         GenerateRoom(CurrentRoom);
         RoomPanel.GetComponent<Animator>().SetTrigger("FadeOut");
+        TitleText.gameObject.SetActive(false);
         Intro.SetActive(false);
         Outro.SetActive(false);
         IntroText.gameObject.SetActive(false);
+        SoundManager.instance.PlaySound_Woosh();
+    }
+
+    public bool checkCompletion(Room_So _current)
+    {
+        foreach (Room_So item in CompletedRoom)
+        {
+            if (_current == item)
+            {
+                Debug.Log("COMPLETED");
+                return true;
+            }
+            
+        }
+        return false;
     }
 
     public void TransitionAnim()
     {
         RoomPanel.GetComponent<Animator>().SetTrigger("RoomTransition");
+        SoundManager.instance.PlaySound_Woosh();
     }
 
     public void OnRoomCompletion()
     {
+        if (CurrentRoom.Effect_Of_Room == Room_So.CustomEffect.HUB && !checkCompletion(CurrentRoom))
+        {
+            CompletedRoom.Add(CurrentRoom);
+        }
         FadeIn();
         SetOutro();
         EventGenerator.instance.TempClearGrid();

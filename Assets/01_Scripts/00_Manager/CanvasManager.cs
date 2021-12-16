@@ -108,8 +108,8 @@ public class CanvasManager : MonoBehaviour
     {
         SetActiveMoveButton(false);
         QuitPanel.SetActive(false);
-        SelectedCharacterPanel.SetActive(false);
-        WaitingCharacterPanel.SetActive(false);
+        //SelectedCharacterPanel.SetActive(false);
+        //WaitingCharacterPanel.SetActive(false);
         negociationTime = currentNegociationTime = initNegociationTime;
         SetUpLevelIndicator();
         SetInkSlider();

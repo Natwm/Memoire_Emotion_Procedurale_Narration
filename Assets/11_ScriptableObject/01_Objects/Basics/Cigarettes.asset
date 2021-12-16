@@ -25,3 +25,4 @@ MonoBehaviour:
   m_Description: "Donne deux vignette <i><b>Bref R\xE9pit.</i></b>\r\n<br>\r\n<i><b>Bref
     R\xE9pit :</i></b>  \n+1 <sprite=2>"
   m_NarrationName: le paquet de cigarettes
+  SelectedSound: event:/SD/Matiere/Matiere_Platique

@@ -19,7 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d3d82012b3110649a50b9c0dbf55337, type: 2}
   m_garanteedObjects: []
   m_Object_Distribution: 3
-  m_Effect_Of_Room: 0
+  m_Effect_Of_Room: 3
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 6745858432de74f40a5f51ee94aed957, type: 2}
     m_ExitText: Vous choisissez de prendre le couloir de gauche.

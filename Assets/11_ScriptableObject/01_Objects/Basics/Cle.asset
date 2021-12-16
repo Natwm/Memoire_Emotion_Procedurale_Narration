@@ -25,3 +25,4 @@ MonoBehaviour:
   m_Description: "Donne une vignette <i><b>Ouvrir</b></i>.\n<br>\n<i><b>Ouvrir :</b></i> 
     \nElle doit certainement ouvrir quelque chose."
   m_NarrationName: "la cl\xE9"
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"

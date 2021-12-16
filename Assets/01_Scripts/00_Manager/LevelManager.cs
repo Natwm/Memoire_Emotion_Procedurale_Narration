@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     private int amountOfpageDone = 0;
+    [SerializeField] private float radius = 1;
 
     [Space]
     [Header("BranchingCondition")]
@@ -137,6 +138,29 @@ public class LevelManager : MonoBehaviour
             }
     }
 
+    public void SpawnObject(UsableObject inventory)
+    {
+
+            foreach (var toDraw in inventory.Data.DrawParam)
+            {
+                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
+                {
+                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+
+                    GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
+
+                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                    cardBd.SetUpVignette(toDraw.CategoryToDraw, inventory);
+
+                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+
+                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
+                }
+            }
+        
+    }
+
     public void SpawnObject(List<UsableObject> inventory)
     {
         foreach (var item in inventory)
@@ -147,8 +171,9 @@ public class LevelManager : MonoBehaviour
                 {
                     int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
                     GameObject vignette = listOfObjectToSpawn[vignetteShape];
-                    GameObject card = Instantiate(vignette, parent);
 
+                    GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
+                    
                     Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
@@ -162,15 +187,16 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(List<DrawVignette> inventory)
     {
+        SoundManager.instance.PlaySound_DrawVignette();
             foreach (var toDraw in inventory)
             {
                 for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
                 {
                     int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
                     GameObject vignette = listOfObjectToSpawn[vignetteShape];
-                    GameObject card = Instantiate(vignette, parent);
+                GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
 
-                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
                     cardBd.SetUpVignette(toDraw.CategoryToDraw);
 
                     PlayerManager.instance.HandOfVignette.Add(cardBd);
@@ -186,13 +212,14 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnNegatifObject(int amount = 1)
     {
+        SoundManager.instance.PlaySound_DrawCurseVignette();
         for (int i = 0; i < amount; i++)
         {
             int vignette = Random.Range(0, listOfObjectToSpawn.Count);
 
             GameObject item = listOfObjectToSpawn[vignette];
 
-            GameObject card = Instantiate(item, parent);
+            GameObject card = Instantiate(item, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
             Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
             cardBd.SetUpVignette(Vignette_Behaviours.GetRandomNegatifEnum());
             //cardBd.SetUpCard();
@@ -283,6 +310,10 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(parent.transform.position , radius);
+    }
 
     #region Getter && Setter
 

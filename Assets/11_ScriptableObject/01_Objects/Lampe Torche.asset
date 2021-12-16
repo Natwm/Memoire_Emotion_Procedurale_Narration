@@ -24,3 +24,5 @@ MonoBehaviour:
   m_SizeInInventory: 0
   m_Description: "Donne deux vignettes <i><b>\xC9clairer</i></b>.\r\n<br>\r\n<i><b>\xC9clairer
     :</i></b>  \n+1 <sprite=1>"
+  m_NarrationName: la lampe torche
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"

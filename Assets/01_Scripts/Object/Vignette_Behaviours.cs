@@ -117,12 +117,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     FMOD.Studio.EventInstance takeVignetteEffect;
     [FMODUnity.EventRef] [SerializeField] private string takeVignetteSound;
 
-    FMOD.Studio.EventInstance dropVignetteEffect;
-    [FMODUnity.EventRef] [SerializeField] private string dropVignetteSound;
-
-    FMOD.Studio.EventInstance transformationVignetteEffect;
-    [FMODUnity.EventRef] [SerializeField] private string transformationVignetteSound;
-
     FMOD.Studio.EventInstance dropVignetteOnGridEffect;
     [FMODUnity.EventRef] [SerializeField] private string dropVignetteOnGridSound;
 
@@ -131,8 +125,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     [Space]
     [Header("Sound Fmod Resolution")]
-    FMOD.Studio.EventInstance reveleEffect;
-    [FMODUnity.EventRef] [SerializeField] private string reveleSound;
+
+    FMOD.Studio.EventInstance lockEffect;
+    [FMODUnity.EventRef] [SerializeField] private string lockSound;
+
+    FMOD.Studio.EventInstance transformationEffect;
+    [FMODUnity.EventRef] [SerializeField] private string transformationSound;
 
     #endregion
 
@@ -175,10 +173,12 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     void SetUpSound()
     {
         takeVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(takeVignetteSound);
-        //dropVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteSound);
-        //transformationVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(transformationVignetteSound);
         dropVignetteOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteOnGridSound);
         dropVignetteNotOnGridEffect = FMODUnity.RuntimeManager.CreateInstance(dropVignetteNotOnGridSound);
+
+        transformationEffect = FMODUnity.RuntimeManager.CreateInstance(transformationSound);
+
+        lockEffect = FMODUnity.RuntimeManager.CreateInstance(lockSound);
     }
     
 
@@ -551,6 +551,7 @@ public void ApplyVignetteEffect()
                 {
                     this.m_IsLock = true;
                     animation_Feedback.PlayLock();
+                    lockEffect.start();
                 }
                     
 
@@ -630,13 +631,13 @@ public void ApplyVignetteEffect()
                 {
                     for (int y = 0; y <= 1; y++)
                     {
-                        print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
+                        /*print("La tile qui vérifie est : " + this.gameObject.name + "_______________"+" " + x+" "+y);
 
-                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);
+                        print(this.gameObject.name + "   Position du curseur = "+x + " " + y);*/
 
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
                         
-                        print(this.gameObject.name +  " tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
+                        //print(this.gameObject.name +  " tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                         if (tilePos.y > GridManager.instance.GridSize.y)
                         {
@@ -648,13 +649,13 @@ public void ApplyVignetteEffect()
 
                         if (!vignetteTile.Contains(tilePos))
                         {
-                            print(this.gameObject.name + " VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
+                            //print(this.gameObject.name + " VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
                             if (VectorMethods.ManhattanDistance(hoveredTile, tilePos, 1) && tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                             {
                                 /*print("Game hoveredTile = " + hoveredTile + "  tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
                                 print("La tile qui vérifie est : " + this.gameObject.name +" et possède la bonne distance de  " + tilePos);
                                 print("La tile qui vérifie est : " + this.gameObject.name + " check si elle est au bonne endroit  " + (tilePos.x < GridManager.instance.GridSize.y && tilePos.y < GridManager.instance.GridSize.y));*/
-                                print(this.gameObject.name + " tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
+                                //print(this.gameObject.name + " tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y" + (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y));
                                 if (tilePos.x < GridManager.instance.GridSize.x && tilePos.y < GridManager.instance.GridSize.y)
                                 {
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
@@ -1196,7 +1197,12 @@ public void ApplyVignetteEffect()
 
     public void ApplyTileEffect(VignetteCategories newCategorie)
     {
+        bool isChange = false;
+        if (currentCategorie != initCategorie)
+            isChange = true;
+
         currentCategorie = newCategorie;
+
         //categorieText.text = GetEnumName();
         curseText = "";
         if (objectFrom != null)
@@ -1208,7 +1214,11 @@ public void ApplyVignetteEffect()
             }
         }
 
-        animation_Feedback.PlayTransformation();
+        if (isChange)
+        {
+            animation_Feedback.PlayTransformation();
+            transformationEffect.start();
+        }
 
         categorieText.text = GetEnumName() + curseText;
         SetUpUI();
@@ -1221,6 +1231,7 @@ public void ApplyVignetteEffect()
             isChange = true;
 
         currentCategorie = initCategorie;
+
         curseText = "";
         if(objectFrom != null)
         {
@@ -1233,8 +1244,12 @@ public void ApplyVignetteEffect()
         
         categorieText.text = GetEnumName() + curseText;
 
-        if(isChange)
+        if (isChange)
+        {
             animation_Feedback.PlayTransformation();
+            transformationEffect.start();
+        }
+            
 
         SetUpUI();
     }

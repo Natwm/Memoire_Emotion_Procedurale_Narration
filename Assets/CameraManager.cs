@@ -16,6 +16,8 @@ public class CameraManager : MonoBehaviour
     public int vibrato;
     public float random;
 
+    public GameObject terminal;
+
     public float UnZoomValue { get => unZoomValue; set => unZoomValue = value; }
 
     void Awake()
@@ -34,7 +36,10 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            terminal.SetActive(!terminal.activeSelf);
+        }
     }
 
     public void ResetPosition()

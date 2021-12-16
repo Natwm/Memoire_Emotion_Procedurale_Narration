@@ -61,6 +61,15 @@ public class Object_SO : ScriptableObject
     [SerializeField] private string m_Description;
     [SerializeField] private string m_NarrationName;
 
+    public FMOD.Studio.EventInstance SelectedEffect;
+    [FMODUnity.EventRef] [SerializeField] private string SelectedSound;
+
+
+    public void PlaySound()
+    {
+        SelectedEffect = FMODUnity.RuntimeManager.CreateInstance(SelectedSound);
+        SelectedEffect.start();
+    }
 
     #region Getter && Setter
 

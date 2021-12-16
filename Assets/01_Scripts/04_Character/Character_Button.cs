@@ -57,6 +57,8 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
 
     [SerializeField] private Image m_cadre;
 
+    public GameObject slotPanel;
+
     [Space]
     [Header("Sound Fmod Action")]
     FMOD.Studio.EventInstance characterSelectedEffect;
@@ -129,6 +131,12 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
             Inventory.Add(item);
             Instantiate(m_ToolButtonPrefabs, InventoryPanel.transform);
         }
+
+        for (int i = 0; i < slotPanel.transform.childCount; i++)
+        {
+            slotPanel.transform.GetChild(i).GetComponent<Image>().color = data.Color;
+        }
+
         SetUpCharacterUI();
     }
 
@@ -170,7 +178,7 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
 
             if (m_InventoryObj[index].IsCurse)
             {
-                tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+                tempButton.GetComponent<Image>().color = GameManager.instance.curseColor;
             }
 
             //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = item.ObjectName;
@@ -207,6 +215,7 @@ public class Character_Button : MonoBehaviour, IPointerDownHandler
     {
         CharacterSelectedEffect.start();
     }
+
     public void PlayDamageMusique()
     {
         CharacterHurtEffect.start();

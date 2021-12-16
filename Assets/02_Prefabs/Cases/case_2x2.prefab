@@ -171,11 +171,10 @@ MonoBehaviour:
   hoverRender: {fileID: 21300000, guid: 49e00fb1a86fcc747ac48c24b075a5ac, type: 3}
   dragRender: {fileID: 21300000, guid: b622972fa531bc5428df77a13d29daa2, type: 3}
   takeVignetteSound: event:/SD/Vignette/Gameplay/Vignette_PeM
-  dropVignetteSound: 
-  transformationVignetteSound: 
   dropVignetteOnGridSound: event:/SD/Vignette/Gameplay/Vignette_PiG
   dropVignetteNotOnGridSound: event:/SD/Vignette/Gameplay/Vignette_Pi
-  reveleSound: 
+  lockSound: event:/SD/Verouillage
+  transformationSound: event:/SD/Transformation
   a: 0
   animation_Feedback: {fileID: 2871434117374864119}
 --- !u!114 &-6508222920498214798

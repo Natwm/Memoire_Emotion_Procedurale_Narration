@@ -34,6 +34,9 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance resolutionAvailableEffect;
     [FMODUnity.EventRef] [SerializeField] private string resolutionAvailableSound;
 
+    FMOD.Studio.EventInstance drawCurseEffect;
+    [FMODUnity.EventRef] [SerializeField] private string drawCurseSound;
+
     [Space]
     [Header("Sound Fmod Resolution")]
     FMOD.Studio.EventInstance gainObjectEffect;
@@ -54,6 +57,11 @@ public class SoundManager : MonoBehaviour
     FMOD.Studio.EventInstance looseObjectEffect;
     [FMODUnity.EventRef] [SerializeField] private string looseObjectSound;
 
+    FMOD.Studio.EventInstance wooshEffect;
+    [FMODUnity.EventRef] [SerializeField] private string wooshSound;
+
+    public FMOD.Studio.EventInstance LoopEffect;
+    [FMODUnity.EventRef] [SerializeField] private string LoopSound;
 
     public static SoundManager instance;
     void Awake()
@@ -68,6 +76,7 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         SetUpSound();
+        LoopEffect.start();
     }
 
     // Update is called once per frame
@@ -89,6 +98,7 @@ public class SoundManager : MonoBehaviour
         uiSelectedStartAdventureEffect = FMODUnity.RuntimeManager.CreateInstance(uiSelectedStartAdventureSound);
 
         drawVignetteEffect = FMODUnity.RuntimeManager.CreateInstance(drawVignetteSound);
+        drawCurseEffect = FMODUnity.RuntimeManager.CreateInstance(drawCurseSound);
         resolutionAvailableEffect = FMODUnity.RuntimeManager.CreateInstance(resolutionAvailableSound);
 
         gainObjectEffect = FMODUnity.RuntimeManager.CreateInstance(gainObjectSound);
@@ -98,6 +108,11 @@ public class SoundManager : MonoBehaviour
 
         curseEffect = FMODUnity.RuntimeManager.CreateInstance(curseSound);
         looseObjectEffect = FMODUnity.RuntimeManager.CreateInstance(looseObjectSound);
+
+        wooshEffect = FMODUnity.RuntimeManager.CreateInstance(wooshSound);
+
+        LoopEffect = FMODUnity.RuntimeManager.CreateInstance(LoopSound);
+
     }
 
 
@@ -111,6 +126,7 @@ public class SoundManager : MonoBehaviour
 
     //Vignette
     public void PlaySound_DrawVignette() { drawVignetteEffect.start(); }
+    public void PlaySound_DrawCurseVignette() { drawCurseEffect.start(); }
     public void PlaySound_ResolutionAvailable() { resolutionAvailableEffect.start(); }
 
 
@@ -122,5 +138,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound_CurseObject() { curseEffect.start(); }
     public void PlaySound_LooseObject() { looseObjectEffect.start(); }
+
+    public void PlaySound_Woosh() { wooshEffect.start(); }
 
 }

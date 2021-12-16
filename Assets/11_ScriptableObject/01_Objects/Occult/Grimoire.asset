@@ -29,3 +29,4 @@ MonoBehaviour:
     \n+1 <sprite=1>\n-1 <sprite=2>\r\n<br>\r\n<i><b>Mal\xE9diction :</i></b>  \n-1
     <sprite=2>"
   m_NarrationName: le grimoire
+  SelectedSound: event:/SD/Matiere/Matiere_Arcane

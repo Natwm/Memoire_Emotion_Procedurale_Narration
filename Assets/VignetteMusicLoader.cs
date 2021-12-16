@@ -10,6 +10,8 @@ public class VignetteMusicLoader : MonoBehaviour
     [FMODUnity.EventRef]
     public string MusicName = "event:/Music";
 
+    [FMODUnity.EventRef]
+    FMOD.Studio.EventDescription OutEvent;
     public StudioEventEmitter SD_Event;
     public StudioEventEmitter Music_Event;
 
@@ -28,14 +30,22 @@ public class VignetteMusicLoader : MonoBehaviour
     public void SetEvent(string vignetteCategory)
     {
         //print();
-        FMODUnity.RuntimeManager.CreateInstance(LoadSDString(vignetteCategory)).start();
+        RuntimeManager.StudioSystem.getEvent(LoadSDString(vignetteCategory),out OutEvent);
+        if (OutEvent.isValid())
+        {
+            FMODUnity.RuntimeManager.CreateInstance(LoadSDString(vignetteCategory)).start();
+        }
+        
         //SD_Event.Event = LoadSDString(vignetteCategory);
         //Music_Event.Event = LoadMusicString(vignetteCategory);
     }
 
     public void PlayEvents()
     {
-        SD_Event.Play();
+        if (OutEvent.isValid())
+        {
+            SD_Event.Play();
+        }
         Music_Event.Play();
     }
 

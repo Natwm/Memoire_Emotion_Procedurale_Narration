@@ -27,3 +27,4 @@ MonoBehaviour:
     sur certaines cases.\n<i><b> Coup de Hache </i></b> : Applique un point de d\xE9gat
     \xE0 l'adversaire."
   m_NarrationName: la hache
+  SelectedSound: "event:/SD/Matiere/Matiere_M\xE9tallique"

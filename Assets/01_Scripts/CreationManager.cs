@@ -84,6 +84,8 @@ public class CreationManager : MonoBehaviour
     [FMODUnity.EventRef] [SerializeField] private string CharacterHurt3Sound;
     [FMODUnity.EventRef] [SerializeField] private string CharacterHurt4Sound;
 
+    private bool muteFirstSound = false;
+
     #region Awake || Start || Update
     void Awake()
     {
@@ -114,14 +116,7 @@ public class CreationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            //CreatePlayerInventory(PlayerManager.instance);
-        }
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-           // CreateVignette();
-        }
+
     }
     #endregion
 
@@ -146,7 +141,8 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             SelectPlayer(tempButton.GetComponent<Character_Button>());
-            buttonScript.PlaySelectedMusique();
+            if(muteFirstSound)
+                buttonScript.PlaySelectedMusique();
         });
 
         listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
@@ -220,7 +216,7 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
         if (tempButton.GetComponent<UsableObject>().IsCurse)
         {
-            tempButton.GetComponent<Image>().color = new Color32(104, 46, 68, 255);
+            tempButton.GetComponent<Image>().color = GameManager.instance.curseColor;
         }
 
         //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
@@ -229,8 +225,9 @@ public class CreationManager : MonoBehaviour
         {
             print("kiki");
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
-            UpdateDescriptionPanel(tempObject.Data);
+            UpdateDescriptionPanel(tempObject.Data,tempObject.MyCurse);
             SoundManager.instance.PlaySound_SelectedObject();
+            tempObject.Data.PlaySound();
         }
         );
 
@@ -245,7 +242,7 @@ public class CreationManager : MonoBehaviour
             exit.eventID = EventTriggerType.PointerExit;
 
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
-            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject.Data, tempObject.MyCurse); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
             //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
@@ -274,7 +271,8 @@ public class CreationManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
-            UpdateDescriptionPanel(tempObject);
+            UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse);
+            tempObject.PlaySound();
         }
         );
 
@@ -289,7 +287,7 @@ public class CreationManager : MonoBehaviour
             exit.eventID = EventTriggerType.PointerExit;
 
             entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
-            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse); });
             exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });
             //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
 
@@ -359,9 +357,14 @@ public class CreationManager : MonoBehaviour
         CanvasManager.instance.SetInkSlider();
     }
 
-    private void UpdateDescriptionPanel(Object_SO data)
+    private void UpdateDescriptionPanel(Object_SO data, Curse isCurse)
     {
-        CanvasManager.instance.ObjectDescription.text = data.Description;
+        string curseText = "";
+        if (isCurse != null)
+        {
+            curseText = GetCurseName(isCurse);
+        }
+        CanvasManager.instance.ObjectDescription.text = data.Description + curseText;
         CanvasManager.instance.ObjectTitle.text = data.ObjectName != " " || data.ObjectName != string.Empty ? data.ObjectName : data.name;
 
         CanvasManager.instance.ObjectImage.sprite = data.Sprite;
@@ -418,6 +421,25 @@ public class CreationManager : MonoBehaviour
         return tempList == null ? null : tempList;
     }
     #endregion
+
+    private string GetCurseName(Curse useObject)
+    {
+        switch (useObject.CurseName)
+        {
+            case "Reduce Life":
+                return "<br><color=#682e44>-1<sprite=0 color=#682e44></color>";
+                break;
+            case "Reduce Mental":
+                return "<br><color=#682e44>-1<sprite=2 color=#682e44></color>";
+                break;
+            case "Loose an object":
+                return "<br><color=#682e44>-1<sprite=1 color=#682e44></color>";
+                break;
+            default:
+                return "";
+                break;
+        }
+    }
 
     #endregion
     public void PutAllObjectInInventory()
@@ -721,14 +743,17 @@ public class CreationManager : MonoBehaviour
             PlayerManager.instance.Inventory.Clear();
 
             PlayerManager.instance.SetUpCharacter(GameManager.instance.OrderCharacter[0]);
-            CanvasManager.instance.SetUpGamePanel();
             GameManager.instance.WaitingCharacter.Add(GameManager.instance.OrderCharacter[0]);
             GameManager.instance.OrderCharacter.RemoveAt(0);
             CanvasManager.instance.SetUpCharacterInfo();
+            CanvasManager.instance.SetUpGamePanel();
+
+            if(muteFirstSound)
+                PlayerManager.instance.CharacterContener.CharacterSelectedEffect.start();
             //CanvasManager.instance.SetUpWaitingCharacterInfo();
 
         }
-
+        muteFirstSound = true;
     }
 
     public void StartPull()

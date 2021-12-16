@@ -36,7 +36,7 @@ public class PenObject : MonoBehaviour, IPointerEnterHandler,IPointerExitHandler
     public void InitButton()
     {
         if (GetComponent<Button>().interactable)
-            render.sprite = neutre;
+            GetComponent<Image>().sprite = neutre;
         else
         {
             GetComponent<Image>().sprite = disable;

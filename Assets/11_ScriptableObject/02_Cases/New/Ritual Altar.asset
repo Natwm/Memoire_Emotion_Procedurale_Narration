@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Ritual Altar
   m_EditorClassIdentifier: 
   caseName: Ritual Altar
-  anyVignette: 1
+  anyVignette: 0
   useSpecifiqueObject: 0
   isEchecResult: 0
-  objectsRequired: 
+  objectsRequired: 19000000
   specifiqueObject: {fileID: 0}
   result: 0
   echecResult: 0
-  TileObject: {fileID: 0}
+  TileObject: {fileID: 8933427331047666015, guid: 04298ddffd4e94145b04badeb8e3ec90,
+    type: 3}
   doLock: 0

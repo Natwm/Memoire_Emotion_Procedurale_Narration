@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<Character_Button> m_OrderCharacter;
     [SerializeField] private List<Character_Button> m_WaitingCharacter;
 
+    public Color32 curseColor = new Color32(104, 46, 68, 255);
+
     public List<Character_Button> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
     public List<Character_Button> WaitingCharacter { get => m_WaitingCharacter; set => m_WaitingCharacter = value; }
 
