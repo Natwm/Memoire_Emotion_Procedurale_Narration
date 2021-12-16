@@ -305,12 +305,26 @@ public class Vignette_Renderer : MonoBehaviour
     
     public GameObject CreateVignette(string size,string vignette_name,Color characterColor,bool cursed)
     {
-        GameObject loadVignette = Resources.Load("Vignettes/" + vignette_name) as GameObject;
+        string vignetteString = "Vignettes/" + vignette_name;
+        if (vignette_name == "NEUTRE")
+        {
+            int coin = Random.Range(0, 2);
+            if (coin==0)
+            {
+                vignetteString += "_CLOSE";
+            }
+            else
+            {
+                vignetteString += "_FAR";
+            }
+        }
+        GameObject loadVignette = Resources.Load(vignetteString) as GameObject;
         if (loadVignette == null)
         {
-            loadVignette = Resources.Load("Vignettes/" + "NEUTRE") as GameObject;
+            loadVignette = Resources.Load("Vignettes/" + "PLACEHOLDER") as GameObject;
         }
         
+
         GameObject tempVignette = Instantiate(loadVignette);
         tempVignette.SetActive(true);
         tempVignette.transform.position = Vector3.zero;
