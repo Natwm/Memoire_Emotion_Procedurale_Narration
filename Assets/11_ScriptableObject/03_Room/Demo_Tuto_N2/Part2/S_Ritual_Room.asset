@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: S_Ritual_Room
   m_EditorClassIdentifier: 
-  m_RoomName: Une salle vide.
+  m_RoomName: Une salle vide ?
   m_Roomsize: {x: 6, y: 4}
   m_possibleObjects: []
   m_garanteedObjects: []

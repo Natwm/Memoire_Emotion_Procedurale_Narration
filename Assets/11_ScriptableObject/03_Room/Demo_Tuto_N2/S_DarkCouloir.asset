@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: S_DarkCouloir
   m_EditorClassIdentifier: 
-  m_RoomName: Salle 1
+  m_RoomName: Couloir Sombre
   m_Roomsize: {x: 2, y: 6}
   m_possibleObjects:
   - {fileID: 11400000, guid: 0a8e613a97305764abef479f01e916df, type: 2}

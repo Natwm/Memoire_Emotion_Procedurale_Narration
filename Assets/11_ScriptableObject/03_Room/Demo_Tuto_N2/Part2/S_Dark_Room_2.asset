@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
   m_Name: S_Dark_Room_2
   m_EditorClassIdentifier: 
-  m_RoomName: Indice_Room_1
+  m_RoomName: "Encore dans l'obscurit\xE9"
   m_Roomsize: {x: 6, y: 4}
   m_possibleObjects:
   - {fileID: 11400000, guid: f65b0c2235d09ea4aa7c63bfa66828f4, type: 2}
