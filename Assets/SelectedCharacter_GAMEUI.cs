@@ -77,8 +77,10 @@ public class SelectedCharacter_GAMEUI : MonoBehaviour
 
                 if(item.AmountOfUse <= 0)
                 {
-                    Destroy(item.gameObject);
-                    Destroy(inventoryElt.gameObject);
+                    item.gameObject.SetActive(false);
+                    inventoryElt.gameObject.SetActive(false);
+                    //Destroy(item.gameObject);
+                    //Destroy(inventoryElt.gameObject);
                 }
                 
             });

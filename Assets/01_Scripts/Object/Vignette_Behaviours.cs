@@ -286,7 +286,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = null;
-        objectFrom = null;
+        //objectFrom = null;
         SetUpUI();
     }
 
@@ -296,7 +296,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         Categorie = initCategorie = categorie;
         categorieText.text = GetEnumName();
         SpriteIndicator.sprite = useObject.Sprite;
-        objectFrom = null;
+       // objectFrom = null;
         SetUpUI();
     }
 

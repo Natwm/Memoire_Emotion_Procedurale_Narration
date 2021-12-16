@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
 
     [Space]
     [Header("Page Inventory")]
-    [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject> ();
+    [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject>();
     [SerializeField] private List<Object_SO> basisPullOfObject = new List<Object_SO>();
     [SerializeField] private List<Object_SO> healPullOfObject = new List<Object_SO>();
     [SerializeField] private List<Object_SO> occultsPullOfObject = new List<Object_SO>();
@@ -120,45 +120,46 @@ public class LevelManager : MonoBehaviour
 
     public void SpawnObject(Object_SO obj)
     {
-            foreach (var toDraw in obj.DrawParam)
+        foreach (var toDraw in obj.DrawParam)
+        {
+            for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
             {
-                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
-                {
-                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
-                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
-                    GameObject card = Instantiate(vignette, parent);
+                int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                GameObject card = Instantiate(vignette, parent);
 
-                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
-                    cardBd.SetUpVignette(toDraw.CategoryToDraw, obj);
+                Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                cardBd.SetUpVignette(toDraw.CategoryToDraw, obj);
 
-                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                PlayerManager.instance.HandOfVignette.Add(cardBd);
 
-                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
-                }
+                card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
             }
+        }
     }
 
     public void SpawnObject(UsableObject inventory)
     {
 
-            foreach (var toDraw in inventory.Data.DrawParam)
+        foreach (var toDraw in inventory.Data.DrawParam)
+        {
+            for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
             {
-                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
-                {
-                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
-                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                GameObject vignette = listOfObjectToSpawn[vignetteShape];
 
-                    GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
+                GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
 
-                    Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
-                    cardBd.SetUpVignette(toDraw.CategoryToDraw, inventory);
+                Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
+                cardBd.SetUpVignette(toDraw.CategoryToDraw, inventory);
 
-                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                PlayerManager.instance.HandOfVignette.Add(cardBd);
 
-                    card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
-                }
+                card.transform.position = new Vector3(card.transform.position.x, card.transform.position.y, -2);
+                cardBd.ObjectFrom = inventory;
             }
-        
+        }
+
     }
 
     public void SpawnObject(List<UsableObject> inventory)
@@ -173,7 +174,7 @@ public class LevelManager : MonoBehaviour
                     GameObject vignette = listOfObjectToSpawn[vignetteShape];
 
                     GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
-                    
+
                     Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
                     cardBd.SetUpVignette(toDraw.CategoryToDraw, item);
 
@@ -188,26 +189,26 @@ public class LevelManager : MonoBehaviour
     public void SpawnObject(List<DrawVignette> inventory)
     {
         SoundManager.instance.PlaySound_DrawVignette();
-            foreach (var toDraw in inventory)
+        foreach (var toDraw in inventory)
+        {
+            for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
             {
-                for (int i = 0; i < toDraw.AmountOfCardToDraw; i++)
-                {
-                    int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
-                    GameObject vignette = listOfObjectToSpawn[vignetteShape];
+                int vignetteShape = Random.Range(0, listOfObjectToSpawn.Count);
+                GameObject vignette = listOfObjectToSpawn[vignetteShape];
                 GameObject card = Instantiate(vignette, parent.position + Random.insideUnitSphere * radius, Quaternion.identity, parent);
 
                 Vignette_Behaviours cardBd = card.GetComponent<Vignette_Behaviours>();
-                    cardBd.SetUpVignette(toDraw.CategoryToDraw);
+                cardBd.SetUpVignette(toDraw.CategoryToDraw);
 
-                    PlayerManager.instance.HandOfVignette.Add(cardBd);
+                PlayerManager.instance.HandOfVignette.Add(cardBd);
 
-                    card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
-                }
+                card.transform.position.Set(card.transform.position.x, card.transform.position.y, -2);
             }
-       /* if (inventory.Count > 0)
-        {
-            SpawnObject(PlayerManager.instance.InventoryObj);
-        }*/
+        }
+        /* if (inventory.Count > 0)
+         {
+             SpawnObject(PlayerManager.instance.InventoryObj);
+         }*/
     }
 
     public void SpawnNegatifObject(int amount = 1)
@@ -235,7 +236,7 @@ public class LevelManager : MonoBehaviour
 
     public void NewPage()
     {
-        if (ChangeNarrativeBranch()) 
+        if (ChangeNarrativeBranch())
         {
             GridManager.instance.ClearScene();
         }
@@ -255,7 +256,7 @@ public class LevelManager : MonoBehaviour
     public bool ChangeNarrativeBranch()
     {
         nextCheck--;
-        if(nextCheck <= 0)
+        if (nextCheck <= 0)
         {
             // vérifie si un des persos valide la condition
             foreach (Character item in CastingManager.instance.AllCharacters)
@@ -276,7 +277,7 @@ public class LevelManager : MonoBehaviour
 
                             else if (item.currentJauge == EmotionJauge.Jauge_PeurColere && item.jaugeNumber == stepCondition.JaugeValueCondition)
                             {
-                                nextCheck = stepCondition.NextCheck; 
+                                nextCheck = stepCondition.NextCheck;
                                 nextCondition = stepCondition.NextMove;
                                 currentBranching = stepCondition;
                                 return true;
@@ -295,7 +296,7 @@ public class LevelManager : MonoBehaviour
                                 currentBranching = stepCondition;
                                 return true;
                             }
- 
+
                             break;
 
                         default:
@@ -312,7 +313,7 @@ public class LevelManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(parent.transform.position , radius);
+        Gizmos.DrawWireSphere(parent.transform.position, radius);
     }
 
     #region Getter && Setter
