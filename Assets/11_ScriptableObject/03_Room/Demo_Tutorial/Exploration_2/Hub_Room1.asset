@@ -19,6 +19,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
   m_Object_Distribution: 0
   m_Effect_Of_Room: 3
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
+  m_RoomPicture: {fileID: 21300000, guid: b745ac19b5150d54a865ff1818829557, type: 3}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 5125dcb2c35077846bf90889147a7cf1, type: 2}
     m_ExitText: "Aller \xE0 Ritual_Room"

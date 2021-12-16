@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Hall
   m_EditorClassIdentifier: 
   m_RoomName: Hall
-  m_Roomsize: {x: 4, y: 4}
+  m_Roomsize: {x: 5, y: 5}
   m_possibleObjects:
   - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
   - {fileID: 11400000, guid: 7d3d82012b3110649a50b9c0dbf55337, type: 2}
   m_garanteedObjects: []
   m_Object_Distribution: 3
   m_Effect_Of_Room: 3
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 6745858432de74f40a5f51ee94aed957, type: 2}
     m_ExitText: Vous choisissez de prendre le couloir de gauche.

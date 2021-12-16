@@ -20,6 +20,7 @@ MonoBehaviour:
   m_garanteedObjects: []
   m_Object_Distribution: 3
   m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 6745858432de74f40a5f51ee94aed957, type: 2}
     m_ExitText: "Vous d\xE9cidez "

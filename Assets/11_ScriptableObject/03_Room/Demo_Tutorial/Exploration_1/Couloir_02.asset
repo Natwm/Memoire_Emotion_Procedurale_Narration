@@ -20,6 +20,7 @@ MonoBehaviour:
   m_garanteedObjects: []
   m_Object_Distribution: 5
   m_Effect_Of_Room: 1
+  m_ColorPalette: {fileID: 11400000, guid: 68f65c4187096d34f8abd446619be353, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 4bbeda977c2a27247b120a273bc545c2, type: 2}
     m_ExitText: Ouvrir la porte, et entrer.

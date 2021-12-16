@@ -15,7 +15,7 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: FMOD_BD\FMOD_BD.fspro
+  sourceProjectPath: FMOD_BD/FMOD_BD.fspro
   sourceBankPath: FMOD_BD\Build
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1

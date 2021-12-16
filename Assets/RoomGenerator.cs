@@ -14,6 +14,7 @@ public class RoomGenerator : MonoBehaviour
     // UI Management
     public GameObject RoomPanel;
     public TMP_Text TitleText;
+    public Image RoomPicture;
     [Space]
     [Header("Intro")]
     public GameObject Intro;
@@ -77,6 +78,7 @@ public class RoomGenerator : MonoBehaviour
             EventGenerator.instance.DetermineDoors(false);
             EventGenerator.instance.DetermineKey();
             EventGenerator.instance.PopulateTiles(RoomToCreate.ObjectDistribution);
+            RoomToCreate.SetColorPalette();
             foreach (GameObject item in EventGenerator.instance.occupiedTiles)
             {
                 int randomInt = Random.Range(0, RoomToCreate.PossibleTiles.Count);
@@ -164,6 +166,7 @@ public class RoomGenerator : MonoBehaviour
     public void InitialiseRoomToUi(Room_So Room)
     {
         TitleText.text = Room.RoomName;
+        RoomPicture.sprite = Room.RoomPicture;
         IntroText.text = Room.Room_IntroText;
         OutroText.text = Room.Room_OutroText;
         if (LayoutGroup.transform.childCount>0)

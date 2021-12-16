@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: S_Hub_Room
+  m_EditorClassIdentifier: 
+  m_RoomName: Une autre salle ?
+  m_Roomsize: {x: 6, y: 6}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 766b228439df61349a4b8be70e00aee4, type: 2}
+  m_Object_Distribution: 2
+  m_Effect_Of_Room: 3
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
+  m_RoomPicture: {fileID: 21300000, guid: 81ae0694d6d92154f8ec83c2ca0f9b99, type: 3}
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 9f7492ea2ceeafb4e8cf878c437d6305, type: 2}
+    m_ExitText: "Une salle \xE0 l'apparence commune."
+  - m_ExitFromRoom: {fileID: 11400000, guid: a57ea58cbd2cce94499125d58c4a5a8a, type: 2}
+    m_ExitText: "Une salle plong\xE9e dans l'obscurit\xE9."
+  - m_ExitFromRoom: {fileID: 11400000, guid: 6107d47e44be0f54aa1c086a0fa37b74, type: 2}
+    m_ExitText: "Une salle qui d\xE9gage une aura mena\xE7ante."
+  m_IntroText: "En sortant de la salle, vous \xEAtes \xE9tonn\xE9 de constater que
+    ce n\u2019est plus la pi\xE8ce par laquelle vous \xEAtes arriv\xE9. Vous p\xE9n\xE9trez
+    prudemment dans ce nouveau lieu."
+  m_OutroText: "\xC0 peine venez-vous de sortir de la salle, que vous entendez le
+    parquet craquer derri\xE8re vous. Ne pr\xE9f\xE9rant pas vous retourner, vous
+    avancez dans l'une des salles suivante."

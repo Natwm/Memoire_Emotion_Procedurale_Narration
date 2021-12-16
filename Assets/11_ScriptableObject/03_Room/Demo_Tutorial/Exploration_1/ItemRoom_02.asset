@@ -20,6 +20,8 @@ MonoBehaviour:
   m_garanteedObjects:
   - {fileID: 11400000, guid: 766b228439df61349a4b8be70e00aee4, type: 2}
   m_Object_Distribution: 3
+  m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 74b77edef307eb445867e49ffcae25a9, type: 2}
     m_ExitText: Retourner vers le Hall.

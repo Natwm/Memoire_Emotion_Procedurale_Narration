@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: S_Indice_Room_1
+  m_EditorClassIdentifier: 
+  m_RoomName: Des inscriptions ?
+  m_Roomsize: {x: 4, y: 4}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: dda70f6726eb6a4498981af5d51784f9, type: 2}
+  m_garanteedObjects:
+  - {fileID: 11400000, guid: 9dccb7283efe99142b1bf06f5cad1fe6, type: 2}
+  - {fileID: 11400000, guid: 766b228439df61349a4b8be70e00aee4, type: 2}
+  m_Object_Distribution: 1
+  m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
+  m_RoomPicture: {fileID: 21300000, guid: 5c521bd9162d1154c9cb14a0152aaeb9, type: 3}
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 962ca51a0e8bea64590d65c7a90e5ae3, type: 2}
+    m_ExitText: Une salle de taille importante avec du parquet au sol.
+  - m_ExitFromRoom: {fileID: 11400000, guid: 6107d47e44be0f54aa1c086a0fa37b74, type: 2}
+    m_ExitText: "Une salle qui d\xE9gage une aura mena\xE7ante."
+  m_IntroText: "Du coin de l'\u0153il, vous apercevez quelque chose bouger dans cette
+    salle. Vous comprenez vite que ce n\u2019est que votre reflet renvoy\xE9 par
+    le miroir de l\u2019armoire. Mais tr\xE8s vite autre chose vous inqui\xE8te\u2026
+    les tra\xEEn\xE9es rouges sur le sol."
+  m_OutroText: "Vous doutez de plus en plus de ce qu\u2019il se passe autour de vous.
+    Vous avez l\u2019impression \xE0 tout instant que quelque chose va surgir de
+    nulle part. Pourtant, vous essayez de vous rationaliser et de continuer \xE0
+    avancer."

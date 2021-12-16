@@ -19,6 +19,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7db39c80404e17e4f9b58fc05d439536, type: 2}
   m_Object_Distribution: 0
   m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 2242ae6113d26d0439bd5dac2bbe0333, type: 2}
     m_ExitText: "Phase de n\xE9gociation"

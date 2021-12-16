@@ -21,6 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9dccb7283efe99142b1bf06f5cad1fe6, type: 2}
   m_Object_Distribution: 3
   m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 8da1a8d342c9d6c43b6934559965d7dc, type: 2}
     m_ExitText: 

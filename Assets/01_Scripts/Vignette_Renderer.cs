@@ -14,6 +14,7 @@ public class Vignette_Renderer : MonoBehaviour
     public string size;
     public string category;
     public Color[] vignetteColors;
+    public Color[] currentColorPalette;
     public GameObject[] Reveals;
     public Material LightEffect;
     public static Vignette_Renderer instance;
@@ -163,7 +164,7 @@ public class Vignette_Renderer : MonoBehaviour
                         for (int n = 0; n < Layer.transform.childCount; n++)
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[1];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[1];
                         }
                         break;
                 }
@@ -172,7 +173,7 @@ public class Vignette_Renderer : MonoBehaviour
                         for (int n = 0; n < Layer.transform.childCount; n++)
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[0];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[0];
                         }
                         break;
                 }
@@ -191,7 +192,7 @@ public class Vignette_Renderer : MonoBehaviour
                         for (int n = 0; n < Layer.transform.childCount; n++)
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[1];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[1];
                         }
                         break;
                 }
@@ -200,7 +201,7 @@ public class Vignette_Renderer : MonoBehaviour
                         for (int n = 0; n < Layer.transform.childCount; n++)
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[2];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[2];
                         }
                         break;
                 }
@@ -209,7 +210,7 @@ public class Vignette_Renderer : MonoBehaviour
                         for (int n = 0; n < Layer.transform.childCount; n++)
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[2];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[2];
                         }
                         break;
                 }
@@ -219,13 +220,13 @@ public class Vignette_Renderer : MonoBehaviour
                         {
                             GameObject child = Layer.transform.GetChild(n).gameObject;
                             child.GetComponent<SpriteRenderer>().material = LightEffect;
-                            child.GetComponent<SpriteRenderer>().color = vignetteColors[3];
+                            child.GetComponent<SpriteRenderer>().color = currentColorPalette[3];
                         }
                         break;
                 }
                 case string a when a.Contains("BGPAINT"):
                 {
-                        Layer.GetComponent<SpriteRenderer>().color = vignetteColors[2];
+                        Layer.GetComponent<SpriteRenderer>().color = currentColorPalette[2];
                         break;
                 }
             }

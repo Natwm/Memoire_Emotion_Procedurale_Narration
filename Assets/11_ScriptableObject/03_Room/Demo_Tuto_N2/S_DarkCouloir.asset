@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: S_DarkCouloir
+  m_EditorClassIdentifier: 
+  m_RoomName: Salle 1
+  m_Roomsize: {x: 2, y: 6}
+  m_possibleObjects:
+  - {fileID: 11400000, guid: 0a8e613a97305764abef479f01e916df, type: 2}
+  - {fileID: 11400000, guid: f65b0c2235d09ea4aa7c63bfa66828f4, type: 2}
+  m_garanteedObjects: []
+  m_Object_Distribution: 3
+  m_Effect_Of_Room: 1
+  m_ColorPalette: {fileID: 11400000, guid: 68f65c4187096d34f8abd446619be353, type: 2}
+  m_RoomPicture: {fileID: 21300000, guid: 3ec9b55369cc30d4f99ffc4f9496d25e, type: 3}
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: f19455b07a7b26048b33b4f02a4ac99d, type: 2}
+    m_ExitText: "Tant bien que mal, vous avez r\xE9ussi \xE0 trouver ce qui semble
+      \xEAtre la poign\xE9e d'une porte."
+  m_IntroText: "Le couloir face \xE0 vous dispara\xEEt progressivement dans l'obscurit\xE9,
+    vous continuez \xE0 avancer, dans le noir le plus complet."
+  m_OutroText: "\"Vous semblez tous \xE9branl\xE9 par ce qu\u2019il vient de se passer.
+    \u201CJ\u2019ai cru qu\u2019on allait mourir br\xFBl\xE9s vifs\"\", \u201C...
+    Il n\u2019y avait pas de feu.\u201D\r\nAu bout de quelques \xE9changes, vous
+    comprenez que chacun voit ses propres angoisses se mat\xE9rialiser.\""

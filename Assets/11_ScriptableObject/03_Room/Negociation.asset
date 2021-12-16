@@ -18,6 +18,7 @@ MonoBehaviour:
   m_garanteedObjects: []
   m_Object_Distribution: 0
   m_Effect_Of_Room: 2
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits: []
   m_IntroText: "Bonjour, je suis la salle de n\xE9go"
   m_OutroText: Au revoir

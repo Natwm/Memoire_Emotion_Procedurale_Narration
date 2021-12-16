@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0e4a453a63cb446a09ad97f2f2066e, type: 3}
+  m_Name: S_Entree
+  m_EditorClassIdentifier: 
+  m_RoomName: "Entr\xE9e"
+  m_Roomsize: {x: 4, y: 4}
+  m_possibleObjects: []
+  m_garanteedObjects: []
+  m_Object_Distribution: 0
+  m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
+  m_RoomPicture: {fileID: 21300000, guid: b745ac19b5150d54a865ff1818829557, type: 3}
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 6ad4a04091bf68a49988b8591afce7d8, type: 2}
+    m_ExitText: "Vous d\xE9cidez de traverser cette porte et de vous enfoncer plus
+      profond\xE9ment dans ces lieux."
+  m_IntroText: "Un bruit de portes qui claquent se fait entendre. En ouvrant les
+    yeux, vous constatez que vous \xEAtes quatre \xE0 vous r\xE9veiller dans cette
+    salle. Il n\u2019y a rien d\u2019autre autour de vous hormis une double porte
+    et l\u2019acc\xE8s \xE0 un couloir.\nApr\xE8s avoir tent\xE9 d\u2019ouvrir les
+    portes sans succ\xE8s\u2026 et quelques \xE9changes, vous d\xE9cidez tous d\u2019explorer
+    les lieux pour trouver une autre issue."
+  m_OutroText: "Vous ressentez une tension autour de vous\u2026 Les statues semblent
+    vous suivre du regard.\nLa seule issue, est la porte \xE0 l\u2019oppos\xE9 de
+    cette pi\xE8ce."

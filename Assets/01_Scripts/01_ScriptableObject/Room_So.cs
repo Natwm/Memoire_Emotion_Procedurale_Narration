@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class RoomExit
@@ -25,6 +26,9 @@ public class Room_So : ScriptableObject
     [SerializeField] private List<CaseContener_SO> m_garanteedObjects;
     [SerializeField] private int m_Object_Distribution;
     [SerializeField] private CustomEffect m_Effect_Of_Room;
+    [SerializeField] private Palette_SO m_ColorPalette;
+    [SerializeField] private Sprite m_RoomPicture;
+
     public enum CustomEffect
     {
         NONE,
@@ -47,7 +51,8 @@ public class Room_So : ScriptableObject
     [SerializeField] string m_OutroText;
 
     #region Getter && Setter
-
+    public Sprite RoomPicture { get => m_RoomPicture; set => m_RoomPicture=value; }
+    public Palette_SO ColorPalette { get => m_ColorPalette; set => m_ColorPalette = value; }
     public string RoomName { get => m_RoomName; set => m_RoomName = value; }
     public Vector2Int Room_Size { get => m_Roomsize; set => m_Roomsize = value; }
     public List<CaseContener_SO> PossibleTiles { get => m_possibleObjects; set => m_possibleObjects = value; }
@@ -59,6 +64,11 @@ public class Room_So : ScriptableObject
     public CustomEffect Effect_Of_Room { get => m_Effect_Of_Room; set => m_Effect_Of_Room = value; }
 
     #endregion
+
+    public void SetColorPalette()
+    {
+        Vignette_Renderer.instance.currentColorPalette = ColorPalette.colorPalette;
+    }
 
     public void ApplyEffect()
     {

@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Simaisnon
   m_EditorClassIdentifier: 
   m_render: {fileID: 21300000, guid: a0072e8de6539b143a3aa0a25f9a834a, type: 3}
-  m_CharacterName: Vincent
-  maxHealth: 5
-  health: 5
+  m_CharacterName: Stanislas
+  maxHealth: 7
+  health: 7
   m_Endurance: 1
   m_MaxEndurance: 1
-  m_MentalHealth: 5
-  m_MaxMentalHealth: 5
-  m_InventorySize: 2
-  m_MaxInventorySize: 2
+  m_MentalHealth: 4
+  m_MaxMentalHealth: 4
+  m_InventorySize: 1
+  m_MaxInventorySize: 1
   m_Inventory: []
   m_BaseHand:
   - categoryToDraw: 1
@@ -30,6 +30,6 @@ MonoBehaviour:
     amountOfCardToDraw: 1
   - categoryToDraw: 0
     amountOfCardToDraw: 1
-  - categoryToDraw: 1
+  - categoryToDraw: 0
     amountOfCardToDraw: 1
   m_Color: {r: 1, g: 0.76470596, b: 0, a: 1}

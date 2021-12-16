@@ -19,6 +19,7 @@ MonoBehaviour:
   m_garanteedObjects: []
   m_Object_Distribution: 4
   m_Effect_Of_Room: 0
+  m_ColorPalette: {fileID: 11400000, guid: 319eedf8304b0ac4bb559b42a0dc66b1, type: 2}
   m_PossibleExits:
   - m_ExitFromRoom: {fileID: 11400000, guid: 8da1a8d342c9d6c43b6934559965d7dc, type: 2}
     m_ExitText: 
