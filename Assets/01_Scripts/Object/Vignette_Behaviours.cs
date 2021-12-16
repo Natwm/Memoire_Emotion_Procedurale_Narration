@@ -181,15 +181,15 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
         lockEffect = FMODUnity.RuntimeManager.CreateInstance(lockSound);
     }
-    
 
-public void ApplyVignetteEffect()
+
+    public void ApplyVignetteEffect()
     {
-        bool cursed=false;
+        bool cursed = false;
         GetComponent<VignetteMusicLoader>().SetEvent(currentCategorie.ToString());
         ReciveSpecifiqueObj();
 
-        
+
         // action spécifique
         switch (Categorie)
         {
@@ -255,7 +255,7 @@ public void ApplyVignetteEffect()
             case VignetteCategories.FOOD_OLD:
                 CurseEffect();
                 SmallHealEffect();
-                
+
                 break;
             case VignetteCategories.CANNOTOPEN:
                 NeutralEffect();
@@ -263,7 +263,7 @@ public void ApplyVignetteEffect()
             default:
                 break;
         }
-        
+
         if (objectFrom != null)
         {
             if (objectFrom.IsCurse)
@@ -273,8 +273,8 @@ public void ApplyVignetteEffect()
                 SoundManager.instance.PlaySound_CurseObject();
             }
         }
-        string vSize = VignetteShape.x+"x"+ VignetteShape.y;
-        GameObject newVignette = Vignette_Renderer.instance.CreateVignette(vSize, Categorie.ToString(),PlayerManager.instance.CharacterData.Color, cursed);
+        string vSize = VignetteShape.x + "x" + VignetteShape.y;
+        GameObject newVignette = Vignette_Renderer.instance.CreateVignette(vSize, Categorie.ToString(), PlayerManager.instance.CharacterData.Color, cursed);
         newVignette.transform.parent = transform;
         newVignette.transform.localPosition = Vector3.zero;
 
@@ -307,12 +307,12 @@ public void ApplyVignetteEffect()
     {
         Categorie = initCategorie = categorie;
         vignetteText = GetEnumName();
-        
+
         SpriteIndicator.sprite = useObject.Data.Sprite;
 
         if (useObject.IsCurse)
         {
-            SpriteIndicator.color = new Color32(104,46,68,255);
+            SpriteIndicator.color = new Color32(104, 46, 68, 255);
             curseText = GetCurseName(useObject);
         }
         else
@@ -353,13 +353,13 @@ public void ApplyVignetteEffect()
     public void ExploreEffect()
     {
         print("ExploreEffect");
-        
+
         SoundManager.instance.PlaySound_GainObject();
 
         int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.BasisPullOfObject.Count);
         Object_SO newItem = LevelManager.instance.BasisPullOfObject[randomIndex];
 
-        
+
         GameObject item = CanvasManager.instance.NewItemInLevelInventory(newItem);
         item.GetComponent<UsableObject>().Data = newItem;
 
@@ -555,7 +555,7 @@ public void ApplyVignetteEffect()
                     animation_Feedback.PlayLock();
                     lockEffect.start();
                 }
-                    
+
 
                 if (condition.AnyVignette || Categorie == VignetteCategories.DEBROUILLARD)
                 {
@@ -638,7 +638,7 @@ public void ApplyVignetteEffect()
                         print(this.gameObject.name + "   Position du curseur = "+x + " " + y);*/
 
                         Vector2 tilePos = new Vector2((hoveredTile.x + x), (hoveredTile.y + y));
-                        
+
                         //print(this.gameObject.name +  " tilePos  = " + tilePos + "  !vignetteTile.Contains(tilePos) = " + !vignetteTile.Contains(tilePos));
 
                         if (tilePos.y > GridManager.instance.GridSize.y)
@@ -663,8 +663,8 @@ public void ApplyVignetteEffect()
                                     GameObject tile = GridManager.instance.ListOfTile2D[Mathf.RoundToInt(tilePos.x)][Mathf.RoundToInt(tilePos.y)];
                                     //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name);
                                     tileEvent = tile.GetComponent<TileElt_Behaviours>();
-                                     //print("la tile : " + this.gameObject.name + " vérifie la position : " + Mathf.RoundToInt(tilePos.x) + " " + Mathf.RoundToInt(tilePos.y) + " et levent est : " + tileEvent);
-                                     //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
+                                    //print("la tile : " + this.gameObject.name + " vérifie la position : " + Mathf.RoundToInt(tilePos.x) + " " + Mathf.RoundToInt(tilePos.y) + " et levent est : " + tileEvent);
+                                    //print("La tile qui vérifie est : " + this.gameObject.name + " La taile que l'on check is " + tile.name + " , est ce quel possède l'event :" + tileEvent +" est il null ? " + tileEvent != null);
 
 
                                     if (tileEvent != null)
@@ -677,7 +677,7 @@ public void ApplyVignetteEffect()
                                             {
                                                 a = true;
                                                 //tileEvent.EventAssocier.previousMove = this;
-                                               // print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
+                                                // print("Je suis  "+this.gameObject.name +" et J'ai detec un voisin qui est  : " + tileEvent.EventAssocier.gameObject.name);
                                                 return tileEvent.EventAssocier;
                                             }
                                             if (hoveredTile == Vector2.zero)
@@ -869,25 +869,25 @@ public void ApplyVignetteEffect()
         switch (Categorie)
         {
             case VignetteCategories.NEUTRE:
-                SetUpTextVignette(0,0,0);
+                SetUpTextVignette(0, 0, 0);
                 break;
             case VignetteCategories.EXPLORER:
-                SetUpTextVignette(1,0,0);
+                SetUpTextVignette(1, 0, 0);
                 break;
             case VignetteCategories.PRENDRE:
                 SetUpTextVignette("All");
                 break;
             case VignetteCategories.COMBATTRE:
-                SetUpTextVignette(0,0,-2);
+                SetUpTextVignette(0, 0, -2);
                 break;
             case VignetteCategories.UTILISER:
                 SetUpTextVignette("");
                 break;
             case VignetteCategories.PIEGE:
-                SetUpTextVignette(0,0,-1);
+                SetUpTextVignette(0, 0, -1);
                 break;
             case VignetteCategories.CURSE:
-                SetUpTextVignette(0,-1,0);
+                SetUpTextVignette(0, -1, 0);
                 break;
             case VignetteCategories.PERTE_OBJET:
                 SetUpTextVignette(-1);
@@ -896,13 +896,13 @@ public void ApplyVignetteEffect()
                 SetUpTextVignette("NONE");
                 break;
             case VignetteCategories.SMALL_HEAL:
-                SetUpTextVignette(0,0,1);
+                SetUpTextVignette(0, 0, 1);
                 break;
             case VignetteCategories.BIG_HEAL:
                 SetUpTextVignette(0, 0, 10);
                 break;
             case VignetteCategories.SOUFFLER:
-                SetUpTextVignette(0,1,0);
+                SetUpTextVignette(0, 1, 0);
                 break;
             case VignetteCategories.EXPLORER_RARE:
                 SetUpTextVignette(1, 0, 0);
@@ -1218,11 +1218,9 @@ public void ApplyVignetteEffect()
             }
         }
 
-        if (isChange)
-        {
-            animation_Feedback.PlayTransformation();
-            transformationEffect.start();
-        }
+        animation_Feedback.PlayTransformation();
+        transformationEffect.start();
+
 
         categorieText.text = GetEnumName() + curseText;
         SetUpUI();
@@ -1237,7 +1235,7 @@ public void ApplyVignetteEffect()
         currentCategorie = initCategorie;
 
         curseText = "";
-        if(objectFrom != null)
+        if (objectFrom != null)
         {
             if (objectFrom.IsCurse)
             {
@@ -1245,7 +1243,7 @@ public void ApplyVignetteEffect()
                 curseText = GetCurseName(objectFrom);
             }
         }
-        
+
         categorieText.text = GetEnumName() + curseText;
 
         if (isChange)
@@ -1253,7 +1251,7 @@ public void ApplyVignetteEffect()
             animation_Feedback.PlayTransformation();
             transformationEffect.start();
         }
-            
+
 
         SetUpUI();
     }
@@ -1348,7 +1346,7 @@ public void ApplyVignetteEffect()
             }
         }
 
-        
+
         GridManager.instance.GetVignetteOrderByNeighbourg();
 
         GameManager.instance.CheckIfAllAreConnect();//IsMovementvalid();
