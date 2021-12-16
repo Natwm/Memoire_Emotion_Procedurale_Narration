@@ -36,7 +36,8 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         RASOIR,
         RASOIR_USE,
         ARTEFACT,
-        FOOD_OLD
+        FOOD_OLD,
+        CANNOTOPEN
     }
 
     #region param
@@ -254,9 +255,10 @@ public void ApplyVignetteEffect()
             case VignetteCategories.FOOD_OLD:
                 CurseEffect();
                 SmallHealEffect();
-
+                
                 break;
-
+            case VignetteCategories.CANNOTOPEN:
+                NeutralEffect();
                 break;
             default:
                 break;
@@ -391,7 +393,7 @@ public void ApplyVignetteEffect()
         print("ExploreEffect");
         SoundManager.instance.PlaySound_GainObject();
 
-        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.UnlockableObject.Count);
+        int randomIndex = UnityEngine.Random.Range(0, LevelManager.instance.HealPullOfObject.Count);
         Object_SO newItem = LevelManager.instance.HealPullOfObject[randomIndex];
 
 
@@ -1144,7 +1146,7 @@ public void ApplyVignetteEffect()
                 return "RESSEMBLANCE_ETRANGE";
                 break;
             case VignetteCategories.EXPLORER_MEDIC:
-                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
+                return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Fouiller l'armoire à pharmacie";
                 break;
             case VignetteCategories.EXPLORER_OCCULT:
                 return "<color=#B5935A>+1<sprite=1 color=#B5935A></color=#B5935A><br><size=100%>Explorer";
@@ -1165,6 +1167,8 @@ public void ApplyVignetteEffect()
                 return "<color=#B5935A>-1<sprite=2 color=#B5935A><br>+1<sprite=0 color=#B5935A></color=#B5935A><br>Dégoût";
             default:
                 return "<br> Neutre";
+            case VignetteCategories.CANNOTOPEN:
+                return "FERMÉ A CLÉ";
                 break;
         }
     }
