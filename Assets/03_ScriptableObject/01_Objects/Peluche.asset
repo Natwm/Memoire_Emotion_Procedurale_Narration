@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfcc717cfbd36d34985e85ebcccd197e, type: 3}
-  m_Name: test
+  m_Name: Peluche
   m_EditorClassIdentifier: 
-  m_DrawParam: []
-  m_ObjectName: 
+  m_DrawParam:
+  - categoryToDraw: 0
+    amountOfCardToDraw: 1
+  m_ObjectName: "Montre \xE0 gousset"
   m_sprite: {fileID: 0}
   m_AmountOfUse: 0
   m_SizeInInventory: 0
-  m_Description: 
-  m_NarrationName: 
+  m_Description: Rassurant.
+  m_NarrationName: l'ankh

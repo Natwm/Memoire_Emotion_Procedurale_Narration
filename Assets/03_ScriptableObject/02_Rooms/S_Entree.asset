@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RoomName: "Entr\xE9e"
   m_Roomsize: {x: 4, y: 4}
-  m_possibleObjects: []
+  m_possibleObjects:
+  - {fileID: 11400000, guid: d2f1a7fdc58cc26459b17a7362b45278, type: 2}
   m_garanteedObjects: []
   m_Object_Distribution: 0
   m_Effect_Of_Room: 0

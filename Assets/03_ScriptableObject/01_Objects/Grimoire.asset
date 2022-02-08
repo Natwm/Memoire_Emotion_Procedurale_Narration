@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfcc717cfbd36d34985e85ebcccd197e, type: 3}
+  m_Name: Grimoire
+  m_EditorClassIdentifier: 
+  m_DrawParam:
+  - categoryToDraw: 9
+    amountOfCardToDraw: 1
+  - categoryToDraw: 6
+    amountOfCardToDraw: 2
+  m_ObjectName: Couteau Suisse
+  m_sprite: {fileID: 0}
+  m_AmountOfUse: 0
+  m_SizeInInventory: 0
+  m_Description: "Donne une vignette <i><b>Savoir Occulte.</i></b><br>\r\nDonne deux
+    vignettes <i><b>Mal\xE9diction.</i></b>\r\n<br>\r\n<i><b>Savoir Occulte :</i></b> 
+    \n+1 <sprite=1>\n-1 <sprite=2>\r\n<br>\r\n<i><b>Mal\xE9diction :</i></b>  \n-1
+    <sprite=2>"
+  m_NarrationName: l'ankh

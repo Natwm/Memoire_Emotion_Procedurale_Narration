@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfcc717cfbd36d34985e85ebcccd197e, type: 3}
+  m_Name: Lame
+  m_EditorClassIdentifier: 
+  m_DrawParam:
+  - categoryToDraw: 23
+    amountOfCardToDraw: 1
+  m_ObjectName: Lame de Rasoir
+  m_sprite: {fileID: 0}
+  m_AmountOfUse: 0
+  m_SizeInInventory: 0
+  m_Description: "Donne une vignette <i><b>Crochetage</i></b>.\n\n<i><b>Crochetage:</i></b>
+    \nPeut \xEAtre appliqu\xE9e sur certaines cases.\n-1 <sprite=0>\n\n"
+  m_NarrationName: l'ankh

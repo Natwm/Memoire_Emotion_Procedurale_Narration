@@ -15,10 +15,10 @@ MonoBehaviour:
   caseName: 
   anyVignette: 0
   useSpecifiqueObject: 0
-  isEchecResult: 0
+  isEchecResult: 1
   objectsRequired: 
-  specifiqueObject: {fileID: 0}
+  specifiqueObject: {fileID: 11400000, guid: 75185ef3ed44ecc4bbb22cd03dfef2b7, type: 2}
   result: 0
-  echecResult: 0
+  echecResult: 12
   TileObject: {fileID: 0}
   doLock: 0
