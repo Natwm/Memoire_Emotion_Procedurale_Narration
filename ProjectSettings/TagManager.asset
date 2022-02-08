@@ -42,23 +42,23 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Carte1
-    uniqueID: 2032087355
+    uniqueID: 1462355479
     locked: 0
   - name: Carte2
-    uniqueID: 3312636003
+    uniqueID: 1892324771
     locked: 0
   - name: Carte3
-    uniqueID: 4018212179
+    uniqueID: 3061573121
     locked: 0
   - name: Carte4
-    uniqueID: 2486096523
+    uniqueID: 1856965989
     locked: 0
   - name: Carte5
-    uniqueID: 4042296133
+    uniqueID: 684838965
     locked: 0
   - name: Carte6
-    uniqueID: 25008033
+    uniqueID: 2332828377
     locked: 0
   - name: Player
-    uniqueID: 2160052213
+    uniqueID: 4187763569
     locked: 0

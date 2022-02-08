@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea124b080d9953d4c8fdb81cf23efea4, type: 3}
+  m_Name: Gudule 1
+  m_EditorClassIdentifier: 
+  m_render: {fileID: 21300000, guid: 70e7cfad12f4bd340a43c42864f3c158, type: 3}
+  m_CharacterName: bb
+  maxHealth: 5
+  health: 0
+  m_MentalHealth: 0
+  m_MaxMentalHealth: 1
+  m_InventorySize: 0
+  m_MaxInventorySize: 1
+  m_Inventory: []
+  m_BaseHand:
+  - categoryToDraw: 0
+    amountOfCardToDraw: 2
+  m_Color: {r: 0, g: 0.26629424, b: 1, a: 1}

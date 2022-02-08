@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 97068372336720913}
   - component: {fileID: 351454173141672554}
   - component: {fileID: 2285062086754394767}
-  - component: {fileID: 379706931926554188}
   - component: {fileID: 4540322022577871725}
   - component: {fileID: 4494826740340043077}
+  - component: {fileID: 1944337460755654422}
   m_Layer: 9
   m_Name: Tile
   m_TagString: Untagged
@@ -82,21 +82,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &379706931926554188
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1590277413799031728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c5f7bebe0ea99459aed49f3dc0d7c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  m_Tileposition: {x: 0, y: 0}
-  eventAssocier: {fileID: 0}
 --- !u!65 &4540322022577871725
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -119,7 +104,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1590277413799031728}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab9b3d0233a8fd743add14a32b154687, type: 3}
+  m_Script: {fileID: 11500000, guid: c58eca9b609c7454280cf57a64caad77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  m_Tileposition: {x: 0, y: 0}
+  eventAssocier: {fileID: 0}
+--- !u!114 &1944337460755654422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1590277413799031728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762906f30ad2bd844a9f99fa3b1b2b3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   caseEffects: {fileID: 0}
