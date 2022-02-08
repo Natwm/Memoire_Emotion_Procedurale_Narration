@@ -103,89 +103,19 @@ public class NegociationManager : MonoBehaviour
 
     }
 
-    public void CreateCharacterButton(Character tempCharacter, string musique = "", string hurt = "")
-    {
-        GameObject tempButton = Instantiate(baseButton, characterListHolder.transform);
-        Character_Button buttonScript = tempButton.GetComponent<Character_Button>();
-
-        /*buttonScript.CharacterSelectedSound = musique;
-        buttonScript.CharacterHurtSound = hurt;
-
-        buttonScript.SetUpFmod();*/
-
-        buttonScript.CharacterData = tempCharacter;
-        buttonScript.CharacterImage.sprite = tempCharacter.AssignedElement.Render;
-
-        buttonScript.SetUpCharacterUI();
-
-        tempButton.GetComponent<Button>().onClick.AddListener(delegate
-        {
-            SelectCharacter(tempButton.GetComponent<Character_Button>());
-            /*if (muteFirstSound)
-                buttonScript.PlaySelectedMusique();*/
-        });
-
-        listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
-
-    }
-
     public void CreateObjectInventory()
     {
-        List<UsableObject_SO> tempList = new List<UsableObject_SO>();
-
         for (int i = 0; i < InventoryManager.instance.InitialInventory.Count; i++)
         {
-            UsableObject_SO tempObject = InventoryManager.instance.InitialInventory[i];
+            UsableObject_SO tempObjectSO = InventoryManager.instance.InitialInventory[i];
 
-            tempList.Add(tempObject);
+            GameObject tempObject = Instantiate(InventoryManager.instance.ObjectPrefabs, InventoryManager.instance.gameObject.transform);
+            tempObject.GetComponent<UsableObject>().Data = tempObjectSO;
 
-            //CreateObjectButton(tempObject);
+            CanvasManager.instance.CreateObjectButton(tempObject.GetComponent<UsableObject>());
             //GlobalInventory.Remove(tempObject);
             //CharacterList.Remove(tempCharacter);
         }
-    }
-
-    private void CreateObjectButton(UsableObject tempObject)
-    {
-        GameObject tempButton = Instantiate(ObjectButton, objectListHolder.transform);
-        GameObject tempdata = Instantiate(ObjectButton, objectListHolder.transform);
-        tempButton.GetComponent<Object_Button>().Data = tempObject;
-        tempdata.GetComponent<UsableObject>().IsCurse = false;
-        tempdata.GetComponent<UsableObject>().MyCurse = null;
-
-        Object_Button eventButton = tempButton.GetComponent<Object_Button>();
-
-        tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
-        //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
-
-        tempButton.GetComponent<Button>().onClick.AddListener(delegate
-        {
-            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), selectedPlayer);
-            UpdateDescriptionPanel(tempObject.Data, tempButton.GetComponent<UsableObject>().MyCurse);
-            //tempObject.PlaySound();
-        }
-        );
-
-        EventTrigger buttonEvent;
-
-        if (tempButton.TryGetComponent<EventTrigger>(out buttonEvent))
-        {
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            EventTrigger.Entry exit = new EventTrigger.Entry();
-
-            entry.eventID = EventTriggerType.PointerEnter;
-            exit.eventID = EventTriggerType.PointerExit;
-
-            /*entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
-            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse); });
-            exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });*/
-            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
-
-            buttonEvent.triggers.Add(entry);
-            buttonEvent.triggers.Add(exit);
-        }
-        InventoryManager.instance.GlobalInventoryObj.Add(eventButton.Data);
-        //listOfObject.Add(tempButton.GetComponent<UsableObject>());
     }
 
     void RepartitionObjec()
@@ -214,7 +144,7 @@ public class NegociationManager : MonoBehaviour
         NegociationTime = maxNegociationTime;
     }
 
-    void SelectCharacter(Character_Button player)
+    public void SelectCharacter(Character_Button player)
     {
         selectedPlayer = player;
     }
@@ -234,31 +164,18 @@ public class NegociationManager : MonoBehaviour
 
     }
 
-    private void UpdateDescriptionPanel(UsableObject_SO data, CurseBehaviours isCurse)
-    {
-        string curseText = "";
-        /*if (isCurse != null)
-        {
-            curseText = GetCurseName(isCurse);
-        }
-        CanvasManager.instance.ObjectDescription.text = data.Description + curseText;
-        CanvasManager.instance.ObjectTitle.text = data.ObjectName != " " || data.ObjectName != string.Empty ? data.ObjectName : data.name;
-        
-        CanvasManager.instance.ObjectImage.sprite = data.Sprite;*/
-    }
-
     public void CreateObjectListFromUsableObject()
     {
-        /*List<UsableObject> tempList = new List<UsableObject>();
+        List<UsableObject> tempList = new List<UsableObject>();
 
-        for (int i = 0; i < pulledObject.transform.childCount; i++)
+        for (int i = 0; i < InventoryManager.instance.GlobalInventoryObj.Count; i++)
         {
             print(i);
-            UsableObject tempObject = pulledObject.transform.GetChild(i).gameObject.GetComponent<UsableObject>();
-            CreateObjectButtonFromUsableObject(tempObject);
+            //UsableObject tempObject = pulledObject.transform.GetChild(i).gameObject.GetComponent<UsableObject>();
+            //CreateObjectButtonFromUsableObject(tempObject);
 
-            Destroy(tempObject.gameObject);
-        }*/
+            //Destroy(tempObject.gameObject);
+        }
     }
 
 }

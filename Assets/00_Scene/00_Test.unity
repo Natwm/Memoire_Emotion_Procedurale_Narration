@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -1018,7 +1018,9 @@ MonoBehaviour:
   CreatePanel: {fileID: 1139722811}
   LevelInventoryPanel: {fileID: 529417461}
   GameOverPanel: {fileID: 0}
-  m_InventoryPanel: {fileID: 0}
+  m_InventoryPanel: {fileID: 737882749}
+  characterListHolder: {fileID: 207966397}
+  objectInventoryListHolder: {fileID: 737882749}
   roomPanel: {fileID: 1189165764}
   titleText: {fileID: 562019838}
   roomPicture: {fileID: 1618009442}
@@ -1048,6 +1050,10 @@ MonoBehaviour:
   moveButton: {fileID: 1964980971}
   distribuerButton: {fileID: 713330680}
   levelInventoryButtonPrefabs: {fileID: 4759845786473928702, guid: 8835b8fe3214b454285bd3fd2efde692,
+    type: 3}
+  characterButton: {fileID: 3951051727021233365, guid: b6c6068da0ee281448b53791b23bba69,
+    type: 3}
+  ObjectNegociationButton: {fileID: 3211203881872221817, guid: 51e0107ade63dcd4491d2e0911f003e9,
     type: 3}
   grid: {fileID: 0}
 --- !u!1 &367831294
@@ -2573,6 +2579,7 @@ GameObject:
   - component: {fileID: 737882750}
   - component: {fileID: 737882752}
   - component: {fileID: 737882751}
+  - component: {fileID: 737882753}
   m_Layer: 5
   m_Name: ObjectPanel
   m_TagString: Untagged
@@ -2636,6 +2643,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737882749}
   m_CullTransparentMesh: 0
+--- !u!114 &737882753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737882749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 95, y: 95}
+  m_Spacing: {x: 6.5, y: 5}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &952845377
 GameObject:
   m_ObjectHideFlags: 0
@@ -5654,5 +5685,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7563719778475007175, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: ObjectButton
+      value: 
+      objectReference: {fileID: 3211203881872221817, guid: 51e0107ade63dcd4491d2e0911f003e9,
+        type: 3}
+    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: objectPrefabs
+      value: 
+      objectReference: {fileID: 185821562992889454, guid: 83444d7435f8f934cb27b8e726fec349,
+        type: 3}
+    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: m_InitialInventory.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: m_InitialInventory.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: b1efc3cb408192345a33c957d5dbef01,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 473e67a4e0cc0f049aa644cbd0e45fab, type: 3}

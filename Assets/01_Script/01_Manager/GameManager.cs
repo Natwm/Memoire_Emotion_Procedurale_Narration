@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
     {
         CreateCharacterList(m_AmountOfCrewMember);
         Startpull();
+        NegociationManager.instance.CreateObjectInventory();
 
         if(CurrentCharacter!= null)
         {
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
 
             Crew.Add(dataPlayer);
             tempList.RemoveAt(randomIndex);
+            CanvasManager.instance.CreateCharacterButton(dataPlayer);
         }
         CurrentCharacter = Crew[0];
 
@@ -202,9 +204,9 @@ public class GameManager : MonoBehaviour
             if (!allVignette[i].OnGrid)
             {
                 index++;
-                if (LevelManager.instance.PageInventory.Count > index)
+                if (InventoryManager.instance.PageInventory.Count > index)
                 {
-                    if (LevelManager.instance.PageInventory[index] != null)
+                    if (InventoryManager.instance.PageInventory[index] != null)
                     {
                         int randomCurse = Random.Range(0, 3);
 
@@ -233,9 +235,9 @@ public class GameManager : MonoBehaviour
                         }
                         print(randomCurse);
 
-                        LevelManager.instance.PageInventory[index].IsCurse = true;
-                        LevelManager.instance.PageInventory[index].MyCurse = myCurse;
-                        LevelManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = GameManager.instance.curseColor;
+                        InventoryManager.instance.PageInventory[index].IsCurse = true;
+                        InventoryManager.instance.PageInventory[index].MyCurse = myCurse;
+                        InventoryManager.instance.PageInventory[index].gameObject.GetComponent<UnityEngine.UI.Image>().color = GameManager.instance.curseColor;
 
                     }
                 }

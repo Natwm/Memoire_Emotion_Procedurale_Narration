@@ -193,7 +193,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47.75
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.95
+  m_fontSize: 72
   m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -605,6 +605,7 @@ GameObject:
   - component: {fileID: 7303437559725965905}
   - component: {fileID: 4875827382360327822}
   - component: {fileID: 8862440468533856098}
+  - component: {fileID: 7287976604944208092}
   m_Layer: 5
   m_Name: CharacterPanel
   m_TagString: Untagged
@@ -669,6 +670,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7287976604944208092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7996398071509176046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a54483febb235ec4abf10fbe9df875ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 0}
+  m_NameText: {fileID: 3303333154081744223}
+  m_LifeText: {fileID: 1340980208639133574}
+  m_enduranceText: {fileID: 4791729032482502408}
+  m_CharacterImage: {fileID: 636734986730038964}
+  m_InventoryPanel: {fileID: 0}
+  m_ToolButtonPrefabs: {fileID: 0}
+  m_cadre: {fileID: 0}
+  slotPanel: {fileID: 0}
 --- !u!1 &8424592743582854454
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +782,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.1
+  m_fontSize: 72
   m_fontSizeBase: 22
   m_fontWeight: 400
   m_enableAutoSizing: 1

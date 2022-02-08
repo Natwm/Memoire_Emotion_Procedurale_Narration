@@ -9,9 +9,15 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] private List<UsableObject_SO> m_InitialInventory;
     [SerializeField] private List<UsableObject> m_GlobalInventoryObj;
+    [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject>();
+
+    [Space]
+    [SerializeField] private GameObject objectPrefabs;
 
     public List<UsableObject> GlobalInventoryObj { get => m_GlobalInventoryObj; set => m_GlobalInventoryObj = value; }
     public List<UsableObject_SO> InitialInventory { get => m_InitialInventory; set => m_InitialInventory = value; }
+    public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
+    public GameObject ObjectPrefabs { get => objectPrefabs; set => objectPrefabs = value; }
 
     void Awake()
     {

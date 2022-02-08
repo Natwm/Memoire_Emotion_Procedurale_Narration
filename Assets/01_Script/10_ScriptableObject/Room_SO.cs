@@ -93,10 +93,10 @@ public class Room_SO : ScriptableObject
                     SoundManager.instance.LoopEffect.setParameterByName("Negotiation", 0);*/
                     foreach (GameObject item in GridManager.instance.ListOfTile)
                     {
-                        /*if (item.GetComponent<Case_Behaviours>().CaseEffects != null)
+                        if (item.GetComponent<Case_Behaviours>().CaseEffects != null)
                         {
                             item.transform.GetChild(0).gameObject.SetActive(false);
-                        }*/
+                        }
 
                     }
 
@@ -110,15 +110,15 @@ public class Room_SO : ScriptableObject
                     NegociationManager.instance.ResetNegociationTime();
                     CanvasManager.instance.SetUpCreationPanel();
 
-                    if(LevelManager.instance.PageInventory.Count > 0)
+                    if(InventoryManager.instance.PageInventory.Count > 0)
                     {
-                        foreach (var item in LevelManager.instance.PageInventory)
+                        foreach (var item in InventoryManager.instance.PageInventory)
                         {
                             Destroy(item.gameObject);
                         }
                     }
 
-                    LevelManager.instance.PageInventory = new List<UsableObject>();
+                    InventoryManager.instance.PageInventory = new List<UsableObject>();
 
                     GameManager.instance.OrderCharacter.Clear();
                     GameManager.instance.WaitingCharacter.Clear();

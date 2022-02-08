@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -18,12 +19,15 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Negociation")]
     [SerializeField] private GameObject m_InventoryPanel;
+    [SerializeField] private GameObject characterListHolder;
+    [SerializeField] private GameObject objectInventoryListHolder;
 
     [Space]
     [Header("RoomPanel")]
     [SerializeField] private GameObject roomPanel;
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private Image roomPicture;
+
     [Header("Intro")]
     [SerializeField] private GameObject intro;
     [SerializeField] private TMP_Text introText;
@@ -77,6 +81,8 @@ public class CanvasManager : MonoBehaviour
     [Space]
     [Header("Prefabs")]
     [SerializeField] private GameObject levelInventoryButtonPrefabs;
+    [SerializeField] private GameObject characterButton;
+    [SerializeField] private GameObject ObjectNegociationButton;
 
     [Space]
     Vector2 CharacterShifter = new Vector2(450, -450);
@@ -218,7 +224,7 @@ public class CanvasManager : MonoBehaviour
 
     public void SetUpLevelIndicator()
     {
-        levelInfo.text = LevelManager.instance.PageInventory.Count +" / " + GameManager.instance.AmountOfObjToSendCamp;
+        levelInfo.text = InventoryManager.instance.PageInventory.Count +" / " + GameManager.instance.AmountOfObjToSendCamp;
     }
     public void SetUpGamePanel()
     {
@@ -410,4 +416,82 @@ public class CanvasManager : MonoBehaviour
     }
 
     #endregion
+
+    public void CreateCharacterButton(Character tempCharacter, string musique = "", string hurt = "")
+    {
+        GameObject tempButton = Instantiate(characterButton, characterListHolder.transform);
+        Character_Button buttonScript = tempButton.GetComponent<Character_Button>();
+
+        /*buttonScript.CharacterSelectedSound = musique;
+        buttonScript.CharacterHurtSound = hurt;
+
+        buttonScript.SetUpFmod();*/
+
+        buttonScript.CharacterData = tempCharacter;
+        buttonScript.CharacterImage.sprite = tempCharacter.AssignedElement.Render;
+
+        buttonScript.SetUpCharacterUI();
+
+        tempButton.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            NegociationManager.instance.SelectCharacter(tempButton.GetComponent<Character_Button>());
+            /*if (muteFirstSound)
+                buttonScript.PlaySelectedMusique();*/
+        });
+
+        //listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
+    }
+
+    public void CreateObjectButton(UsableObject tempObject)
+    {
+        GameObject tempButton = Instantiate(ObjectNegociationButton, objectInventoryListHolder.transform);
+        tempButton.GetComponent<Object_Button>().Data = tempObject;
+
+        Object_Button eventButton = tempButton.GetComponent<Object_Button>();
+
+        tempButton.GetComponent<Image>().sprite = tempObject.Data.Sprite;
+        //tempButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().text = tempObject.ObjectName;
+
+        tempButton.GetComponent<Button>().onClick.AddListener(delegate
+        {
+            eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), NegociationManager.instance.selectedPlayer);
+            UpdateDescriptionPanel(tempObject.Data, tempButton.GetComponent<UsableObject>().MyCurse);
+            //tempObject.PlaySound();
+        }
+        );
+
+        EventTrigger buttonEvent;
+
+        if (tempButton.TryGetComponent<EventTrigger>(out buttonEvent))
+        {
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            EventTrigger.Entry exit = new EventTrigger.Entry();
+
+            entry.eventID = EventTriggerType.PointerEnter;
+            exit.eventID = EventTriggerType.PointerExit;
+
+            /*entry.callback.AddListener((data) => { UpdateSliderValueOnEnter(eventButton); });
+            entry.callback.AddListener((data) => { UpdateDescriptionPanel(tempObject, tempButton.GetComponent<UsableObject>().MyCurse); });
+            exit.callback.AddListener((data) => { UpdateSliderValueOnExit(eventButton); });*/
+            //exit.callback.AddListener((data) => { ResetDescriptionPanel(); });
+
+            buttonEvent.triggers.Add(entry);
+            buttonEvent.triggers.Add(exit);
+        }
+        InventoryManager.instance.GlobalInventoryObj.Add(eventButton.Data);
+        //listOfObject.Add(tempButton.GetComponent<UsableObject>());
+    }
+
+    private void UpdateDescriptionPanel(UsableObject_SO data, CurseBehaviours isCurse)
+    {
+        string curseText = "";
+        if (isCurse != null)
+        {
+            curseText = isCurse.GetCurseName();
+        }
+        CanvasManager.instance.ObjectDescription.text = data.Description + curseText;
+        CanvasManager.instance.ObjectTitle.text = data.ObjectName != " " || data.ObjectName != string.Empty ? data.ObjectName : data.name;
+        
+        CanvasManager.instance.ObjectImage.sprite = data.Sprite;
+    }
 }

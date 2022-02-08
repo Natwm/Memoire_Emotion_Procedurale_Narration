@@ -13,10 +13,6 @@ public class LevelManager : MonoBehaviour
     public List<GameObject> listOfVignettePrefabsToSpawn;
 
     [Space]
-    [Header("Page Inventory")]
-    [SerializeField] private List<UsableObject> pageInventory = new List<UsableObject>();
-
-    [Space]
     [Header("pull Inventory")]
     [SerializeField] private List<UsableObject_SO> basisPullOfObject = new List<UsableObject_SO>();
     [SerializeField] private List<UsableObject_SO> healPullOfObject = new List<UsableObject_SO>();
@@ -28,7 +24,6 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private List<Vignette_Behaviours> handOfVignette;
 
     public List<Vignette_Behaviours> HandOfVignette { get => handOfVignette; set => handOfVignette = value; }
-    public List<UsableObject> PageInventory { get => pageInventory; set => pageInventory = value; }
 
     void Awake()
     {
