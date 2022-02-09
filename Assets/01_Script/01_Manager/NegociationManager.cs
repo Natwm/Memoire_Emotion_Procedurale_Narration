@@ -27,6 +27,12 @@ public class NegociationManager : MonoBehaviour
     [SerializeField] private int refuserValue;
 
     [Space]
+    [Header("Pourcentage Drop")]
+    [SerializeField] private int noneAmountOfPull = 2;
+    [SerializeField] private int reclamerAmountOfPull = 3;
+    [SerializeField] private int declinerAmountOfPull = 1;
+
+    [Space]
     [Header("Time")]
     [SerializeField] private int negociationTime = 100;
     [SerializeField] private int currentNegociationTime = 100;
@@ -123,7 +129,7 @@ public class NegociationManager : MonoBehaviour
     {
         foreach (var item in listOfCharacter)
         {
-            CreatePlayerInventory(item);
+            CreatePlayerInventory(item.CharacterData);
         }
     }
 
@@ -187,7 +193,7 @@ public class NegociationManager : MonoBehaviour
         {
             GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
 
-            UsableObject ObjetToTake = clickObject.GetComponent<UsableObject>();
+            Object_Button ObjetToTake = clickObject.GetComponent<Object_Button>();
 
             foreach (var item in CreatePull(ObjetToTake, player))
             {
@@ -235,41 +241,42 @@ public class NegociationManager : MonoBehaviour
         return true;
     }
 
-    /*private List<UsableObject> CreatePull(UsableObject ObjetToTake, Character player)
+    private List<UsableObject> CreatePull(Object_Button ObjetToTake, Character player)
     {
         List<UsableObject> pullOfObject = new List<UsableObject>();
         switch (ObjetToTake.Status)
         {
-            case UsableObject.ObjectStatus.NONE:
-                pullOfObject.Add(ObjetToTake);
-                pullOfObject.Add(ObjetToTake);
+            case Object_Button.ObjectStatus.NONE:
+                for (int i = 0; i < noneAmountOfPull; i++){pullOfObject.Add(ObjetToTake.Data);}
                 break;
-            case UsableObject.ObjectStatus.CLAIM:
-                if (m_GlobalInventory.Contains(ObjetToTake))
+
+            case Object_Button.ObjectStatus.CLAIM:
+                if (InventoryManager.instance.GlobalInventoryObj.Contains(ObjetToTake.Data))
                 {
-                    if (player == ObjetToTake.Stat.character)
+                    if (player == ObjetToTake.NegociationState.character)
                     {
-                        player.Inventory.Add(ObjetToTake.Data);
-                        player.InventoryObj.Add(ObjetToTake);
+                        player.InventoryObj.Add(ObjetToTake.Data);
                         ObjetToTake.gameObject.SetActive(false);
-                        m_GlobalInventory.Remove(ObjetToTake);
+                        InventoryManager.instance.GlobalInventoryObj.Remove(ObjetToTake.Data);
                     }
                 }
                 break;
-            case UsableObject.ObjectStatus.WANT:
-                pullOfObject.Add(ObjetToTake);
-                pullOfObject.Add(ObjetToTake);
-                pullOfObject.Add(ObjetToTake);
+
+            case Object_Button.ObjectStatus.WANT:
+                for (int i = 0; i < reclamerAmountOfPull; i++) { pullOfObject.Add(ObjetToTake.Data); }
                 break;
-            case UsableObject.ObjectStatus.REJECT:
-                pullOfObject.Add(ObjetToTake);
+
+            case Object_Button.ObjectStatus.REJECT:
+                for (int i = 0; i < declinerAmountOfPull; i++) { pullOfObject.Add(ObjetToTake.Data); }
                 break;
-            case UsableObject.ObjectStatus.EXCLUDE:
+
+            case Object_Button.ObjectStatus.EXCLUDE:
                 break;
+
             default:
                 break;
         }
         return pullOfObject;
-    }*/
+    }
 
 }
