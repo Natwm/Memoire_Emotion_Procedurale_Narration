@@ -49,31 +49,36 @@ public class Object_Button : MonoBehaviour
                     break;
             }
 
-            switch (NegociationManager.instance.Pen)
+            switch (CanvasManager.instance.Action)
             {
-                case NegociationManager.m_PenStatus.NONE:
+                case CanvasManager.m_NegociationActions.NONE:
                     myButton.image.color = Color.white;
                     ResetObjectStatus();
                     objStatus = ObjectStatus.NONE;
                     break;
 
-                case NegociationManager.m_PenStatus.CLAIM:
+                case CanvasManager.m_NegociationActions.CLAIM:
+                    objStatus = ObjectStatus.CLAIM;
                     ClaimEffect(objStatus, player, myButton);
                     break;
 
-                case NegociationManager.m_PenStatus.WANT:
+                case CanvasManager.m_NegociationActions.WANT:
+                    objStatus = ObjectStatus.WANT;
                     WantEffect(objStatus, player, myButton);
                     break;
 
-                case NegociationManager.m_PenStatus.REJECT:
+                case CanvasManager.m_NegociationActions.REJECT:
+                    objStatus = ObjectStatus.REJECT;
                     RejectEffect(objStatus, player, myButton);
                     break;
 
-                case NegociationManager.m_PenStatus.EXCLUDE:
+                case CanvasManager.m_NegociationActions.EXCLUDE:
+                    objStatus = ObjectStatus.EXCLUDE;
                     ExcludeEffect(objStatus, player, myButton);
                     break;
 
                 default:
+                    objStatus = ObjectStatus.NONE;
                     ResetObjectStatus();
                     //CanvasManager.instance.SetInkSlider();
                     break;
@@ -95,7 +100,6 @@ public class Object_Button : MonoBehaviour
             {
                 //SoundManager.instance.PlaySound_SelectedNegociation();
                 //CanvasManager.instance.NegociationText.text = NegociationManager.instance.NegociationTime.ToString();
-                //myButton.image.color = Color.green;
                 status = ObjectStatus.CLAIM;
                 ClaimObject(player);
                 //Negociation_Dialog.instance.StartDialog(Negociation_Dialog.instance.Prendre_SO, player.AssignedElement, NegociationManager.instance.GlobalCrew.ToArray(), Data.NarrationName);

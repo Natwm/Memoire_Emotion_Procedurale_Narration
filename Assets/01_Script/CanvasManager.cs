@@ -7,6 +7,16 @@ using UnityEngine.EventSystems;
 
 public class CanvasManager : MonoBehaviour
 {
+    public enum m_NegociationActions
+    {
+        NONE,
+        CLAIM,
+        WANT,
+        REJECT,
+        EXCLUDE,
+        DRAW
+    }
+
     public static CanvasManager instance;
 
     [Header("Panel")]
@@ -85,6 +95,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] private GameObject ObjectNegociationButton;
 
     [Space]
+    [SerializeField] private m_NegociationActions m_Action;
     Vector2 CharacterShifter = new Vector2(450, -450);
     int XshifterIndex = 0;
     int YshiterIndex = 0;
@@ -92,29 +103,6 @@ public class CanvasManager : MonoBehaviour
     int Yshifter = 0;
 
     [SerializeField] private GameObject grid;
-
-    public Image ObjectImage { get => objectImage; set => objectImage = value; }
-    public TMP_Text ObjectTitle { get => objectTitle; set => objectTitle = value; }
-    public TMP_Text ObjectDescription { get => objectDescription; set => objectDescription = value; }
-    public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
-    public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
-    public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
-    public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
-    public int NegociationTime { get => negociationTime; set => negociationTime = value; }
-    public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
-    public TMP_Text NegociationText { get => negociationText; set => negociationText = value; }
-    public TMP_Text NegociationModificationText { get => negociationModificationText; set => negociationModificationText = value; }
-    public Button MoveButton { get => moveButton; set => moveButton = value; }
-    public GameObject Intro { get => intro; set => intro = value; }
-    public TMP_Text IntroText { get => introText; set => introText = value; }
-    public Image RoomPicture { get => roomPicture; set => roomPicture = value; }
-    public TMP_Text TitleText { get => titleText; set => titleText = value; }
-    public GameObject RoomPanel { get => roomPanel; set => roomPanel = value; }
-    public GameObject Outro { get => outro; set => outro = value; }
-    public TMP_Text OutroText { get => outroText; set => outroText = value; }
-    public GameObject BaseOutroButton { get => baseOutroButton; set => baseOutroButton = value; }
-    public GameObject LayoutGroupButton { get => layoutGroupButton; set => layoutGroupButton = value; }
-
     void Awake()
     {
         if (instance != null)
@@ -455,7 +443,7 @@ public class CanvasManager : MonoBehaviour
         tempButton.GetComponent<Button>().onClick.AddListener(delegate
         {
             eventButton.AffectByPlayer(tempButton.GetComponent<Button>(), NegociationManager.instance.selectedPlayer);
-            UpdateDescriptionPanel(tempObject.Data, tempButton.GetComponent<UsableObject>().MyCurse);
+            UpdateDescriptionPanel(tempObject.Data, tempObject.MyCurse);
             //tempObject.PlaySound();
         }
         );
@@ -494,4 +482,130 @@ public class CanvasManager : MonoBehaviour
         
         CanvasManager.instance.ObjectImage.sprite = data.Sprite;
     }
+
+    private void UpdateSliderValueOnEnter(UsableObject button)
+    {
+        switch (Action)
+        {
+            case m_NegociationActions.NONE:
+                break;
+            case m_NegociationActions.CLAIM:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + NegociationManager.instance.PrendreValue.ToString();
+                break;
+            case m_NegociationActions.WANT:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + NegociationManager.instance.ReclamerValue.ToString();
+                break;
+            case m_NegociationActions.REJECT:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + NegociationManager.instance.DeclinerValue.ToString();
+                break;
+            case m_NegociationActions.EXCLUDE:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "-" + NegociationManager.instance.RefuserValue.ToString();
+                break;
+            case m_NegociationActions.DRAW:
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void UpdateSliderValueOnExit(UsableObject button)
+    {
+        switch (Action)
+        {
+            case m_NegociationActions.NONE:
+                break;
+            case m_NegociationActions.CLAIM:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
+                break;
+            case m_NegociationActions.WANT:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
+                break;
+            case m_NegociationActions.REJECT:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
+                break;
+            case m_NegociationActions.EXCLUDE:
+                CanvasManager.instance.NegociationText.text = NegociationTime.ToString();
+                CanvasManager.instance.NegociationModificationText.text = "";
+                break;
+            case m_NegociationActions.DRAW:
+                break;
+            default:
+                break;
+        }
+        CanvasManager.instance.SetInkSlider();
+    }
+
+    public void ChangeAction(string usedPen)
+    {
+        CanvasManager.instance.SetSelectedPen();
+        switch (usedPen)
+        {
+            case "claim":
+                if (Action != m_NegociationActions.CLAIM)
+                    Action = m_NegociationActions.CLAIM;
+                else
+                    Action = m_NegociationActions.NONE;
+                break;
+
+            case "want":
+                if (Action != m_NegociationActions.WANT)
+                    Action = m_NegociationActions.WANT;
+                else
+                    Action = m_NegociationActions.NONE;
+                break;
+
+            case "reject":
+                if (Action != m_NegociationActions.REJECT)
+                    Action = m_NegociationActions.REJECT;
+                else
+                    Action = m_NegociationActions.NONE;
+                break;
+
+            case "exclude":
+                if (Action != m_NegociationActions.EXCLUDE)
+                    Action = m_NegociationActions.EXCLUDE;
+                else
+                    Action = m_NegociationActions.NONE;
+                break;
+
+            case "none":
+                Action = m_NegociationActions.NONE;
+                break;
+
+            default:
+                Action = m_NegociationActions.NONE;
+                break;
+        }
+    }
+
+
+    public Image ObjectImage { get => objectImage; set => objectImage = value; }
+    public TMP_Text ObjectTitle { get => objectTitle; set => objectTitle = value; }
+    public TMP_Text ObjectDescription { get => objectDescription; set => objectDescription = value; }
+    public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
+    public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
+    public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
+    public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
+    public int NegociationTime { get => negociationTime; set => negociationTime = value; }
+    public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
+    public TMP_Text NegociationText { get => negociationText; set => negociationText = value; }
+    public TMP_Text NegociationModificationText { get => negociationModificationText; set => negociationModificationText = value; }
+    public Button MoveButton { get => moveButton; set => moveButton = value; }
+    public GameObject Intro { get => intro; set => intro = value; }
+    public TMP_Text IntroText { get => introText; set => introText = value; }
+    public Image RoomPicture { get => roomPicture; set => roomPicture = value; }
+    public TMP_Text TitleText { get => titleText; set => titleText = value; }
+    public GameObject RoomPanel { get => roomPanel; set => roomPanel = value; }
+    public GameObject Outro { get => outro; set => outro = value; }
+    public TMP_Text OutroText { get => outroText; set => outroText = value; }
+    public GameObject BaseOutroButton { get => baseOutroButton; set => baseOutroButton = value; }
+    public GameObject LayoutGroupButton { get => layoutGroupButton; set => layoutGroupButton = value; }
+    public m_NegociationActions Action { get => m_Action; set => m_Action = value; }
 }

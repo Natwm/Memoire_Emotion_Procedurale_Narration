@@ -375,6 +375,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
         currentCategorie = initCategorie = categorie;
         categorieText.text = vignetteText;
         SpriteIndicator.sprite = null;
+        currentEffect = NewCategorie(categorie);
         //objectFrom = null;
         SetUpUI();
     }

@@ -33,14 +33,6 @@ public class GameManager : MonoBehaviour
 
     public Color32 curseColor = new Color32(104, 46, 68, 255);
 
-    public List<Character> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
-    public List<Character> WaitingCharacter { get => m_WaitingCharacter; set => m_WaitingCharacter = value; }
-    public List<Character_SO> GlobalCrew_SO { get => m_GlobalCrew_SO; set => m_GlobalCrew_SO = value; }
-    public Character CurrentCharacter { get => m_CurrentCharacter; set => m_CurrentCharacter = value; }
-    public int AmountOfObjToSendCamp { get => amountOfObjToSendCamp; set => amountOfObjToSendCamp = value; }
-    public List<Character> Crew { get => m_Crew; set => m_Crew = value; }
-    public List<Vignette_Behaviours> VisitedVignette { get => visitedVignette; set => visitedVignette = value; }
-
     void Awake()
     {
         if (instance != null)
@@ -348,4 +340,12 @@ public class GameManager : MonoBehaviour
         Application.Quit();
 
     }
+
+    public List<Character> OrderCharacter { get => m_OrderCharacter; set => m_OrderCharacter = value; }
+    public List<Character> WaitingCharacter { get => m_WaitingCharacter; set => m_WaitingCharacter = value; }
+    public List<Character_SO> GlobalCrew_SO { get => m_GlobalCrew_SO; set => m_GlobalCrew_SO = value; }
+    public Character CurrentCharacter { get => m_CurrentCharacter; set => m_CurrentCharacter = value; }
+    public int AmountOfObjToSendCamp { get => amountOfObjToSendCamp; set => amountOfObjToSendCamp = value; }
+    public List<Character> Crew { get => m_Crew; set => m_Crew = value; }
+    public List<Vignette_Behaviours> VisitedVignette { get => visitedVignette; set => visitedVignette = value; }
 }

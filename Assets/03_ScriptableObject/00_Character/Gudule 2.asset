@@ -24,4 +24,4 @@ MonoBehaviour:
   m_BaseHand:
   - categoryToDraw: 0
     amountOfCardToDraw: 2
-  m_Color: {r: 0, g: 0.26629424, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.01505178, b: 0.990566, a: 1}

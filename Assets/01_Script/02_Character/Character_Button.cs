@@ -116,4 +116,9 @@ public class Character_Button : MonoBehaviour
 
         transform.GetChild(0).GetComponent<Image>().color = CharacterData.AssignedElement.Color;
     }
+
+    public void SelectThisPlayer()
+    {
+        NegociationManager.instance.SelectCharacter(this);
+    }
 }
