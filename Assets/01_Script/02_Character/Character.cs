@@ -37,6 +37,8 @@ public class Character : MonoBehaviour
     public int MentalHealth { get => m_MentalHealth; set => m_MentalHealth = value; }
     public int MaxMentalHealth { get => m_MaxMentalHealth; set => m_MaxMentalHealth = value; }
     public Character_Button CharacterContener { get => characterContener; set => characterContener = value; }
+    public int InventorySize { get => m_InventorySize; set => m_InventorySize = value; }
+    public int MaxInventorySize { get => m_MaxInventorySize; set => m_MaxInventorySize = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -60,7 +62,7 @@ public class Character : MonoBehaviour
         m_MentalHealth = data.MentalHealth;
         m_MaxMentalHealth = data.MaxMentalHealth;
 
-        m_InventorySize = data.InventorySize;
+        InventorySize = data.InventorySize;
 
         this.gameObject.name += "_" + data.CharacterName;
     }

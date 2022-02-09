@@ -16,7 +16,8 @@ MonoBehaviour:
   - categoryToDraw: 10
     amountOfCardToDraw: 1
   m_ObjectName: Bandage
-  m_sprite: {fileID: 0}
+  m_sprite: {fileID: 6362939937432461297, guid: b02e1d4224141814389f015282bf43a5,
+    type: 3}
   m_AmountOfUse: 0
   m_SizeInInventory: 0
   m_Description: "Donne une vignette <i><b>Soin L\xE9ger</b></i>. (D\xE9truite apr\xE8s

@@ -197,8 +197,8 @@ public class Object_Button : MonoBehaviour
     {
         Status = ObjectStatus.CLAIM;
         ResetImage();
-        transform.GetChild(2).gameObject.SetActive(true);
-        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color;
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color;
     }
 
     public void WantObject(Character_Button player)
@@ -213,16 +213,16 @@ public class Object_Button : MonoBehaviour
     {
         Status = ObjectStatus.REJECT;
         ResetImage();
-        transform.GetChild(3).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color; ;
+        transform.GetChild(2).gameObject.SetActive(true);
+        transform.GetChild(2).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color; ;
     }
 
     public void ExcludeObject(Character_Button player)
     {
         Status = ObjectStatus.EXCLUDE;
         ResetImage();
-        transform.GetChild(4).gameObject.SetActive(true);
-        transform.GetChild(4).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color; ;
+        transform.GetChild(3).gameObject.SetActive(true);
+        transform.GetChild(3).gameObject.GetComponent<UnityEngine.UI.Image>().color = NegociationManager.instance.selectedPlayer.CharacterData.AssignedElement.Color; ;
     }
 
     #endregion

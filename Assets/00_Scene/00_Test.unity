@@ -2381,6 +2381,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 649898014}
   m_CullTransparentMesh: 0
+--- !u!1 &702586919
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 702586920}
+  m_Layer: 0
+  m_Name: PlayerSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &702586920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702586919}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &713330678
 GameObject:
   m_ObjectHideFlags: 0
@@ -5681,6 +5711,11 @@ PrefabInstance:
       propertyPath: vignetteSpawnParent
       value: 
       objectReference: {fileID: 447381226}
+    - target: {fileID: 4448854934890101179, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: playerSpot
+      value: 
+      objectReference: {fileID: 702586919}
     - target: {fileID: 5725838990226988394, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
         type: 3}
       propertyPath: m_Name

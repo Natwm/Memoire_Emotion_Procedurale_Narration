@@ -110,6 +110,7 @@ public class NegociationManager : MonoBehaviour
             UsableObject_SO tempObjectSO = InventoryManager.instance.InitialInventory[i];
 
             GameObject tempObject = Instantiate(InventoryManager.instance.ObjectPrefabs, InventoryManager.instance.gameObject.transform);
+            tempObject.name += "_" + tempObjectSO.ObjectName;
             tempObject.GetComponent<UsableObject>().Data = tempObjectSO;
 
             CanvasManager.instance.CreateObjectButton(tempObject.GetComponent<UsableObject>());
@@ -120,7 +121,10 @@ public class NegociationManager : MonoBehaviour
 
     void RepartitionObjec()
     {
-
+        foreach (var item in listOfCharacter)
+        {
+            CreatePlayerInventory(item);
+        }
     }
 
     public bool ReduceNegociationTime(int reduceValue)
@@ -149,11 +153,6 @@ public class NegociationManager : MonoBehaviour
         selectedPlayer = player;
     }
 
-    void ChangePen()
-    {
-
-    }
-
     void CantApplyNegociation()
     {
 
@@ -177,5 +176,100 @@ public class NegociationManager : MonoBehaviour
             //Destroy(tempObject.gameObject);
         }
     }
+
+    public bool CreatePlayerInventory(Character player)
+    {
+        List<UsableObject> pullOfObject = new List<UsableObject>();
+        List<UsableObject> claimObject = new List<UsableObject>();
+
+
+        for (int i = 0; i < objectListHolder.transform.childCount; i++)
+        {
+            GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
+
+            UsableObject ObjetToTake = clickObject.GetComponent<UsableObject>();
+
+            foreach (var item in CreatePull(ObjetToTake, player))
+            {
+                pullOfObject.Add(item);
+            }
+
+        }
+
+        for (int i = 0; i < player.InventorySize - player.InventoryObj.Count; i++)
+        {
+            int index = Random.Range(0, pullOfObject.Count);
+
+            if (pullOfObject.Count > 0)
+            {
+                if (!player.InventoryObj.Contains(pullOfObject[index]))
+                {
+                    player.InventoryObj.Add(pullOfObject[index]);
+
+                    player.InventoryObj.Add(pullOfObject[index]);
+
+                    pullOfObject[index].gameObject.SetActive(false);
+                }
+                UsableObject obj = pullOfObject[index];
+                pullOfObject.RemoveAll(item => item == obj);
+
+                //obj.gameObject.transform.parent = pulledObject.transform;
+
+                if (pullOfObject.Count <= 0)
+                {
+                    foreach (var item in player.InventoryObj)
+                    {
+                        InventoryManager.instance.GlobalInventoryObj.RemoveAll(objToRemove => objToRemove == item);
+                    }
+                    //player.SetUpInventoryUI();
+                    return true;
+                }
+            }
+
+        }
+        foreach (var item in player.InventoryObj)
+        {
+            InventoryManager.instance.GlobalInventoryObj.RemoveAll(obj => obj == item);
+        }
+        //player.SetUpInventoryUI();
+        return true;
+    }
+
+    /*private List<UsableObject> CreatePull(UsableObject ObjetToTake, Character player)
+    {
+        List<UsableObject> pullOfObject = new List<UsableObject>();
+        switch (ObjetToTake.Status)
+        {
+            case UsableObject.ObjectStatus.NONE:
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.CLAIM:
+                if (m_GlobalInventory.Contains(ObjetToTake))
+                {
+                    if (player == ObjetToTake.Stat.character)
+                    {
+                        player.Inventory.Add(ObjetToTake.Data);
+                        player.InventoryObj.Add(ObjetToTake);
+                        ObjetToTake.gameObject.SetActive(false);
+                        m_GlobalInventory.Remove(ObjetToTake);
+                    }
+                }
+                break;
+            case UsableObject.ObjectStatus.WANT:
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.REJECT:
+                pullOfObject.Add(ObjetToTake);
+                break;
+            case UsableObject.ObjectStatus.EXCLUDE:
+                break;
+            default:
+                break;
+        }
+        return pullOfObject;
+    }*/
 
 }

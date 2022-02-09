@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private List<Vignette_Behaviours> visitedVignette;
 
+    [Space]
+    [Header("transform")]
+    public GameObject playerSpot;
+
     public Color32 curseColor = new Color32(104, 46, 68, 255);
 
     void Awake()
@@ -75,7 +79,7 @@ public class GameManager : MonoBehaviour
             int randomIndex = Random.Range(0, tempList.Count);
             Character_SO tempCharacter = tempList[randomIndex];
 
-            GameObject character =  Instantiate(characterPrefabs);
+            GameObject character =  Instantiate(characterPrefabs, playerSpot.transform);
             Character dataPlayer = character.GetComponent<Character>();
             dataPlayer.setUpCharacter(tempCharacter);
 
