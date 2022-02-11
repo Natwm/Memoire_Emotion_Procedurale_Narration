@@ -84,7 +84,7 @@ public class Object_Button : MonoBehaviour
                     break;
             }
 
-            ReclameStatus status = new ReclameStatus(NegociationManager.instance.selectedPlayer, objStatus);
+            ReclameStatus status = new ReclameStatus(NegociationManager.instance.selectedPlayer.CharacterData, objStatus);
 
             negociationState = status;
             //CanvasManager.instance.SetInkSlider();

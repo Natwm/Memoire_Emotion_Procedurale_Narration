@@ -66,7 +66,7 @@ public class CanvasManager : MonoBehaviour
 
     [Space]
     [Header("Character Information")]
-    [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject characterInventoryPanel;
     [SerializeField] private GameObject inventoryButton;
 
     [Space]
@@ -304,15 +304,15 @@ public class CanvasManager : MonoBehaviour
                 foreach (var obj in item.InventoryObj)
                 {
                     index++;
-                    Destroy(inventoryPanel.transform.GetChild(index).gameObject);
+                    Destroy(characterInventoryPanel.transform.GetChild(index).gameObject);
                 }
             }
             item.InventoryObj.Clear();
         }
     }
-    private void SetUpAllCharacter()
+    public void SetUpAllCharacter()
     {
-        foreach (var item in NegociationManager.instance.listOfCharacter)
+        foreach (var item in NegociationManager.instance.ListOfCharacter)
         {
             item.SetUpCharacterUI();
         }
@@ -427,7 +427,7 @@ public class CanvasManager : MonoBehaviour
                 buttonScript.PlaySelectedMusique();*/
         });
 
-        //listOfCharacter.Add(tempButton.GetComponent<Character_Button>());
+        NegociationManager.instance.ListOfCharacter.Add(tempButton.GetComponent<Character_Button>());
     }
 
     public void CreateObjectButton(UsableObject tempObject)
@@ -589,7 +589,7 @@ public class CanvasManager : MonoBehaviour
     public Image ObjectImage { get => objectImage; set => objectImage = value; }
     public TMP_Text ObjectTitle { get => objectTitle; set => objectTitle = value; }
     public TMP_Text ObjectDescription { get => objectDescription; set => objectDescription = value; }
-    public GameObject InventoryPanel { get => inventoryPanel; set => inventoryPanel = value; }
+    public GameObject CharacterInventoryPanel { get => characterInventoryPanel; set => characterInventoryPanel = value; }
     public GameObject GamePanel1 { get => GamePanel; set => GamePanel = value; }
     public GameObject CreatePanel1 { get => CreatePanel; set => CreatePanel = value; }
     public GameObject LevelInventoryPanel1 { get => LevelInventoryPanel; set => LevelInventoryPanel = value; }
@@ -608,4 +608,5 @@ public class CanvasManager : MonoBehaviour
     public GameObject BaseOutroButton { get => baseOutroButton; set => baseOutroButton = value; }
     public GameObject LayoutGroupButton { get => layoutGroupButton; set => layoutGroupButton = value; }
     public m_NegociationActions Action { get => m_Action; set => m_Action = value; }
+    public GameObject InventoryPanel { get => m_InventoryPanel; set => m_InventoryPanel = value; }
 }

@@ -44,12 +44,11 @@ public class NegociationManager : MonoBehaviour
 
     [Space]
     [Header("Object List")]
-    public List<Character_Button> listOfCharacter = new List<Character_Button>();
+    private List<Character_Button> listOfCharacter = new List<Character_Button>();
 
     [Space]
     [Header("UI")]
     public GameObject characterListHolder;
-    public GameObject objectListHolder;
 
     [Space]
     [Header("Prefabs")]
@@ -70,6 +69,7 @@ public class NegociationManager : MonoBehaviour
     public m_PenStatus Pen { get => m_Pen; set => m_Pen = value; }
     public int CurrentNegociationTime { get => currentNegociationTime; set => currentNegociationTime = value; }
     public int NegociationTime { get => negociationTime; set => negociationTime = value; }
+    public List<Character_Button> ListOfCharacter { get => listOfCharacter; set => listOfCharacter = value; }
 
     void Awake()
     {
@@ -96,8 +96,8 @@ public class NegociationManager : MonoBehaviour
     {
         CreateObjectInventory();
 
-        listOfCharacter[0].GetComponent<Button>().onClick.Invoke();
-        listOfCharacter[0].SetUpColor();
+        ListOfCharacter[0].GetComponent<Button>().onClick.Invoke();
+        ListOfCharacter[0].SetUpColor();
 
         foreach (var item in FindObjectsOfType<PenObject>())
         {
@@ -125,12 +125,13 @@ public class NegociationManager : MonoBehaviour
         }
     }
 
-    void RepartitionObjec()
+    public void RepartitionObject()
     {
-        foreach (var item in listOfCharacter)
+        foreach (var item in GameManager.instance.Crew)
         {
-            CreatePlayerInventory(item.CharacterData);
+            CreatePlayerInventory(item);
         }
+        CanvasManager.instance.SetUpAllCharacter();
     }
 
     public bool ReduceNegociationTime(int reduceValue)
@@ -185,13 +186,15 @@ public class NegociationManager : MonoBehaviour
 
     public bool CreatePlayerInventory(Character player)
     {
+        print("distribuer");
+
         List<UsableObject> pullOfObject = new List<UsableObject>();
         List<UsableObject> claimObject = new List<UsableObject>();
 
 
-        for (int i = 0; i < objectListHolder.transform.childCount; i++)
+        for (int i = 0; i < CanvasManager.instance.InventoryPanel.transform.childCount; i++)
         {
-            GameObject clickObject = objectListHolder.transform.GetChild(i).gameObject;
+            GameObject clickObject = CanvasManager.instance.InventoryPanel.transform.GetChild(i).gameObject;
 
             Object_Button ObjetToTake = clickObject.GetComponent<Object_Button>();
 
