@@ -304,7 +304,7 @@ public class CanvasManager : MonoBehaviour
                 foreach (var obj in item.InventoryObj)
                 {
                     index++;
-                    Destroy(characterInventoryPanel.transform.GetChild(index).gameObject);
+                    Destroy(item.CharacterContener.InventoryPanel.transform.GetChild(index).gameObject);
                 }
             }
             item.InventoryObj.Clear();
@@ -415,6 +415,7 @@ public class CanvasManager : MonoBehaviour
 
         buttonScript.SetUpFmod();*/
 
+        tempCharacter.CharacterContener = buttonScript;
         buttonScript.CharacterData = tempCharacter;
         buttonScript.CharacterImage.sprite = tempCharacter.AssignedElement.Render;
 
@@ -433,6 +434,7 @@ public class CanvasManager : MonoBehaviour
     public void CreateObjectButton(UsableObject tempObject)
     {
         GameObject tempButton = Instantiate(ObjectNegociationButton, objectInventoryListHolder.transform);
+        tempObject.ButtonDisplay = tempButton;
         tempButton.GetComponent<Object_Button>().Data = tempObject;
 
         Object_Button eventButton = tempButton.GetComponent<Object_Button>();

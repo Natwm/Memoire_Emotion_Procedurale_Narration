@@ -36,6 +36,8 @@ public class Character_Button : MonoBehaviour
 
     public GameObject slotPanel;
 
+    public List<GameObject> listOfObjButton = new List<GameObject>();
+
     public Character CharacterData { get => characterData; set => characterData = value; }
     /*public string CharacterSelectedSound { get => characterSelectedSound; set => characterSelectedSound = value; }
     public string CharacterHurtSound { get => characterHurtSound; set => characterHurtSound = value; }
@@ -104,6 +106,7 @@ public class Character_Button : MonoBehaviour
             {
                 tempButton.GetComponent<Image>().color = GameManager.instance.curseColor;
             }
+            listOfObjButton.Add(tempButton);
         }
     }
 

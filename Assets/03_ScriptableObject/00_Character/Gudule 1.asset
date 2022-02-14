@@ -18,7 +18,7 @@ MonoBehaviour:
   health: 0
   m_MentalHealth: 0
   m_MaxMentalHealth: 1
-  m_InventorySize: 0
+  m_InventorySize: 2
   m_MaxInventorySize: 1
   m_Inventory: []
   m_BaseHand:

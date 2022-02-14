@@ -211,18 +211,15 @@ public class NegociationManager : MonoBehaviour
 
             if (pullOfObject.Count > 0)
             {
-                if (!player.InventoryObj.Contains(pullOfObject[index]))
+                if (!player.InventoryObj.Contains(pullOfObject[index]) && pullOfObject[index].Owner==null)
                 {
                     player.InventoryObj.Add(pullOfObject[index]);
+                    pullOfObject[index].Owner = player;
 
-                    player.InventoryObj.Add(pullOfObject[index]);
-
-                    pullOfObject[index].gameObject.SetActive(false);
+                    pullOfObject[index].ButtonDisplay.gameObject.SetActive(false);
                 }
                 UsableObject obj = pullOfObject[index];
                 pullOfObject.RemoveAll(item => item == obj);
-
-                //obj.gameObject.transform.parent = pulledObject.transform;
 
                 if (pullOfObject.Count <= 0)
                 {
