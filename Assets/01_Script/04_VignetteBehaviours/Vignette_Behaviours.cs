@@ -614,7 +614,7 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
             foreach (var item in GridManager.instance.ListOfMovement)
             {
                 Vignette_Behaviours check = item.EventAssocier;
-                print(item.gameObject.name + " je regarde ici et check = " + check);
+                //print(item.gameObject.name + " je regarde ici et check = " + check);
                 if (check != null)
                 {
                     if (check.OnGrid && check.vignetteTile.Count > 0)

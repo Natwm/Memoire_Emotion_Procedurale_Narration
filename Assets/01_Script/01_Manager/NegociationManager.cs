@@ -165,9 +165,9 @@ public class NegociationManager : MonoBehaviour
 
     }
 
-    void EndNegociation()
+    public void EndNegociation()
     {
-
+        RoomGenerator.instance.OnRoomCompletion();
     }
 
     public void CreateObjectListFromUsableObject()

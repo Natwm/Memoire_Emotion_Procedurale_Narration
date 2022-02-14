@@ -20,6 +20,8 @@ MonoBehaviour:
   m_Effect_Of_Room: 2
   m_ColorPalette: {fileID: 0}
   m_RoomPicture: {fileID: 0}
-  m_PossibleExits: []
+  m_PossibleExits:
+  - m_ExitFromRoom: {fileID: 11400000, guid: 108b921ea3c95964b950acdfaca45572, type: 2}
+    m_ExitText: 
   m_IntroText: 
   m_OutroText: 
