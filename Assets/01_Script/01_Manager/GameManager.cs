@@ -333,7 +333,7 @@ public class GameManager : MonoBehaviour
             print("nope Death");
             StopAllCoroutines();
         }
-
+        GridManager.instance.ListOfMovement.Clear();
         RoomGenerator.instance.OnRoomCompletion();
 
         LineRendererScript.instance.DrawLineRenderer();

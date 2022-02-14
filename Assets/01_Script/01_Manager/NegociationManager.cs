@@ -167,6 +167,9 @@ public class NegociationManager : MonoBehaviour
 
     public void EndNegociation()
     {
+        GridManager.instance.ListOfEvent.Clear();
+        GridManager.instance.ListOfMovement.Clear();
+        GridManager.instance.ListOfTile.Clear();
         RoomGenerator.instance.OnRoomCompletion();
     }
 

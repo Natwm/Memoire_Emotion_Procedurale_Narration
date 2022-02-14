@@ -55,6 +55,7 @@ public class GridManager : MonoBehaviour
         
     }
 
+
     public void CreateTerrainWithParam(Vector2 _parameters)
     {
         int index = 0;
@@ -289,6 +290,16 @@ public class GridManager : MonoBehaviour
         LevelManager.instance.HandOfVignette.Clear();
         EventGenerator.instance.ClearGrid();
         //CanvasManager.instance.UpdatePageIndicator();
+    }
+
+    public void ClearAllList()
+    {
+        ListOfTile.Clear();
+        listOfEvent.Clear();
+        listOfTile2D.Clear();
+        ListOfHoveredTile.Clear();
+        listOfMovement.Clear();
+        listOfPosition.Clear();
     }
 
     public void ClearScene()

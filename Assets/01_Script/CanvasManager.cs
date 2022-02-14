@@ -332,6 +332,8 @@ public class CanvasManager : MonoBehaviour
         Outro.SetActive(true);
         Intro.SetActive(false);
 
+        GridManager.instance.ClearAllList();
+
         LevelManager.instance.ClearVignette();
     }
 

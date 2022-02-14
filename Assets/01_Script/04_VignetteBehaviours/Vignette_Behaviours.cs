@@ -555,7 +555,6 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
     public void OnPointerUp(PointerEventData eventData)
     {
         ClearList();
-
         GridManager.instance.CheckTile();
         //GridManager.instance.SortList();
 
