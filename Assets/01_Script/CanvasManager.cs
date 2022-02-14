@@ -263,7 +263,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void SetUpCreationPanel()
+    public void SetUpNegociationPanel()
     {
         /*foreach (var item in LevelManager.instance.PageInventory)
         {
@@ -470,7 +470,7 @@ public class CanvasManager : MonoBehaviour
             buttonEvent.triggers.Add(entry);
             buttonEvent.triggers.Add(exit);
         }
-        InventoryManager.instance.GlobalInventoryObj.Add(eventButton.Data);
+        //InventoryManager.instance.GlobalInventoryObj.Add(eventButton.Data);
         //listOfObject.Add(tempButton.GetComponent<UsableObject>());
     }
 

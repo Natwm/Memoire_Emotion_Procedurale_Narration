@@ -108,7 +108,7 @@ public class Room_SO : ScriptableObject
                     SoundManager.instance.LoopEffect.setParameterByName("Negotiation", 1);*/
 
                     NegociationManager.instance.ResetNegociationTime();
-                    CanvasManager.instance.SetUpCreationPanel();
+                    CanvasManager.instance.SetUpNegociationPanel();
 
                     if(InventoryManager.instance.PageInventory.Count > 0)
                     {

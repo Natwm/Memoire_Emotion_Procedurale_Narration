@@ -83,7 +83,7 @@ public class NegociationManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        CreateObjectInventory();
     }
 
     // Update is called once per frame
@@ -94,7 +94,7 @@ public class NegociationManager : MonoBehaviour
 
     public void SetUpNegociation()
     {
-        CreateObjectInventory();
+        //CreateObjectInventory();
 
         ListOfCharacter[0].GetComponent<Button>().onClick.Invoke();
         ListOfCharacter[0].SetUpColor();
@@ -119,9 +119,22 @@ public class NegociationManager : MonoBehaviour
             tempObject.name += "_" + tempObjectSO.ObjectName;
             tempObject.GetComponent<UsableObject>().Data = tempObjectSO;
 
-            CanvasManager.instance.CreateObjectButton(tempObject.GetComponent<UsableObject>());
+            /*CanvasManager.instance.CreateObjectButton(tempObject.GetComponent<UsableObject>());
+            print("__re");*/
+
+            InventoryManager.instance.GlobalInventoryObj.Add(tempObject.GetComponent<UsableObject>());
             //GlobalInventory.Remove(tempObject);
             //CharacterList.Remove(tempCharacter);
+        }
+    }
+
+    public void CreateGlobalInventory()
+    {
+        for (int i = 0; i < InventoryManager.instance.GlobalInventoryObj.Count; i++)
+        {
+            UsableObject tempObject = InventoryManager.instance.GlobalInventoryObj[i];
+
+            CanvasManager.instance.CreateObjectButton(tempObject);
         }
     }
 
@@ -175,16 +188,7 @@ public class NegociationManager : MonoBehaviour
 
     public void CreateObjectListFromUsableObject()
     {
-        List<UsableObject> tempList = new List<UsableObject>();
-
-        for (int i = 0; i < InventoryManager.instance.GlobalInventoryObj.Count; i++)
-        {
-            print(i);
-            //UsableObject tempObject = pulledObject.transform.GetChild(i).gameObject.GetComponent<UsableObject>();
-            //CreateObjectButtonFromUsableObject(tempObject);
-
-            //Destroy(tempObject.gameObject);
-        }
+        CreateGlobalInventory();
     }
 
     public bool CreatePlayerInventory(Character player)
@@ -218,18 +222,18 @@ public class NegociationManager : MonoBehaviour
                 {
                     player.InventoryObj.Add(pullOfObject[index]);
                     pullOfObject[index].Owner = player;
-
-                    pullOfObject[index].ButtonDisplay.gameObject.SetActive(false);
+                    Destroy(pullOfObject[index].ButtonDisplay.gameObject);
+                    //pullOfObject[index].ButtonDisplay.gameObject.SetActive(false);
                 }
                 UsableObject obj = pullOfObject[index];
                 pullOfObject.RemoveAll(item => item == obj);
 
                 if (pullOfObject.Count <= 0)
                 {
-                    foreach (var item in player.InventoryObj)
+                    /*foreach (var item in player.InventoryObj)
                     {
                         InventoryManager.instance.GlobalInventoryObj.RemoveAll(objToRemove => objToRemove == item);
-                    }
+                    }*/
                     //player.SetUpInventoryUI();
                     return true;
                 }

@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         CreateCharacterList(m_AmountOfCrewMember);
         Startpull();
-        NegociationManager.instance.CreateObjectInventory();
+        //NegociationManager.instance.CreateObjectInventory();
 
         if(CurrentCharacter!= null)
         {
