@@ -6,6 +6,9 @@ public class InventoryManager : MonoBehaviour
 {
 
     public static InventoryManager instance;
+    [Space]
+    public int amoutOfObjectBeforeTake;
+    [Space]
 
     [SerializeField] private List<UsableObject_SO> m_InitialInventory;
     [SerializeField] private List<UsableObject> m_GlobalInventoryObj;

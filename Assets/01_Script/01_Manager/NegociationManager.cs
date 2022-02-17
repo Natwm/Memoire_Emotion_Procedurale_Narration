@@ -89,7 +89,7 @@ public class NegociationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetUpNegociation()
@@ -126,6 +126,18 @@ public class NegociationManager : MonoBehaviour
             //GlobalInventory.Remove(tempObject);
             //CharacterList.Remove(tempCharacter);
         }
+    }
+
+    public GameObject CreateObjectInventory(UsableObject_SO collectedObject)
+    {
+
+        UsableObject_SO tempObjectSO = collectedObject;
+
+        GameObject tempObject = Instantiate(InventoryManager.instance.ObjectPrefabs, InventoryManager.instance.gameObject.transform);
+        tempObject.name += "_" + tempObjectSO.ObjectName;
+        tempObject.GetComponent<UsableObject>().Data = tempObjectSO;
+
+        return tempObject;
     }
 
     public void CreateGlobalInventory()
@@ -218,7 +230,7 @@ public class NegociationManager : MonoBehaviour
 
             if (pullOfObject.Count > 0)
             {
-                if (!player.InventoryObj.Contains(pullOfObject[index]) && pullOfObject[index].Owner==null)
+                if (!player.InventoryObj.Contains(pullOfObject[index]) && pullOfObject[index].Owner == null)
                 {
                     player.InventoryObj.Add(pullOfObject[index]);
                     pullOfObject[index].Owner = player;
@@ -254,7 +266,7 @@ public class NegociationManager : MonoBehaviour
         switch (ObjetToTake.Status)
         {
             case Object_Button.ObjectStatus.NONE:
-                for (int i = 0; i < noneAmountOfPull; i++){pullOfObject.Add(ObjetToTake.Data);}
+                for (int i = 0; i < noneAmountOfPull; i++) { pullOfObject.Add(ObjetToTake.Data); }
                 break;
 
             case Object_Button.ObjectStatus.CLAIM:

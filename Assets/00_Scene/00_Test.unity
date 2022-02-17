@@ -1027,7 +1027,7 @@ MonoBehaviour:
   QuitPanel: {fileID: 0}
   GamePanel: {fileID: 1832639676}
   CreatePanel: {fileID: 1139722811}
-  LevelInventoryPanel: {fileID: 529417461}
+  LevelInventoryPanel: {fileID: 969777202}
   GameOverPanel: {fileID: 0}
   m_InventoryPanel: {fileID: 737882749}
   characterListHolder: {fileID: 207966397}
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   currentNegociationTime: 0
   negociationTime: 0
   initNegociationTime: 0
-  levelInfo: {fileID: 0}
+  levelInfo: {fileID: 970287160}
   moveButton: {fileID: 1964980971}
   distribuerButton: {fileID: 713330680}
   levelInventoryButtonPrefabs: {fileID: 4759845786473928702, guid: 8835b8fe3214b454285bd3fd2efde692,
@@ -2801,6 +2801,7 @@ GameObject:
   - component: {fileID: 969777203}
   - component: {fileID: 969777205}
   - component: {fileID: 969777204}
+  - component: {fileID: 969777206}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2864,6 +2865,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 969777202}
   m_CullTransparentMesh: 0
+--- !u!114 &969777206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969777202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
 --- !u!1 &970287158
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,28 +6051,49 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7563719778475007175, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
         type: 3}
-      propertyPath: ObjectButton
-      value: 
-      objectReference: {fileID: 3211203881872221817, guid: 51e0107ade63dcd4491d2e0911f003e9,
-        type: 3}
-    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
-        type: 3}
-      propertyPath: objectPrefabs
-      value: 
-      objectReference: {fileID: 185821562992889454, guid: 83444d7435f8f934cb27b8e726fec349,
-        type: 3}
-    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
-        type: 3}
-      propertyPath: m_InitialInventory.Array.size
+      propertyPath: _HealPullOfObject.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8933174687837443616, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
         type: 3}
-      propertyPath: m_InitialInventory.Array.data[0]
+      propertyPath: _RarePullOfObject.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _BasisPullOfObject.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _HealPullOfObject.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: b1efc3cb408192345a33c957d5dbef01,
+        type: 2}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _OccultsPullOfObject.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _RarePullOfObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 7431530f2905fba46bba5407419b17a8,
+        type: 2}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _BasisPullOfObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: f6f98d07a1a9df34b9c0a6abf9fcfe89,
+        type: 2}
+    - target: {fileID: 7563719777824581699, guid: 473e67a4e0cc0f049aa644cbd0e45fab,
+        type: 3}
+      propertyPath: _OccultsPullOfObject.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8fb1439474b9d724e96a6cc8f2e02fba,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 473e67a4e0cc0f049aa644cbd0e45fab, type: 3}

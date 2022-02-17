@@ -154,7 +154,7 @@ public class CanvasManager : MonoBehaviour
     {
         GameObject newItemInInventory = Instantiate(levelInventoryButtonPrefabs, LevelInventoryPanel1.transform);
         newItemInInventory.GetComponent<Image>().sprite = item.Sprite;
-        return newItemInInventory;
+        return NegociationManager.instance.CreateObjectInventory(item);
     }
 
     /*public void ClearLevelInventory()
@@ -214,6 +214,7 @@ public class CanvasManager : MonoBehaviour
     {
         levelInfo.text = InventoryManager.instance.PageInventory.Count +" / " + GameManager.instance.AmountOfObjToSendCamp;
     }
+
     public void SetUpGamePanel()
     {
         GamePanel1.SetActive(true);

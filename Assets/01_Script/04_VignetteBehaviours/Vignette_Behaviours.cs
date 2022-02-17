@@ -551,6 +551,19 @@ public class Vignette_Behaviours : MonoBehaviour, IPointerUpHandler, IPointerDow
 
     #endregion
 
+    public void TakeEffect()
+    {
+        print("Take Effect off : " + InventoryManager.instance.PageInventory.Count + " Item");
+        for (int i = 0; i < CanvasManager.instance.LevelInventoryPanel1.transform.childCount; i++)
+        {
+            Destroy(CanvasManager.instance.LevelInventoryPanel1.transform.GetChild(i).gameObject);
+        }
+
+        InventoryManager.instance.PageInventory.Clear();
+        CanvasManager.instance.SetUpLevelIndicator();
+        //GameObject.Find("Feedback_Stockage").GetComponent<Inventaire_Feedback>().PlayStockageFeedback();
+    }
+
     #region Interfaces
     public void OnPointerUp(PointerEventData eventData)
     {
