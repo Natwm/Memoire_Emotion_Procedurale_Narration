@@ -17,11 +17,11 @@ This project is the culmination of research and creativity by three talented stu
    
 2. **Simon Kircher** - **Procedural Gameplay**  
    [LinkedIn](https://www.linkedin.com/in/simon-kircher/)
-   [Portfolio]([https://simonkircher9.wixsite.com/portfolio])
+   [Portfolio](https://simonkircher9.wixsite.com/portfolio)
    
 3. **Nathan Mezza** - **Emotional Design**  
    [LinkedIn](https://www.linkedin.com/in/nathan-mezza/)
-   [Portfolio]([https://nathan-mezza-gamedev.framer.ai/])
+   [Portfolio](https://nathan-mezza-gamedev.framer.ai/)
    
 
 ## Game Features
